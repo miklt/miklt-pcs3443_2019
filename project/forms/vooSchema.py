@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, DateTimeField, SelectField, Passwo
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from project.models.voo import Voo
 
+
 class VooForm(FlaskForm):
     horaSaida = StringField('Saída', validators=[DataRequired()])
     duracaoVoo = StringField('Duração', validators=[DataRequired()])
