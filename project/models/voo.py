@@ -1,5 +1,5 @@
 from datetime import datetime, time
-from crudcv import db
+from project import db
 
 class Voo(db.Model):
     __tablename__ = 'voo'
