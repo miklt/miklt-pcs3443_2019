@@ -36,7 +36,7 @@ Abra o **Prompt de Comando**, e digite o comando:
 `virtualenv --no-site-packages --distribute -p python3 .env && cd .env/ && .\Scripts\activate && cd ../ && pip install -r requirements.txt`
 
 ## 3. Executar Sistema
-Por fim, para rodar o sistema, digite os comandos na ordem:
+Por fim, para rodar o sistema, digite o comando:
 
 `python run.py`
 
