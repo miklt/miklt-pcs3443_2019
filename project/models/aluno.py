@@ -1,8 +1,7 @@
 from datetime import datetime, time
-from crudcv import db
+from project import db
+from project.models.usuario import Usuario
 
-
-class Aluno(db.Model):
+class Aluno(Usuario):
   __tablename__ = 'aluno'
-  usuario = relationship("Usuario", uselist = False)
   voos = db.relationship('Voo', backref='aluno', lazy=True)  

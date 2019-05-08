@@ -2,7 +2,7 @@ from datetime import datetime, time
 from project import db
 
 class Voo(db.Model):
-    __tablename__ = 'voo'
+  __tablename__ = 'voo'
   voo_id = db.Column(db.Integer, primary_key=True)
   dataVoo = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   duracaoVoo = db.Column(db.String(5), nullable=False)
