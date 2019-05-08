@@ -1,6 +1,6 @@
 from flask import render_template, url_for, redirect, request, flash
 from project import app, db
-from project.models import Aluno, Voo
+from project.models import Voo
 from datetime import datetime
 
 
