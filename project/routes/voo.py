@@ -1,10 +1,9 @@
 from flask import render_template, url_for, redirect, request, flash
 from project import app, db
-from project.models import Aluno, Voo
+from project.models.aluno import Aluno
+from project.models.voo import Voo
 from datetime import datetime
 
-
-@app.route('/')
 @app.route('/voos_cadastrados')
 def listar_voos():
     voos = Voo.query.all()
