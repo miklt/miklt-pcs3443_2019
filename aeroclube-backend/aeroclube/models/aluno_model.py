@@ -1,8 +1,10 @@
-from dao import db,Base
+from dao import db
+from socio.model import Socio
 
-class Aluno(Base):
+
+class Aluno(Socio):
     __tablename__ = 'aluno'
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(200), unique=True)
-    data_criacao = db.Column(db.DateTime)
-    
+    id = db.Column(db.Integer, db.ForeignKey('pessoa.id'), primary_key=True)
+    cod_curso = db.Column(db.Integer, db.ForeignKey(
+        'curso.id'), primary_key=True)
+    data_matricula = db.Column(db.DateTime)
