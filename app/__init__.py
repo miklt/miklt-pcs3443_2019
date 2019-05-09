@@ -8,7 +8,9 @@ db = SQLAlchemy(app)
 
 # Blueprints
 from app.login.controllers import login
+from app.voo.controllers import voo
 app.register_blueprint(login)
+app.register_blueprint(voo)
 
 # DB
 db.create_all()
