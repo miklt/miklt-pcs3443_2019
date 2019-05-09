@@ -1,0 +1,36 @@
+.header{
+    background: #ffffff;
+}
+
+.menu{
+    text-transform: uppercase;
+    text-align: right;
+    margin-top: 25px;
+    background: rgb(255, 255, 255)
+}
+
+li a{
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+li a:hover{
+    text-decoration: none;
+    background: #1f3c58;
+    color: #ebebeb;
+}
+
+ul li, ol, li{
+    margin-bottom: 5px;
+}
+ul.inline li, ol.inline li{
+    display: inline;
+    margin: 15px;
+}
+ul.inline li:last-child, ol.inline li:last-child{
+    margin-left: 0;
+}
+
+ul.sem-marcador, ol.sem-marcador{
+    list-style: none;
+}

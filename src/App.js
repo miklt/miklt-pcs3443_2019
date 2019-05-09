@@ -1,28 +1,23 @@
 import React from "react"
+import Header from "./Header"
+import Sidebar from "./Sidebar"
+import Login from "./Login"
+import "./App.css"
 
 class App extends React.Component {
 
     render () {
 
         return (
-            <div class="header">
-                <div class="linha">
-                    <header>
-                        <div class="coluna col 4">
-                            <h1 class="logo">João Cortez</h1>
-                        </div>
-                        <div class="coluna col8">
-                            <nav>
-                                <ul class="menu inline sem-marcador">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="clientes.html">Clientes</a></li>
-                                    <li><a href="servicos.html">Serviços</a></li>
-                                    <li><a href="sobre.html">Sobre</a></li>
-                                    <li><a href="contato.html">Contato</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </header>
+            <div className="header">
+                <Header />
+                <div className="linha">
+                    <div className = "coluna col3">
+                        <Sidebar />
+                    </div>
+                    <div className = "coluna col8">
+                        <Login />
+                    </div>
                 </div>
             </div>
         )

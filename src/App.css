@@ -1,3 +1,20 @@
+/* layout do site */
+
+ul li, ol, li{
+    margin-bottom: 5px;
+}
+ul.inline li, ol.inline li{
+    display: inline;
+    margin: 15px;
+}
+ul.inline li:last-child, ol.inline li:last-child{
+    margin-left: 0;
+}
+
+ul.sem-marcador, ol.sem-marcador{
+    list-style: none;
+}
+
 /* grid 960px */
 
 .linha{
