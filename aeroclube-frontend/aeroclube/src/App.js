@@ -8,18 +8,15 @@ class App extends Component {
 
         super();
         this.state = {
-            listaDeCompras : []
+            
         };
     }
     
-    
-
     componentDidMount(){
 
     }
     
     render() {
-        const {listaDeCompras} = this.state;
         return (
             <div className="App">
               <header className="App-header">
