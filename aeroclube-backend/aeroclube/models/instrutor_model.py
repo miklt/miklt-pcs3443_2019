@@ -1,7 +1,7 @@
 from dao import db
-from socio.model import Socio
+from socio_model import Socio
 
 
-class Piloto(Socio):
+class Instrutor(Socio):
     __tablename__ = 'instrutor'
     id = db.Column(db.Integer, db.ForeignKey('pessoa.id'), primary_key=True)

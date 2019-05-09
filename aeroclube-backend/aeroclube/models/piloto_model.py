@@ -1,5 +1,5 @@
 from dao import db
-from socio.model import Socio
+from socio_model import Socio
 
 
 class Piloto(Socio):
