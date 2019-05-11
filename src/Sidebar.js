@@ -6,7 +6,7 @@ class Sidebar extends React.Component {
     render () {
         return (
             <div class="coluna col3 sidebar">
-                <table class="sem-marcador sem-padding sidebarAba">
+                <table class="sidebarAba">
                     <tr className="sidebarHeader"><th>MENU</th></tr>
                     <tr><td><Aba name="Nome1" nameHtml="./Nome1.html"/></td></tr>
                     <tr><td><Aba name="Nome2" nameHtml="./Nome2.html"/></td></tr>

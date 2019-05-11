@@ -1,8 +1,9 @@
-.sidebarAba tr {
-    display: block;
+.sidebarAba tr {    
+    display: grid;
+    text-align: center;
     height: 2em;
     background-color: rgb(207, 31, 31);
-    padding: 2em 6em 3em;
+    padding: 2em 6em;
 }
 
 .sidebarAba tr:hover{
@@ -19,8 +20,9 @@
     text-decoration: none;
 }
 
-.sidebarHeader {
+.sidebarHeader{
     text-align: center;
     color: white;
-    font-size: 1em;
+    font-size: 2em;
+    padding: 20em;
 }
