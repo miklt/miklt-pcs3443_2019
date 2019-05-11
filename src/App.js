@@ -11,14 +11,13 @@ class App extends React.Component {
         return (
             <div className="header">
                 <Header />
-                <div className="linha">
-                    <div className = "coluna col3">
-                        <Sidebar />
-                    </div>
-                    <div className = "coluna col8">
-                        <Login />
-                    </div>
-                </div>
+                <table className="linha">
+                    <tr>
+                        <td><Sidebar /></td>
+                        <td><Login /></td>
+                    </tr>
+                    
+                </table>
             </div>
         )
     }

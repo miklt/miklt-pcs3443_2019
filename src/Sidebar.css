@@ -2,15 +2,25 @@
     display: block;
     height: 2em;
     background-color: rgb(207, 31, 31);
-    padding: 2em 6em;
+    padding: 2em 6em 3em;
 }
 
 .sidebarAba tr:hover{
     background-color: white;
 }
 
+.sidebarAba .sidebarHeader:hover{
+    background-color: rgb(207, 31, 31);
+}
+
 .sidebarAba a {
     color: black;
     font-size: 2em;
     text-decoration: none;
+}
+
+.sidebarHeader {
+    text-align: center;
+    color: white;
+    font-size: 1em;
 }
