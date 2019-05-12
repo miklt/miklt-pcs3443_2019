@@ -9,9 +9,11 @@ class App extends React.Component {
     render () {
 
         return (
-            <div className="header">
-                <Header />
-                <table className="linha">
+            <div>
+                <div className="header">
+                    <Header />
+                </div>
+                <table>
                     <tr>
                         <td><Sidebar /></td>
                         <td><Login /></td>

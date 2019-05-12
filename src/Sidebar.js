@@ -5,7 +5,7 @@ import "./Sidebar.css"
 class Sidebar extends React.Component {
     render () {
         return (
-            <div class="coluna col3 sidebar">
+            <div>
                 <table class="sidebarAba">
                     <tr className="sidebarHeader"><th>MENU</th></tr>
                     <tr><td><Aba name="Nome1" nameHtml="./Nome1.html"/></td></tr>
