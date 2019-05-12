@@ -3,16 +3,13 @@
     text-align: center;
     height: 2em;
     background-color: rgb(207, 31, 31);
-    padding: 2em 6em;
+    padding: 2em 6em 3em;
 }
 
 .sidebarAba tr:hover{
     background-color: white;
 }
 
-.sidebarAba .sidebarHeader:hover{
-    background-color: rgb(207, 31, 31);
-}
 
 .sidebarAba a {
     color: black;
@@ -20,9 +17,13 @@
     text-decoration: none;
 }
 
-.sidebarHeader{
-    text-align: center;
+.sidebarAba .sidebarHeader{
+    display: table-header-group;
+    background-color: rgb(0, 0, 0); 
     color: white;
     font-size: 2em;
-    padding: 20em;
+}
+
+.sidebarAba .sidebarHeader:hover{
+    background-color: rgb(0, 0, 0);
 }
