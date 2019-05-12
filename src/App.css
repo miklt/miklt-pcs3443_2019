@@ -78,3 +78,18 @@ ul.sem-marcador, ol.sem-marcador{
     width: 940px;
 }
 
+
+
+/*tabela de divs*/
+
+.table {
+    display: table;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display:table-column;
+}

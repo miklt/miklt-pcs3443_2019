@@ -18,7 +18,6 @@ class App extends React.Component {
                         <td><Sidebar /></td>
                         <td><Login /></td>
                     </tr>
-                    
                 </table>
             </div>
         )
