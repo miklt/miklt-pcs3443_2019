@@ -82,14 +82,14 @@ ul.sem-marcador, ol.sem-marcador{
 
 /*tabela de divs*/
 
-.table {
+.divTable {
     display: table;
 }
 
-.row {
+.divRow {
     display: table-row;
 }
 
-.cell {
-    display:table-column;
+.divCell {
+    display: table-cell;
 }

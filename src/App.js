@@ -13,12 +13,12 @@ class App extends React.Component {
                 <div className="header">
                     <Header />
                 </div>
-                <table>
-                    <tr>
-                        <td><Sidebar /></td>
-                        <td><Login /></td>
-                    </tr>
-                </table>
+                <div className="divTable">
+                    <div className="divRow">
+                        <div className="divCell"><Sidebar /></div>
+                        <div className="divCell"><Login /></div>
+                    </div>
+                </div>
             </div>
         )
     }

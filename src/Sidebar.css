@@ -1,12 +1,17 @@
-.sidebarAba tr {    
-    display: grid;
+.sidebarAba { 
+    list-style-type: none;
     text-align: center;
-    height: 2em;
     background-color: rgb(207, 31, 31);
-    padding: 2em 6em 3em;
+    padding-left: 0px;
 }
 
-.sidebarAba tr:hover{
+.sidebarAba li{
+    text-align: center;
+    padding: 2em 5em;
+    margin: 0px;
+}
+
+.sidebarAba li:hover{
     background-color: white;
 }
 
@@ -17,11 +22,17 @@
     text-decoration: none;
 }
 
+.sidebarAba a:hover {
+    color: black;
+    background-color: white;
+}
+
 .sidebarAba .sidebarHeader{
-    display: table-header-group;
+    display: block;
     background-color: rgb(0, 0, 0); 
     color: white;
     font-size: 2em;
+    padding: 0em;
 }
 
 .sidebarAba .sidebarHeader:hover{
