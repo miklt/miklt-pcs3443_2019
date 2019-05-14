@@ -1,14 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
+import airplane from './airplane.png';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={airplane} className="App-logo" alt="airplane" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Bem vindo ao Bandeco's Aeroclube!
         </p>
         <a
           className="App-link"
@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Cadastre-se
         </a>
       </header>
     </div>
