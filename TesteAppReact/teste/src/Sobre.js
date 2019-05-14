@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './airplane.png';
 import './App.css';
 
+
 class Sobre extends Component {
  render() {
  return (
