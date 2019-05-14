@@ -15,7 +15,7 @@ class ModalExample extends React.Component {
     this.toggle = this.toggle.bind(this);
   }
 
-  toggle() {
+  toggle() { //comentário teste
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
