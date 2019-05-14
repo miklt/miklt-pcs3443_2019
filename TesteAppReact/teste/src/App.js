@@ -1,26 +1,22 @@
-import React from 'react';
-import airplane from './airplane.png';
+import React, { Component } from 'react';
+import logo from './airplane.png';
 import './App.css';
+import { Link } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={airplane} className="App-logo" alt="airplane" />
-        <p>
-          Bem vindo ao Bandeco's Aeroclube!
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <p className="App-intro">
+          <Link to="/sobre">Ir para a página sobre</Link>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Cadastre-se
-        </a>
-      </header>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;
