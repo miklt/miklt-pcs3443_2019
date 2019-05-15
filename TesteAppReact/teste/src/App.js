@@ -10,9 +10,9 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Bem-vindo ao Bandeco's Aeroclube!</h1>
-          <button>
-          <Link to="/cadastro">Cadastre-se</Link>
-        </button>
+          <button id="cadastro">
+          <Link to="/cadastro" id="link">Cadastre-se</Link>
+          </button>
         </header>
       </div>
     );
