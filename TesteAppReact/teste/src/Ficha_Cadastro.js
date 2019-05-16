@@ -5,67 +5,47 @@ import React, { Component } from 'react';
 class Ficha_Cadastro extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            nome: '',
-            email: '',
-            cpf: '',
-            dataNascimento: '',
-            telefone: '',
-        }
+        this.handleNameChange=this.handleNameChange.bind(this)
+        this.handleEmailChange=this.handleEmailChange.bind(this)
+        this.handleCpfChange=this.handleCpfChange.bind(this)
+        this.handleDataNascimentoChange=this.handleDataNascimentoChange.bind(this)
+        this.handleTelefoneChange=this.handleTelefoneChange.bind(this)
     }
 
-    handleChangeName = event => {
-        this.setState({ nome: event.target.value });
-    }
-
-    handleChangeEmail = event => {
-        this.setState({ email: event.target.value });
-    }
-
-    handleChangeCpf = event => {
-        this.setState({ cpf: event.target.value });
-    }
-
-    handleChangeDataNascimento = event => {
-        this.setState({ dataNascimento: event.target.value });
-    }
-
-    handleChangeTelefone = event => {
-        this.setState({ telefone: event.target.value });
-    }
-
-    handleSubmit = event => {
-        
-        event.preventDefault();
+    handleNameChange(e) {
+        this.props.onNameChange(e.target.value);
+     }
     
-        const user = {
-            nome: this.state.nome,
-            email: this.state.email,
-            cpf: this.state.cpf,
-            dataNascimento: this.state.dataNascimento,
-            telefone: this.state.telefone,
-        };
-
-        console.log(user);
+    handleEmailChange(e) {
+        this.props.onEmailChange(e.target.value);
     }
- 
+    
+    handleCpfChange(e) {
+        this.props.onCpfChange(e.target.value);
+    }
+    
+    handleDataNascimentoChange(e) {
+        this.props.onDataNascimentoChange(e.target.value);
+    }
+    
+    handleTelefoneChange(e) {
+        this.props.onTelefoneChange(e.target.value);
+    }
+    
 render() {
-return (
-    <div className='Ficha'>
+   return (
+        <div className='Ficha'>
         <h1>Ficha de Cadastro de Novo Aluno:</h1>
-        <form onSubmit={this.handleSubmit}>
             <label>Nome</label><br/>
-            <input type="text" name="nome" onChange={this.handleChangeName}></input><br/>
+            <input type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
             <label>E-mail</label><br/>
-            <input type="email" name="email" onChange={this.handleChangeEmail}></input><br/>
+            <input type="email" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
             <label>CPF</label><br/>
-            <input type="text" name="cpf" onChange={this.handleChangeCpf}></input><br/>
+            <input type="text" name="cpf" value={this.props.cpf} onChange={this.handleCpfChange}></input><br/>
             <label>Data de nascimento</label><br/>
-            <input type="date" name="dataNascimento" onChange={this.handleChangeDataNascimento}></input><br/>
+            <input type="date" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
             <label>Telefone</label><br/>
-            <input type="tel" name="telefone" onChange={this.handleChangeTelefone}></input><br/>
-            <button type="submit">Enviar</button> 
-        </form>
+            <input type="tel" name="telefone" value={this.props.telefone} onChange={this.handleTelefoneChange}></input><br/>
     </div>
  );
  }
