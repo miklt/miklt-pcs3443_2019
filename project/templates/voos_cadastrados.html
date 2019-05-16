@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% for voo in voos %}
+        <h1><a class="article-title" href="{{ url_for('visualizar_voo', voo_id=voo.voo_id) }}">Voo {{ voo.voo_id }}</a></h1>
+        <p>aluno: {{ voo.aluno.nome }}</p>
+        <p>data: {{ voo.dataVoo.strftime('%d/%m/%Y') }}</p>
+        <p>inicio: {{ voo.horaSaida }}</p> <p>duração: {{ voo.duracaoVoo }}</p>
+        <p>parecer: {{ voo.parecer }}</p>
+        <p>instrutor: {{ voo.instrutor }}</p>
+    {% endfor %}
+{% endblock content %}

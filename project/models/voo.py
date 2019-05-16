@@ -1,5 +1,6 @@
 from datetime import datetime, time
 from project import db
+from project.models.aluno import Aluno
 
 
 class Voo(db.Model):
@@ -9,8 +10,8 @@ class Voo(db.Model):
     duracaoVoo = db.Column(db.String(5), nullable=False)
     horaSaida = db.Column(db.String(5), nullable=False)
     parecer = db.Column(db.Integer, nullable=False)
-    aluno_id = db.Column(db.Integer, db.ForeignKey('aluno.id'), nullable=False)
+    aluno_id = db.Column(db.Integer, db.ForeignKey('aluno.usuario_id'), nullable=False)
     instrutor = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
-        return f"Voo(Instrutor:'{self.instrutor}', data:'{self.dataVoo}', Instrutor:'{self.instrutor}', Aluno:'{self.aluno_id}' )"
+        return f"Voo(Instrutor:'{self.instrutor}', data:'{self.dataVoo}', Aluno:'{self.aluno_id}' )"
