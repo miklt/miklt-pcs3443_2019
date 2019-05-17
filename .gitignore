@@ -1,5 +1,6 @@
 /env
 /__pycache__
 /app/__pycache__
-/app/login/__pycache__
+/app/users/__pycache__
+/app/voo/__pycache__
 /aeroclube.db

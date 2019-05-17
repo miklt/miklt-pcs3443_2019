@@ -1,6 +1,5 @@
 from flask import Blueprint
 from app import db
-from app.login.models import Login
 
 voo = Blueprint('voo', __name__)
 

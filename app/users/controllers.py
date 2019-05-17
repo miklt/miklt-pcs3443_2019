@@ -1,29 +1,29 @@
 from flask import Blueprint
 from app import db
-from app.login.models import Login
+import app.users.models as models
 
-login = Blueprint('login', __name__)
+users = Blueprint('users', __name__)
 
-@login.route('/login/', methods=['POST'])
+@users.route('/login/', methods=['POST'])
 def signin():
     email = request.form['email']
     password = request.form['password'] 
 
-    user = Login.query.filter_by(email = email, password = password).first()
+    user = models.Login.query.filter_by(email = email, password = password).first()
     if user is not None:
         return "login feito"
     else:
         return "não"
 
 
-@login.route('/logout/')
+@users.route('/logout/')
 def logout():
     return "logout"
 
 
-@login.route('/register/')
+@users.route('/register/')
 def register():
-    u = Login('teste1', 'e@a.ws', 'abcd', 'aluno')
+    u = models.Login('teste1', 'e@a.ws', 'abcd', 'aluno')
     db.session.add(u)
     db.session.commit()
     return "register"
