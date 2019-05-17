@@ -6,7 +6,7 @@ Repositório para o desenvolvimento da API do sistema de gerenciamento para esco
 
 ## Flask + PostgreSQL
 
-Criar uma pasta chamada `stop-down` e entrar nela utilizando o comando `cd stop-down`, rodar `git clone https://github.com/matthews34/stop-down-api.git`, renomear a pasta `stop-down-api` para `api`, entrar nela e seguir os passos a seguir para fazer o setup do ambiente virtual e do PostgreSQL (requer *python 3.6* e *PostgreSQL 11* instalados).
+Criar uma pasta chamada `stop-down`, caso ela ainda não exista, e entrar nela utilizando o comando `cd stop-down`, rodar `git clone https://github.com/matthews34/stop-down-api.git`, renomear a pasta `stop-down-api` para `api`, entrar nela e seguir os passos a seguir para fazer o setup do ambiente virtual e do PostgreSQL (requer *python 3.6* e *PostgreSQL 11* instalados).
 
 ### Venv
 
