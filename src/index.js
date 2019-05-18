@@ -10,7 +10,7 @@ const routing = (
   <Router>
     <div>
       <Route exact path="/" component={Home}/>
-      <Route exact path="/cadastro/instrutor" component={Cadastro_instrutor}/>
+      <Route exact path="/cadastro_instrutor" component={Cadastro_instrutor}/>
     </div>
   </Router>
 )
