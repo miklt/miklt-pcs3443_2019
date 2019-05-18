@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route, BrowserRouter as Router} from 'react-router-dom'
+import {Route, Switch, BrowserRouter as Router} from 'react-router-dom'
 import './index.css';
 import Cadastro_instrutor from './cadastro/Instrutor';
 import Cadastro_voo_supervisionado from './cadastro/Voo_supervisionado';
