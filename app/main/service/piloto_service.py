@@ -10,7 +10,7 @@ from app.main.model.piloto import Piloto
 def save_new_piloto(data):
     piloto = Piloto(
         nome=data['nome'],
-        CPF=data['cpf'],
+        CPF=data['CPF'],
         matricula=data['matricula'],
         email=data['email'],
         senha=data['senha'],

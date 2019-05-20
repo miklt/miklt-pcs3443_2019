@@ -11,7 +11,7 @@ class Instrutor(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(80), unique=False, nullable=False)
-    CPF = db.Column(db.Integer, unique=True, nullable=False)
+    CPF = db.Column(db.Numeric(11), unique=True, nullable=False)
     matricula = db.Column(db.Integer, unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(32), unique=False, nullable=False)
@@ -19,7 +19,7 @@ class Instrutor(db.Model):
     breve = db.Column(db.Integer, unique=True, nullable=False)
     certificado_instrutor = db.Column(db.Integer, unique=True, nullable=False)
     voos = db.relationship('Voo', backref='instrutor', lazy=True)
-    aulas_supervisionadas = db.relationship('Aula_supervisionada', backref='instrutor', lazy=True)
+    voos_supervisionados = db.relationship('Voo_supervisionado', backref='instrutor', lazy=True)
 
     def __repr__(self):
         return '<Instrutor %r>' % self.nome
