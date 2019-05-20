@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import Cadastro_instrutor from './cadastro/Instrutor';
 import Cadastro_aluno from './cadastro/Aluno';
+import Cadastro_voo_supervisionado from './cadastro/Voo_supervisionado';
 import * as serviceWorker from './serviceWorker';
 import Home from './Home';
 
@@ -13,6 +14,7 @@ const routing = (
 			<Route exact path="/" component={Home} />
 			<Route exact path="/cadastro/instrutor" component={Cadastro_instrutor} />
 			<Route exact path="/cadastro/aluno" component={Cadastro_aluno} />
+      <Route exact path="/cadastro/voo_supervisionado" component={Cadastro_voo_supervisionado}/>
 		</div>
 	</Router>
 );
