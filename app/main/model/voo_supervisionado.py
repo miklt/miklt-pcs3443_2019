@@ -16,8 +16,8 @@ class Voo_supervisionado(db.Model):
     matricula_aeronave = db.Column(db.String(40), unique=True, nullable=False)
     origem = db.Column(db.String(200), unique=False, nullable=False)
     destino = db.Column(db.String(200), unique=False, nullable=False)
-    matricula_aluno = db.Column(db.Integer, db.ForeignKey('alunos.matricula'), nullable=False)
-    matricula_instrutor = db.Column(db.Integer, db.ForeignKey('instrutores.matricula'), nullable=False)
+    matricula_aluno = db.Column(db.BigInteger, db.ForeignKey('alunos.matricula'), nullable=False)
+    matricula_instrutor = db.Column(db.BigInteger, db.ForeignKey('instrutores.matricula'), nullable=False)
 
     def __repr__(self):
-        return '<Voo_supervisionado %r>' % self.nome
+        return '<Voo_supervisionado %r>' % self.id

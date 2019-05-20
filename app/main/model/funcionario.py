@@ -11,7 +11,7 @@ class Funcionario(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(80), unique=False, nullable=False)
-    CPF = db.Column(db.Integer, unique=True, nullable=False)
+    CPF = db.Column(db.BigInteger, unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(32), unique=False, nullable=False)
 

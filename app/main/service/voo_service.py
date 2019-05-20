@@ -10,10 +10,10 @@ def save_new_voo(data):
     voo = Voo(
         data_hora_inicio=data['data_hora_inicio'],
         data_hora_fim=data['data_hora_fim'],
-        matricula_da_aeronave=data['matricula_da_aeronave'],
+        matricula_aeronave=data['matricula_aeronave'],
         origem=data['origem'],
         destino=data['destino'],
-        matricula_piloto=data['piloto_id'],
+        matricula_piloto=data['matricula_piloto'],
         )
     save_changes(voo)
 

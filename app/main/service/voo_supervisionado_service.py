@@ -10,9 +10,13 @@ def save_new_voo_supervisionado(data):
     voo_supervisionado = Voo_supervisionado(
         parecer_comentario=data['parecer_comentario'],
         parecer_nota=data['parecer_nota'],
-        aluno_id=data['aluno_id'],
-        instrutor_id=data['instrutor_id'],
-        voo_id=data['voo_id']
+        data_hora_inicio=data['data_hora_inicio'],
+        data_hora_fim=data['data_hora_fim'],
+        matricula_aeronave=data['matricula_aeronave'],
+        origem=data['origem'],
+        destino=data['destino'],
+        matricula_aluno=data['matricula_aluno'],
+        matricula_instrutor=data['matricula_instrutor'],
         )
     save_changes(voo_supervisionado)
 

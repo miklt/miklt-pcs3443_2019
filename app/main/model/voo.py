@@ -15,7 +15,10 @@ class Voo(db.Model):
     matricula_aeronave = db.Column(db.String(40), unique=True, nullable=False)
     origem = db.Column(db.String(200), unique=False, nullable=False)
     destino = db.Column(db.String(200), unique=False, nullable=False)
-    matricula_piloto = db.Column(db.Integer, db.ForeignKey('pilotos.matricula'), nullable=True)
+    matricula_piloto = db.Column(db.BigInteger, db.ForeignKey('pilotos.matricula'), nullable=True)
+    piloto = db.relationship('Piloto')
+    matricula_instrutor = db.Column(db.BigInteger, db.ForeignKey('instrutores.matricula'), nullable=True)
+    instrutor = db.relationship('Instrutor')
 
     def __repr__(self):
         return '<Voo %r>' % self.id
