@@ -1,5 +1,8 @@
 .Card {
   min-width: 75vw;
+  padding-top: 5vw;
+  padding-bottom: 5vw;
+  
 }
 
 input[type=number]::-webkit-inner-spin-button, 
