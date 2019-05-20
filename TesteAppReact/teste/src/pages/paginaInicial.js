@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import logo from './airplane.png';
-import './App.css';
+import '../css/paginaInicial.css';
 import { Link } from 'react-router-dom'
 
-class App extends Component {
+class paginaInicial extends Component {
   render() {
     return (
       <div className="App">
@@ -19,4 +19,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default paginaInicial;

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import logo from './airplane.png';
-import './Cadastro.css';
+import '../css/paginaCadastro.css';
 import { Link } from 'react-router-dom'
-import Ficha_Cadastro from './Ficha_Cadastro'
+import Ficha_Cadastro from '../components/Ficha_Cadastro'
 
-class Cadastro extends Component {
+class paginaCadastro extends Component {
  constructor(props) {
    super(props);
    this.handleNameChange=this.handleNameChange.bind(this)
@@ -73,4 +72,4 @@ handleSubmit = event => {
  );
  }
 }
-export default Cadastro;
+export default paginaCadastro;
