@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1 class="article-title">Aluno {{ aluno.usuario_id }}</h1>
+
+    <div>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="/">Update</a>
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    </div>
+
+    <p>nome: {{ aluno.nome }}</p>
+    <p>cpf: {{ aluno.cpf }}</p>
+    <p>email: {{ aluno.email }}</p>
+    <p>senha: {{ aluno.senha }}</p>
+    <p>total de horas de voo: {{ totalHoras }}</p>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Are you sure about that?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <form action="{{ url_for('deletar_aluno', usuario_id=aluno.usuario_id) }}" method="POST">
+                  <input class="btn btn-danger" type="submit" value="Delete">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock content %}
