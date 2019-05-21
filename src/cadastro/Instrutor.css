@@ -4,6 +4,44 @@
   padding-bottom: 5vw;
 }
 
+.parte1{
+  display: inline-block;
+  margin-inline-start: 3vw;
+  padding: 0.5vw;
+}
+
+.nome{
+  width: 50vw;
+}
+
+.CPF{
+  width: 19vw;
+}
+
+.parte2{
+  display: inline-block;
+  width: 22vw;
+  margin-inline-start: 3vw;
+  padding: 0.5vw;
+}
+
+.email{
+  width: 47vw;
+}
+
+.parte3{
+  display: inline-block;
+  width: 34.5vw;
+  margin-inline-start: 3vw;
+  padding: 0.5vw;
+}
+
+.parte4{
+  display: inline-block;
+  width: 34.5vw;
+  margin-inline-start: 3vw;
+  padding: 0.5vw;
+}
 .matricula{
   display: inline-block;
   width: 22vw;
