@@ -46,5 +46,7 @@
                 <a href={{ url_for('logout') }} class="btn btn-warning disabled" role="button">Logout</a>    
             </div>
         </div>
+        
+        {% block content %}{% endblock %}
     </body>
 </html>
