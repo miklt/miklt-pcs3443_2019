@@ -39,13 +39,13 @@ render() {
             <label>Nome</label><br/>
             <input type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
             <label>E-mail</label><br/>
-            <input type="email" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
+            <input type="text" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
             <label>CPF</label><br/>
             <input type="text" name="cpf" value={this.props.cpf} onChange={this.handleCpfChange}></input><br/>
             <label>Data de nascimento</label><br/>
-            <input type="date" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
+            <input type="text" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
             <label>Telefone</label><br/>
-            <input type="tel" name="telefone" value={this.props.telefone} onChange={this.handleTelefoneChange}></input><br/>
+            <input type="number" name="telefone" value={this.props.telefone} onChange={this.handleTelefoneChange}></input><br/>
     </div>
  );
  }

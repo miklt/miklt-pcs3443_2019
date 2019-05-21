@@ -11,7 +11,7 @@ class paginaInicial extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Bem-vindo ao Bandeco's Aeroclube!</h1>
           <button id="cadastro">
-          <Link to="/cadastro" id="link">Cadastre-se</Link>
+               <Link to="/cadastro" id="link">Cadastre-se</Link>
           </button>
         </header>
       </div>
