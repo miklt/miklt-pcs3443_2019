@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% for aluno in alunos %}
+        <h1><a class="article-title" href="{{ url_for('visualizar_aluno', usuario_id=aluno.usuario_id) }}">Aluno {{ aluno.usuario_id }}</a></h1>
+        <p>nome: {{ aluno.nome }}</p>
+        <p>email: {{ aluno.email }}</p>
+        <p>senha: {{ aluno.senha }}</p>
+    {% endfor %}
+{% endblock content %}

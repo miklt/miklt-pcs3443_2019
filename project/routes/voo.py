@@ -8,7 +8,7 @@ from datetime import datetime
 
 @app.route('/voos_cadastrados')
 def listar_voos():
-    voos = Voo.query.all()
+    voos = Voo.query.order_by(Voo.voo_id).all()
     return render_template('voos_cadastrados.html', title='Voos cadastrados', voos=voos)
 
 
