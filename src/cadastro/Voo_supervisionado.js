@@ -65,12 +65,12 @@ class Instrutor extends Component {
           {/* Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page */}
           <Card>
             <Card.Body>
-              <Card.Title>Cadastrar Voo Supervisionado</Card.Title>
+              <Card.Title className="titulo">Cadastrar Voo Supervisionado</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Página para o cadastro de Voo Supervisionado
               </Card.Subtitle>
               <Form onSubmit={this.handleSubmit} >
-                <Form.Group>
+                <Form.Group className="matricula">
                   <Form.Label>Matrícula do Aluno</Form.Label>
                   <Form.Control 
                     type="number" 
@@ -81,7 +81,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="matricula">
                   <Form.Label>Matrícula do Instrutor</Form.Label>
                   <Form.Control 
                     type="number" 
@@ -92,7 +92,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="matricula">
                   <Form.Label>Matrícula da Aeronave</Form.Label>
                   <Form.Control 
                     type="text" 
@@ -103,7 +103,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="aeroporto_data">
                   <Form.Label>Origem</Form.Label>
                   <Form.Control 
                     type="text" 
@@ -114,7 +114,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="aeroporto_data">
                   <Form.Label>Destino</Form.Label>
                   <Form.Control 
                     type="text" 
@@ -125,7 +125,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="aeroporto_data">
                   <Form.Label>Data de Início</Form.Label>
                   <Form.Control 
                     type="date" 
@@ -136,7 +136,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="aeroporto_data">
                   <Form.Label>Data de Fim</Form.Label>
                   <Form.Control 
                     type="date" 
@@ -147,7 +147,7 @@ class Instrutor extends Component {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="parecer parecer_nota">
                   <Form.Label>Parecer</Form.Label>
                   <Form.Control
                     as='select' 
@@ -164,7 +164,18 @@ class Instrutor extends Component {
                   <option>4</option>
                   </Form.Control>
                 </Form.Group>
-                <Button type="submit" variant="dark">Enviar</Button>
+                <Form.Group className="parecer parecer_comentario">
+                  <Form.Label>Comentários</Form.Label>
+                  <Form.Control 
+                    type="textarea" 
+                    placeholder="" 
+                    name="parecer_comentario" 
+                    value={this.state.parecer_comentario} 
+                    onChange={this.handleChange} 
+                    required
+                  />
+                </Form.Group>
+                <Button className="botao" type="submit">Enviar</Button>
               </Form>
             </Card.Body>
           </Card>

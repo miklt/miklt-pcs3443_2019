@@ -63,10 +63,10 @@ class Voo extends Component {
 					{/* Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page */}
 					<Card>
 						<Card.Body>
-							<Card.Title>Cadastrar Voo</Card.Title>
+							<Card.Title className="titulo">Cadastrar Voo</Card.Title>
 							<Card.Subtitle className="mb-2 text-muted">Página para o cadastro de Voo</Card.Subtitle>
 							<Form onSubmit={this.handleSubmit}>
-								<Form.Group>
+								<Form.Group className="parte3">
 									<Form.Label>Matrícula do Piloto</Form.Label>
 									<Form.Control
 										type="number"
@@ -77,7 +77,7 @@ class Voo extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="parte3">
 									<Form.Label>Matrícula da Aeronave</Form.Label>
 									<Form.Control
 										type="text"
@@ -88,7 +88,7 @@ class Voo extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="aeroporto_data">
 									<Form.Label>Origem</Form.Label>
 									<Form.Control
 										type="text"
@@ -99,7 +99,7 @@ class Voo extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="aeroporto_data">
 									<Form.Label>Destino</Form.Label>
 									<Form.Control
 										type="text"
@@ -110,7 +110,7 @@ class Voo extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="aeroporto_data">
 									<Form.Label>Data de Início</Form.Label>
 									<Form.Control
 										type="date"
@@ -121,7 +121,7 @@ class Voo extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="aeroporto_data">
 									<Form.Label>Data de Fim</Form.Label>
 									<Form.Control
 										type="date"
@@ -133,7 +133,7 @@ class Voo extends Component {
 									/>
 								</Form.Group>
 
-								<Button type="submit" variant="dark">
+								<Button className="botao" type="submit">
 									Enviar
 								</Button>
 							</Form>
