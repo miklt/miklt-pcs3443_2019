@@ -63,10 +63,10 @@ class Aluno extends Component {
 					{/* Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page */}
 					<Card>
 						<Card.Body>
-							<Card.Title>Cadastrar Aluno</Card.Title>
+							<Card.Title className="titulo">Cadastrar Aluno</Card.Title>
 							<Card.Subtitle className="mb-2 text-muted">Página para o cadastro de Aluno</Card.Subtitle>
 							<Form onSubmit={this.handleSubmit}>
-								<Form.Group>
+								<Form.Group className="parte1 nome">
 									<Form.Label>Nome</Form.Label>
 									<Form.Control
 										type="text"
@@ -77,7 +77,7 @@ class Aluno extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="parte1 CPF">
 									<Form.Label>CPF</Form.Label>
 									<Form.Control
 										type="number"
@@ -88,7 +88,7 @@ class Aluno extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="parte2">
 									<Form.Label>Número de matrícula</Form.Label>
 									<Form.Control
 										type="number"
@@ -99,7 +99,7 @@ class Aluno extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="parte2 email">
 									<Form.Label>Endereço de e-mail</Form.Label>
 									<Form.Control
 										type="email"
@@ -110,7 +110,7 @@ class Aluno extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="parte3">
 									<Form.Label>Senha</Form.Label>
 									<Form.Control
 										type="password"
@@ -121,7 +121,7 @@ class Aluno extends Component {
 										required
 									/>
 								</Form.Group>
-								<Form.Group>
+								<Form.Group className="parte3">
 									<Form.Label>Horas de voo</Form.Label>
 									<Form.Control
 										type="number"
@@ -132,7 +132,7 @@ class Aluno extends Component {
 										required
 									/>
 								</Form.Group>
-								<Button type="submit" variant="dark">
+								<Button className="botao" type="submit">
 									Enviar
 								</Button>
 							</Form>
