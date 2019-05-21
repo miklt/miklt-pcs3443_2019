@@ -34,6 +34,16 @@ class AlunoResource(Resource):
         return { "status": 'success', 'data': result }, 201
 
     def get(self):
-        alunos = Aluno.query.all()
-        alunos = alunos_schema.dump(alunos).data
-        return {'status': 'success', 'data': alunos}, 200
+        json_data = request.get_json(force=True)
+        if not json_data:
+               return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
+        #data, errors = aluno_schema.load(json_data)
+        #if errors:
+        #    return errors, 422
+        aluno = Aluno.query.filter_by(cpf=json_data['cpf']).first()
+        if not aluno:
+                return {'message': 'Nenhum aluno com este CPF'}
+        result = aluno_schema.dump(aluno).data
+
+        return { "status": 'success', 'data': result}, 201
