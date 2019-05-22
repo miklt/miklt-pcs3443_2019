@@ -21,7 +21,7 @@ por fim, é necessário entrar no ambiente criado e instalar as dependências:
 
 ```{bash}
 source venv/bin/activate (linux)
-venv/Scripts/activate (windows)
+venv\Scripts\activate (windows)
 pip install -r requirements.txt
 ```
 
