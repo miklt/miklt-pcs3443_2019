@@ -7,13 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
+  
+  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-
+  
   <!--Font do google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+  <!--
   <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-
+  -->
+  
   <meta charset="UTF-8">
   {% if title %}
     <title>{{ title }}</title>
@@ -30,44 +35,56 @@
           x.style.display = "none";
         }
     }
+
+    function choosePage() { //escolhe qual a aba selecionada e atribui class active a ela no botão do btn group
+      let x = document.getElementsByClassName("title").innerText;
+        let y = document.querySelectorAll("a.btn-warning");
+        for(let j = 0; j < y.length;j++) {
+            if(x == )
+              y[j].classList.add('active');
+        }
+    }
+
   </script>
 
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ url_for('home') }}">Escola de voo do grupo 4</a>
+<body onbeforeunload="return choosePage()">
+  <nav id="topo-da-pagina" class="navbar navbar-expand-md" style="box-shadow:0px 0px 10px 5px #999;">
+    <a id="title_page" class="navbar-brand" href="{{ url_for('home') }}" style="color: black; font-weight: bold; font-style: italic;">Escola de voo do grupo 4</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExample04">
+    <div id="content-title" class="collapse navbar-collapse" id="navbarsExample04">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ url_for('home') }}" style="color: black;">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="Voos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Voos</a>
+          <a class="nav-link dropdown-toggle" href="#" id="Voos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">Voos</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="{{ url_for('listar_voos') }}">Voos Cadastrados</a>
-            <a class="dropdown-item" href="{{ url_for('cadastrar_voo') }}">Cadastrar Voo</a>
+            <a class="dropdown-item" href="{{ url_for('listar_voos') }}" style="color: black;">Voos Cadastrados</a>
+            <a class="dropdown-item" href="{{ url_for('cadastrar_voo') }}" style="color: black;">Cadastrar Voo</a>
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="Alunos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alunos</a>
+          <a class="nav-link dropdown-toggle" href="#" id="Alunos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">Alunos</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="{{ url_for('listar_alunos') }}">Alunos Cadastrados</a>
-            <a class="dropdown-item" href="{{ url_for('listar_alunos') }}">Cadastrar Aluno</a>
+            <a class="dropdown-item" href="{{ url_for('listar_alunos') }}" style="color: black;">Alunos Cadastrados</a>
+            <a class="dropdown-item" href="{{ url_for('listar_alunos') }}" style="color: black;">Cadastrar Aluno</a>
           </div>
         </li>
       </ul>
 
       <form class="form-inline my-2 my-md-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar no site">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Pesquisar</button>
       </form>
     </div>
   </nav>
+
+  <!--
         <div class="container-fluid" id="topo-da-pagina">
             <h1 id="title_page" style="margin-bottom: 20px">Escola de voo do grupo 4</h1>
             <div class="btn-group d-flex flex-wrap rounded shadow" role="group" id="button-font">
@@ -78,7 +95,7 @@
                 <a href="{{ url_for('listar_alunos') }}" class="btn btn-warning" role="button">Cadastrar Aluno</a>
             </div>
         </div>
-
+-->
 
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
