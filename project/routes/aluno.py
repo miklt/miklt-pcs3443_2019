@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> eac1fee7194549317d800d109d66986c0c051ec5
 from flask import render_template, url_for, redirect, request, flash
 from project import app, db
 from project.models.aluno import Aluno
 from project.models.voo import Voo
 from project.forms.vooSchema import VooForm
+from project.forms.usuarioSchema import UsuarioForm
 from datetime import datetime
 import re
 
@@ -19,6 +16,17 @@ def horasDeVoo(voos):
     for tempo in horas:
         total = total + tempo[0]*60 + tempo[1]
     return total
+
+@app.route('/cadastrar_aluno', methods=['GET', 'POST'])
+def cadastrar_aluno():
+    form = UsuarioForm()
+    if form.validate_on_submit():
+        usuario = Aluno(nome = form.nome.data, cpf = form.cpf.data, email = form.email.data, senha = form.senha.data)    
+        db.session.add(usuario)
+        db.session.commit()
+        flash('Usuario cadastrado com sucesso!')
+        return redirect(url_for('listar_alunos'))
+    return render_template('cadastrar_aluno.html', title='Cadastrar Usuario', legend='Cadastrar Usuario', form=form)
 
 @app.route('/alunos_cadastrados')
 def listar_alunos():

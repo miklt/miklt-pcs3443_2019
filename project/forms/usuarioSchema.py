@@ -14,10 +14,11 @@ from project.models.usuario import Usuario
 class UsuarioForm(FlaskForm):
 	#usuario_id = IntegerField('Id do Usuario', validators=[DataRequired()])
 	nome = StringField('Nome', validators=[DataRequired(), Length(min=2, max=25)])
-	cpf = StringField('CPF', validators=[DataRequired(), Length(13)])
+	cpf = StringField('CPF', validators=[DataRequired(), Length(11)])
 	email = StringField('Email', validators=[DataRequired()])
 	senha = PasswordField('Senha', validators=[DataRequired(), EqualTo('confirma_senha', message = 'Os campos de senha sao diferentes')])
-	confirma_senha = PasswordField('Confirmar Senha')z
+	confirma_senha = PasswordField('Confirmar Senha')
+	submit = SubmitField('Cadastrar')
 
 	class Meta:
 		model = Usuario
