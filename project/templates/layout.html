@@ -64,11 +64,17 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="Voos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">Voos</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="{{ url_for('listar_voos') }}" style="color: black;">Voos Cadastrados</a>
-            <a class="dropdown-item" href="{{ url_for('cadastrar_voo') }}" style="color: black;">Cadastrar Voo</a>
+            <a class="dropdown-item" href="{{ url_for('listar_voos') }}" style="color: black;">Usuarios Cadastrados</a>
+            <a class="dropdown-item" href="{{ url_for('cadastrar_voo') }}" style="color: black;">Cadastrar Usuario</a>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="Usuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">Usuarios</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown04">
+            <a class="dropdown-item" href="{{ url_for('listar_usuarios') }}" style="color: black;">Usuarios Cadastrados</a>
+            <a class="dropdown-item" href="{{ url_for('cadastrar_usuario') }}" style="color: black;">Cadastrar Usuarios</a>
+          </div>
+        </li>
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="Alunos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">Alunos</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
             <a class="dropdown-item" href="{{ url_for('listar_alunos') }}" style="color: black;">Alunos Cadastrados</a>

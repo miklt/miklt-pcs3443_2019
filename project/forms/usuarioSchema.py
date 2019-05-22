@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 # ======= Project Imports ======= #
 
-from project.models.usuarios import Usuario
+from project.models.usuario import Usuario
 
 # ====== Forms code ======= #
 
