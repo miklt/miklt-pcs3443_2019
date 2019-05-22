@@ -40,7 +40,7 @@ class Instrutor extends Component {
   handleSubmit(event) {
     console.log('A form was submitted: ' + JSON.stringify(this.state));
 
-    axios.post('/instrutor/', this.state, {baseURL: api_url})
+    axios.post('/voo_supervisionado/', this.state, {baseURL: api_url})
     .then(function(response) {
       console.log(response);
     })
