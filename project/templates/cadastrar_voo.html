@@ -6,7 +6,7 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
                 <div class="form-group">
-                    {{ form0.aluno.label(class="form-control-label") }}
+                    {{ form.aluno.label(class="form-control-label") }}
                     {% if form.aluno.errors %}
                         {{ form.aluno(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -78,4 +78,11 @@
             </div>
         </form>
     </div>
+
+    <script>
+        let input_saida = document.querySelector('#horaSaida')
+        input_saida.type = 'time';
+        let input_duracao = document.querySelector('#duracaoVoo')
+        input_duracao.type = 'time';
+    </script>
 {% endblock content %}
