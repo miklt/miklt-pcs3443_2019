@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 # ======= Project Imports ======= #
 
-from project.models.usuarios import Usuario
+from project.models.usuario import Usuario
 
 # ====== Forms code ======= #
 
@@ -17,7 +17,7 @@ class UsuarioForm(FlaskForm):
 	cpf = StringField('CPF', validators=[DataRequired(), Length(13)])
 	email = StringField('Email', validators=[DataRequired()])
 	senha = PasswordField('Senha', validators=[DataRequired(), EqualTo('confirma_senha', message = 'Os campos de senha sao diferentes')])
-	confirma_senha = PasswordField('Confirmar Senha')
+	confirma_senha = PasswordField('Confirmar Senha')z
 
 	class Meta:
 		model = Usuario
