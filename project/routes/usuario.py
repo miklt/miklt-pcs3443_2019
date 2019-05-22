@@ -1,12 +1,11 @@
-'''
 # ======= Flask Imports ======= #
-from flask import render_template, url_for, redirect, request, flash
+from flask import render_template, url_for, redirect,flash, request
+#from flash_login import login_required, login_user, logout_user
 
 # ======= Project Imports ======= #
-#from project.models.usuario import usuario
-#rom project.models.voo import Voo
 from project import app, db
 from project.forms.usuarioSchema import UsuarioForm
+from project.models.usuario import Usuario
 
 # ======= External Library Imports ======= #
 from datetime import datetime
@@ -15,12 +14,40 @@ from datetime import datetime
 def cadastrar_usuario():
     form = UsuarioForm()
     if form.validate_on_submit():
-        
-        voo = Voo(horaSaida=form.horaSaida.data, duracaoVoo=form.duracaoVoo.data, parecer=form.parecer.data,
-            aluno_id=Aluno.query.filter_by(nome=form.aluno.data).first().usuario_id, instrutor=form.instrutor.data)
-        db.session.add(voo)
+        usuario = Usuario(nome = form.nome.data, cpf = form.cpf.data, email = form.email.data, senha = form.senha.data)    
+        db.session.add(usuario)
         db.session.commit()
-        flash(f'Voo cadastrado com sucesso!', category='success')
-        return redirect(url_for('listar_voos'))
-    return render_template('cadastrar_voo.html', title='Cadastrar Voo', legend='Cadastrar Voo', form=form)
-	'''
+        flash('Usuario cadastrado com sucesso!')
+        return redirect(url_for('listar_usuarios'))
+    return render_template('cadastrar_usuario.html', title='Cadastrar Usuario', legend='Cadastrar Usuario', form=form)
+
+@app.route('/usuarios_cadastrados')
+def listar_usuarios():
+    usuarios = Usuario.query.order_by(Usuario.id).all()
+    return render_template('usuario_cadastrados.html', title='Usuarios cadastrados', usuarios=usuarios)
+
+@app.route('/usuario/<int:id>', methods=['GET', 'POST'])
+def visualizar_usuario(id):
+        usuario= usuario.query.get_or_404(id)
+        return render_template('visualizar_usuario.html', title='Usuario {usuario.nome}', usuario=usuario)
+
+@app.route('/usuario/<int:id>/atualizar', methods=['GET', 'POST'])
+def atualizar_usuario(id):
+    usuario = Usuario.query.get_or_404(id)
+    form = UsuarioForm()
+    if form.validate_on_submit():
+        usuario.nome = form.nome.data
+        usuario.cpf = form.cpf.data
+        usuario.email = form.email.data
+        db.session.commit()
+        flash('Dados atualizados com sucesso!')
+        return redirect(url_for('visualizar_usuario', usuario_id=id))
+    return render_template('cadastrar_usuario.html', title='Atualizar UsuariO', legend="Atualizar Usuario", form=form)
+
+@app.route('/usuario/<int:id>/deletar', methods=['POST'])
+def deletar_usuario(id):
+    usuario = Usuario.query.get_or_404(id)
+    db.session.delete(usuario)
+    db.session.commit()
+    flash('Usuario apagado com sucesso')
+    return redirect(url_for('listar_usuarios'))
