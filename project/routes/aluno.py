@@ -24,7 +24,7 @@ def cadastrar_aluno():
         usuario = Aluno(nome = form.nome.data, cpf = form.cpf.data, email = form.email.data, senha = form.senha.data)    
         db.session.add(usuario)
         db.session.commit()
-        flash('Usuario cadastrado com sucesso!')
+        flash('Usuario cadastrado com sucesso!', 'success')
         return redirect(url_for('listar_alunos'))
     return render_template('cadastrar_aluno.html', title='Cadastrar Usuario', legend='Cadastrar Usuario', form=form)
 
