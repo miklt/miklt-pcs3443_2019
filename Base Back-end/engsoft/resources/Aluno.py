@@ -46,4 +46,19 @@ class AlunoResource(Resource):
                 return {'message': 'Nenhum aluno com este CPF'}
         result = aluno_schema.dump(aluno).data
 
-        return { "status": 'success', 'data': result}, 201
+        return { "status": 'success', 'data': result}, 201  
+
+    def delete(self):
+        json_data = request.get_json(force=True)
+        if not json_data:
+               return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
+        #data, errors = category_schema.load(json_data)
+        #if errors:
+        #    return errors, 422
+        aluno = Aluno.query.filter_by(cpf=json_data['cpf']).delete()
+        db.session.commit()
+
+        result = aluno_schema.dump(aluno).data
+
+        return { "status": 'success', 'data': result}, 204
