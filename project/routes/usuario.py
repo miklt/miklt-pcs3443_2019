@@ -19,7 +19,9 @@ def cadastrar_usuario():
         db.session.commit()
         flash('Usuario cadastrado com sucesso!')
         return redirect(url_for('listar_usuarios'))
-    return render_template('cadastrar_usuario.html', title='Cadastrar Usuario', legend='Cadastrar Usuario', form=form)
+    return render_template('cadastrar_usuario.html', title='Cadastrar Usuario', form=form)
+
+#legend='Cadastrar Usuario',
 
 @app.route('/usuarios_cadastrados')
 def listar_usuarios():
