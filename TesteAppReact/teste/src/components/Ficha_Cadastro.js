@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MaskedInput from 'react-text-mask'
 //import './Ficha_Cadastro.css';
 
 
@@ -31,23 +32,35 @@ class Ficha_Cadastro extends Component {
     handleTelefoneChange(e) {
         this.props.onTelefoneChange(e.target.value);
     }
-    
-render() {
-   return (
-        <div className='Ficha'>
-        <h1>Ficha de Cadastro de Novo Aluno:</h1>
-            <label>Nome</label><br/>
-            <input type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
-            <label>E-mail</label><br/>
-            <input type="text" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
-            <label>CPF</label><br/>
-            <input type="text" name="cpf" value={this.props.cpf} onChange={this.handleCpfChange}></input><br/>
-            <label>Data de nascimento</label><br/>
-            <input type="text" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
-            <label>Telefone</label><br/>
-            <input type="number" name="telefone" value={this.props.telefone} onChange={this.handleTelefoneChange}></input><br/>
-    </div>
- );
- }
+
+    render() {
+        return (
+            <div className='Ficha'>
+                <h1>Ficha de Cadastro de Novo Aluno:</h1>
+                    <label>Nome</label><br/>
+                    <input type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
+                    <label>E-mail</label><br/>
+                    <input type="doc" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
+                    <label>CPF</label><br/>
+                    <MaskedInput
+                    type="text"
+                    mask={[ /\d/, /\d/, /\d/, '.',  /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
+                    name="cpf"
+                    onChange={this.handleCpfChange}
+                    /><br/>
+                    <label>Data de nascimento</label><br/>
+                    <input type="date" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
+                    <label>Telefone</label><br/>
+                    <MaskedInput
+                    type="text"
+                    mask={[ '(', /\d/ , /\d/,')', ' ', /\d/, /\d/,/\d/, /\d/, /\d/, '-',  /\d/, /\d/, /\d/, /\d/]}
+                    name="telefone"
+                    onChange={this.handleTelefoneChange}
+                    /><br/>
+                <h2>{}</h2>
+            </div>
+        );
+    }
 }
+
 export default Ficha_Cadastro;
