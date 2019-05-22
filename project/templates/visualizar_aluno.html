@@ -1,17 +1,43 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1 class="article-title">Aluno {{ aluno.usuario_id }}</h1>
-
-    <div>
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="/">Update</a>
-        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-lg-3"></div>
+        
+        <div class="col-md-8 col-lg-6" id="container-table">
+            <div class="table-responsive">
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="/">Update</a>
+                    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                </div>
+                <h1 class="article-title" id="content-title">Aluno {{ aluno.usuario_id }}</h1>
+                    <table class="table table-hover">                                
+                        <tbody>                                
+                                <tr>
+                                    <th id="table-border">Aluno: </th>
+                                    <td id="table-border">{{ aluno.nome }}</td>
+                                </tr>
+                                <tr>
+                                    <th id="table-border">CPF</th>
+                                    <td id="table-border">{{ aluno.cpf }}</td>
+                                </tr>
+                                <tr>
+                                    <th id="table-border">Email: </th>
+                                    <td id="table-border">{{ aluno.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th id="table-border">Horas de Voo: </th>
+                                    <td id="table-border">{{ totalHoras }}</td>
+                                </tr>
+                            
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        
+        <div class="col-md-2 col-lg-3"></div>
     </div>
-
-    <p>nome: {{ aluno.nome }}</p>
-    <p>cpf: {{ aluno.cpf }}</p>
-    <p>email: {{ aluno.email }}</p>
-    <p>senha: {{ aluno.senha }}</p>
-    <p>total de horas de voo: {{ totalHoras }}</p>
+</div>
 
 
     <!-- Modal -->

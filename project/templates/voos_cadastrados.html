@@ -1,8 +1,5 @@
 {% extends 'layout.html' %}
 {% block content %}
-        <div class="container-fluid">
-            <h3 style="margin-top: 40px; margin-bottom: 30px" id="content-title">{{ voo.aluno.nome }}, aqui estão seus voos:</h3>
-        </div>
         
         <div class="container-fluid">
             <div class="row">
@@ -10,10 +7,10 @@
                 
                 <div class="col-md-8 col-lg-6" id="container-table">
                     <div class="table-responsive">
-                        <table class="table table-hover"> 
-                            <tbody>
-                                {% for voo in voos %}
-                                    <h1><a class="article-title" id="content-title" href="{{ url_for('visualizar_voo', voo_id=voo.voo_id) }}">Voo {{ voo.voo_id }}</a></h1>
+                        {% for voo in voos %}
+                        <h1><a class="article-title" id="content-title" href="{{ url_for('visualizar_voo', voo_id=voo.voo_id) }}">Voo {{ voo.voo_id }}</a></h1>
+                        <table class="table table-hover">                                
+                            <tbody>                                
                                     <tr>
                                         <th id="table-border">Aluno: </th>
                                         <td id="table-border">{{ voo.aluno.nome }}</td>
@@ -38,9 +35,10 @@
                                         <th id="table-border">Instrutor: </th>
                                         <td id="table-border">{{ voo.instrutor }}</td>
                                     </tr>
-                                {% endfor %}
+                                
                             </tbody>
                         </table>
+                        {% endfor %}
                     </div>
                 </div>
                 

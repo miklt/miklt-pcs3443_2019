@@ -27,7 +27,7 @@ def visualizar_aluno(usuario_id):
         totalHoras = horasDeVoo(aluno.voos)
         Aluno.query.get(aluno.usuario_id).horas_de_voo = totalHoras
         db.session.commit()
-        return render_template('visualizar_aluno.html', title=f'Aluno {aluno.usuario_id}', aluno=aluno, totalHoras = f'{int(totalHoras/60)}:{totalHoras%60}')
+        return render_template('visualizar_aluno.html', title=f'Aluno {aluno.usuario_id}', aluno=aluno, totalHoras = f'{format(int(totalHoras/60), "02")}:{format(totalHoras%60, "02")}')
 
 
 @app.route('/aluno/<int:usuario_id>/deletar', methods=['POST'])
