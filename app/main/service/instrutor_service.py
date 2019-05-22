@@ -30,5 +30,5 @@ def get_all_instrutores():
     return Instrutor.query.all()
 
 
-def get_a_instrutor(id):
-    return Instrutor.query.filter_by(id=id).first()
+def get_a_instrutor(breve):
+    return Instrutor.query.filter_by(breve=breve).first()

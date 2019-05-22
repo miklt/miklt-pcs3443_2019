@@ -53,3 +53,11 @@ class InstrutorList(Resource):
         """Creates a new instrutor"""
         data = request.json
         save_new_instrutor(data=data)
+
+@api.route('/<breve>')
+class Instrutor(Resource):
+    @api.doc('Mostra um instrutor')
+    @api.marshal_with(_instrutor)
+    def get(self, breve):
+        """Show one instrutor by its breve"""
+        return get_a_instrutor(breve)
