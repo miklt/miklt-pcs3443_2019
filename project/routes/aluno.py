@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> eac1fee7194549317d800d109d66986c0c051ec5
 from flask import render_template, url_for, redirect, request, flash
 from project import app, db
 from project.models.aluno import Aluno
