@@ -15,8 +15,6 @@ class Voo(db.Model):
         self.duracao = duracao
 
 
-    def __repr__(self):
-        return '<Parecer %r>' % (self.)
 
 class Aula(Voo):
     __tablename__ = "aula"
