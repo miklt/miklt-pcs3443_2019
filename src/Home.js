@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import MyNavbar from './Navbar';
+import MyCarousel from './carousel_aeroclube';
+import './carousel.css';
 
 class Home extends Component {
   render() {
@@ -12,6 +14,10 @@ class Home extends Component {
             crossorigin="anonymous"
         />
         <MyNavbar/>
+        <div className="title">
+          <h1>Bem-vindo(a) ao Aeroclube Stop Down!</h1>
+        </div>
+        <MyCarousel/>
       </div>
     )
   }
