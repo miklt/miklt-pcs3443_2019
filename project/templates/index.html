@@ -1,7 +1,111 @@
 {% extends "layout.html" %}
 
+{% block custom_css %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='grid.css') }}">
+{% endblock %}
+
 {% block content %}
-	<div class="container">
-		<h1>Bem vindo!</h1>
-	</div>
+  <div class="container">
+    <h1>Bem vindo!</h1>
+    <p class="lead">Aqui você encontra as principais informações sobre seu progresso no curso.</p>
+
+    <hr />
+
+    <h2>Dashboard aluno</h2>
+
+    <div class="row mb-3">
+      <div class="col-sm-12 pb-3">
+        <h4>Progresso geral do curso</h4>
+      </div>
+      <div class="row col-sm-12">
+        <div class="col-md-2 themed-grid-col border-left-grid past-active">Pagamento do curso</div>
+        <div class="col-md-1 themed-grid-col past-active">&rarr;</div>
+        <div class="col-md-2 themed-grid-col active">Voo monitorado</div>
+        <div class="col-md-1 themed-grid-col">&rarr;</div>
+        <div class="col-md-2 themed-grid-col">Voo solo</div>
+        <div class="col-md-1 themed-grid-col">&rarr;</div>
+        <div class="col-md-2 themed-grid-col">Emitir Brevê</div>
+        <div class="col-md-1 themed-grid-col border-right-grid">&#9992;</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <div class="row mb-3">
+          <div class="col-12 space">
+            <h5>Pagamento do curso</h5>
+
+            <p class="lead">Status: <span class="active">pago</span></p>
+
+          </div>
+
+          <hr />
+
+          <div class="col-12 space">
+            <h5>Horas de voo solo</h5>
+
+            <p>0 de 120 horas totais</p>
+
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="0" aria-valuemin="5" aria-valuemax="100">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-3">
+          <div class="col-12 space">
+            <h5>Horas de voo monitoradas</h5>
+
+            <p>51 de 340 horas totais</p>
+
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="col-12 space">
+            <h5>Emitir Brevê</h5>
+
+            <p class="fade-out">Não disponível</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <hr />
+
+    <h2>Dashboard instrutor</h2>
+    <p class="lead">Status: <span class="active">ativo</span></p>
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <h5>Próximas aulas:</h5>
+
+        <div class="container">
+          <p class="lead">Aluno: Daniel
+          <br>Tipo: Voo monitorado
+          <br>Aula: 52 - Pouso em condições desfavoráveis
+          <br>Local: Aeroclube principal
+          <br>Horário: 23/05/2019 08:30
+          <br>Duração: 1h30</p>
+        </div>
+
+        <div class="container">
+          <p>Aluno: Eric
+          <br>Tipo: Voo monitorado
+          <br>Aula: 2 - Conhecendo os comandos em voo
+          <br>Local: Aeroclube principal
+          <br>Horário: 23/05/2019 10:30
+          <br>Duração: 1h</p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
