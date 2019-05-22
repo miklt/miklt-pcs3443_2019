@@ -33,6 +33,19 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
+                    {{ form.cpf.label(class="form-control-label") }}
+                    {% if form.cpf.errors %}
+                        {{ form.cpf(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.cpf.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.cpf(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.senha.label(class="form-control-label") }}
                     {% if form.senha.errors %}
                         {{ form.senha(class="form-control form-control-lg is-invalid") }}
@@ -46,16 +59,16 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.confirmar_senha.label(class="form-control-label") }}
-                    {% if form.confirmar_senha.errors %}
-                        {{ form.confirmar_senha(class="form-control form-control-lg is-invalid") }}
+                    {{ form.confirma_senha.label(class="form-control-label") }}
+                    {% if form.confirma_senha.errors %}
+                        {{ form.confirma_senha(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.confirmar_senha.errors %}
+                            {% for error in form.confirma_senha.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.confirmar_senha(class="form-control form-control-lg") }}
+                        {{ form.confirma_senha(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>
