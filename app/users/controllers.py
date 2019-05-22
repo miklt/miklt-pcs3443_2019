@@ -20,6 +20,10 @@ def signin():
 def logout():
     return "logout"
 
+@users.route('/test/')
+def test():
+    print(models.Login('teste1', 'e@a.ws', 'abcd', 'aluno'))
+    return "test"
 
 @users.route('/register/')
 def register():
