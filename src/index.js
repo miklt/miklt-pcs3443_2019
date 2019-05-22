@@ -18,7 +18,6 @@ const routing = (
 			<Route exact path="/cadastro/piloto" component={Cadastro_piloto} />
 			<Route exact path="/cadastro/voo_supervisionado" component={Cadastro_voo_supervisionado} />
 			<Route exact path="/cadastro/aluno" component={Cadastro_aluno} />
-      <Route exact path="/cadastro/voo_supervisionado" component={Cadastro_voo_supervisionado}/>
 		</div>
 	</Router>
 );
