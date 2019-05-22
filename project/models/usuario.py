@@ -1,6 +1,4 @@
-from datetime import datetime, time
 from project import db
-
 
 class Usuario(db.Model):
     __abstract__ = True

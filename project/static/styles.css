@@ -11,11 +11,14 @@ body {
 }
 
 #title_page {
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Stylish', sans-serif;
+    /*font-family: 'Gloria Hallelujah', cursive;*/
 }
 
 #content-title {
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Stylish', sans-serif;
+    color: black !important;
+    /*font-family: 'Gloria Hallelujah', cursive;*
 }
 
 table {
