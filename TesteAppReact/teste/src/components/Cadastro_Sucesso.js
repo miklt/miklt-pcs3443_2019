@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/paginaCadastroSucesso.css';
 import { Link, Redirect } from 'react-router-dom';
-import logo from './sucesso.png';
+import logo from '../images/sucesso.png';
 
 class paginaCadastroSucesso extends Component {
  render() {

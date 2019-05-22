@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './airplane.png';
+import logo from '../images/airplane.png';
 import '../css/paginaInicial.css';
 import { Link } from 'react-router-dom'
 

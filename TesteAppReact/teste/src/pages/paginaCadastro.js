@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/paginaCadastro.css';
 import { Link, Redirect } from 'react-router-dom';
 import Ficha_Cadastro from '../components/Ficha_Cadastro';
+import Cadastro_Sucesso from '../components/Cadastro_Sucesso';
 
 class paginaCadastro extends Component {
  constructor(props) {
@@ -78,7 +79,7 @@ handleSubmit = event => {
 
  render() {
   if (this.state.redirect === true){
-       return <Redirect to="/cadastroSucesso" />
+       return <Cadastro_Sucesso />
   }
    return (
        <div className="pagina">
