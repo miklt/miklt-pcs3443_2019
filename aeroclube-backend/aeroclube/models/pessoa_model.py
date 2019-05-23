@@ -38,8 +38,13 @@ class Pessoa(Base):
         return cls.query.filter_by(cpf=cpf).first()
 
     @classmethod
+    def encontrar_por_cargo(cls, cargo):
+        return cls.query.filter_by(cargo=cargo).all()
+
+    @classmethod
     def encontrar_pelo_email(cls, email):
         return cls.query.filter_by(email=email).first()
+
 
     @classmethod
     def listar(cls):

@@ -62,9 +62,12 @@ def deletarUsuario():
     return redirect(url_for('listarUsuario'))
 
 # VOO
-@app.route("/cadastrar_voo")
+@app.route("/cadastrar_voo",  methods=['GET', 'POST'])
 def cadastrarVoo():
-    return render_template("cadastrar_voo.html")
+    if request.method == 'POST':
+        pass
+    usuarios = Pessoa.encontrar_por_cargo('Aluno')
+    return render_template("cadastrar_voo.html",  **locals())
 
 
 @app.route("/listar_voo")
