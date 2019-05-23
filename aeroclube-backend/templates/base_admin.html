@@ -138,10 +138,10 @@
                                         "></i><span>Usuários</span class="sidebar-mini-hide"></a>
                                     <ul>
                                         <li>
-                                            <a href="base_tables_styles.html">Cadastrar</a>
+                                            <a href="{{ url_for('cadastrarUsuario') }}">Cadastrar</a>
                                         </li>
                                         <li>
-                                            <a href="base_tables_responsive.html">Listar</a>
+                                            <a href="{{ url_for('listarUsuario') }}">Listar</a>
                                         </li>
                                         
                                     </ul>
@@ -150,10 +150,20 @@
                                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Voos</span></a>
                                     <ul>
                                         <li> <!-- colocar classe active quando estiver na página -->
-                                            <a href="base_forms_premade.html">Visualizar Voos</a>
+                                            <a href="{{ url_for('listarVoo') }}">Visualizar Voos</a>
                                         </li>
-                                        <li>
-                                            <a href="base_forms_elements.html">Controle de acesso ao Clube</a>
+                                        
+                                    </ul>
+                                </li>
+
+                                <li class>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Voos Instrutor</span></a>
+                                    <ul>
+                                        <li> <!-- colocar classe active quando estiver na página -->
+                                            <a href="{{ url_for('cadastrarVoo') }}">Cadastrar Voos</a>
+                                        </li>
+                                        <li> <!-- colocar classe active quando estiver na página -->
+                                            <a href="{{ url_for('listarVoo') }}">Visualizar Voos</a>
                                         </li>
                                     </ul>
                                 </li>
