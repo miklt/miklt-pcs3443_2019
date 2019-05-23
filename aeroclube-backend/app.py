@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from aeroclube.models.pessoa_model import Pessoa
+
+
 from datetime import datetime
 
 
@@ -19,8 +21,8 @@ def home():
 ### USUARIO
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
-    #pessoa = Pessoa(nome='Diego', cpf='44898555475', email='diegobmv@gmail.com', data_nascimento=datetime.now(), dataCadastro=datetime.now())
-    #pessoa.adicionar()
+    pessoa = Pessoa(nome='Roberto', cpf='44895545475', email='roberto@gmail.com', data_nascimento=datetime.now())
+    pessoa.adicionar()
     if request.method == 'POST':
         username = request.form['username']
         print(username)
@@ -29,9 +31,16 @@ def cadastrarUsuario():
 @app.route("/listar_usuario")
 def listarUsuario():
     pessoas = Pessoa.listar()
-    print('SAHUDHAUSHUDHAUHSDUAHDUAS')
-    print(pessoas[0].nome)
-    return render_template("listar_usuario.html")
+    return render_template("listar_usuario.html", **locals())
+
+
+@app.route("/deletar_usuario", methods=['GET'])
+def deletarUsuario():
+    id_usuario = request.args['id']
+    usuario = Pessoa.encontrar_pelo_id(id_usuario)
+    if usuario:
+        usuario.remover()
+    return redirect(url_for('listarUsuario'))
 
 ### VOO
 @app.route("/cadastrar_voo")

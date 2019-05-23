@@ -11,12 +11,12 @@ class Pessoa(Base):
     data_nascimento = db.Column(db.DateTime)
     dataCadastro = db.Column(db.DateTime)
 
-    def __init__(self, nome, cpf, email, data_nascimento, dataCadastro):
+    def __init__(self, nome, cpf, email, data_nascimento):
         self.nome = nome
         self.cpf = cpf
         self.email = email
         self.data_nascimento = data_nascimento
-        self.dataCadastro = dataCadastro
+        self.dataCadastro = datetime.now()
 
     def adicionar(self):
         db.session.add(self)

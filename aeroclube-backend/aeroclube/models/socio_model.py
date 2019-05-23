@@ -1,5 +1,5 @@
 from dao import db
-from pessoa_model import Pessoa
+from aeroclube.models.pessoa_model import Pessoa
 
 
 class Socio(Pessoa):
