@@ -120,7 +120,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a class="h5 text-white" href="/">
+                            <a class="h5 text-white" href="{{ url_for('home') }}">
                                 <i class="fa fa-rocket text-primary"></i><span class="h4 font-w600 sidebar-mini-hide">  Apache</span>
                             </a>
                         </div>
@@ -130,7 +130,7 @@
                         <div class="side-content">
                             <ul class="nav-main">
                                 <li>
-                                    <a class="active" href="index.html"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                                    <a class="active" href="{{ url_for('home') }}"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                                 </li>
                                 <li class="nav-main-heading"><span class="sidebar-mini-hide">UTILIDADES</span ></li>
                                 <li >
@@ -138,10 +138,10 @@
                                         "></i><span>Usuários</span class="sidebar-mini-hide"></a>
                                     <ul>
                                         <li>
-                                            <a href="base_tables_styles.html">Cadastrar</a>
+                                            <a href="{{ url_for('cadastrarVoo') }}">Cadastrar</a>
                                         </li>
                                         <li>
-                                            <a href="base_tables_responsive.html">Listar</a>
+                                            <a href="{{ url_for('listarVoo') }}">Listar</a>
                                         </li>
                                         
                                     </ul>
@@ -150,10 +150,20 @@
                                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Voos</span></a>
                                     <ul>
                                         <li> <!-- colocar classe active quando estiver na página -->
-                                            <a href="base_forms_premade.html">Visualizar Voos</a>
+                                            <a href="{{ url_for('listarVoo') }}">Visualizar Voos</a>
                                         </li>
-                                        <li>
-                                            <a href="base_forms_elements.html">Controle de acesso ao Clube</a>
+                                        
+                                    </ul>
+                                </li>
+
+                                <li class>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Voos Instrutor</span></a>
+                                    <ul>
+                                        <li> <!-- colocar classe active quando estiver na página -->
+                                            <a href="{{ url_for('cadastrarVoo') }}">Cadastrar Voos</a>
+                                        </li>
+                                        <li> <!-- colocar classe active quando estiver na página -->
+                                            <a href="{{ url_for('listarVoo') }}">Visualizar Voos</a>
                                         </li>
                                     </ul>
                                 </li>
