@@ -1,6 +1,7 @@
 from flask import render_template, url_for, redirect, request, flash
 from project import app, db
 from project.models.aluno import Aluno
+from project.models.instrutor import Instrutor
 from project.models.voo import Voo
 from project.forms.vooSchema import VooForm
 from datetime import datetime
@@ -17,7 +18,7 @@ def cadastrar_voo():
     form = VooForm()
     if form.validate_on_submit():
         voo = Voo(horaSaida=form.horaSaida.data, duracaoVoo=form.duracaoVoo.data, parecer=form.parecer.data,
-            aluno_id=Aluno.query.filter_by(nome=form.aluno.data).first().usuario_id, instrutor=form.instrutor.data)
+            aluno_id=Aluno.query.filter_by(nome=form.aluno.data).first().usuario_id, instrutor=Instrutor.query.filter_by(nome = form.instrutor.data).first())
         db.session.add(voo)
         db.session.commit()
         flash(f'Voo cadastrado com sucesso!', category='success')
@@ -40,7 +41,7 @@ def atualizar_voo(voo_id):
         voo.horaSaida = form.horaSaida.data
         voo.duracaoVoo = form.duracaoVoo.data
         voo.parecer = form.parecer.data
-        voo.instrutor = form.instrutor.data
+        voo.instrutor = Instrutor.query.filter_by(nome = form.instrutor.data).first()
         db.session.commit()
         flash(f'Dados atualizados com sucesso!', category='success')
         return redirect(url_for('visualizar_voo', voo_id=voo_id))
@@ -49,7 +50,7 @@ def atualizar_voo(voo_id):
         form.horaSaida.data = voo.horaSaida
         form.duracaoVoo.data = voo.duracaoVoo
         form.parecer.data = voo.parecer
-        form.instrutor.data = voo.instrutor
+        form.instrutor.data = voo.instrutor.nome
     return render_template('cadastrar_voo.html', title='Atualizar Voo', legend="Atualizar Voo", form=form)
 
 

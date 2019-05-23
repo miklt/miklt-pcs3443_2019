@@ -19,6 +19,7 @@ class UsuarioForm(FlaskForm):
 	senha = PasswordField('Senha', validators=[DataRequired(), EqualTo('confirma_senha', message = 'Os campos de senha sao diferentes')])
 	confirma_senha = PasswordField('Confirmar Senha')
 	submit = SubmitField('Cadastrar')
+	breve = StringField('Brevê', validators=[DataRequired(), Length(5)])
 
 	class Meta:
 		model = Usuario

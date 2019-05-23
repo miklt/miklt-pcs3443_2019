@@ -86,6 +86,13 @@
             <a class="dropdown-item" href="{{ url_for('cadastrar_aluno') }}" style="color: black;">Cadastrar Aluno</a>
           </div>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="Instrutores" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">Instrutores</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown04">
+            <a class="dropdown-item" href="{{ url_for('listar_instrutores') }}" style="color: black;">Instrutores Cadastrados</a>
+            <a class="dropdown-item" href="{{ url_for('cadastrar_instrutor') }}" style="color: black;">Cadastrar Instrutor</a>
+          </div>
+        </li>
       </ul>
 
       <form class="form-inline my-2 my-md-0">

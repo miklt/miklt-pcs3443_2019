@@ -24,7 +24,7 @@ bcrypt.init_app(app)
 #login_manager.init_app(app)
 #mail.init_app(app)
 
-from project.routes import index, voo, aluno, usuario
+from project.routes import index, voo, aluno, usuario, instrutor
 
 '''
 def create_app():
