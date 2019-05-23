@@ -5,6 +5,8 @@ import Login from "./Login"
 import Condicional from "./Condicional"
 import "./App.css"
 
+const url_v3 = 'http://127.0.0.1:5000/'
+
 class App extends React.Component {
 
     render () {
