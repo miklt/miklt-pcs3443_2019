@@ -1,6 +1,6 @@
 from app import db
 
-class Voo(Aeronave):
+class Voo(db.Model):
     __abstract__ = True
 
     dataVoo = db.Column(db.DateTime, default = db.func.current_timestamp(),primary_key = True)
