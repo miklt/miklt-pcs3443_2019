@@ -28,11 +28,22 @@ def cadastrarUsuario():
         data_nascimento_str = request.form['data_nascimento']
         data_nascimento = datetime.strptime(data_nascimento_str, '%d/%m/%Y')
         cargo = request.form['cargo']
-        nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
-                             cargo=cargo, data_nascimento=data_nascimento)
-        if cargo == 'Aluno':
-            nova_pessoa.cod_curso = "12345"
-        nova_pessoa.adicionar()
+
+        pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
+        pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
+        pessoa_email = Pessoa.encontrar_pelo_email
+        if pessoa_nome:
+            print("{} já está cadastrado".format(nome))
+        elif pessoa_cpf:
+            print("{} já está cadastrado".format(cpf))
+        elif pessoa_email:
+            print("{} já está cadastrado".format(email))
+        else:
+            nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
+                                 cargo=cargo, data_nascimento=data_nascimento)
+            if cargo == 'Aluno':
+                nova_pessoa.cod_curso = "12345"
+            nova_pessoa.adicionar()
     return render_template("cadastrar_usuario.html")
 
 
