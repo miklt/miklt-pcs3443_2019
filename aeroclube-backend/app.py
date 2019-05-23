@@ -33,11 +33,11 @@ def cadastrarUsuario():
         pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
         pessoa_email = Pessoa.encontrar_pelo_email
         if pessoa_nome:
-            print("{} já está cadastrado".format(nome))
+            erro_nome = True
         elif pessoa_cpf:
-            print("{} já está cadastrado".format(cpf))
+            erro_cpf = True
         elif pessoa_email:
-            print("{} já está cadastrado".format(email))
+            erro_email = True
         else:
             nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
                                  cargo=cargo, data_nascimento=data_nascimento)
