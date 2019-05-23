@@ -1,6 +1,7 @@
 import React from "react"
 import Login from "./Login"
 import Agendamento from "./Agendamento"
+import Cadastro from "./Cadastro"
 
 
 class Condicional extends React.Component {
@@ -32,10 +33,10 @@ class Condicional extends React.Component {
                 </div>
             )
         }
-        if (this.pagina === "/Nome4.html") {
+        if (this.pagina === "/Cadastro.html") {
             return (
                 <div>
-                   <p>{this.pagina}</p>
+                   <Cadastro />
                 </div>
             )
         }
