@@ -15,7 +15,6 @@ class Voo(Aeronave):
         self.duracao = duracao
         self.dataVoo = dataVoo
 
-
 class Aula(Voo):
     __tablename__ = "aula"
     __mapper_args__ = {'polymorphic_identity': 'aula'}
@@ -38,6 +37,8 @@ class VooSimples(Voo):
 
     def __init__(self,horaSaida,duracao):
         super().__init__(horaSaida,duracao)
+
+
 
 class Aeronave(db.Model):
     __tablename__ = 'aeronave'
