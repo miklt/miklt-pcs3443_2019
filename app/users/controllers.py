@@ -27,7 +27,7 @@ def test():
 
 @users.route('/register/')
 def register():
-    u = models.Login('teste1', 'e@a.ws', 'abcd', 'aluno')
+    u = models.Funcionario('teste1', 'e@a.cc', 'abcd')
     db.session.add(u)
     db.session.commit()
     return "register"

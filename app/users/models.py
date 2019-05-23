@@ -1,5 +1,6 @@
 from app import db
 
+# Tabela com dados referentes ao sistema de Login e de roles.
 class Login(db.Model):
     __tablename__ = 'login'
     __mapper_args__ = {'polymorphic_identity': 'login'}
@@ -11,7 +12,7 @@ class Login(db.Model):
     name = db.Column(db.String(128), nullable = False)
     email = db.Column(db.String(128), nullable = False, unique = True)
     password = db.Column(db.String(192), nullable = False)
-    role = db.Column(db.String, db.Enum('funcionario', 'piloto', 'instrutor', 'aluno', name='roles'), default='aluno')
+    role = db.Column(db.String, db.Enum('Funcionario', 'Piloto', 'Instrutor', 'Aluno', name='papeis'), default='Aluno')
 
     def __init__(self, name, email, password, role):
         self.name = name
@@ -20,74 +21,105 @@ class Login(db.Model):
         self.role = role
 
     def __repr__(self):
-        return "<User: {}, Role: {}>".format(self.name, self.role)
+        return "<Nome: {}, Papel: {}>".format(self.name, self.role)
 
 
-class Funcionario(Login):
-    __tablename__ = 'funcionario'
-    __mapper_args__ = {'polymorphic_identity': 'funcionario'}
-
-    id = db.Column(db.Integer, db.ForeignKey('login.id'), primary_key = True)
-    cpf = db.Column(db.String(11), nullable = False)
-    endereco = db.Column(db.String(192))
-
-    def __init__(self, name, email, password, cpf, endereco):
-        super().__init__(name, email, password, 'funcionario')
-        self.cpf = cpf
-        self.endereco = endereco
-
-
+# Tabela com dados referentes aos Socios.
 class Socio(Login):
-    __abstract__ = True
+    __tablename__ = 'socio'
+    __mapper_args__ = {'polymorphic_identity': 'socio'}
 
-    matricula = db.Column(db.String(6), primary_key = True)
+    matricula = db.Column(db.Integer, db.ForeignKey('login.id'), primary_key = True)
     endereco = db.Column(db.String(192))
     dataNascimento = db.Column(db.DateTime, nullable = False)
-    cpf = db.Column(db.String(11), nullable = False)
+    cpf = db.Column(db.String(11), nullable = False, unique = True)
 
-    def __init__(self, name, email, password, matricula, endereco, dataNascimento, cpf, role = 'aluno'):
-        super().__init__(name, email, password, role)
-        self.matricula = matricula
+    def __init__(self, name, email, password, endereco, dataNascimento, cpf):
+        super().__init__(name = name,
+                         email = email,
+                         password = password,
+                         role = self.getRole())
         self.endereco = endereco
         self.dataNascimento = dataNascimento
         self.cpf = cpf
 
-
-class Aluno(Socio):
-    __tablename__ = 'aluno'
-    __mapper_args__ = {'polymorphic_identity': 'aluno'}
-
-    id = db.Column(db.Integer, db.ForeignKey('login.id'))
-
-    def __init__(self, name, email, password, matricula, endereco, dataNascimento, cpf, role = 'aluno'):
-        super().__init__(name, email, password, matricula, endereco, dataNascimento, cpf, role)
+    # Usa o getRole() das classes filhas.
+    @staticmethod
+    def getRole():
+        pass
 
 
+# Tabela com dados específicos do Piloto.
 class Piloto(Socio):
     __tablename__ = 'piloto'
     __mapper_args__ = {'polymorphic_identity': 'piloto'}
 
-    id = db.Column(db.Integer, db.ForeignKey('login.id'))
-    numeroBreve = db.Column(db.String(6), nullable = False)
+    matricula = db.Column(db.Integer, db.ForeignKey('socio.matricula'), primary_key = True)
+    numeroBreve = db.Column(db.String(6), nullable = False, unique = True)
 
-    def __init__(self, name, email, password, matricula, endereco, dataNascimento, cpf, numeroBreve, role = 'piloto'):
-        super().__init__(name, email, password, matricula, endereco, dataNascimento, cpf, role)
+    def __init__(self, name, email, password, endereco, dataNascimento, cpf, numeroBreve):
+        super().__init__(name = name,
+                         email = email,
+                         password = password,
+                         endereco = endereco,
+                         dataNascimento = dataNascimento,
+                         cpf = cpf)
         self.numeroBreve = numeroBreve
 
+    @staticmethod
+    def getRole():
+        return 'Piloto'
 
+
+# Tabela com dados específicos do Instrutor.
 class Instrutor(Piloto):
     __tablename__ = 'instrutor'
     __mapper_args__ = {'polymorphic_identity': 'instrutor'}
 
     matricula = db.Column(db.String(6), db.ForeignKey('piloto.matricula'), primary_key = True)
     nomeInstituicao = db.Column(db.String(128), nullable = False)
-    nomeCurso = db.Column(db.String(128))
+    nomeCurso = db.Column(db.String(128), nullable = False)
     dataDiploma = db.Column(db.DateTime, nullable = False)
 
-    def __init__(self, name, email, password, matricula, endereco, dataNascimento, cpf, numeroBreve,
-                 nomeInstituicao, nomeCurso, dataDiploma, role = 'instrutor'):
-        super().__init__(name, email, password, matricula, endereco, dataNascimento, cpf, role)
-        self.matricula = matricula
+    def __init__(self, name, email, password, endereco, dataNascimento, cpf, numeroBreve, nomeInstituicao, nomeCurso, dataDiploma):
+        super().__init__(name = name,
+                         email = email,
+                         password = password,
+                         endereco = endereco,
+                         dataNascimento = dataNascimento,
+                         cpf = cpf,
+                         numeroBreve = numeroBreve)
         self.nomeInstituicao = nomeInstituicao
         self.nomeCurso = nomeCurso
         self.dataDiploma = dataDiploma
+
+    @staticmethod
+    def getRole():
+        return 'Instrutor'
+
+
+# Papeis sem tabelas no banco de dados
+class Funcionario(Login):
+    def __init__(self, name, email, password):
+        super().__init__(name = name,
+                         email = email,
+                         password = password,
+                         role = 'Funcionario')
+
+    @staticmethod
+    def getRole():
+        return 'Funcionario'
+
+
+class Aluno(Socio):
+    def __init__(self, name, email, password, endereco, dataNascimento, cpf):
+        super().__init__(name = name,
+                         email = email,
+                         password = password,
+                         endereco = endereco,
+                         dataNascimento = dataNascimento,
+                         cpf = cpf)
+
+    @staticmethod
+    def getRole():
+        return 'Aluno'
