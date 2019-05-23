@@ -18,9 +18,9 @@
 }
 
 .telaAgendamento button:hover{
-    background-color: rgb(207, 31, 31);
-    border-color: rgb(207, 31, 31);
-    border-bottom-color: rgb(207, 31, 31);
+    background-color: #1f3c58;
+    border-color: #1f3c58;
+    border-bottom-color: #1f3c58;
 }
 
 

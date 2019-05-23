@@ -7,7 +7,7 @@ class Header extends React.Component {
             <div className="linha">
                     <header>
                         <div className="coluna col 4">
-                            <h1 className="logo">João Cortez</h1>
+                            <h1 className="logo">Aviação ltd.</h1>
                         </div>
                         <div className="coluna col8">
                             <nav>
