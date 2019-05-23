@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 from aeroclube.models.pessoa_model import Pessoa
-
-
 from datetime import datetime
 
 
