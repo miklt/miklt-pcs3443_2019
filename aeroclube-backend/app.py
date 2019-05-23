@@ -58,7 +58,7 @@ def cadastrarVoo():
 
 @app.route("/listar_voo")
 def listarVoo():
-    return render_template("listar_usuario.html")
+    return render_template("listar_voo.html")
 
 
 # CONSULTA HORAS DE VOO
