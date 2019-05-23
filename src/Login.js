@@ -1,6 +1,7 @@
 import React from "react"
 import "./Login.css"
 import {url_v3} from "./App"
+import axios from 'axios';
 
 class Login extends React.Component {
     constructor() {
@@ -18,25 +19,21 @@ class Login extends React.Component {
     }
 
     handleSubmit(event){ 
-        event.preventDefault();
-        fetch(url_v3 + 'login', {
-            method: 'post',
-            body: {
-                user: this.state.user,
-                password: this.state.password,
-            }
-        });
+        const url = url_v3+'login';
+        axios.post(url, { user: this.state.user, password: this.state.password })
+            .catch(error => {
+                alert(error)
+            });
     };
 
     render () {
         
-        console.log(this.state)
         return (
             <div>
                 <form className="telaLogin" onSubmit={this.handleSubmit}>
-                    <label for="user">Usuário:</label>
+                    <label htmlFor="user">Usuário:</label>
                     <input type="text" name="user" id="user" onChange={this.handleChange}/>
-                    <label for = "password">Senha:</label>
+                    <label htmlFor = "password">Senha:</label>
                     <input type="password" name="password" id="password"  onChange={this.handleChange}/>
                     <button type="submit">Go</button>
                 </form>

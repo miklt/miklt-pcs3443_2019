@@ -6,7 +6,7 @@ class Sidebar extends React.Component {
     render () {
         return (
             <div>
-                <ul class="sidebarAba">
+                <ul className="sidebarAba">
                     <li className="sidebarHeader">MENU</li>
                     <li><Aba name="Login" nameHtml="./Login.html"/></li>
                     <li><Aba name="Agendamentos" nameHtml="./Agendamento.html"/></li>
@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
                     <li><Aba name="Informações" nameHtml="./Nome4.html"/></li>
                     <li><Aba name="Configurações" nameHtml="./Nome5.html"/></li>
                 </ul>
-                <a href="clientes.html" class='botao'>Ver todos &raquo;</a>
+                <a href="clientes.html" className='botao'>Ver todos &raquo;</a>
             </div>
         )
     }
