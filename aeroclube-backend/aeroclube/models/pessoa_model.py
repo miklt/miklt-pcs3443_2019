@@ -9,14 +9,17 @@ class Pessoa(Base):
     cpf = db.Column(db.Integer, unique=True)
     email = db.Column(db.String(200), unique=True)
     data_nascimento = db.Column(db.DateTime)
+    cargo = db.Column(db.String(200), unique=False)
     dataCadastro = db.Column(db.DateTime)
+    cod_curso = db.Column(db.String(200), unique=False)
 
-    def __init__(self, nome, cpf, email, data_nascimento, dataCadastro):
+    def __init__(self, nome, cpf, email, cargo, data_nascimento):
         self.nome = nome
         self.cpf = cpf
         self.email = email
         self.data_nascimento = data_nascimento
-        self.dataCadastro = dataCadastro
+        self.cargo = cargo
+        self.dataCadastro = datetime.now()
 
     def adicionar(self):
         db.session.add(self)
