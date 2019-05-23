@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from aeroclube.models.pessoa_model import Pessoa
 from datetime import datetime
 
@@ -17,10 +17,13 @@ def home():
     return render_template("home.html")
 
 ### USUARIO
-@app.route("/cadastrar_usuario")
+@app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
-    pessoa = Pessoa(nome='Diego', cpf='44898555475', email='diegobmv@gmail.com', data_nascimento=datetime.now(), dataCadastro=datetime.now())
-    pessoa.adicionar()
+    #pessoa = Pessoa(nome='Diego', cpf='44898555475', email='diegobmv@gmail.com', data_nascimento=datetime.now(), dataCadastro=datetime.now())
+    #pessoa.adicionar()
+    if request.method == 'POST':
+        username = request.form['username']
+        print(username)
     return render_template("cadastrar_usuario.html")
 
 @app.route("/listar_usuario")
