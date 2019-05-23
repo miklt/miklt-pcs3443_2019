@@ -18,15 +18,23 @@ app.secret_key = 'aeroclube'
 def home():
     return render_template("home.html")
 
-### USUARIO
+# USUARIO
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
-    pessoa = Pessoa(nome='Roberto', cpf='44895545475', email='roberto@gmail.com', data_nascimento=datetime.now())
-    pessoa.adicionar()
     if request.method == 'POST':
-        username = request.form['username']
-        print(username)
+        nome = request.form['nome']
+        cpf = request.form['cpf']
+        email = request.form['email']
+        data_nascimento_str = request.form['data_nascimento']
+        data_nascimento = datetime.strptime(data_nascimento_str, '%d/%m/%Y')
+        cargo = request.form['cargo']
+        nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
+                             cargo=cargo, data_nascimento=data_nascimento)
+        if cargo == 'Aluno':
+            nova_pessoa.cod_curso = "12345"
+        nova_pessoa.adicionar()
     return render_template("cadastrar_usuario.html")
+
 
 @app.route("/listar_usuario")
 def listarUsuario():
@@ -42,24 +50,26 @@ def deletarUsuario():
         usuario.remover()
     return redirect(url_for('listarUsuario'))
 
-### VOO
+# VOO
 @app.route("/cadastrar_voo")
 def cadastrarVoo():
     return render_template("cadastrar_voo.html")
+
 
 @app.route("/listar_voo")
 def listarVoo():
     return render_template("listar_usuario.html")
 
-### CONSULTA HORAS DE VOO
-@app.route("/consultar_horas")  
+
+# CONSULTA HORAS DE VOO
+@app.route("/consultar_horas")
 def consultarHoras():
     return render_template("consultar_horas.html")
 
-@app.route("/visualizar_horas")  
+
+@app.route("/visualizar_horas")
 def visualizarHoras():
     return render_template("visualizar_horas.html")
-
 
 
 # cria as tabelas do banco de dados, caso elas não estejam criadas
