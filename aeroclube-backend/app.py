@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+from aeroclube.models.pessoa_model import Pessoa
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -17,10 +19,15 @@ def home():
 ### USUARIO
 @app.route("/cadastrar_usuario")
 def cadastrarUsuario():
+    pessoa = Pessoa(nome='Diego', cpf='44898555475', email='diegobmv@gmail.com', data_nascimento=datetime.now(), dataCadastro=datetime.now())
+    pessoa.adicionar()
     return render_template("cadastrar_usuario.html")
 
 @app.route("/listar_usuario")
 def listarUsuario():
+    pessoas = Pessoa.listar()
+    print('SAHUDHAUSHUDHAUHSDUAHDUAS')
+    print(pessoas[0].nome)
     return render_template("listar_usuario.html")
 
 ### VOO
