@@ -1,19 +1,19 @@
 from app import db
 
-class Voo(db.Model):
+class Voo(Aeronave):
     __abstract__ = True
 
-    date_created = db.Column(db.DateTime, default = db.func.current_timestamp(),primary_key = True)
-    date_modified = db.Column(db.DateTime, default = db.func.current_timestamp(),
-                                           onupdate = db.func.current_timestamp())
+    dataVoo = db.Column(db.DateTime, default = db.func.current_timestamp(),primary_key = True)
+   
 
     horaSaida = db.Column(db.String(128), nullable = False)
     duracao = db.Column(db.String(128), nullable = False, unique = True)
+    aeronave = db.Column(db.Integer), ForeignKey('aeronave.id'))
 
     def __init__(self, horaSaida, duracao):
         self.horaSaida = horaSaida
         self.duracao = duracao
-
+        self.dataVoo = dataVoo
 
 
 class Aula(Voo):
@@ -38,3 +38,16 @@ class VooSimples(Voo):
 
     def __init__(self,horaSaida,duracao):
         super().__init__(horaSaida,duracao)
+
+class Aeronave(db.Model):
+    __tablename__ = 'aeronave'
+    __mapper_args__ = {'polymorphic_identity': 'aeronave'}
+
+    id = db.Column(db.Integer, primary_key = True)
+    date_created = db.Column(db.DateTime, default = db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime, default = db.func.current_timestamp(), onupdate = db.func.current_timestamp())
+
+    modelo = db.Column(db.String(128), nullable = False)
+
+    def __init__(self, modelo):
+        self.modelo = modelo
