@@ -1,7 +1,8 @@
 from app import db
 
 class Voo(db.Model):
-    __abstract__ = True
+    __tablename__ = "voo"
+    __mapper_args__ = {'polymorphic_identity': 'voo'}
 
     dataVoo = db.Column(db.DateTime, default = db.func.current_timestamp(),primary_key = True)
    
