@@ -31,7 +31,11 @@ def cadastrarUsuario():
 
         pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
         pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
-        pessoa_email = Pessoa.encontrar_pelo_email
+        pessoa_email = Pessoa.encontrar_pelo_email(email)
+        erro_nome = False
+        erro_cpf = False
+        erro_email = False
+        cadastrou_pessoa = False
         if pessoa_nome:
             erro_nome = True
         elif pessoa_cpf:
@@ -44,7 +48,8 @@ def cadastrarUsuario():
             if cargo == 'Aluno':
                 nova_pessoa.cod_curso = "12345"
             nova_pessoa.adicionar()
-    return render_template("cadastrar_usuario.html")
+            cadastrou_pessoa = True
+    return render_template("cadastrar_usuario.html", **locals())
 
 
 @app.route("/listar_usuario")
