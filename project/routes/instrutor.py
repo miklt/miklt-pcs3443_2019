@@ -3,18 +3,18 @@ from project import app, db
 from project.models.instrutor import Instrutor
 from project.models.voo import Voo
 from project.forms.vooSchema import VooForm
-from project.forms.usuarioSchema import UsuarioForm
+from project.forms.instrutorSchema import InstrutorForm
 from datetime import datetime
 import re
 
 @app.route('/cadastrar_instrutor', methods=['GET', 'POST'])
 def cadastrar_instrutor():
-    form = UsuarioForm()
+    form = InstrutorForm()
     if form.validate_on_submit():
         usuario = Instrutor(nome = form.nome.data, cpf = form.cpf.data, email = form.email.data, senha = form.senha.data, breve = form.breve.data)    
         db.session.add(usuario)
         db.session.commit()
-        flash('Usuario cadastrado com sucesso!', 'success')
+        flash('Instrutor cadastrado com sucesso!', 'success')
         return redirect(url_for('listar_instrutores'))
     return render_template('cadastrar_instrutor.html', title='Cadastrar Instrutor', legend='Cadastrar Instrutor', form=form)
 

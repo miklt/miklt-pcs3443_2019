@@ -17,14 +17,14 @@ def horasDeVoo(voos):
         total = total + tempo[0]*60 + tempo[1]
     return total
 
-@app.route('/cadastrar_aluno', methods=['GET', 'POST'])
+@app.route('/cadastrar_alunoo', methods=['GET', 'POST'])
 def cadastrar_aluno():
     form = UsuarioForm()
     if form.validate_on_submit():
         usuario = Aluno(nome = form.nome.data, cpf = form.cpf.data, email = form.email.data, senha = form.senha.data)    
         db.session.add(usuario)
         db.session.commit()
-        flash('Usuario cadastrado com sucesso!', 'success')
+        flash('Aluno cadastrado com sucesso!', 'success')
         return redirect(url_for('listar_alunos'))
     return render_template('cadastrar_aluno.html', title='Cadastrar Usuario', legend='Cadastrar Usuario', form=form)
 
