@@ -6,7 +6,7 @@ class Voo(db.Model):
 
     dataVoo = db.Column(db.DateTime, default = db.func.current_timestamp(),primary_key = True)
    
-    aeronave = db.Column(db.Integer), ForeignKey('aeronave.id'),primary_key=True)
+    aeronave = db.Column(db.Integer, ForeignKey('aeronave.id'),primary_key=True)
 
     horaSaida = db.Column(db.String(128), nullable = False)
     duracao = db.Column(db.String(128), nullable = False, unique = True)
