@@ -1,4 +1,5 @@
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Tabela com dados referentes ao sistema de Login e de roles.
 class Login(db.Model):
@@ -11,17 +12,23 @@ class Login(db.Model):
 
     name = db.Column(db.String(128), nullable = False)
     email = db.Column(db.String(128), nullable = False, unique = True)
-    password = db.Column(db.String(192), nullable = False)
+    password = db.Column(db.String(128), nullable = False)
     role = db.Column(db.String, db.Enum('Funcionario', 'Piloto', 'Instrutor', 'Aluno', name='papeis'), default='Aluno')
 
     def __init__(self, name, email, password, role):
         self.name = name
         self.email = email
-        self.password = password
         self.role = role
+        self.setPassword(password)
 
     def __repr__(self):
         return "<Nome: {}, Papel: {}>".format(self.name, self.role)
+
+    def setPassword(self, password):
+        self.password = generate_password_hash(password)
+
+    def checkPassword(self, password):
+        return check_password_hash(self.password, password)
 
 
 # Tabela com dados referentes aos Socios.
