@@ -1,8 +1,13 @@
 from app import db
+from app import login
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Tabela com dados referentes ao sistema de Login e de roles.
-class Login(db.Model):
+
+"""
+Sistema de login
+"""
+class Login(UserMixin, db.Model):
     __tablename__ = 'login'
     __mapper_args__ = {'polymorphic_identity': 'login'}
 
@@ -31,7 +36,15 @@ class Login(db.Model):
         return check_password_hash(self.password, password)
 
 
-# Tabela com dados referentes aos Socios.
+# Recarrega o usuário.
+@login.user_loader
+def load_user(id):
+    return Login.query.get(int(id))
+
+
+"""
+Tabelas referentes aos usuarios do sistema.
+"""
 class Socio(Login):
     __tablename__ = 'socio'
     __mapper_args__ = {'polymorphic_identity': 'socio'}
@@ -56,7 +69,6 @@ class Socio(Login):
         pass
 
 
-# Tabela com dados específicos do Piloto.
 class Piloto(Socio):
     __tablename__ = 'piloto'
     __mapper_args__ = {'polymorphic_identity': 'piloto'}
@@ -78,7 +90,6 @@ class Piloto(Socio):
         return 'Piloto'
 
 
-# Tabela com dados específicos do Instrutor.
 class Instrutor(Piloto):
     __tablename__ = 'instrutor'
     __mapper_args__ = {'polymorphic_identity': 'instrutor'}
@@ -105,7 +116,9 @@ class Instrutor(Piloto):
         return 'Instrutor'
 
 
-# Papeis sem tabelas no banco de dados
+"""
+Papeis sem tabelas no banco de dados
+"""
 class Funcionario(Login):
     def __init__(self, name, email, password):
         super().__init__(name = name,

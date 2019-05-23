@@ -7,3 +7,4 @@ flask-sqlalchemy
 marshmallow
 flask-marshmallow
 marshmallow-sqlalchemy
+flask-login
