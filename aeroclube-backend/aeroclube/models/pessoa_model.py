@@ -13,7 +13,6 @@ class Pessoa(Base):
     dataCadastro = db.Column(db.DateTime)
     cod_curso = db.Column(db.String(200), unique=False)
 
-
     def __init__(self, nome, cpf, email, cargo, data_nascimento):
         self.nome = nome
         self.cpf = cpf
@@ -41,6 +40,11 @@ class Pessoa(Base):
     @classmethod
     def encontrar_por_cargo(cls, cargo):
         return cls.query.filter_by(cargo=cargo).all()
+
+    @classmethod
+    def encontrar_pelo_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
 
     @classmethod
     def listar(cls):
