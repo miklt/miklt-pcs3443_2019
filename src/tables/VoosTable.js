@@ -1,30 +1,29 @@
 import React from 'react'
 
-const UserTable = props => (
+const InstrutoresTable = props => (
   <table>
     <thead>
       <tr>
-        <th>Num. Matricula</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>CPF</th>
-        <th>Data de Nascimento</th>
-        <th>Brevê</th>
-        <th>Endereço</th>
-        <th>Ações</th>
+        <th>ID</th>
+        <th>Aluno</th>
+        <th>Instrutor</th>
+        <th>Data</th>
+        <th>Saída</th>
+        <th>Chegada</th>
+        <th>Parecer</th>
       </tr>
     </thead>
     <tbody>
       {props.users.length > 0 ? (
         props.users.map(user => (
           <tr key={user.id}>
-            <td>{user.numeroMatricula}</td>
-            <td>{user.nome}</td>
-            <th>{user.email}</th>
-            <td>{user.cpf}</td>
-            <td>{user.dataNascimento}</td>
-            <td>{user.numeroBreve}</td>
-            <td>{user.endereco}</td>
+            <td>{user.id}</td>
+            <td>{user.aluno}</td>
+            <th>{user.instrutor}</th>
+            <td>{user.data}</td>
+            <td>{user.horarioSaida}</td>
+            <td>{user.horarioChegada}</td>
+            <td>{user.parecer}</td>
             <td>
               <button
                 onClick={() => {
@@ -45,11 +44,11 @@ const UserTable = props => (
         ))
       ) : (
         <tr>
-          <td colSpan={3}>Sem alunos</td>
+          <td colSpan={3}>Sem voos</td>
         </tr>
       )}
     </tbody>
   </table>
 )
 
-export default UserTable
+export default InstrutoresTable

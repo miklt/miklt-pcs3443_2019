@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserTable = props => (
+const InstrutoresTable = props => (
   <table>
     <thead>
       <tr>
@@ -11,6 +11,9 @@ const UserTable = props => (
         <th>Data de Nascimento</th>
         <th>Brevê</th>
         <th>Endereço</th>
+        <th>Curso</th>
+        <th>Instituição</th>
+        <th>Data Diploma</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -25,6 +28,9 @@ const UserTable = props => (
             <td>{user.dataNascimento}</td>
             <td>{user.numeroBreve}</td>
             <td>{user.endereco}</td>
+            <td>{user.nomeCurso}</td>
+            <td>{user.intituicaoCurso}</td>
+            <td>{user.dataDiploma}</td>
             <td>
               <button
                 onClick={() => {
@@ -45,11 +51,11 @@ const UserTable = props => (
         ))
       ) : (
         <tr>
-          <td colSpan={3}>Sem alunos</td>
+          <td colSpan={3}>Sem instrutores</td>
         </tr>
       )}
     </tbody>
   </table>
 )
 
-export default UserTable
+export default InstrutoresTable
