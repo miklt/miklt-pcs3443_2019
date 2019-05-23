@@ -18,12 +18,12 @@
                     <h3 class="block-title">Formulario de Inscricao</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="base_forms_elements_modern.html" method="post" onsubmit="return false;">
+                    <form class="form-horizontal push-10-t" action="/cadastrar_usuario" method="post">
                         
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="Nome..">
+                                    <input class="form-control" type="text" id="nome" name="nome" placeholder="Nome..">
                                     <label for="material-color-primary">Nome</label>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="Formato XXX.XXX.XXX-XX">
+                                    <input class="form-control" type="text" id="cpf" name="cpf" placeholder="Formato XXX.XXX.XXX-XX">
                                     <label for="material-color-primary">CPF</label>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="E-mail..">
+                                    <input class="form-control" type="text" id="email" name="email" placeholder="E-mail..">
                                     <label for="material-color-primary">E-mail</label>
                                 </div>
                             </div>
@@ -47,11 +47,11 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="material-select" name="material-select" size="1">
+                                    <select class="form-control" id="cargo" name="cargo" size="1">
                                         <option>Selecione uma opcao</option>
-                                        <option value="1">Piloto</option>
-                                        <option value="2">Instrutor</option>
-                                        <option value="3">Aluno</option>
+                                        <option value="Piloto">Piloto</option>
+                                        <option value="Instrutor">Instrutor</option>
+                                        <option value="Aluno">Aluno</option>
                                     </select>
                                     <label for="material-select">Categoria</label>
                                 </div>
@@ -60,7 +60,7 @@
                         <div class="form-group">
                                 <div class="col-sm-9">
                                     <div class="form-material form-material-primary">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="Formato dd/mm/aa">
+                                        <input class="form-control" type="text" id="data_nascimento" name="data_nascimento" placeholder="Formato dd/mm/aa">
                                         <label for="material-color-primary">Data de Nascimento</label>
                                     </div>
                                 </div>
