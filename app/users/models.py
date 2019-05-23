@@ -3,7 +3,6 @@ from app import login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 """
 Sistema de login
 """
@@ -143,3 +142,11 @@ class Aluno(Socio):
     @staticmethod
     def getRole():
         return 'Aluno'
+
+
+role = {
+    'Aluno': Aluno,
+    'Piloto': Piloto,
+    'Instrutor': Instrutor,
+    'Funcionario': Funcionario
+}

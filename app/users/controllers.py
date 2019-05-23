@@ -12,12 +12,6 @@ def signin():
         return "autenticado"
 
     data = request.get_json()
-
-    #email = request.form['email'] 
-    #password = request.form['password']
-    email = "e@a.aa"
-    password = "abcd"
-
     user = models.Login.query.filter_by(email = data['user']).first()
 
     if user is not None and user.checkPassword(data['password']):
@@ -42,9 +36,20 @@ def showUser():
     return "Não logado"
 
 
-@users.route('/register/')
+@users.route('/register', methods=['POST'])
 def register():
-    u = models.Aluno('teste1', 'e@a.aa', 'abcd', 'dhaosi', db.func.current_timestamp(), '123456789')
+    data = request.get_json()
+    role = models.role[data['role']]
+
+    if data['role'] == 'Aluno':
+        u = models.Aluno(data['name'], data['email'], data['password'], data['endereco'], data['dataNascimento'], data['cpf'])
+    elif data['role'] == 'Piloto':
+        u = models.Piloto(data['name'], data['email'], data['password'], data['endereco'], data['dataNascimento'], data['cpf'], data['numeroBreve'])
+    elif data['role'] == 'Instrutor':
+        u = models.Instrutor(data['name'], data['email'], data['password'], data['endereco'], data['dataNascimento'], data['cpf'], data['numeroBreve'], data['nomeInstituicao'], data['nomeCurso'], data['dataDiploma'])
+    else:
+        return "Role errado"
+
     db.session.add(u)
     db.session.commit()
 
