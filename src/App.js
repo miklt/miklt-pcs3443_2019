@@ -2,6 +2,7 @@ import React from "react"
 import Header from "./Header"
 import Sidebar from "./Sidebar"
 import Login from "./Login"
+import Condicional from "./Condicional"
 import "./App.css"
 
 class App extends React.Component {
@@ -16,7 +17,7 @@ class App extends React.Component {
                 <div className="divTable">
                     <div className="divRow">
                         <div className="divCell"><Sidebar /></div>
-                        <div className="divCell"><Login /></div>
+                        <div className="divCell"><Condicional /></div>
                     </div>
                 </div>
             </div>
