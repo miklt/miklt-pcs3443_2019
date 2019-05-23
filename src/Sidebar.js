@@ -8,8 +8,8 @@ class Sidebar extends React.Component {
             <div>
                 <ul class="sidebarAba">
                     <li className="sidebarHeader">MENU</li>
-                    <li><Aba name="Login" nameHtml="./Nome1.html"/></li>
-                    <li><Aba name="Agendamentos" nameHtml="./Nome2.html"/></li>
+                    <li><Aba name="Login" nameHtml="./Login.html"/></li>
+                    <li><Aba name="Agendamentos" nameHtml="./Agendamento.html"/></li>
                     <li><Aba name="Perfil" nameHtml="./Nome3.html"/></li>
                     <li><Aba name="Informações" nameHtml="./Nome4.html"/></li>
                     <li><Aba name="Configurações" nameHtml="./Nome5.html"/></li>

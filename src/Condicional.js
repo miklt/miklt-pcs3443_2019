@@ -11,14 +11,14 @@ class Condicional extends React.Component {
     }
 
     render () {
-        if (this.pagina === "/Nome1.html") {
+        if (this.pagina === "/Login.html") {
             return (
                 <div>
                     <Login />
                 </div>
             )
         }
-        if (this.pagina === "/Nome2.html") {
+        if (this.pagina === "/Agendamento.html") {
             return (
                 <div>
                     <Agendamento />
