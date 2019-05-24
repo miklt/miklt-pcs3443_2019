@@ -1,0 +1,28 @@
+.telaCadastro {
+    margin: 5em 20em 20em;
+}
+
+.telaCadastro input {
+    display: block;
+}
+
+.telaCadastro select {
+    width: 100%;
+    display: block;
+}
+
+.telaCadastro button{
+    font-family: Microsoft JhengHei Light, sans-serif;
+    width: auto;
+    color: white;
+    background-color: black;
+    border: solid;
+    border-color: black;
+    margin: 1em 0em;
+}
+
+.telaCadastro button:hover{
+    background-color: #2c71b1;
+    border-color: #2c71b1;
+    border-bottom-color: #2c71b1;
+}

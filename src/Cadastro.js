@@ -4,11 +4,13 @@ import {url_v3} from "./App"
 import axios from 'axios';
 
 class Cadastro extends React.Component {
+    
     constructor() {
         super();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.changeVisibility = this.changeVisibility.bind(this);
+
         this.state = {
             name: '',
             dataNascimento: '',
@@ -17,17 +19,21 @@ class Cadastro extends React.Component {
             email: '',
             role: '',
             password: '',
+            breve: '',
+            isHidden: true,
         }
     }
 
     changeVisibility() {
-        if (this.state.role === "Piloto") {
-            document.getElementById("extendido")
+        if (this.state.role === "Piloto" || this.state.role === "Instrutor") {
+            this.setState({isHidden: false})
+        } else {
+            this.setState({isHidden: true})
         }
     }
 
     handleChange(event) {
-        this.setState({[event.target.name] : event.target.value})
+        this.setState({[event.target.name] : event.target.value})        
     }
 
     handleSubmit(event){ 
@@ -41,8 +47,9 @@ class Cadastro extends React.Component {
     render () {
         
         return (
+            
             <div>
-                <form className="telaLogin" onSubmit={this.handleSubmit}>
+                <form className="telaCadastro" onSubmit={this.handleSubmit}>
 
                     <label htmlFor="name">Nome:</label>
                     <input type="text" name="name" id="name" onChange={this.handleChange}/>
@@ -56,13 +63,19 @@ class Cadastro extends React.Component {
                     <label htmlFor = "password">Senha:</label>
                     <input type="password" name="password" id="password"  onChange={this.handleChange}/>
 
-                    <select name="role" id="role">
-                        <option value="" disabled selected>Select your option</option>
+                    <label htmlFor = "role">Tipo de Sócio:</label>
+                    <select name="role" id="role" onChange={this.handleChange} onClick={this.changeVisibility}>
+                        <option value="" disabled selected>Selecione</option>
                         <option value="Aluno">Aluno</option>
                         <option value="Instrutor">Instrutor</option>
                         <option value="Piloto">Piloto</option>
                     </select>
 
+                    {!this.state.isHidden && 
+                    <div>
+                        <label htmlFor = "breve">Brevê:</label>
+                        <input type="breve" name="breve" id="breve"  onChange={this.handleChange}/>
+                    </div>}
                     
 
 
