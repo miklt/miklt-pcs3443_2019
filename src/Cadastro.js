@@ -21,7 +21,7 @@ class Cadastro extends React.Component {
     }
 
     changeVisibility() {
-        if (this.state.role == "Piloto") {
+        if (this.state.role === "Piloto") {
             document.getElementById("extendido")
         }
     }
@@ -33,9 +33,9 @@ class Cadastro extends React.Component {
     handleSubmit(event){ 
         const url = url_v3+'login';
         axios.post(url, { user: this.state.user, password: this.state.password })
-            .catch(error => {
-                alert(error)
-            });
+        .catch(error => {
+            alert(error)
+        });
     };
 
     render () {
