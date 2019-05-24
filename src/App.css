@@ -92,5 +92,5 @@ ul.sem-marcador, ol.sem-marcador{
 
 .divCell {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
 }
