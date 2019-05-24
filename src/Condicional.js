@@ -12,28 +12,28 @@ class Condicional extends React.Component {
     }
 
     render () {
-        if (this.pagina === "/Login.html") {
+        if (this.pagina === "/Login") {
             return (
                 <div>
                     <Login />
                 </div>
             )
         }
-        if (this.pagina === "/Agendamento.html") {
+        if (this.pagina === "/Agendamento") {
             return (
                 <div>
                     <Agendamento />
                 </div>
             )
         }
-        if (this.pagina === "/Nome3.html") {
+        if (this.pagina === "/Perfil") {
             return (
                 <div>
                     <p>{this.pagina}</p>
                 </div>
             )
         }
-        if (this.pagina === "/Cadastro.html") {
+        if (this.pagina === "/Cadastro") {
             return (
                 <div>
                    <Cadastro />
