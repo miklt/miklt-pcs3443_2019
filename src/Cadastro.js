@@ -20,7 +20,6 @@ class Cadastro extends React.Component {
             password: '',
             breve: '',
             instituicao: '',
-            isHidden: true,
         }
     }
 
