@@ -17,7 +17,10 @@ class Sidebar extends React.Component {
 
     getState(event) {
         const url = url_v3+'login';
-        axios.get(url, { user: this.state.user, password: this.state.password })
+        axios.get(url, { 
+            user: this.state.user, 
+            password: this.state.password,
+         })
         .then(function(response) {
             console.log(response.data)
             this.setState({isLoggedIn : response.data.isLoggedIn, role : response.data.role})
@@ -31,17 +34,43 @@ class Sidebar extends React.Component {
 
         this.getState()
         if (this.state.isLoggedIn) {
-            return (
-                <div>
-                    <ul className="sidebarAba">
-                        <li className="sidebarHeader">MENU</li>
-                        <li><Aba name="Log Out" nameHtml="./Logout.html"/></li>
-                        <li><Aba name="Agendamentos" nameHtml="./Agendamento.html"/></li>
-                        <li><Aba name="Perfil" nameHtml="./Perfil.html"/></li>
-                        <li><Aba name="Configurações" nameHtml="./Configuracoes.html"/></li>
-                    </ul>
-                </div>
-            )
+            if (this.state.role === "Aluno") { 
+                return (
+                    <div>
+                        <ul className="sidebarAba">
+                            <li className="sidebarHeader">MENU</li>
+                            <li><Aba name="Agendamentos" nameHtml="./Agendamento.html"/></li>
+                            <li><Aba name="Perfil" nameHtml="./Perfil.html"/></li>
+                            <li><Aba name="Configurações" nameHtml="./Configuracoes.html"/></li>
+                            <li><Aba name="Log Out" nameHtml="./Logout.html"/></li>
+                        </ul>
+                    </div>
+                )
+            } else if (this.state.role === "Piloto") {
+                return (
+                    <div>
+                        <ul className="sidebarAba">
+                            <li className="sidebarHeader">MENU</li>
+                            <li><Aba name="Agendamentos" nameHtml="./Agendamento.html"/></li>
+                            <li><Aba name="Perfil" nameHtml="./Perfil.html"/></li>
+                            <li><Aba name="Configurações" nameHtml="./Configuracoes.html"/></li>
+                            <li><Aba name="Log Out" nameHtml="./Logout.html"/></li>
+                        </ul>
+                    </div>
+                )
+            } else if (this.state.role === "Instrutor") {
+                return (
+                    <div>
+                        <ul className="sidebarAba">
+                            <li className="sidebarHeader">MENU</li>
+                            <li><Aba name="Agendamentos" nameHtml="./Agendamento.html"/></li>
+                            <li><Aba name="Perfil" nameHtml="./Perfil.html"/></li>
+                            <li><Aba name="Configurações" nameHtml="./Configuracoes.html"/></li>
+                            <li><Aba name="Log Out" nameHtml="./Logout.html"/></li>
+                        </ul>
+                    </div>
+                )
+            }
         } else {
             return (
                 <div>

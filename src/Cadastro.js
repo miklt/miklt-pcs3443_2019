@@ -9,7 +9,6 @@ class Cadastro extends React.Component {
         super();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.changeVisibility = this.changeVisibility.bind(this);
 
         this.state = {
             name: '',
@@ -20,15 +19,8 @@ class Cadastro extends React.Component {
             role: '',
             password: '',
             breve: '',
+            instituicao: '',
             isHidden: true,
-        }
-    }
-
-    changeVisibility() {
-        if (this.state.role === "Piloto" || this.state.role === "Instrutor") {
-            this.setState({isHidden: false})
-        } else {
-            this.setState({isHidden: true})
         }
     }
 
@@ -38,7 +30,18 @@ class Cadastro extends React.Component {
 
     handleSubmit(event){ 
         const url = url_v3+'login';
-        axios.post(url, { user: this.state.user, password: this.state.password })
+        console.log(this.state)
+        axios.post(url, { 
+            name: this.state.name,
+            dataNascimento: this.state.dataNascimento,
+            cpf: this.state.cpf,
+            endereco: this.state.endereco,
+            email: this.state.email,
+            role: this.state.role,
+            password: this.state.password,
+            breve: this.state.breve,
+            instituicao: this.state.instituicao, 
+        })
         .catch(error => {
             alert(error)
         });
@@ -64,17 +67,22 @@ class Cadastro extends React.Component {
                     <input type="password" name="password" id="password"  onChange={this.handleChange}/>
 
                     <label htmlFor = "role">Tipo de Sócio:</label>
-                    <select name="role" id="role" onChange={this.handleChange} onClick={this.changeVisibility}>
-                        <option value="" disabled selected>Selecione</option>
+                    <select defaultValue="" name="role" id="role" onChange={this.handleChange} onClick={this.changeVisibility}>
+                        <option value="" disabled>Selecione</option>
                         <option value="Aluno">Aluno</option>
-                        <option value="Instrutor">Instrutor</option>
                         <option value="Piloto">Piloto</option>
+                        <option value="Instrutor">Instrutor</option>
                     </select>
 
-                    {!this.state.isHidden && 
+                    {(this.state.role === "Piloto" || this.state.role === "Instrutor") && 
                     <div>
                         <label htmlFor = "breve">Brevê:</label>
                         <input type="breve" name="breve" id="breve"  onChange={this.handleChange}/>
+                        {(this.state.role === "Instrutor") &&
+                        <div>
+                            <label htmlFor="instituicao">Instituição de ensino:</label>
+                            <input type="instituicao" name="instituicao" id="instituicao"  onChange={this.handleChange}/>        
+                        </div>}
                     </div>}
                     
 
