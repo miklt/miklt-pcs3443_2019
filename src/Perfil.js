@@ -14,7 +14,7 @@ class Perfil extends React.Component {
         }
     }
 
-    getState(event) {
+    getState(event)  {
         const url = url_v3+'login';
         axios.get(url, { 
             user: this.state.user, 
