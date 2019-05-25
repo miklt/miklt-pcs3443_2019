@@ -2,7 +2,7 @@ import React from "react"
 import Login from "./Login"
 import Agendamento from "./Agendamento"
 import Cadastro from "./Cadastro"
-
+import Perfil from "./Perfil"
 
 class Condicional extends React.Component {
 
@@ -29,7 +29,7 @@ class Condicional extends React.Component {
         if (this.pagina === "/Perfil") {
             return (
                 <div>
-                    <p>{this.pagina}</p>
+                    <p><Perfil /></p>
                 </div>
             )
         }
