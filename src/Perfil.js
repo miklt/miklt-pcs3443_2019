@@ -5,13 +5,9 @@ import {url_v3} from "./App"
 
 class Perfil extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            name: '',
-            role: '',
-            horas: '',
-        }
+    constructor(props) {
+        super(props);
+        this.state = this.props.state
     }
 
     getState(event) {

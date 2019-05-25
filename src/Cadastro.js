@@ -11,15 +11,15 @@ class Cadastro extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
-            name: '',
-            dataNascimento: '',
-            cpf: '',
-            endereco: '',
-            email: '',
-            role: '',
-            password: '',
-            breve: '',
-            instituicao: '',
+            name: 'teste',
+            dataNascimento: 'teste',
+            cpf: 'teste',
+            endereco: 'teste',
+            email: 'teste',
+            role: 'teste',
+            password: 'teste',
+            breve: 'teste',
+            instituicao: 'teste',
         }
     }
 

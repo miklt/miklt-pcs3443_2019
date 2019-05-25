@@ -6,30 +6,31 @@ import Perfil from "./Perfil"
 
 class Condicional extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.pagina = window.location.pathname
+        this.state = this.props.state
     }
 
     render () {
         if (this.pagina === "/Login") {
             return (
                 <div>
-                    <Login />
+                    <Login state={this.state}/>
                 </div>
             )
         }
         if (this.pagina === "/Agendamento") {
             return (
                 <div>
-                    <Agendamento />
+                    <Agendamento state={this.state}/>
                 </div>
             )
         }
         if (this.pagina === "/Perfil") {
             return (
                 <div>
-                    <p><Perfil /></p>
+                    <p><Perfil state={this.state}/></p>
                 </div>
             )
         }

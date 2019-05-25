@@ -8,6 +8,22 @@ export const url_v3 = 'http://127.0.0.1:5000/'
 
 class App extends React.Component {
 
+    constructor() {
+        super()
+        this.state = {
+            name: '',
+            dataNascimento: '',
+            cpf: '',
+            endereco: '',
+            email: '',
+            role: '',
+            password: '',
+            breve: '',
+            instituicao: '',
+            isLoggedIn: false,
+        }
+    }
+
     render () {
 
         return (
@@ -17,8 +33,8 @@ class App extends React.Component {
                 </div>
                 <div className="divTable">
                     <div className="divRow">
-                        <div className="divCell"><Sidebar /></div>
-                        <div className="divCell"><Condicional /></div>
+                        <div className="divCell"><Sidebar state={this.state} /></div>
+                        <div className="divCell"><Condicional state={this.state}/></div>
                     </div>
                 </div>
             </div>

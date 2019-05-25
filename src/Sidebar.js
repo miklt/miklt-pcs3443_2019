@@ -6,13 +6,11 @@ import axios from "axios";
 
 class Sidebar extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.getState = this.getState.bind(this)
-        this.state = {
-            isLoggedIn: false,
-            role: "Aluno",
-        }
+        this.state = this.props.state
+        console.log(this.state)
     }
 
     getState(event) {

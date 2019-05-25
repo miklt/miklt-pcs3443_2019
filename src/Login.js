@@ -4,14 +4,12 @@ import {url_v3} from "./App"
 import axios from 'axios';
 
 class Login extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = {
-            user: '',
-            password: '',
-        }
+        this.state = this.props.state
+        
     }
 
     handleChange(event) {
