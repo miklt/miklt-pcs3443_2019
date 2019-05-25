@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from aeroclube.models.pessoa_model import Pessoa
-from datetime import datetime
+from datetime import datetime, date
 
 
 app = Flask(__name__)
@@ -24,7 +24,8 @@ def cadastrarUsuario():
         cpf = request.form['cpf']
         email = request.form['email']
         data_nascimento_str = request.form['data_nascimento']
-        data_nascimento = datetime.strptime(data_nascimento_str, '%d/%m/%Y')
+        data_nascimento = datetime.strptime(data_nascimento_str,
+                                            '%d/%m/%Y').date()
         cargo = request.form['cargo']
 
         pessoa_nome = Pessoa.encontrar_pelo_nome(nome)

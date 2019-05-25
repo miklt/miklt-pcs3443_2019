@@ -1,5 +1,5 @@
 from dao import db, Base
-from datetime import datetime
+from datetime import date
 
 
 class Pessoa(Base):
@@ -8,9 +8,9 @@ class Pessoa(Base):
     nome = db.Column(db.String(200), unique=True)
     cpf = db.Column(db.Integer, unique=True)
     email = db.Column(db.String(200), unique=True)
-    data_nascimento = db.Column(db.DateTime)
+    data_nascimento = db.Column(db.Date)
     cargo = db.Column(db.String(200), unique=False)
-    dataCadastro = db.Column(db.DateTime)
+    dataCadastro = db.Column(db.Date)
     cod_curso = db.Column(db.String(200), unique=False)
 
     def __init__(self, nome, cpf, email, cargo, data_nascimento):
@@ -19,7 +19,7 @@ class Pessoa(Base):
         self.email = email
         self.data_nascimento = data_nascimento
         self.cargo = cargo
-        self.dataCadastro = datetime.now()
+        self.dataCadastro = date.today()
 
     def adicionar(self):
         db.session.add(self)
