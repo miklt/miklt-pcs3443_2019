@@ -10,6 +10,7 @@ class App extends React.Component {
 
     constructor() {
         super()
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             name: '',
             dataNascimento: '',
@@ -20,8 +21,14 @@ class App extends React.Component {
             password: '',
             breve: '',
             instituicao: '',
+            user: '',
             isLoggedIn: false,
         }
+    }
+
+    handleChange(event) {
+        this.setState({[event.target.name] : event.target.value})
+        console.log(this.state)
     }
 
     render () {
@@ -33,8 +40,8 @@ class App extends React.Component {
                 </div>
                 <div className="divTable">
                     <div className="divRow">
-                        <div className="divCell"><Sidebar state={this.state} /></div>
-                        <div className="divCell"><Condicional state={this.state}/></div>
+                        <div className="divCell"><Sidebar state={this.state} handleChange={this.handleChange}/></div>
+                        <div className="divCell"><Condicional state={this.state} handleChange={this.handleChange}/></div>
                     </div>
                 </div>
             </div>

@@ -9,28 +9,27 @@ class Condicional extends React.Component {
     constructor(props) {
         super(props)
         this.pagina = window.location.pathname
-        this.state = this.props.state
     }
 
     render () {
         if (this.pagina === "/Login") {
             return (
                 <div>
-                    <Login state={this.state}/>
+                    <Login state={this.props.state} handleChange={this.props.handleChange}/>
                 </div>
             )
         }
         if (this.pagina === "/Agendamento") {
             return (
                 <div>
-                    <Agendamento state={this.state}/>
+                    <Agendamento state={this.props.state}/>
                 </div>
             )
         }
         if (this.pagina === "/Perfil") {
             return (
                 <div>
-                    <p><Perfil state={this.state}/></p>
+                    <p><Perfil state={this.props.state}/></p>
                 </div>
             )
         }

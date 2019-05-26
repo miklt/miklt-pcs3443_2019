@@ -9,15 +9,14 @@ class Sidebar extends React.Component {
     constructor(props) {
         super(props)
         this.getState = this.getState.bind(this)
-        this.state = this.props.state
-        console.log(this.state)
+        console.log(this.props.state)
     }
 
     getState(event) {
         const url = url_v3+'login';
         axios.get(url, { 
-            user: this.state.user, 
-            password: this.state.password,
+            user: this.props.state.user, 
+            password: this.props.state.password,
          })
         .then(function(response) {
             console.log(response.data)
@@ -31,8 +30,8 @@ class Sidebar extends React.Component {
     render () {
 
         this.getState()
-        if (this.state.isLoggedIn) {
-            if (this.state.role === "Aluno") { 
+        if (this.props.state.isLoggedIn) {
+            if (this.props.state.role === "Aluno") { 
                 return (
                     <div>
                         <ul className="sidebarAba">
@@ -44,7 +43,7 @@ class Sidebar extends React.Component {
                         </ul>
                     </div>
                 )
-            } else if (this.state.role === "Piloto") {
+            } else if (this.props.state.role === "Piloto") {
                 return (
                     <div>
                         <ul className="sidebarAba">
@@ -56,7 +55,7 @@ class Sidebar extends React.Component {
                         </ul>
                     </div>
                 )
-            } else if (this.state.role === "Instrutor") {
+            } else if (this.props.state.role === "Instrutor") {
                 return (
                     <div>
                         <ul className="sidebarAba">
