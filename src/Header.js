@@ -9,7 +9,7 @@ class Header extends React.Component {
                         <div className="coluna col 4">
                             <h1 className="logo">Aviação ltd.</h1>
                         </div>
-                        <div className="coluna col8">
+                        <div className="coluna col6">
                             <nav>
                                 <ul className="menu inline sem-marcador">
                                     <li><a href="servicos">Serviços</a></li>
