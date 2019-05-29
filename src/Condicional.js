@@ -15,9 +15,7 @@ class Condicional extends React.Component {
         switch(this.pagina) {
             default:
                 return (
-                    <div>
-                        <p>{this.pagina}</p>
-                    </div>
+                    <div></div>
                 )
             case "/Login":
                 return (
@@ -26,17 +24,27 @@ class Condicional extends React.Component {
                     </div>
                 )
             case "/Agendamento":
-                return (
-                    <div>
-                        <Agendamento state={this.props.state}/>
-                    </div>
-                )
+                if (this.props.state.isLoggedIn)    
+                    return (
+                        <div>
+                            <Agendamento state={this.props.state}/>
+                        </div>
+                    )
+                else
+                    return(
+                        <div></div>
+                    )
             case "/Perfil":
-                return (
-                    <div>
-                        <p><Perfil state={this.props.state}/></p>
-                    </div>
-                )
+                if (this.props.state.isLoggedIn)    
+                    return (
+                        <div>
+                            <p><Perfil state={this.props.state}/></p>
+                        </div>
+                    )
+                else
+                    return(
+                        <div></div>
+                    )
             case "/Cadastro":
                 return (
                     <div>
