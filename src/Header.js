@@ -12,11 +12,9 @@ class Header extends React.Component {
                         <div className="coluna col8">
                             <nav>
                                 <ul className="menu inline sem-marcador">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="clientes.html">Clientes</a></li>
-                                    <li><a href="servicos.html">Serviços</a></li>
-                                    <li><a href="sobre.html">Sobre</a></li>
-                                    <li><a href="contato.html">Contato</a></li>
+                                    <li><a href="servicos">Serviços</a></li>
+                                    <li><a href="sobre">Sobre</a></li>
+                                    <li><a href="contato">Contato</a></li>
                                 </ul>
                             </nav>
                         </div>

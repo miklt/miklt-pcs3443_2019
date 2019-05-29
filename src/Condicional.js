@@ -12,40 +12,66 @@ class Condicional extends React.Component {
     }
 
     render () {
-        if (this.pagina === "/Login") {
-            return (
-                <div>
-                    <Login state={this.props.state} handleChange={this.props.handleChange}/>
-                </div>
-            )
-        }
-        if (this.pagina === "/Agendamento") {
-            return (
-                <div>
-                    <Agendamento state={this.props.state}/>
-                </div>
-            )
-        }
-        if (this.pagina === "/Perfil") {
-            return (
-                <div>
-                    <p><Perfil state={this.props.state}/></p>
-                </div>
-            )
-        }
-        if (this.pagina === "/Cadastro") {
-            return (
-                <div>
-                   <Cadastro />
-                </div>
-            )
-        }
-        return (
-            <div>
-                <p>{this.pagina}</p>
-            </div>
-        )
-        
+        switch(this.pagina) {
+            default:
+                return (
+                    <div>
+                        <p>{this.pagina}</p>
+                    </div>
+                )
+            case "/Login":
+                return (
+                    <div>
+                        <Login state={this.props.state} handleChange={this.props.handleChange}/>
+                    </div>
+                )
+            case "/Agendamento":
+                return (
+                    <div>
+                        <Agendamento state={this.props.state}/>
+                    </div>
+                )
+            case "/Perfil":
+                return (
+                    <div>
+                        <p><Perfil state={this.props.state}/></p>
+                    </div>
+                )
+            case "/Cadastro":
+                return (
+                    <div>
+                        <Cadastro />
+                    </div>
+                )
+            case "/servicos":
+                return(
+                <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
+                    <h1>Serviços:</h1>
+                    <ul>
+                        <li>Curso básico para aeronaves</li>
+                        <li>Curso intermediário para aeronaves</li>
+                        <li>Curso avançado para aeronaves</li>
+                        <li>Prática com instrutor</li>
+                        <li>Prática sem instrutor</li>
+                    </ul>
+                </div>  
+                )
+            case "/sobre":
+                return(
+                    <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
+                        <h1>Escola de Aviação ltd.</h1>
+                        <p>A Escola de Aviação ltd. é um aeroclube especializado em formar alunos para os diversos desafios encontrados no céu. Se você procura um lugar para aprender ou simmplesmente praticar, sua busca acabou.</p>
+                    </div>    
+                )
+            case "/contato":
+                return(
+                    <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
+                        <h1>Contato</h1>
+                        <p>Endereço: Av. Prof. Luciano Gualberto, 158 - Butantã, São Paulo - SP, 05508-010</p>
+                        <p>Telefone: (11) 92568-7895</p>
+                    </div>
+                )
+        }    
     }
 }
 
