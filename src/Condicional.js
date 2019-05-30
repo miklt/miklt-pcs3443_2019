@@ -3,6 +3,7 @@ import Login from "./Login"
 import Agendamento from "./Agendamento"
 import Cadastro from "./Cadastro"
 import Perfil from "./Perfil"
+import Socios from "./Socios"
 
 class Condicional extends React.Component {
 
@@ -50,6 +51,18 @@ class Condicional extends React.Component {
                     <div>
                         <Cadastro />
                     </div>
+                )
+            case "/Socios":
+                return (
+                    <div>
+                        <Socios />
+                    </div>
+                )
+
+            case "/Log Out":
+                this.props.logout()
+                return (
+                    <div></div>
                 )
             case "/servicos":
                 return(
