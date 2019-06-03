@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row mb-4">
+      <div class="col-6">
+        <h2>Alunos</h2>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-outline-success float-right" (click)="addAluno()"> Cadastrar Aluno</button>      
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Num. de Matrícula</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>CPF</th>
+        <th>Nascimento</th>
+        <th>Endereço</th>
+        <th>Brevê</th>
+        <th>Ação</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="!loading">
+      <tr *ngFor="let aluno of alunos">
+        <td (click)="goToAluno(aluno)">{{aluno.numeroMatricula}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.nome}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.email}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.cpf}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.dataNascimento}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.endereco}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.numeroBreve}}</td>
+        <td>
+          <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editAluno(aluno)">
+            <i class="fa fa-edit"></i>     
+          </button>
+          <button class="btn btn-danger btn-xs ml-1 mb-1" (click)="deleteAluno(aluno)">       
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 text-center" *ngIf="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <span class="ml-3">Carregando...</span>
+  </div>
+</div>
+
