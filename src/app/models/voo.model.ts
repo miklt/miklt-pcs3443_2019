@@ -4,6 +4,8 @@ export class Voo {
   horarioSaida: string;
   horarioChegada: string;
   parecer: number;
+  aluno: number;
+  instrutor: number;
 }
 
 export interface APIResponse<T> {
