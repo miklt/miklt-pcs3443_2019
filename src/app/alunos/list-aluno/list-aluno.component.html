@@ -16,7 +16,6 @@
         <th>Email</th>
         <th>CPF</th>
         <th>Nascimento</th>
-        <th>Endereço</th>
         <th>Brevê</th>
         <th>Ação</th>
       </tr>
@@ -26,9 +25,8 @@
         <td (click)="goToAluno(aluno)">{{aluno.numeroMatricula}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.nome}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.email}}</td>
-        <td (click)="goToAluno(aluno)">{{aluno.cpf}}</td>
-        <td (click)="goToAluno(aluno)">{{aluno.dataNascimento}}</td>
-        <td (click)="goToAluno(aluno)">{{aluno.endereco}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.cpf | mask: '000.000.000-00'}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.dataNascimento | mask: '00/00/0000'}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.numeroBreve}}</td>
         <td>
           <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editAluno(aluno)">

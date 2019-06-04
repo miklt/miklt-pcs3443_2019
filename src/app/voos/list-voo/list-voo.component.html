@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row mb-4">
+      <div class="col-6">
+        <h2>Voos</h2>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-outline-success float-right" (click)="addVoo()">Registrar Voo</button>      
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Data</th>
+        <th>Saída</th>
+        <th>Chegada</th>
+        <th>Aluno</th>
+        <th>Instrutor</th>
+        <th>Parecer</th>
+        <th>Ação</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="!loading">
+      <tr *ngFor="let voo of voos">
+        <td (click)="goToVoo(voo)">{{voo.id}}</td>
+        <td (click)="goToVoo(voo)">{{voo.data | mask: '00/00/0000'}}</td>
+        <td (click)="goToVoo(voo)">{{voo.horarioSaida | mask: 'HH:mm'}}</td>
+        <td (click)="goToVoo(voo)">{{voo.horarioChegada | mask: 'HH:mm'}}</td>
+        <td (click)="goToVoo(voo)">{{voo.dadosAluno.nome}}</td>
+        <td (click)="goToVoo(voo)">{{voo.dadosInstrutor.nome}}</td>
+        <td (click)="goToVoo(voo)">{{voo.parecer}}</td>
+        <td>
+          <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editVoo(voo)">
+            <i class="fa fa-edit"></i>     
+          </button>
+          <button class="btn btn-danger btn-xs ml-1 mb-1" (click)="deleteVoo(voo)">       
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 text-center" *ngIf="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <span class="ml-3">Carregando...</span>
+  </div>
+</div>
+

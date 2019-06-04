@@ -1,44 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { Aluno } from '../models/aluno.model';
-import { AlunoService } from '../services/aluno.service';
+import { Instrutor } from '../../models/instrutor.model';
+import { InstrutorService } from '../../services/instrutor.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-edit-aluno',
-  templateUrl: './edit-aluno.component.html',
-  styleUrls: ['./edit-aluno.component.scss']
+  selector: 'app-edit-instrutor',
+  templateUrl: './edit-instrutor.component.html',
+  styleUrls: ['./edit-instrutor.component.scss']
 })
-export class EditAlunoComponent implements OnInit {
+export class EditInstrutorComponent implements OnInit {
 
-  public aluno: Aluno = new Aluno();
+  public instrutor: Instrutor = new Instrutor();
   public loading = false;
   public success = false;
   public error = false;
   public errorMsg = null;
-  constructor(public alunoService: AlunoService, public route: ActivatedRoute) {
+  constructor(public instrutorService: InstrutorService, public route: ActivatedRoute) {
     this.load();
   }
 
   load() {
     this.loading = true;
     this.route.params.subscribe(params => {
-      this.aluno.numeroMatricula = params.id;
-      this.alunoService.getAll().subscribe(response => {
+      this.instrutor.numeroMatricula = params.id;
+      this.instrutorService.getAll().subscribe(response => {
         console.log(response);
 // tslint:disable-next-line: triple-equals
-        const aluno = response.data.find(a => a.numeroMatricula == this.aluno.numeroMatricula);
-        console.log(aluno);
-        this.aluno = aluno;
+        const instrutor = response.data.find(a => a.numeroMatricula == this.instrutor.numeroMatricula);
+        console.log(instrutor);
+        this.instrutor = instrutor;
         this.loading = false;
       });
     });
   }
 
-  salvarAluno(aluno: Aluno) {
+  salvarInstrutor(instrutor: Instrutor) {
     this.loading = true;
     this.success = false;
     this.error = false;
-    this.alunoService.update(aluno).subscribe(response => {
+    this.instrutorService.update(instrutor).subscribe(response => {
       console.log(response);
       this.success = true;
       this.loading = false;

@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-12">
+      <div class="row mb-4">
+        <div class="col-6">
+          <h2>Aluno - {{aluno.nome}}</h2>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)"> Editar Aluno</button>      
+        </div>
+      </div>
+
+    </div>
+    <div class="col-12 text-center" *ngIf="loading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <span class="ml-3">Carregando...</span>
+    </div>
+
+    <div class="col-8">
+        <table class="table table-bordered" *ngIf="!loading">
+          <tbody *ngIf="!loading">
+          <tr>
+            <td><b>Num. Matricula</b></td>
+            <td>{{aluno.numeroMatricula}}</td>
+          </tr>
+          <tr>
+            <td><b>Nome</b></td>
+            <td>{{aluno.nome}}</td>
+          </tr>
+          <tr>
+            <td><b>Email</b></td>
+            <td>{{aluno.email}}</td>
+          </tr>
+          <tr>
+            <td><b>CPF</b></td>
+            <td>{{aluno.cpf | mask: '000.000.000-00'}}</td>
+          </tr>
+          <tr>
+            <td><b>Data de Nascimento</b></td>
+            <td>{{aluno.dataNascimento | mask: '00/00/0000'}}</td>
+          </tr>
+          <tr>
+            <td><b>Endereço</b></td>
+            <td>{{aluno.endereco}}</td>
+          </tr>
+          <tr>
+            <td><b>Num. Brevê</b></td>
+            <td>{{aluno.numeroBreve}}</td>
+          </tr>
+            
+          </tbody>
+        </table>
+    </div>
+  </div>

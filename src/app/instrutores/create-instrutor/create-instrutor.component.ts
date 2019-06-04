@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { Aluno } from '../models/aluno.model';
-import { AlunoService } from '../services/aluno.service';
+import { Instrutor } from '../../models/instrutor.model';
+import { InstrutorService } from '../../services/instrutor.service';
 
 @Component({
-  selector: 'app-create-aluno',
-  templateUrl: './create-aluno.component.html',
-  styleUrls: ['./create-aluno.component.scss']
+  selector: 'app-create-instrutor',
+  templateUrl: './create-instrutor.component.html',
+  styleUrls: ['./create-instrutor.component.scss']
 })
-export class CreateAlunoComponent implements OnInit {
+export class CreateInstrutorComponent implements OnInit {
 
-  public novoAluno: Aluno = new Aluno();
+  public novoInstrutor: Instrutor = new Instrutor();
   public success = false;
   public loading = false;
   public error = false;
   public errorMsg = null;
-  constructor(public alunoService: AlunoService) { }
+  constructor(public instrutorService: InstrutorService) { }
 
   ngOnInit() {
   }
 
-  salvarAluno(aluno: Aluno) {
+  salvarInstrutor(instrutor: Instrutor) {
     this.loading = true;
     this.success = false;
     this.error = false;
-    this.alunoService.create(aluno).subscribe(response => {
+    this.instrutorService.create(instrutor).subscribe(response => {
       console.log(response);
       this.success = true;
       this.loading = false;
-      this.novoAluno = new Aluno();
+      this.novoInstrutor = new Instrutor();
     }, errResponse => {
       console.log(errResponse);
       this.loading = false;

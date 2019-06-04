@@ -2,10 +2,10 @@
     <div class="col-12">
       <div class="row mb-4">
         <div class="col-6">
-          <h2>Aluno - {{aluno.nome}}</h2>
+          <h2>Voo - {{voo.nome}}</h2>
         </div>
         <div class="col-6">
-          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)"> Editar Aluno</button>      
+          <button class="btn btn-outline-success float-right" (click)="editVoo(voo)"> Editar Voo</button>      
         </div>
       </div>
 
@@ -21,32 +21,32 @@
         <table class="table table-bordered" *ngIf="!loading">
           <tbody *ngIf="!loading">
           <tr>
-            <td><b>Num. Matricula</b></td>
-            <td>{{aluno.numeroMatricula}}</td>
+            <td><b>ID</b></td>
+            <td>{{voo.id}}</td>
           </tr>
           <tr>
-            <td><b>Nome</b></td>
-            <td>{{aluno.nome}}</td>
+            <td><b>Aluno</b></td>
+            <td>{{voo.dadosAluno.nome}} - {{voo.dadosAluno.numeroMatricula}}</td>
           </tr>
           <tr>
-            <td><b>Email</b></td>
-            <td>{{aluno.email}}</td>
+            <td><b>Instrutor</b></td>
+            <td>{{voo.dadosInstrutor.nome}} - {{voo.dadosInstrutor.numeroMatricula}}</td>
           </tr>
           <tr>
-            <td><b>CPF</b></td>
-            <td>{{aluno.cpf}}</td>
+            <td><b>Parecer</b></td>
+            <td>{{voo.parecer}}</td>
           </tr>
           <tr>
-            <td><b>Data de Nascimento</b></td>
-            <td>{{aluno.dataNascimento}}</td>
+            <td><b>Data</b></td>
+            <td>{{voo.data | mask: '00/00/0000'}}</td>
           </tr>
           <tr>
-            <td><b>Endereço</b></td>
-            <td>{{aluno.endereco}}</td>
+            <td><b>Horário de Saída</b></td>
+            <td>{{voo.horarioSaida}}</td>
           </tr>
           <tr>
-            <td><b>Num. Brevê</b></td>
-            <td>{{aluno.numeroBreve}}</td>
+            <td><b>Horário de Chegada</b></td>
+            <td>{{voo.horarioChegada}}</td>
           </tr>
             
           </tbody>

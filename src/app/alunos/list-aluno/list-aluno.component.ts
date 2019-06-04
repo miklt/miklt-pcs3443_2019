@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AlunoService } from '../services/aluno.service';
-import { Aluno } from '../models/aluno.model';
+import { AlunoService } from '../../services/aluno.service';
+import { Aluno } from '../../models/aluno.model';
 import { Router } from '@angular/router';
 
 @Component({
