@@ -22,9 +22,12 @@ class Login extends React.Component {
         var isLoggedIn = false;
         const url = url_v3+'login';
         isLoggedIn = axios.post(url, { user: this.props.state.user, password: this.state.password })
-                    .catch(error => {
-                        alert(error)
-                    });
+                        .then(response => {
+                            console.log(response)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
         if (isLoggedIn) {
             this.props.login(isLoggedIn)
         } else {

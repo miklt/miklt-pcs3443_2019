@@ -7,22 +7,22 @@ class Perfil extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = this.props.state
+        this.state = {
+            name: "",
+            role: "",
+            horas: "",
+        }
     }
 
     getState(event) {
-        const url = url_v3+'login';
-        axios.get(url, { 
-            user: this.state.user, 
-            password: this.state.password,
-         })
-        .then(function(response) {
-            console.log(response.data)
-            this.setState({name : response.data.name, role : response.data.role, horas : response.data.horas})
-        })
-        .catch(error => {
-            alert(error)
-        });
+        const url = url_v3+'perfil'+this.props.state.user;
+        axios.get(url)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
     render () {
 
