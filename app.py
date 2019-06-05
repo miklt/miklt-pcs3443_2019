@@ -57,6 +57,37 @@ def listarUsuario():
     return render_template("listar_usuario.html", **locals())
 
 
+@app.route("/editar_usuario",  methods=['GET', 'POST'])
+def editarUsuario():
+    
+    id_usuario = request.args['id']
+    usuario = Pessoa.encontrar_pelo_id(id_usuario)
+    if usuario: 
+        if request.method == 'POST':
+            nome = request.form['nome']
+            cpf = request.form['cpf']
+            email = request.form['email']
+            data_nascimento_str = request.form['data_nascimento']
+            data_nascimento = datetime.strptime(data_nascimento_str,
+                                                '%d/%m/%Y').date()
+            cargo = request.form['cargo']
+
+            usuario.nome = nome
+            usuario.cpf = cpf
+            usuario.email = email
+            usuario.data_nascimento = data_nascimento
+            usuario.cargo = cargo
+            db.session.commit()
+            editou_pessoa = True
+        
+        current_nome = usuario.nome
+        current_cpf = usuario.cpf
+        current_email = usuario.email
+        current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
+        current_cargo = usuario.cargo
+    return render_template("editar_usuario.html", **locals())
+
+
 @app.route("/deletar_usuario", methods=['GET'])
 def deletarUsuario():
     id_usuario = request.args['id']
