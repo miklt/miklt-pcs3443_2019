@@ -30,20 +30,21 @@ class Cadastro extends React.Component {
     handleSubmit(event){ 
         const url = url_v3+'login';
         console.log(this.state)
-        axios.post(url, { 
-            name: this.state.name,
-            dataNascimento: this.state.dataNascimento,
-            cpf: this.state.cpf,
-            endereco: this.state.endereco,
-            email: this.state.email,
-            role: this.state.role,
-            password: this.state.password,
-            breve: this.state.breve,
-            instituicao: this.state.instituicao, 
-        })
-        .catch(error => {
-            alert(error)
-        });
+        axios.post(url, 
+            { 
+                name: this.state.name,
+                dataNascimento: this.state.dataNascimento,
+                cpf: this.state.cpf,
+                endereco: this.state.endereco,
+                email: this.state.email,
+                role: this.state.role,
+                password: this.state.password,
+                breve: this.state.breve,
+                instituicao: this.state.instituicao, 
+            })
+            .catch(error => {
+                alert(error)
+            });
     };
 
     render () {
