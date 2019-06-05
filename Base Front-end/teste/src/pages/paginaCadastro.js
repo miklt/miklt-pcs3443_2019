@@ -96,10 +96,10 @@ handleSubmit = event => {
                onDataNascimentoChange={this.handleDataNascimentoChange}
                onTelefoneChange={this.handleTelefoneChange}/>
                <button id="buttonSuccess" type="submit">Enviar</button> 
-               <button id="buttonDanger">
+           </form>
+           <button id="buttonDanger">
                    <Link id="link" to="/">Voltar</Link>
                </button>
-           </form>
        </div>
   );
 }

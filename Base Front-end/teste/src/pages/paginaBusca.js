@@ -80,7 +80,7 @@ handleSubmit = event => {
                 <label>CPF</label><br/>
                 <input type="text" name="cpf" value={this.state.cpf} onChange={this.handleCpfChange}></input><br/>
                 <button id="buttonSuccess" type="submit">Enviar</button>
-                <button id="buttonDanger">
+                <button id="buttonDanger1">
                    <Link id="link" to="/">Voltar</Link>
                </button>
            </form>
