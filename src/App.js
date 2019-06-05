@@ -11,6 +11,7 @@ class App extends React.Component {
     constructor() {
         super()
         this.handleChange = this.handleChange.bind(this);
+        this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
         this.state = {
             name: '',
@@ -19,7 +20,6 @@ class App extends React.Component {
             endereco: '',
             email: '',
             role: '',
-            password: '',
             breve: '',
             instituicao: '',
             user: '',
@@ -27,6 +27,12 @@ class App extends React.Component {
         }
     }
 
+    login(isLoggedIn) {
+        this.setState({
+            isLoggedIn: isLoggedIn 
+        })
+    }
+    
     logout() {
         this.setState({
             name: '',
@@ -35,7 +41,6 @@ class App extends React.Component {
             endereco: '',
             email: '',
             role: '',
-            password: '',
             breve: '',
             instituicao: '',
             user: '',
@@ -43,9 +48,9 @@ class App extends React.Component {
         })
     }
 
+
     handleChange(event) {
         this.setState({[event.target.name] : event.target.value})
-        console.log(this.state)
     }
 
     render () {
@@ -58,7 +63,7 @@ class App extends React.Component {
                 <div className="divTable">
                     <div className="divRow">
                         <div className="divCell"><Sidebar state={this.state} handleChange={this.handleChange}/></div>
-                        <div className="divCell"><Condicional state={this.state} handleChange={this.handleChange} logout={this.logout}/></div>
+                        <div className="divCell"><Condicional state={this.state} handleChange={this.handleChange} login={this.login} logout={this.logout}/></div>
                     </div>
                 </div>
             </div>

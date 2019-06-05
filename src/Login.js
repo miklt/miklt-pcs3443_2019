@@ -8,14 +8,28 @@ class Login extends React.Component {
     constructor(props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handlePassword = this.handlePassword.bind(this)
+        this.state = {
+            password: "",
+        }
+    }
+
+    handlePassword(event) {
+        this.setState({password : event.target.value})
     }
 
     handleSubmit(event){ 
+        var isLoggedIn = false;
         const url = url_v3+'login';
-        axios.post(url, { user: this.props.state.user, password: this.props.state.password })
-            .catch(error => {
-                alert(error)
-            });
+        isLoggedIn = axios.post(url, { user: this.props.state.user, password: this.state.password })
+                    .catch(error => {
+                        alert(error)
+                    });
+        if (isLoggedIn) {
+            this.props.handleChange(isLoggedIn)
+        } else {
+            this.props.logout()
+        }
     };
 
     render () {
@@ -26,7 +40,7 @@ class Login extends React.Component {
                     <label htmlFor="user">Usuário:</label>
                     <input type="text" name="user" id="user" onChange={this.props.handleChange}/>
                     <label htmlFor = "password" onClick={this.handleSubmit}>Senha:</label>
-                    <input type="password" name="password" id="password" onChange={this.props.handleChange}/>
+                    <input type="password" name="password" id="password" onChange={this.props.handlePassword}/>
                     <button type="submit">Go</button>
                 </form>
             </div>

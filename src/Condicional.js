@@ -21,7 +21,7 @@ class Condicional extends React.Component {
             case "/Login":
                 return (
                     <div>
-                        <Login state={this.props.state} handleChange={this.props.handleChange}/>
+                        <Login state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout}/>
                     </div>
                 )
             case "/Agendamento":
