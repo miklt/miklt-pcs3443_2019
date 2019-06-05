@@ -15,13 +15,7 @@ class App extends React.Component {
         this.logout = this.logout.bind(this);
         this.state = {
             name: '',
-            dataNascimento: '',
-            cpf: '',
-            endereco: '',
-            email: '',
             role: '',
-            breve: '',
-            instituicao: '',
             user: '',
             isLoggedIn: false,
         }
@@ -36,13 +30,7 @@ class App extends React.Component {
     logout() {
         this.setState({
             name: '',
-            dataNascimento: '',
-            cpf: '',
-            endereco: '',
-            email: '',
             role: '',
-            breve: '',
-            instituicao: '',
             user: '',
             isLoggedIn: false,
         })
