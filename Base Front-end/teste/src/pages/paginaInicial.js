@@ -3,6 +3,7 @@ import logo from '../images/airplane.png';
 import '../css/paginaInicial.css';
 import { Link } from 'react-router-dom';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import Naveg from '../components/Naveg';
 
 class paginaInicial extends Component {
   constructor(props) {
@@ -23,20 +24,7 @@ class paginaInicial extends Component {
   render() {
     return (
       <div>
-        <Navbar color="blue" light>
-          <NavbarBrand href="/" className="mr-auto">Menu</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse isOpen={!this.state.collapsed} navbar>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href="/cadastro">Cadastre-se</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/busca">Busca</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+        <Naveg/>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Bem-vindo ao Bandeco's Aeroclube!</h1>
