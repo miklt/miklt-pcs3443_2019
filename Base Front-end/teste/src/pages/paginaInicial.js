@@ -13,6 +13,9 @@ class paginaInicial extends Component {
           <button id="cadastro">
                <Link to="/cadastro" id="link">Cadastre-se</Link>
           </button>
+          <button id="cadastro">
+               <Link to="/busca" id="link">Busca</Link>
+          </button>
         </header>
       </div>
     );

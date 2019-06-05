@@ -40,23 +40,13 @@ class Ficha_Cadastro extends Component {
                     <label>Nome</label><br/>
                     <input type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
                     <label>E-mail</label><br/>
-                    <input type="doc" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
+                    <input type="text" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
                     <label>CPF</label><br/>
-                    <MaskedInput
-                    type="text"
-                    mask={[ /\d/, /\d/, /\d/, '.',  /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
-                    name="cpf"
-                    onChange={this.handleCpfChange}
-                    /><br/>
+                    <input type="text" name="cpf" value={this.props.cpf} onChange={this.handleCpfChange}></input><br/>
                     <label>Data de nascimento</label><br/>
-                    <input type="date" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
+                    <input type="text" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
                     <label>Telefone</label><br/>
-                    <MaskedInput
-                    type="text"
-                    mask={[ '(', /\d/ , /\d/,')', ' ', /\d/, /\d/,/\d/, /\d/, /\d/, '-',  /\d/, /\d/, /\d/, /\d/]}
-                    name="telefone"
-                    onChange={this.handleTelefoneChange}
-                    /><br/>
+                    <input type="text" name="telefone" value={this.props.telefone} onChange={this.handleTelefoneChange}></input><br/>
                 <h2>{}</h2>
             </div>
         );
@@ -64,3 +54,18 @@ class Ficha_Cadastro extends Component {
 }
 
 export default Ficha_Cadastro;
+
+
+/*               
+                 <MaskedInput
+                    type="text"
+                    mask={[ /\d/, /\d/, /\d/, '.',  /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
+                    name="cpf"
+                    onChange={this.handleCpfChange}
+                    /><br/>
+                <MaskedInput
+                    type="text"
+                    mask={[ '(', /\d/ , /\d/,')', ' ', /\d/, /\d/,/\d/, /\d/, /\d/, '-',  /\d/, /\d/, /\d/, /\d/]}
+                    name="telefone"
+                    onChange={this.handleTelefoneChange}
+                    /><br/> */ 

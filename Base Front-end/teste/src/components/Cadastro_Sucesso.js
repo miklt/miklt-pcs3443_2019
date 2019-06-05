@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../css/paginaCadastroSucesso.css';
+import '../css/Cadastro_Sucesso.css';
 import { Link, Redirect } from 'react-router-dom';
 import logo from '../images/sucesso.png';
 
-class paginaCadastroSucesso extends Component {
+class Cadastro_Sucesso extends Component {
  render() {
      return (
          <div className="App">
@@ -18,4 +18,4 @@ class paginaCadastroSucesso extends Component {
     );
  }
 }
-export default paginaCadastroSucesso;
+export default Cadastro_Sucesso;
