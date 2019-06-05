@@ -20,6 +20,7 @@ class Login extends React.Component {
 
     handleSubmit(event){ 
         var isLoggedIn = false;
+        var role = "";
         const url = url_v3+'login';
         isLoggedIn = axios.post(url, { user: this.props.state.user, password: this.state.password })
                         .then(response => {
@@ -29,7 +30,7 @@ class Login extends React.Component {
                             console.log(error)
                         });
         if (isLoggedIn) {
-            this.props.login(isLoggedIn)
+            this.props.login(isLoggedIn, role)
         } else {
             this.props.logout()
         }

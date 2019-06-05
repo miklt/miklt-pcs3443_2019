@@ -21,9 +21,10 @@ class App extends React.Component {
         }
     }
 
-    login(isLoggedIn) {
+    login(isLoggedIn, role) {
         this.setState({
-            isLoggedIn: isLoggedIn 
+            isLoggedIn: isLoggedIn,
+            role : role,
         })
     }
     
