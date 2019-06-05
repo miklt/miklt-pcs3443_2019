@@ -26,7 +26,7 @@ class Login extends React.Component {
                         alert(error)
                     });
         if (isLoggedIn) {
-            this.props.handleChange(isLoggedIn)
+            this.props.login(isLoggedIn)
         } else {
             this.props.logout()
         }
