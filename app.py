@@ -109,6 +109,18 @@ def cadastrarVoo():
 def listarVoo():
     return render_template("listar_aula.html")
 
+# Aula
+@app.route("/cadastrar_aula",  methods=['GET', 'POST'])
+def cadastrarAula():
+    if request.method == 'POST':
+        pass
+    usuarios = Pessoa.encontrar_por_cargo('Aluno')
+    return render_template("cadastrar_aula.html",  **locals())
+
+
+@app.route("/listar_aula")
+def listarAula():
+    return render_template("listar_aula.html")
 
 # CONSULTA HORAS DE VOO
 @app.route("/consultar_horas")
