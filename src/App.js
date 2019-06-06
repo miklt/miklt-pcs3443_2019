@@ -39,13 +39,18 @@ class App extends React.Component {
     }
 
     login(name, matricula, role, isLoggedIn) {
-        this.setState({
-            name: name,
-            role: role,
-            matricula: matricula,
-            isLoggedIn: isLoggedIn,
-        })
-        setToken(matricula)
+        if(isLoggedIn) {
+            this.setState({
+                name: name,
+                role: role,
+                matricula: matricula,
+                isLoggedIn: isLoggedIn,
+            })
+            setToken(matricula)
+        } else {
+            this.logout()
+            window.location.reload()
+        }
     }
     
     logout() {
