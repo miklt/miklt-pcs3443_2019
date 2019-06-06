@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
-
 from datetime import datetime
 from aeroclube.models.voo_model import Voo
-
+import re
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
@@ -45,18 +44,26 @@ def cadastrarUsuario():
         data_nascimento_str = request.form['data_nascimento']
         cargo = request.form['cargo']
         senha = request.form['senha']
+
         try:
             data_nascimento = datetime.strptime(data_nascimento_str,
                                                 '%d/%m/%Y').date()
             pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
             pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
             pessoa_email = Pessoa.encontrar_pelo_email(email)
-            if pessoa_nome:
-                erro_nome = True
+
+            if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
+                erro_cadastro = True
+                mensagem_erro = "Formato do CPF inválido"
+            elif pessoa_nome:
+                erro_cadastro = True
+                mensagem_erro = "Nome já cadastrado"
             elif pessoa_cpf:
-                erro_cpf = True
+                erro_cadastro = True
+                mensagem_erro = "CPF já cadastrado"
             elif pessoa_email:
-                erro_email = True
+                erro_cadastro = True
+                mensagem_erro = "E-mail já cadastrado"
             else:
                 nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
                                      cargo=cargo,
@@ -65,9 +72,11 @@ def cadastrarUsuario():
                 nova_pessoa.adicionar()
                 cadastrou_pessoa = True
         except ValueError:
-            data_formato_invalido = True
+            erro_cadastro = True
+            mensagem_erro = "Formato da data inválido"
         except Exception:
             erro_cadastro = True
+            mensagem_erro = "Erro. Não foi possível cadastrar usuário"
 
     return render_template("cadastrar_usuario.html", **locals())
 
@@ -106,18 +115,24 @@ def editarUsuario():
             try:
                 data_nascimento = datetime.strptime(data_nascimento_str,
                                                     '%d/%m/%Y').date()
-                usuario.nome = nome
-                usuario.cpf = cpf
-                usuario.email = email
-                usuario.data_nascimento = data_nascimento
-                usuario.cargo = cargo
-                usuario.senha = senha
-                db.session.commit()
-                editou_pessoa = True
+                if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
+                    erro_edicao = True
+                    mensagem_erro = "Formato do CPF inválido"
+                else:
+                    usuario.nome = nome
+                    usuario.cpf = cpf
+                    usuario.email = email
+                    usuario.data_nascimento = data_nascimento
+                    usuario.cargo = cargo
+                    usuario.senha = senha
+                    db.session.commit()
+                    editou_pessoa = True
             except ValueError:
-                data_formato_invalido = True
+                erro_edicao = True
+                mensagem_erro = "Formato da data inválido"
             except Exception:
                 erro_edicao = True
+                mensagem_erro = "Não foi possível editar o usuário"
 
         current_nome = usuario.nome
         current_cpf = usuario.cpf
@@ -153,13 +168,19 @@ def cadastrarVoo():
         duracao = request.form['duracao']
         try:
             data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
-            novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
-            novo_voo.adicionar()
-            cadastrou_voo = True
+            if data < datetime.now():
+                erro_cadastro = True
+                mensagem_erro = "Data inválida"
+            else:
+                novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
+                novo_voo.adicionar()
+                cadastrou_voo = True
         except ValueError:
-            data_formato_invalido = True
+            erro_cadastro = True
+            mensagem_erro = "Formato da data/horário inválido"
         except Exception:
             erro_cadastro = True
+            mensagem_erro = "Erro. Não foi possível cadastrar voo"
 
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -201,16 +222,22 @@ def editarVoo():
             try:
                 data = datetime.strptime(data_str+' '+hora_str,
                                          '%d/%m/%Y %H:%M')
-                voo.id_piloto = piloto_id
-                voo.data = data
-                voo.duracao = duracao
+                if data < datetime.now():
+                    erro_edicao = True
+                    mensagem_erro = "Data inválida"
+                else:
+                    voo.id_piloto = piloto_id
+                    voo.data = data
+                    voo.duracao = duracao
 
-                db.session.commit()
-                editou_pessoa = True
+                    db.session.commit()
+                    editou_voo = True
             except ValueError:
-                data_formato_invalido = True
+                erro_edicao = True
+                mensagem_erro = "Formato da data/horário inválido"
             except Exception:
                 erro_edicao = True
+                mensagem_erro = "Erro. Não foi possível editar voo"
 
         piloto_selecionado = voo.id_piloto
         current_data = voo.data.strftime("%d/%m/%Y")

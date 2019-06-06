@@ -20,25 +20,13 @@
     </div>
 {%endif%}
 
-{%if data_formato_invalido == true %}
+{%if erro_edicao == true %}
     <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
         <!-- Danger Alert -->
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Error</h3>
-            <p>Formato inválido para data/horário <a class="alert-link" href="javascript:void(0)"></a>!</p>
-        </div>
-        <!-- END Danger Alert -->
-    </div>
-{%endif%}
-
-{%if erro_cadastro == true %}
-    <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
-        <!-- Danger Alert -->
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h3 class="font-w300 push-15">Error</h3>
-            <p>Erro no cadastro <a class="alert-link" href="javascript:void(0)"></a>!</p>
+            <p>{{mensagem_erro}} <a class="alert-link" href="javascript:void(0)"></a>!</p>
         </div>
         <!-- END Danger Alert -->
     </div>
