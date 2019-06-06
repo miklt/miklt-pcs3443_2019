@@ -179,7 +179,27 @@ def deletarVoo():
     return redirect(url_for('listarVoo'))
 
 
-@app.route("/editar_voo",  methods=['GET', 'POST'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/editar_voo",  methods=['GET', 'POST']) 
 def editarVoo():
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -211,7 +231,7 @@ def editarVoo():
     return render_template("editar_voo.html", **locals())
 
 # Aula
-@app.route("/cadastrar_aula",  methods=['GET', 'POST'])
+@app.route("/cadastrar_aula",  methods=['GET', 'POST']) 
 def cadastrarAula():
     if not 'pessoa' in session:
         return redirect(url_for('login'))
@@ -245,6 +265,35 @@ def cadastrarAula():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/editar_aula",  methods=['GET', 'POST'])
 def editarAula():
     if not 'pessoa' in session:
@@ -253,9 +302,12 @@ def editarAula():
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
 
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+    alunos = Pessoa.encontrar_por_cargo('Aluno')
+
     erro_edicao = False
-    id_ = request.args['id']
-    aula  = AUla.encontrar_pelo_id(id_aula)
+    id_aula = request.args['id']
+    aula = Aula.encontrar_pelo_id(id_aula)
     if aula:
         if request.method == 'POST':
             id_aluno = request.form['id_aluno']
@@ -266,7 +318,6 @@ def editarAula():
             data_hora_str = data_str+' '+hora_str        
             data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
             duracao = request.form['duracao']
-        
 
             aula.id_aluno = id_aluno
             aula.id_instrutor = id_instrutor
@@ -278,9 +329,14 @@ def editarAula():
         except:
             erro_edicao = True
 
+        aluno_selecionado = aula.id_aluno
+        instrutor_selecionado = aula.id_instrutor
+
+
         current_id_aluno = aula.id_aluno
         current_id_instrutor = aula.id_instrutor
-        current_data = aula.data = '%d/%m/%Y %H:%M'
+        current_data = aula.data.strftime("%d/%m/%Y")
+        current_horario = aula.data.strftime("%H:%M")
         current_duracao = aula.duracao
         if aula.nota == None:
             current_nota = "Aula não foi avaliada"

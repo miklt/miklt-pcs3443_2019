@@ -36,8 +36,8 @@
                             <div class="col-sm-9">
                                 <div class="form-material">
                                     <select class="form-control" id="id_aluno" name="id_aluno" size="1" selected='{{current_id_aluno}}'>
-                                        {% for usuario in usuarios %}
-                                        <option value="{{usuario.id}}">{{usuario.nome}}</option>
+                                        {% for aluno in alunos %}
+                                        <option {%if aluno_selecionado == aluno.id %} selected {%endif%} value="{{aluno.id}}">{{aluno.nome}}</option>
                                         {% endfor %}
                                     </select>
                                     <label for="material-select">Aluno</label>
@@ -49,7 +49,7 @@
                                 <div class="form-material">
                                     <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" selected='{{current_id_instrutor}}'>
                                         {% for instrutor in instrutores %}
-                                        <option value="{{instrutor.id}}">{{instrutor.nome}}</option>
+                                        <option {%if instrutor_selecionado == instrutor.id %} selected {%endif%} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
                                     </select>
                                     <label for="material-select">Instrutor</label>
@@ -67,7 +67,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="horario" name="horario" placeholder="Formato hh:mm" value='{{current_data}}'>
+                                    <input class="form-control" type="text" id="horario" name="horario" placeholder="Formato hh:mm" value='{{current_horario}}'>
                                     <label for="material-color-primary">Horario</label>
                                 </div>
                             </div>
