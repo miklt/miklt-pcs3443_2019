@@ -43,30 +43,32 @@ def cadastrarUsuario():
         cpf = request.form['cpf']
         email = request.form['email']
         data_nascimento_str = request.form['data_nascimento']
-        data_nascimento = datetime.strptime(data_nascimento_str,
-                                            '%d/%m/%Y').date()
         cargo = request.form['cargo']
         senha = request.form['senha']
+        try:
+            data_nascimento = datetime.strptime(data_nascimento_str,
+                                                '%d/%m/%Y').date()
+            pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
+            pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
+            pessoa_email = Pessoa.encontrar_pelo_email(email)
+            if pessoa_nome:
+                erro_nome = True
+            elif pessoa_cpf:
+                erro_cpf = True
+            elif pessoa_email:
+                erro_email = True
+            else:
+                nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
+                                     cargo=cargo,
+                                     data_nascimento=data_nascimento,
+                                     senha=senha)
+                nova_pessoa.adicionar()
+                cadastrou_pessoa = True
+        except ValueError:
+            data_formato_invalido = True
+        except Exception:
+            erro_cadastro = True
 
-        pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
-        pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
-        pessoa_email = Pessoa.encontrar_pelo_email(email)
-        erro_nome = False
-        erro_cpf = False
-        erro_email = False
-        cadastrou_pessoa = False
-        if pessoa_nome:
-            erro_nome = True
-        elif pessoa_cpf:
-            erro_cpf = True
-        elif pessoa_email:
-            erro_email = True
-        else:
-            nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
-                                 cargo=cargo, data_nascimento=data_nascimento,
-                                 senha=senha)
-            nova_pessoa.adicionar()
-            cadastrou_pessoa = True
     return render_template("cadastrar_usuario.html", **locals())
 
 
@@ -98,19 +100,24 @@ def editarUsuario():
             cpf = request.form['cpf']
             email = request.form['email']
             data_nascimento_str = request.form['data_nascimento']
-            data_nascimento = datetime.strptime(data_nascimento_str,
-                                                '%d/%m/%Y').date()
             cargo = request.form['cargo']
             senha = request.form['senha']
 
-            usuario.nome = nome
-            usuario.cpf = cpf
-            usuario.email = email
-            usuario.data_nascimento = data_nascimento
-            usuario.cargo = cargo
-            usuario.senha = senha
-            db.session.commit()
-            editou_pessoa = True
+            try:
+                data_nascimento = datetime.strptime(data_nascimento_str,
+                                                    '%d/%m/%Y').date()
+                usuario.nome = nome
+                usuario.cpf = cpf
+                usuario.email = email
+                usuario.data_nascimento = data_nascimento
+                usuario.cargo = cargo
+                usuario.senha = senha
+                db.session.commit()
+                editou_pessoa = True
+            except ValueError:
+                data_formato_invalido = True
+            except Exception:
+                erro_edicao = True
 
         current_nome = usuario.nome
         current_cpf = usuario.cpf
@@ -139,20 +146,20 @@ def cadastrarVoo():
     pessoa_logada_cargo = pessoa_logada.cargo
     pessoa_logada_id = pessoa_logada.id
 
-    cadastrou_voo = False
     if request.method == 'POST':
         piloto_id = request.form['piloto_id']
-        piloto = Pessoa.encontrar_pelo_id(piloto_id)
-        nome_piloto = piloto.nome
         data_str = request.form['data_voo']
         hora_str = request.form['hora']
-        data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
         duracao = request.form['duracao']
-
-        novo_voo = Voo(id_piloto=piloto_id, nome_piloto=nome_piloto,
-                       duracao=duracao, data=data)
-        novo_voo.adicionar()
-        cadastrou_voo = True
+        try:
+            data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
+            novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
+            novo_voo.adicionar()
+            cadastrou_voo = True
+        except ValueError:
+            data_formato_invalido = True
+        except Exception:
+            erro_cadastro = True
 
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -187,20 +194,23 @@ def editarVoo():
     if voo:
         if request.method == 'POST':
             piloto_id = request.form['piloto_id']
-            piloto = Pessoa.encontrar_pelo_id(piloto_id)
-            nome_piloto = piloto.nome
             data_str = request.form['data_voo']
             hora_str = request.form['hora']
-            data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
             duracao = request.form['duracao']
 
-            voo.id_piloto = piloto_id
-            voo.nome_piloto = nome_piloto
-            voo.data = data
-            voo.duracao = duracao
+            try:
+                data = datetime.strptime(data_str+' '+hora_str,
+                                         '%d/%m/%Y %H:%M')
+                voo.id_piloto = piloto_id
+                voo.data = data
+                voo.duracao = duracao
 
-            db.session.commit()
-            editou_pessoa = True
+                db.session.commit()
+                editou_pessoa = True
+            except ValueError:
+                data_formato_invalido = True
+            except Exception:
+                erro_edicao = True
 
         piloto_selecionado = voo.id_piloto
         current_data = voo.data.strftime("%d/%m/%Y")
