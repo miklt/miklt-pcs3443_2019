@@ -20,7 +20,7 @@ class Sidebar extends React.Component {
                 {this.props.state.role === "Funcionario" && 
                     <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
                 }
-                {this.props.state.role === "Instrutor" && 
+                {this.props.state.role === "Aluno" && 
                     <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
                 }
                 {this.props.state.isLoggedIn && 
