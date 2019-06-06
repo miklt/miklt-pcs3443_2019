@@ -55,7 +55,8 @@ class Cadastro extends React.Component {
         
         return (
             
-            <div>
+            <div id = "cadastro">
+                <h1>Cadastrar novo usuário</h1>
                 <form className="telaCadastro" onSubmit={this.handleSubmit}>
 
                     <label htmlFor="name">Nome:</label>
@@ -66,7 +67,7 @@ class Cadastro extends React.Component {
                     <input type="email" name="email" id="email" onChange={this.handleChange} required />
                     <br />
 
-                    <label htmlFor="dataNascimento">Data de Nascimento:</label>
+                    <label className= "data" htmlFor="dataNascimento">Data de Nascimento:</label>
                     <input type="date" name="dataNascimento" id="dataNascimento" onChange={this.handleChange} required />
                     <br />
 
