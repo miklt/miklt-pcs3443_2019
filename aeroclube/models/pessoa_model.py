@@ -11,7 +11,7 @@ class Pessoa(Base):
     data_nascimento = db.Column(db.Date)
     cargo = db.Column(db.String(200), unique=False)
     dataCadastro = db.Column(db.Date)
-    cod_curso = db.Column(db.String(200), unique=False)
+    horasVoo = db.Column(db.Integer)
 
     def __init__(self, nome, cpf, email, cargo, data_nascimento):
         self.nome = nome
@@ -44,7 +44,6 @@ class Pessoa(Base):
     @classmethod
     def encontrar_pelo_email(cls, email):
         return cls.query.filter_by(email=email).first()
-
 
     @classmethod
     def listar(cls):
