@@ -2,23 +2,24 @@
 
 {% block title%} Apache | Administrador {% endblock title%}
 
-{% block titulo %}Agendamento{% endblock %}
+{% block titulo %}Editar{% endblock %}
 
-{% block subtitulo%}Novo voo{% endblock %}
+{% block subtitulo%}Editar Usuário{% endblock %}
 
 {%block conteudo%}
- 
-{%if cadastrou_voo == true %}
+
+{%if editou_voo == true %}
     <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Tudo certo!</h3>
-            <p>Voo <a class="alert-link" href="javascript:void(0)">marcado com sucesso</a>!</p>
+            <p>Voo <a class="alert-link" href="javascript:void(0)">editado com sucesso.</a>!</p>
         </div>
         <!-- END Success Alert -->
     </div>
 {%endif%}
+
 
 <div class="content content-narrow">
     <!-- Material Design -->
@@ -27,21 +28,20 @@
             <!-- Static Labels -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">Agendamento de Voo</h3>
+                    <h3 class="block-title">Formulario de Edição</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="/cadastrar_voo" method="POST">
+                    <form class="form-horizontal push-10-t" action="/editar_usuario?id={{id_usuario}}" method="post">
                         
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select  {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="piloto_id" name="piloto_id" size="1">
-                                        <option>Selecione uma opcao</option>
+                                    <select class="form-control" id="piloto_id" name="piloto_id" size="1">
                                         {% for piloto in pilotos %}
-                                        <option  {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == piloto.id %} selected {% endif %} value="{{piloto.id}}">{{piloto.nome}}</option>
+                                        <option {%if piloto_selecionado == piloto.id %} selected {%endif%} value="{{piloto.id}}">{{piloto.nome}}</option>
                                         {% endfor %}
                                         {% for instrutor in instrutores %}
-                                        <option {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == instrutor.id %} selected {% endif %} value="{{instrutor.id}}">{{instrutor.nome}}</option>
+                                        <option {%if instrutor_selecionado == instrutor.id %} selected {%endif%} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
                                     
                                     </select>
@@ -53,7 +53,7 @@
                         <div class="form-group">
                                 <div class="col-sm-9">
                                     <div class="form-material form-material-primary">
-                                        <input class="form-control" type="text" id="data_voo" name="data_voo" placeholder="Formato dd/mm/aa">
+                                        <input class="form-control" type="text" id="data_voo" name="data_voo" placeholder="Formato dd/mm/aa" value='{{current_data}}'>
                                         <label for="material-color-primary">Data do Voo</label>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="hora" name="hora" placeholder="Formato hh:mm">
+                                    <input class="form-control" type="text" id="hora" name="hora" placeholder="Formato hh:mm" value='{{current_hora}}'>
                                     <label for="material-color-primary">Horario do Voo</label>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="duracao" name="duracao" placeholder="tempo em minutos">
+                                    <input class="form-control" type="text" id="duracao" name="duracao" placeholder="tempo em minutos" value='{{current_duracao}}'>
                                     <label for="material-color-primary">Duracao</label>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button class="btn btn-sm btn-primary" type="submit">Marcar Voo</button>
+                                <button class="btn btn-sm btn-primary" type="submit">Editar Voo</button>
                             </div>
                         </div>
 
