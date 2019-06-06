@@ -30,8 +30,9 @@ class Cadastro extends React.Component {
     }
 
     handleSubmit(event){ 
+        event.preventDefault();
+
         const url = url_v3+'register';
-        console.log(this.state)
         axios.post(url, {
             name: this.state.name,
             email: this.state.email,
@@ -45,7 +46,8 @@ class Cadastro extends React.Component {
             dataDiploma: this.state.dataDiploma,
             role: this.state.role,
         }).then(response => {
-            alert(response)
+            alert(this.state.role + " cadastrado.")
+            window.location.reload()
         }).catch(error => {
             alert(error)
         });

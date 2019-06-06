@@ -35,10 +35,10 @@ class Condicional extends React.Component {
                     path="/contato"
                     render={() => (
                         <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
-                        <h1>Contato</h1>
-                        <p>Endereço: Av. Prof. Luciano Gualberto, 158 - Butantã, São Paulo - SP, 05508-010</p>
-                        <p>Telefone: (11) 92568-7895</p>
-                    </div>  
+                            <h1>Contato</h1>
+                            <p>Endereço: Av. Prof. Luciano Gualberto, 158 - Butantã, São Paulo - SP, 05508-010</p>
+                            <p>Telefone: (11) 92568-7895</p>
+                        </div>  
                     )}
                 />
                 <Route
