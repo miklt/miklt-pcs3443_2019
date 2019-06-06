@@ -139,12 +139,15 @@ def cadastrarVoo():
     cadastrou_voo = False
     if request.method == 'POST':
         piloto_id = request.form['piloto_id']
+        piloto = Pessoa.encontrar_pelo_id(piloto_id)
+        nome_piloto = piloto.nome
         data_str = request.form['data_voo']
         hora_str = request.form['hora']
         data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
         duracao = request.form['duracao']
 
-        novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
+        novo_voo = Voo(id_piloto=piloto_id, nome_piloto=nome_piloto,
+                       duracao=duracao, data=data)
         novo_voo.adicionar()
         cadastrou_voo = True
 

@@ -5,7 +5,7 @@
 
 {% block title%} Apache | Administrador {% endblock title%}
 
-{% block titulo %}Visualização de Usuários{% endblock %}
+{% block titulo %}Visualização de Voos{% endblock %}
 
 {% block subtitulo%}Alunos, pilotos e administradores{% endblock %}
 
@@ -27,12 +27,10 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;">#</th>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>CPF</th>
-                                <th>Data nascimento</th>
-                                <th class="hidden-xs" style="width: 15%;">Categoria</th>
-                                <th class="text-center" style="width: 100px;">Opcoes</th>
+                                <th>Data e Horário</th>
+                                <th>Piloto</th>
+                                <th>Duração</th>
+                                <th class="text-center" style="width: 100px;">Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,10 +38,9 @@
                             <tr>
                                     <td class="text-center">{{voo.id}}</td>
                                     <td>{{voo.data}}</td>
-                                    <td>{{voo.pessoa_id}}</td>
-                                    <td>{{voo.data}}</td>
+                                    <td>{{voo.nome_piloto}}</td>
                                     <td class="hidden-xs">
-                                        <span class="label label-warning">{{voo.duracao}}</span>
+                                        <span class="label label-warning">{{voo.duracao}} minutos</span>
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
