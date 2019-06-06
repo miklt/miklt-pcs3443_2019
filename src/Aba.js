@@ -1,8 +1,11 @@
 import React from "react"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
 function Aba(props) {
     return (
         <div>
-            <a href={props.nameHtml}>{props.name}</a>
+            <Link to={props.nameHtml}>{props.name}</Link>
         </div>
     )
     

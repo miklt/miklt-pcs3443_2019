@@ -71,8 +71,22 @@ class App extends React.Component {
                     </div>
                     <div className="divTable">
                         <div className="divRow">
-                            <div className="divCell"><Sidebar state={this.state} handleChange={this.handleChange}/></div>
-                            <div className="divCell"><Condicional state={this.state} handleChange={this.handleChange} login={this.login} logout={this.logout}/></div>
+                            <div className="divCell">
+                                <Route
+                                    path="/"
+                                    render={(routeProps) => (
+                                        <Sidebar {...routeProps} state={this.state} handleChange={this.handleChange} />
+                                    )}
+                                />
+                            </div>
+                            <div className="divCell">
+                                <Route
+                                    path="/"
+                                    render={(routeProps) => (
+                                        <Condicional {...routeProps} state={this.state} handleChange={this.handleChange} login={this.login} logout={this.logout} />
+                                    )}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

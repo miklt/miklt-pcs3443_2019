@@ -13,9 +13,9 @@ class Header extends React.Component {
                     <div className="coluna col6">
                         <nav>
                             <ul className="menu inline sem-marcador">
-                                <li><Link to="/servicos/">Serviços</Link></li>
-                                <li><Link to="/sobre/">Sobre</Link></li>
-                                <li><Link to="/contato/">Contato</Link></li>
+                                <li><Link to="/servicos">Serviços</Link></li>
+                                <li><Link to="/sobre">Sobre</Link></li>
+                                <li><Link to="/contato">Contato</Link></li>
                             </ul>
                         </nav>
                     </div>
