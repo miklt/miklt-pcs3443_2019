@@ -5,7 +5,7 @@
           <h2>Aluno - {{aluno.nome}}</h2>
         </div>
         <div class="col-6">
-          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)"> Editar Aluno</button>      
+          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)"> Editar aluno</button>      
         </div>
       </div>
 
@@ -21,7 +21,7 @@
         <table class="table table-bordered" *ngIf="!loading">
           <tbody *ngIf="!loading">
           <tr>
-            <td><b>Num. Matricula</b></td>
+            <td><b>Nº de matrícula</b></td>
             <td>{{aluno.numeroMatricula}}</td>
           </tr>
           <tr>
@@ -29,7 +29,7 @@
             <td>{{aluno.nome}}</td>
           </tr>
           <tr>
-            <td><b>Email</b></td>
+            <td><b>E-mail</b></td>
             <td>{{aluno.email}}</td>
           </tr>
           <tr>
@@ -37,7 +37,7 @@
             <td>{{aluno.cpf | mask: '000.000.000-00'}}</td>
           </tr>
           <tr>
-            <td><b>Data de Nascimento</b></td>
+            <td><b>Data de nascimento</b></td>
             <td>{{aluno.dataNascimento | mask: '00/00/0000'}}</td>
           </tr>
           <tr>
@@ -45,7 +45,7 @@
             <td>{{aluno.endereco}}</td>
           </tr>
           <tr>
-            <td><b>Num. Brevê</b></td>
+            <td><b>Nº do brevê</b></td>
             <td>{{aluno.numeroBreve}}</td>
           </tr>
             

@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="alert alert-dismissible alert-success" *ngIf="success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Pronto!</strong> Aluno atualizado.
+      <strong>Pronto!</strong> Aluno atualizado com sucesso.
     </div>
     <div class="alert alert-dismissible alert-danger" *ngIf="error">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -28,11 +28,11 @@
             <input type="tel" class="form-control" id="cpf-input"  [(ngModel)]="aluno.cpf" mask="000.000.000-00" [showMaskTyped] = "true">
           </div>
           <div class="form-group">
-            <label for="nascimento-input">Data de Nascimento</label>
+            <label for="nascimento-input">Data de nascimento</label>
             <input type="text" class="form-control" id="nascimento-input"  [(ngModel)]="aluno.dataNascimento" mask="00/00/0000" [showMaskTyped] = "true">
           </div>
           <div class="form-group">
-            <label for="email-input">Email address</label>
+            <label for="email-input">E-mail</label>
             <input type="email" class="form-control" id="email-input"  [(ngModel)]="aluno.email">
           </div>
           <div class="form-group">
