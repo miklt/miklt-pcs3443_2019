@@ -60,8 +60,6 @@ def cadastrarUsuario():
             nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
                                  cargo=cargo, data_nascimento=data_nascimento,
                                  senha=senha)
-            if cargo == 'Aluno':
-                nova_pessoa.cod_curso = "12345"
             nova_pessoa.adicionar()
             cadastrou_pessoa = True
     return render_template("cadastrar_usuario.html", **locals())
@@ -129,9 +127,20 @@ def deletarUsuario():
 # VOO
 @app.route("/cadastrar_voo",  methods=['GET', 'POST'])
 def cadastrarVoo():
+    cadastrou_voo = False
     if request.method == 'POST':
-        pass
-    usuarios = Pessoa.encontrar_por_cargo('Aluno')
+        piloto_id = request.form['piloto_id']
+        data_str = request.form['data_voo']
+        hora_str = request.form['hora']
+        data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
+        duracao = request.form['duracao']
+
+        novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
+        novo_voo.adicionar()
+        cadastrou_voo = True
+
+    pilotos = Pessoa.encontrar_por_cargo('Piloto')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
     return render_template("cadastrar_voo.html",  **locals())
 
 
@@ -139,6 +148,24 @@ def cadastrarVoo():
 def listarVoo():
     voos = Voo.listar()
     return render_template("listar_voo.html",  **locals())
+
+
+@app.route("/deletar_voo", methods=['GET'])
+def deletarVoo():
+    id_voo = request.args['id']
+    voo = Voo.encontrar_pelo_id(id_voo)
+    if voo:
+        voo.remover()
+    return redirect(url_for('listarVoo'))
+
+
+@app.route("/editar_voo",  methods=['GET', 'POST'])
+def editarVoo():
+    id_voo = request.args['id']
+    voo = Voo.encontrar_pelo_id(id_voo)
+    if voo:
+        pass  # TODO
+    return redirect(url_for('listarVoo'))
 
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
@@ -151,6 +178,10 @@ def cadastrarAula():
 
 @app.route("/listar_aula")
 def listarAula():
+    aulas = Aula.listar()
+    alunos=[]
+    for k in aulas:
+        alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
     return render_template("listar_aula.html")
 
 #LOGIN DO SISTEMA
