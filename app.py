@@ -16,6 +16,8 @@ app.secret_key = 'aeroclube'
 
 @app.route("/")
 def home():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
     return render_template("home.html")
 
 # USUARIO
