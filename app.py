@@ -113,6 +113,15 @@ def editarUsuario():
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
         current_senha = usuario.senha
+
+        if current_cargo == 'Administrador':
+            selected_administrador = 'selected'
+        if current_cargo == 'Piloto':
+            selected_piloto = 'selected'
+        if current_cargo == 'Aluno':
+            selected_aluno = 'selected'
+        if current_cargo == 'Instrutor':
+            selected_instrutor = 'selected'
     return render_template("editar_usuario.html", **locals())
 
 
@@ -237,6 +246,15 @@ def meuPerfil():
     current_data_nascimento = pessoa_logada.data_nascimento.strftime('%d/%m/%Y')
     current_cargo = pessoa_logada.cargo
     current_senha = pessoa_logada.senha
+    
+    if current_cargo == 'Administrador':
+        selected_administrador = 'selected'
+    if current_cargo == 'Piloto':
+        selected_piloto = 'selected'
+    if current_cargo == 'Aluno':
+        selected_aluno = 'selected'
+    if current_cargo == 'Instrutor':
+        selected_instrutor = 'selected'
     return render_template("meu_perfil.html", **locals())
 
 # CONSULTA HORAS DE VOO
