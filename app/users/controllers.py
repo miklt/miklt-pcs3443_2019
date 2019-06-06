@@ -53,7 +53,7 @@ def load_user():
         }
         return json.dumps(val)
 
-
+# Faz o logout
 @users.route('/logout/')
 def logout():
     logout_user()
@@ -66,7 +66,7 @@ def showUser():
         return "Name: {}, Email: {}, Role: {}".format(current_user.name, current_user.email, current_user.role)
     return "Não logado"
 
-
+# Registra novo usuário
 @users.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
