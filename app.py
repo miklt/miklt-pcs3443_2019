@@ -254,10 +254,10 @@ def listarAula():
 @app.route("/deletar_aula", methods=['GET'])
 def deletarAula():
     id_aula = request.args['id']
-    voo = aula.encontrar_pelo_id(id_voo)
-    if voo:
-        voo.remover()
-    return redirect(url_for('listarVoo'))
+    aula = Aula.encontrar_pelo_id(id_aula)
+    if aula:
+        aula.remover()
+    return redirect(url_for('listarAula'))
 
 #LOGIN DO SISTEMA
 @app.route("/login",  methods=['GET', 'POST'])
