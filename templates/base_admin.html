@@ -146,15 +146,6 @@
                                         
                                     </ul>
                                 </li>
-                                <li class>
-                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Voos</span></a>
-                                    <ul>
-                                        <li> <!-- colocar classe active quando estiver na página -->
-                                            <a href="{{ url_for('listarVoo') }}">Visualizar Voos</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li>
 
                                 <li class>
                                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Voos Instrutor</span></a>
@@ -164,6 +155,18 @@
                                         </li>
                                         <li> <!-- colocar classe active quando estiver na página -->
                                             <a href="{{ url_for('listarVoo') }}">Visualizar Voos</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Aulas</span></a>
+                                    <ul>
+                                        <li> <!-- colocar classe active quando estiver na página -->
+                                            <a href="{{ url_for('cadastrarAula') }}">Cadastrar Aulas</a>
+                                        </li>
+                                        <li> <!-- colocar classe active quando estiver na página -->
+                                            <a href="{{ url_for('listarAula') }}">Visualizar Aulas</a>
                                         </li>
                                     </ul>
                                 </li>

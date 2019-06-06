@@ -1,0 +1,66 @@
+{% extends "base_admin.html" %}
+
+{% block title%} Apache | Administrador {% endblock title%}
+
+{% block titulo %}Agendamento{% endblock %}
+
+{% block subtitulo%}Novo voo{% endblock %}
+
+{%block conteudo%}
+ 
+
+
+<div class="content content-narrow">
+    <!-- Material Design -->
+    <div class="row">
+        <div class="col-md-11">
+            <!-- Static Labels -->
+            <div class="block">
+                <div class="block-header">
+                    <h3 class="block-title">Agendamento de Voo</h3>
+                </div>
+                <div class="block-content block-content-narrow">
+                    <form class="form-horizontal push-10-t" action="/cadastrar_voo" method="POST">
+                        
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material">
+                                    <select class="form-control" id="aluno_id" name="aluno_id" size="1">
+                                        <option>Selecione uma opcao</option>
+                                        {% for usuario in usuarios %}
+                                        <option value="{{usuario.id}}">{{usuario.nome}}</option>
+                                        {% endfor %}
+                                    
+                                    </select>
+                                    <label for="material-select">Aluno</label>
+                                </div>
+                            </div>
+                        </div>
+                  
+                       
+                        <div class="form-group">
+                                <div class="col-sm-9">
+                                    <div class="form-material form-material-primary">
+                                        <input class="form-control" type="text" id="data_voo" name="data_voo" placeholder="Formato dd/mm/aa">
+                                        <label for="material-color-primary">Data do Voo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- END Static Labels -->
+        </div>
+    </div>
+</div>
+        <!-- END Material Design -->
+
+
+{% endblock conteudo%}
+
