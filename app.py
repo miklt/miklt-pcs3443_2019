@@ -214,10 +214,18 @@ def cadastrarAula():
 def listarAula():
     aulas = Aula.listar()
     alunos=[]
-    for k in aulas:
-        print (k.id)
-        alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
+    for k in aulas: 
+        alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
+
     return render_template("listar_aula.html", **locals())
+
+@app.route("/deletar_aula", methods=['GET'])
+def deletarAula():
+    id_aula = request.args['id']
+    voo = aula.encontrar_pelo_id(id_voo)
+    if voo:
+        voo.remover()
+    return redirect(url_for('listarVoo'))
 
 #LOGIN DO SISTEMA
 @app.route("/login",  methods=['GET', 'POST'])

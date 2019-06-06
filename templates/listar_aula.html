@@ -30,17 +30,27 @@
                                 <th>Aluno</th>
                                 <th>Avaliação</th>
                                 <th>Comentário</th>
+                                <th class="text-center" style="width: 100px;">Opcoes</th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            {% for k in range (0, aulas|length ) %}
+                            {% for k in range (aulas|length ) %}
                             <tr>
+                                <td>{{aulas[k].id}}</td>
                                 <td>{{aulas[k].data}}</td>
                                 <td>{{aulas[k].duracao}}</td>
                                 <td>{{alunos[k].nome}}</td>
                                 <td>{{aulas[k].avaliacao}}</td>
                                 <td>{{aulas[k].comentario}}</td>
+                                <td class="text-center">
+                                        <div class="btn-group">
+    
+                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Usuario" href="/editar_usuario?id={{aulas[k].id}}"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Usuario" href="/deletar_aula?id={{aulas[k].id}}"><i class="fa fa-times"></i></a>
+    
+                                        </div>
+                                    </td>
                             </tr>   
                             {% endfor %}  
                         </tbody>
