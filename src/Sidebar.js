@@ -15,22 +15,22 @@ class Sidebar extends React.Component {
             <ul className="sidebarAba">
                 <li className="sidebarHeader">MENU</li>
                 {!this.props.state.isLoggedIn && 
-                    <li><Aba name="Login" nameHtml="./Login"/></li>
+                    <li><Aba name="Login" nameHtml="/login"/></li>
                 }
                 {true &&
-                    <li><Aba name="Cadastro" nameHtml="./Cadastro"/></li>
+                    <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
                 }
-                {this.props.state.role == "Instrutor" && 
-                    <li><Aba name="Agendamentos" nameHtml="./Agendamento"/></li>
-                }
-                {this.props.state.isLoggedIn && 
-                    <li><Aba name="Perfil" nameHtml="./Perfil"/></li>
+                {this.props.state.role === "Instrutor" && 
+                    <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
                 }
                 {this.props.state.isLoggedIn && 
-                    <li><Aba name="Configurações" nameHtml="./Configuracoes"/></li>
+                    <li><Aba name="Perfil" nameHtml="/perfil"/></li>
                 }
                 {this.props.state.isLoggedIn && 
-                    <li><Aba name="Log Out" nameHtml="./Logout" /></li>
+                    <li><Aba name="Log Out" nameHtml="/logout" /></li>
+                }
+                {this.props.state.role === "Instrutor" && 
+                    <li><Aba name="Socios" nameHtml="/socios" /></li>
                 }
             </ul>
             </div>
