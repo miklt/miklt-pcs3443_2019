@@ -18,11 +18,21 @@ app.secret_key = 'aeroclube'
 def home():
     if not 'pessoa' in session:
         return redirect(url_for('login'))
-    return render_template("home.html")
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    return render_template("home.html", **locals())
 
 # USUARIO
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
+    if not 'pessoa' in session:
+         return redirect(url_for('login'))
+
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
     if request.method == 'POST':
         nome = request.form['nome']
         cpf = request.form['cpf']
@@ -59,12 +69,23 @@ def cadastrarUsuario():
 
 @app.route("/listar_usuario")
 def listarUsuario():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
     pessoas = Pessoa.listar()
     return render_template("listar_usuario.html", **locals())
 
 
 @app.route("/editar_usuario",  methods=['GET', 'POST'])
 def editarUsuario():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
 
     id_usuario = request.args['id']
     usuario = Pessoa.encontrar_pelo_id(id_usuario)
@@ -141,12 +162,51 @@ def login():
         pessoa = Pessoa.encontrar_pelo_email(email)
         if pessoa:
             if pessoa.senha == senha:
-                session['pessoa'] = pessoa
+                session['pessoa'] = pessoa.id
                 return redirect(url_for('home'))
            
         pessoa_nao_encontrada = True
-        print(pessoa_nao_encontrada)
     return render_template("login.html", **locals())
+
+@app.route('/logout')
+def logout():
+   session.pop('pessoa', None)
+   return redirect(url_for('login'))
+
+
+#Editar proprio Perfil
+@app.route('/meu_perfil', methods=['GET', 'POST'])
+def meuPerfil():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        cpf = request.form['cpf']
+        email = request.form['email']
+        data_nascimento_str = request.form['data_nascimento']
+        data_nascimento = datetime.strptime(data_nascimento_str,
+                                            '%d/%m/%Y').date()
+        senha = request.form['senha']
+
+        pessoa_logada.nome = nome
+        pessoa_logada.cpf = cpf
+        pessoa_logada.email = email
+        pessoa_logada.data_nascimento = data_nascimento
+        pessoa_logada.senha = senha
+        db.session.commit()
+        editou_pessoa = True
+
+    current_nome = pessoa_logada.nome
+    current_cpf = pessoa_logada.cpf
+    current_email = pessoa_logada.email
+    current_data_nascimento = pessoa_logada.data_nascimento.strftime('%d/%m/%Y')
+    current_cargo = pessoa_logada.cargo
+    current_senha = pessoa_logada.senha
+    return render_template("meu_perfil.html", **locals())
 
 # CONSULTA HORAS DE VOO
 @app.route("/visualizar_horas")
