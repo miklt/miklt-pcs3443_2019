@@ -17,7 +17,7 @@
             <!-- Hover Table -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">VOOS
+                    <h3 class="block-title">Aulas
                     </h3>
                 </div>
                 <div class="block-content">
@@ -25,15 +25,21 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;">#</th>
+                                <th>Data</th>
+                                <th>Duração</th>
                                 <th>Aluno</th>
-                                <th class="hidden-xs" style="width: 15%;">Categoria</th>
-                                <th class="text-center" style="width: 100px;">Opcoes</th>
+                                <th>Avaliação</th>
+                                <th>Comentário</th>
                             </tr>
                         </thead>
                         <tbody>
+                                {% for k in range (0, len(aulas) %}
                             <tr>
-                                <td class="text-center">1</td>
-                                <td>Jorge Almeida</td>
+                                <td>{{aulas[k].data}}</td>
+                                <td>{{aulas[k].duracao}}</td>
+                                <td>{{alunos[k].nome}}</td>
+                                <td>{{aulas[k].avaliacao}}</td>
+                                <td>{{aulas[k].comentario}}</td>
                                 <td class="hidden-xs">
                                     <span class="label label-warning">Administrador</span>
                                 </td>

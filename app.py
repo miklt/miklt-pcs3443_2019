@@ -155,6 +155,10 @@ def cadastrarAula():
 
 @app.route("/listar_aula")
 def listarAula():
+    aulas = Aula.listar()
+    alunos=[]
+    for k in aulas:
+        alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
     return render_template("listar_aula.html")
 
 # CONSULTA HORAS DE VOO
