@@ -13,11 +13,13 @@ class Aula(Base):
     avaliacao = db.Column(db.String(200), unique=True)
     nota = db.Column(db.Integer)
 
-    def __init__(self, id_aluno, id_instrutor, data, duracao):
+    def __init__(self, id_aluno, id_instrutor, data, duracao, nota, avaliacao):
         self.id_aluno = id_aluno
         self.id_instrutor = id_instrutor
         self.duracao = duracao
         self.data = data
+        self.nota = nota
+        self.avaliacao = avaliacao
 
     @classmethod
     def encontrar_pelo_id_aluno(cls, id_aluno):
@@ -30,3 +32,6 @@ class Aula(Base):
     @classmethod
     def encontrar_pela_data(cls, data):
         return cls.query.filter_by(data=data).first()
+    @classmethod
+    def listar(cls):
+        return cls.query.all()
