@@ -3,11 +3,11 @@
 
 {% extends "base_admin.html" %}
 
-{% block title%} Apache | Administrador {% endblock title%}
+{% block title%} Aeroclube | Voos {% endblock title%}
 
 {% block titulo %}Visualização de Voos{% endblock %}
 
-{% block subtitulo%}Alunos, pilotos e administradores{% endblock %}
+{% block subtitulo%}Pilotos{% endblock %}
 
 {%block conteudo%}
 
@@ -19,7 +19,7 @@
             <!-- Hover Table -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">Lista de todos os usuarios do sistema
+                    <h3 class="block-title">Lista de voos
                     </h3>
                 </div>
                 <div class="block-content">
@@ -27,33 +27,30 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;">#</th>
-                                <th>Data e Horário</th>
-                                <th>Piloto</th>
+                                <th>Data</th>
                                 <th>Duração</th>
+                                <th>Pilotos</th>
                                 <th class="text-center" style="width: 100px;">Opções</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for voo in voos %}
+                            
+                            {% for k in range (0, voos|length ) %}
                             <tr>
-                                    <td class="text-center">{{voo.id}}</td>
-                                    <td>{{voo.data}}</td>
-                                    <td>{{voo.nome_piloto}}</td>
-                                    <td class="hidden-xs">
-                                        <span class="label label-warning">{{voo.duracao}} minutos</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
+                                <td>{{voos[k].id}}</td>
+                                <td>{{voos[k].data}}</td>
+                                <td>{{voos[k].duracao}}</td>
+                                <td>{{pilotos[k].nome}}</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
     
-                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Voo" href="/editar_usuario?id={{voo.id}}"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Voo" href="/deletar_usuario?id={{voo.id}}"><i class="fa fa-times"></i></a>
+                                        <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Voo" href="/editar_voo?id={{voos[k].id}}"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Voo" href="/deletar_voo?id={{voos[k].id}}"><i class="fa fa-times"></i></a>
     
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            
-                            
+                                    </div>
+                                </td>    
+                            </tr>   
+                            {% endfor %}  
                         </tbody>
                     </table>
                 </div>

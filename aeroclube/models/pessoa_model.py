@@ -12,7 +12,7 @@ class Pessoa(Base):
     cargo = db.Column(db.String(200), unique=False)
     dataCadastro = db.Column(db.Date)
     horasVoo = db.Column(db.Integer)
-    senha = db.Column(db.String(200), unique=False)
+    senha = db.Column(db.String(200))
 
     def __init__(self, nome, cpf, email, cargo, data_nascimento, senha):
         self.nome = nome
@@ -22,6 +22,7 @@ class Pessoa(Base):
         self.cargo = cargo
         self.dataCadastro = date.today()
         self.senha = senha
+        self.horasVoo = 0
 
     def adicionar(self):
         db.session.add(self)

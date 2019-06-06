@@ -1,6 +1,6 @@
 {% extends "base_admin.html" %}
 
-{% block title%} Apache | Administrador {% endblock title%}
+{% block title%} Aeroclube | Editar Usuário {% endblock title%}
 
 {% block titulo %}Editar{% endblock %}
 
@@ -61,10 +61,10 @@
                             <div class="col-sm-9">
                                 <div class="form-material">
                                     <select class="form-control" id="cargo" name="cargo" size="1" selected='{{current_cargo}}'>
-                                        <option {{selected_administrador}} value="Administrador">Administrador</option>
-                                        <option {{selected_piloto}} value="Piloto">Piloto</option>
-                                        <option {{selected_instrutor}} value="Instrutor">Instrutor</option>
-                                        <option {{selected_aluno}} value="Aluno">Aluno</option>
+                                        <option {% if current_cargo == 'Administrador' %} selected {% endif %} value="Administrador">Administrador</option>
+                                        <option {% if current_cargo == 'Piloto' %} selected {% endif %} value="Piloto">Piloto</option>
+                                        <option {% if current_cargo == 'Instrutor' %} selected {% endif %} value="Instrutor">Instrutor</option>
+                                        <option {% if current_cargo == 'Aluno' %} selected {% endif %} value="Aluno">Aluno</option>
                                     </select>
                                     <label for="material-select">Categoria</label>
                                 </div>

@@ -1,6 +1,6 @@
 {% extends "base_admin.html" %}
 
-{% block title%} Apache | Administrador {% endblock title%}
+{% block title%} Aeroclube | Cadastro de aula {% endblock title%}
 
 {% block titulo %}Editar{% endblock %}
 
@@ -30,8 +30,20 @@
                     <h3 class="block-title">Formulario de Edicao</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="/editar_usuario?id={{id_aula}}" method="POST">
-
+                    <form class="form-horizontal push-10-t" action="/cadastrar_aula" method="POST">
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material">
+                                    <select {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="id_instrutor" name="id_instrutor" size="1">
+                                        <option>Selecione uma opcao</option>
+                                        {% for instrutor in instrutores %}
+                                        <option {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == instrutor.id %} selected {% endif %} value="{{instrutor.id}}">{{instrutor.nome}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="material-select">Instrutor</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
@@ -42,19 +54,6 @@
                                         {% endfor %}
                                     </select>
                                     <label for="material-select">Aluno</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <div class="form-material">
-                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1">
-                                        <option>Selecione uma opcao</option>
-                                        {% for instrutor in instrutores %}
-                                        <option value="{{instrutor.id}}">{{instrutor.nome}}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label for="material-select">Instrutor</label>
                                 </div>
                             </div>
                         </div>
