@@ -28,14 +28,16 @@ class Voo(db.Model):
 
     duracao = db.Column(db.String(128), nullable = False)
     
-    tipo=db.Column(db.String, db.Enum('Aula','Voo simples',name='tipo'),default='Voo simples')
+    tipo=db.Column(db.String, db.Enum('Aula','Voo Simples',name='tipo'),default='Voo Simples')
 
     def __init__(self, horaSaida, duracao,dataVoo,aeronave,tipo):
         self.horaSaida = horaSaida
         self.duracao = duracao
         self.dataVoo = dataVoo
         self.aeronave = aeronave
-        self.tipo   = tipo
+        self.tipo = tipo
+   
+  
     
 class Aula(Voo):
     __tablename__ = "aula"
@@ -54,10 +56,8 @@ class Aula(Voo):
         self.instrutor = instrutor                
         self.parecer = parecer
         
-        super().__init__(horaSaida = horaSaida, dataVoo=dataVoo, duracao = duracao, aeronave=aeronave, tipo = self.getTipo())
-    @staticmethod
-    def getTipo():
-        return "Aula"
+        super().__init__(horaSaida = horaSaida, dataVoo=dataVoo, duracao = duracao, aeronave=aeronave,tipo='Aula')
+  
 
 class VooSimples(Voo):
     __tablename__ = "voosimples"
@@ -69,9 +69,6 @@ class VooSimples(Voo):
 
     def __init__(self,piloto,dataVoo,horaSaida,duracao,aeronave,tipo):
         self.piloto=piloto
-        super().__init__(dataVoo=dataVoo,horaSaida=horaSaida,duracao=duracao,aeronave=aeronave,tipo=self.getTipo())
+        super().__init__(dataVoo=dataVoo,horaSaida=horaSaida,duracao=duracao,aeronave=aeronave,tipo='Voo Simples')
 
-    @staticmethod
-    def getTipo():
-        return "Voo simples"
-
+    
