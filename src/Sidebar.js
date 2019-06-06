@@ -17,8 +17,7 @@ class Sidebar extends React.Component {
                 {!this.props.state.isLoggedIn && 
                     <li><Aba name="Login" nameHtml="/login"/></li>
                 }
-                {this.props.state.role === "Instrutor" && 
-                //true &&
+                {this.props.state.role === "Funcionario" && 
                     <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
                 }
                 {this.props.state.role === "Instrutor" && 
@@ -27,11 +26,11 @@ class Sidebar extends React.Component {
                 {this.props.state.isLoggedIn && 
                     <li><Aba name="Perfil" nameHtml="/perfil"/></li>
                 }
+                {(this.props.state.role === "Instrutor" || this.props.state.role === "Funcionario") && 
+                    <li><Aba name="Socios" nameHtml="/socios" /></li>
+                }
                 {this.props.state.isLoggedIn && 
                     <li><Aba name="Log Out" nameHtml="/logout" /></li>
-                }
-                {this.props.state.role === "Instrutor" && 
-                    <li><Aba name="Socios" nameHtml="/socios" /></li>
                 }
             </ul>
             </div>
