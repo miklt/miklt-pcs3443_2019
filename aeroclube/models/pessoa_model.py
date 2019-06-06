@@ -12,7 +12,7 @@ class Pessoa(Base):
     cargo = db.Column(db.String(200), unique=False)
     dataCadastro = db.Column(db.Date)
     horasVoo = db.Column(db.Integer)
-    senha = db.Column(db.String(200), unique=True)
+    senha = db.Column(db.String(200), unique=False)
 
     def __init__(self, nome, cpf, email, cargo, data_nascimento, senha):
         self.nome = nome

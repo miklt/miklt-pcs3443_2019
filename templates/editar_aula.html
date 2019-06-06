@@ -2,19 +2,19 @@
 
 {% block title%} Apache | Administrador {% endblock title%}
 
-{% block titulo %}Editar{% endblock %}
+{% block titulo %}Agendamento{% endblock %}
 
-{% block subtitulo%}Edicao de agendamento{% endblock %}
+{% block subtitulo%}Nova aula{% endblock %}
 
 {%block conteudo%}
  
-{%if edutou_pessoa == true %}
+{%if cadastrou_aula == true %}
     <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Tudo certo!</h3>
-            <p>Aula <a class="alert-link" href="javascript:void(0)">editada com sucesso.</a>!</p>
+            <p>Aula <a class="alert-link" href="javascript:void(0)">agendada com sucesso.</a>!</p>
         </div>
         <!-- END Success Alert -->
     </div>
@@ -27,16 +27,15 @@
             <!-- Static Labels -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">Formulario de Edicao</h3>
+                    <h3 class="block-title">Agendamento de Aula</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="/editar_usuario?id={{id_aula}}" method="POST">
+                    <form class="form-horizontal push-10-t" action="/cadastrar_aula" method="POST">
 
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1">
-                                        <option>Selecione uma opcao</option>
+                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1" selected='{{current_id_aluno}}'>
                                         {% for usuario in usuarios %}
                                         <option value="{{usuario.id}}">{{usuario.nome}}</option>
                                         {% endfor %}
@@ -48,8 +47,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1">
-                                        <option>Selecione uma opcao</option>
+                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" selected='{{current_id_instrutor}}'>
                                         {% for instrutor in instrutores %}
                                         <option value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
@@ -61,7 +59,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa">
+                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa" value='{{current_data}}'>
                                     <label for="material-color-primary">Data do Voo</label>
                                 </div>
                             </div>
@@ -69,7 +67,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="horario" name="horario" placeholder="Formato hh:mm">
+                                    <input class="form-control" type="text" id="horario" name="horario" placeholder="Formato hh:mm" value='{{current_data}}'>
                                     <label for="material-color-primary">Horario</label>
                                 </div>
                             </div>
@@ -77,7 +75,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="duracao" name="duracao" placeholder="Apenas horas inteiras">
+                                    <input class="form-control" type="text" id="duracao" name="duracao" placeholder="Apenas horas inteiras" value='{{current_duracao}}'>
                                     <label for="material-color-primary">Duração</label>
                                 </div>
                             </div>

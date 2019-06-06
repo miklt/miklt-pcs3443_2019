@@ -150,11 +150,13 @@ def cadastrarVoo():
         novo_voo = Voo(id_piloto=piloto_id, nome_piloto=nome_piloto,
                        duracao=duracao, data=data)
         novo_voo.adicionar()
-        cadastrou_voo = True
+        cadastrou_voo = True  ###nao precisa ter um if aqui para saber se deu sucesso?
 
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
     return render_template("cadastrar_voo.html",  **locals())
+
+
 
 
 @app.route("/listar_voo")
@@ -183,26 +185,24 @@ def editarVoo():
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
+    erro_cadastro_aula = True
     if request.method == 'POST':
         id_aluno = request.form['id_aluno']
         id_instrutor = request.form['id_instrutor']
 
         data_str = request.form['data']
         hora_str = request.form['horario']  # juntar com data?
-
         data_hora_str = data_str+' '+hora_str        
         data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
-
         duracao = request.form['duracao']
-
-
         #### FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
-
-        nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
+        try:
+            nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
                                   duracao=duracao, nota=None, avaliacao=None)
-          
-        nova_aula.adicionar()
-        cadastrou_aula = True
+            nova_aula.adicionar()
+            erro_cadastro_aula = False
+        except:
+            erro_cadastro_aula = True
 
     usuarios = Pessoa.encontrar_por_cargo('Aluno')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -210,12 +210,90 @@ def cadastrarAula():
     return render_template("cadastrar_aula.html",  **locals())
 
 
+
+@app.route("/editar_aula",  methods=['GET', 'POST'])
+def editarAula():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
+    erro_edicao = False
+    id_ = request.args['id']
+    aula  = AUla.encontrar_pelo_id(id_aula)
+    if aula:
+        if request.method == 'POST':
+            id_aluno = request.form['id_aluno']
+            id_instrutor = request.form['id_instrutor']
+
+            data_str = request.form['data']
+            hora_str = request.form['horario']  
+            data_hora_str = data_str+' '+hora_str        
+            data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
+            duracao = request.form['duracao']
+        
+
+            aula.id_aluno = id_aluno
+            aula.id_instrutor = id_instrutor
+            aula.data = data
+            aula.duracao = duracao
+        try:
+            db.session.commit()
+            erro_edicao = False
+        except:
+            erro_edicao = True
+
+        current_id_aluno = aula.id_aluno
+        current_id_instrutor = aula.id_instrutor
+        current_data = aula.data = '%d/%m/%Y %H:%M'
+        current_duracao = aula.duracao
+        if aula.nota == None:
+            current_nota = "Aula não foi avaliada"
+        else:
+            current_nota = aula.nota
+        if aula.avaliacao == None:
+            current_avaliacao = "Aula não foi avaliada"
+        else:
+            current_avaliacao = aula.avaliacao
+
+    return render_template("editar_aula.html", **locals())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
 @app.route("/listar_aula")
 def listarAula():
     aulas = Aula.listar()
     alunos=[]
     for k in aulas:
-        print (aulas.nome)
+        print (k.data)
         alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
     return render_template("listar_aula.html", **locals())
 

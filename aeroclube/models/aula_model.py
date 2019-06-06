@@ -27,6 +27,9 @@ class Aula(Base):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def encontrar_pelo_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
     @classmethod
     def encontrar_pelo_id_aluno(cls, id_aluno):
