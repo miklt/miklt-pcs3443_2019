@@ -12,39 +12,42 @@ class Cadastro extends React.Component {
 
         this.state = {
             name: '',
+            email: '',
+            password: '',
+            endereco: '',
             dataNascimento: '',
             cpf: '',
-            endereco: '',
-            email: '',
+            numeroBreve: '',
+            nomeInstituicao: '',
+            nomeCurso: '',
+            dataDiploma: '',
             role: '',
-            password: '',
-            breve: '',
-            instituicao: '',
-        }
+        };
     }
 
     handleChange(event) {
-        this.setState({[event.target.name] : event.target.value})        
+        this.setState({[event.target.name] : event.target.value})
     }
 
     handleSubmit(event){ 
-        const url = url_v3+'login';
+        const url = url_v3+'register';
         console.log(this.state)
-        axios.post(url, 
-            { 
-                name: this.state.name,
-                dataNascimento: this.state.dataNascimento,
-                cpf: this.state.cpf,
-                endereco: this.state.endereco,
-                email: this.state.email,
-                role: this.state.role,
-                password: this.state.password,
-                breve: this.state.breve,
-                instituicao: this.state.instituicao, 
-            })
-            .catch(error => {
-                alert(error)
-            });
+        axios.post(url, {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            endereco: this.state.endereco,
+            dataNascimento: this.state.dataNascimento,
+            cpf: this.state.cpf,
+            numeroBreve: this.state.numeroBreve,
+            nomeInstituicao: this.state.nomeInstituicao,
+            nomeCurso: this.state.nomeCurso,
+            dataDiploma: this.state.dataDiploma,
+            role: this.state.role,
+        })
+        .catch(error => {
+            alert(error)
+        });
     };
 
     render () {
@@ -55,36 +58,59 @@ class Cadastro extends React.Component {
                 <form className="telaCadastro" onSubmit={this.handleSubmit}>
 
                     <label htmlFor="name">Nome:</label>
-                    <input type="text" name="name" id="name" onChange={this.handleChange}/>
+                    <input type="text" name="name" id="name" onChange={this.handleChange} required />
+                    <br />
+
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" name="email" id="email" onChange={this.handleChange} required />
+                    <br />
 
                     <label htmlFor="dataNascimento">Data de Nascimento:</label>
-                    <input type="text" name="dataNascimento" id="dataNascimento" onChange={this.handleChange}/>
+                    <input type="date" name="dataNascimento" id="dataNascimento" onChange={this.handleChange} required />
+                    <br />
 
                     <label htmlFor="cpf">CPF:</label>
-                    <input type="text" name="cpf" id="cpf" onChange={this.handleChange}/>
+                    <input type="text" name="cpf" id="cpf" onChange={this.handleChange} required />
+                    <br />
+
+                    <label htmlFor="endereco">Endereço:</label>
+                    <input type="text" name="endereco" id="endereco" onChange={this.handleChange} required />
+                    <br />
 
                     <label htmlFor = "password">Senha:</label>
-                    <input type="password" name="password" id="password"  onChange={this.handleChange}/>
+                    <input type="password" name="password" id="password"  onChange={this.handleChange} required />
+                    <br />
 
                     <label htmlFor = "role">Tipo de Sócio:</label>
-                    <select defaultValue="" name="role" id="role" onChange={this.handleChange} onClick={this.changeVisibility}>
+                    <select defaultValue="" name="role" id="role" onChange={this.handleChange} onClick={this.changeVisibility} required>
                         <option value="" disabled>Selecione</option>
                         <option value="Aluno">Aluno</option>
                         <option value="Piloto">Piloto</option>
                         <option value="Instrutor">Instrutor</option>
                     </select>
+                    <br />
 
                     {(this.state.role === "Piloto" || this.state.role === "Instrutor") && 
                     <div>
                         <label htmlFor = "breve">Brevê:</label>
-                        <input type="breve" name="breve" id="breve"  onChange={this.handleChange}/>
+                        <input type="text" name="numeroBreve" id="numeroBreve"  onChange={this.handleChange} required />
+                        <br />
+                        
                         {(this.state.role === "Instrutor") &&
                         <div>
-                            <label htmlFor="instituicao">Instituição de ensino:</label>
-                            <input type="instituicao" name="instituicao" id="instituicao"  onChange={this.handleChange}/>        
+                            <label htmlFor="nomeInstituicao">Instituição de ensino:</label>
+                            <input type="text" name="nomeInstituicao" id="nomeInstituicao"  onChange={this.handleChange} required />  
+                            <br />
+
+                            <label htmlFor="nomeCurso">Nome do curso:</label>
+                            <input type="text" name="nomeCurso" id="nomeCurso"  onChange={this.handleChange} required />  
+                            <br />
+
+                            <label htmlFor="dataDiploma">Data do diploma:</label>
+                            <input type="date" name="dataDiploma" id="dataDiploma"  onChange={this.handleChange} required />  
+                            <br />
                         </div>}
                     </div>}
-                    
 
 
                     <button type="submit">Go</button>

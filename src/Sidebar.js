@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
 
     getState(event) {
         const url = url_v3+'login';
-        axios.get(url, { 
+        /*axios.get(url, { 
             user: this.props.state.user, 
             password: this.props.state.password,
          })
@@ -25,6 +25,7 @@ class Sidebar extends React.Component {
         .catch(error => {
             alert(error)
         });
+        */
     }
 
     render () {
