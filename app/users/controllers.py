@@ -3,6 +3,7 @@ from flask import request
 from flask_login import current_user, login_user, logout_user
 from app import db
 import app.users.models as models
+from datetime import datetime
 
 users = Blueprint('users', __name__)
 
@@ -39,18 +40,44 @@ def showUser():
 @users.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    role = models.role[data['role']]
+    role = data['role']
 
-    if data['role'] == 'Aluno':
-        u = models.Aluno(data['name'], data['email'], data['password'], data['endereco'], data['dataNascimento'], data['cpf'])
-    elif data['role'] == 'Piloto':
-        u = models.Piloto(data['name'], data['email'], data['password'], data['endereco'], data['dataNascimento'], data['cpf'], data['numeroBreve'])
-    elif data['role'] == 'Instrutor':
-        u = models.Instrutor(data['name'], data['email'], data['password'], data['endereco'], data['dataNascimento'], data['cpf'], data['numeroBreve'], data['nomeInstituicao'], data['nomeCurso'], data['dataDiploma'])
+    if role == 'Aluno':
+        u = models.Aluno(
+            name = data['name'],
+            email = data['email'],
+            password = data['password'],
+            endereco = data['endereco'],
+            dataNascimento = datetime.strptime(data['dataNascimento'], '%Y-%m-%d'),
+            cpf = data['cpf'])
+
+    elif role == 'Piloto':
+        u = models.Piloto(
+            name = data['name'],
+            email = data['email'],
+            password = data['password'],
+            endereco = data['endereco'],
+            dataNascimento = datetime.strptime(data['dataNascimento'], '%Y-%m-%d'),
+            cpf = data['cpf'],
+            numeroBreve = data['numeroBreve'])
+
+    elif role == 'Instrutor':
+        u = models.Instrutor(
+            name = data['name'],
+            email = data['email'],
+            password = data['password'],
+            endereco = data['endereco'],
+            dataNascimento = datetime.strptime(data['dataNascimento'], '%Y-%m-%d'),
+            cpf = data['cpf'],
+            numeroBreve = data['numeroBreve'],
+            nomeInstituicao = data['nomeInstituicao'],
+            nomeCurso = data['nomeCurso'],
+            dataDiploma = datetime.strptime(data['dataDiploma'], '%Y-%m-%d'))
+    
     else:
-        return "Role errado"
+        return "não deu"
 
     db.session.add(u)
     db.session.commit()
 
-    return "register"
+    return "foi"

@@ -18,6 +18,7 @@ class Login(UserMixin, db.Model):
     email = db.Column(db.String(128), nullable = False, unique = True)
     password = db.Column(db.String(128), nullable = False)
     role = db.Column(db.String, db.Enum('Funcionario', 'Piloto', 'Instrutor', 'Aluno', name='papeis'), default='Aluno')
+    active = db.Column(db.Boolean, default = True, nullable = False)
 
     def __init__(self, name, email, password, role):
         self.name = name
@@ -142,7 +143,6 @@ class Aluno(Socio):
     @staticmethod
     def getRole():
         return 'Aluno'
-
 
 role = {
     'Aluno': Aluno,
