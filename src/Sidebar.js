@@ -7,58 +7,34 @@ class Sidebar extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log(this.props.state)
     }
 
     render () {
-        if (this.props.state.isLoggedIn) {
-            if (this.props.state.role === "Aluno") { 
-                return (
-                    <div>
-                        <ul className="sidebarAba">
-                            <li className="sidebarHeader">MENU</li>
-                            <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
-                            <li><Aba name="Perfil" nameHtml="/perfil"/></li>
-                            <li><Aba name="Log Out" nameHtml="/logout"/></li>
-                        </ul>
-                    </div>
-                )
-            } else if (this.props.state.role === "Piloto") {
-                return (
-                    <div>
-                        <ul className="sidebarAba">
-                            <li className="sidebarHeader">MENU</li>
-                            <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
-                            <li><Aba name="Perfil" nameHtml="/perfil"/></li>
-                            <li><Aba name="Log Out" nameHtml="/logout"/></li>
-                        </ul>
-                    </div>
-                )
-            } else if (this.props.state.role === "Instrutor") {
-                return (
-                    <div>
-                        <ul className="sidebarAba">
-                            <li className="sidebarHeader">MENU</li>
-                            <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
-                            <li><Aba name="Sócios" nameHtml="/socios"/></li>
-                            <li><Aba name="Perfil" nameHtml="/perfil"/></li>
-                            <li><Aba name="Log Out" nameHtml="/logout"/></li>
-                        </ul>
-                    </div>
-                )
-            }
-        } else {
-            return (
-                <div>
-                    <ul className="sidebarAba">
-                        <li className="sidebarHeader">MENU</li>
-                        <li><Aba name="Login" nameHtml="/login"/></li>
-                        <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
-                    </ul>
-                </div>
-            )
-        }
-            
+        return (
+            <div>
+            <ul className="sidebarAba">
+                <li className="sidebarHeader">MENU</li>
+                {!this.props.state.isLoggedIn && 
+                    <li><Aba name="Login" nameHtml="./Login"/></li>
+                }
+                {this.props.state.role == "Funcionario" &&
+                    <li><Aba name="Cadastro" nameHtml="./Cadastro"/></li>
+                }
+                {this.props.state.role == "Instrutor" && 
+                    <li><Aba name="Agendamentos" nameHtml="./Agendamento"/></li>
+                }
+                {this.props.state.isLoggedIn && 
+                    <li><Aba name="Perfil" nameHtml="./Perfil"/></li>
+                }
+                {this.props.state.isLoggedIn && 
+                    <li><Aba name="Configurações" nameHtml="./Configuracoes"/></li>
+                }
+                {this.props.state.isLoggedIn && 
+                    <li><Aba name="Log Out" nameHtml="./Logout"/></li>
+                }
+            </ul>
+            </div>
+        )
     }
 }
 
