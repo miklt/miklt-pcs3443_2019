@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
 
-from datetime import datetime, date, time
+from datetime import datetime
 from aeroclube.models.voo_model import Voo
 
 
@@ -32,7 +32,7 @@ def home():
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
     if not 'pessoa' in session:
-         return redirect(url_for('login'))
+        return redirect(url_for('login'))
 
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -104,7 +104,7 @@ def editarUsuario():
             senha = request.form['senha']
 
             usuario.nome = nome
-            usuario.cpf = cpf   
+            usuario.cpf = cpf
             usuario.email = email
             usuario.data_nascimento = data_nascimento
             usuario.cargo = cargo
@@ -176,11 +176,34 @@ def deletarVoo():
 
 @app.route("/editar_voo",  methods=['GET', 'POST'])
 def editarVoo():
+    pilotos = Pessoa.encontrar_por_cargo('Piloto')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
     id_voo = request.args['id']
     voo = Voo.encontrar_pelo_id(id_voo)
     if voo:
-        pass  # TODO
-    return redirect(url_for('listarVoo'))
+        if request.method == 'POST':
+            piloto_id = request.form['piloto_id']
+            piloto = Pessoa.encontrar_pelo_id(piloto_id)
+            nome_piloto = piloto.nome
+            data_str = request.form['data_voo']
+            hora_str = request.form['hora']
+            data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
+            duracao = request.form['duracao']
+
+            voo.id_piloto = piloto_id
+            voo.nome_piloto = nome_piloto
+            voo.data = data
+            voo.duracao = duracao
+
+            db.session.commit()
+            editou_pessoa = True
+
+        piloto_selecionado = voo.id_piloto
+        current_data = voo.data.strftime("%d/%m/%Y")
+        current_hora = voo.data.strftime("%H:%M")
+        current_duracao = voo.duracao
+    return render_template("editar_voo.html", **locals())
 
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
@@ -199,17 +222,17 @@ def cadastrarAula():
         data_str = request.form['data']
         hora_str = request.form['horario']  # juntar com data?
 
-        data_hora_str = data_str+' '+hora_str        
+        data_hora_str = data_str+' '+hora_str
         data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
 
         duracao = request.form['duracao']
 
+        # FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
 
-        #### FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
+        nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor,
+                         data=data_hora, duracao=duracao,
+                         nota=None, avaliacao=None)
 
-        nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
-                                  duracao=duracao, nota=None, avaliacao=None)
-          
         nova_aula.adicionar()
         cadastrou_aula = True
 
@@ -222,13 +245,13 @@ def cadastrarAula():
 @app.route("/listar_aula")
 def listarAula():
     aulas = Aula.listar()
-    alunos=[]
+    alunos = []
     for k in aulas:
-        print (aulas.nome)
+        print(aulas.nome)
         alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
     return render_template("listar_aula.html", **locals())
 
-#LOGIN DO SISTEMA
+# LOGIN DO SISTEMA
 @app.route("/login",  methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -239,17 +262,18 @@ def login():
             if pessoa.senha == senha:
                 session['pessoa'] = pessoa.id
                 return redirect(url_for('home'))
-           
+
         pessoa_nao_encontrada = True
     return render_template("login.html", **locals())
 
+
 @app.route('/logout')
 def logout():
-   session.pop('pessoa', None)
-   return redirect(url_for('login'))
+    session.pop('pessoa', None)
+    return redirect(url_for('login'))
 
 
-#Editar proprio Perfil
+# Editar proprio Perfil
 @app.route('/meu_perfil', methods=['GET', 'POST'])
 def meuPerfil():
     if not 'pessoa' in session:
