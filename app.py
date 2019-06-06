@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from aeroclube.models.pessoa_model import Pessoa
 from datetime import datetime, date
 
@@ -110,12 +110,23 @@ def listarVoo():
     return render_template("listar_voo.html")
 
 
+#LOGIN DO SISTEMA
+@app.route("/login",  methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+        pessoa = Pessoa.encontrar_pelo_email(email)
+        if pessoa:
+            if pessoa.senha == senha:
+                session['pessoa'] = pessoa
+                return redirect(url_for('home'))
+           
+        pessoa_nao_encontrada = True
+        print(pessoa_nao_encontrada)
+    return render_template("login.html", **locals())
+
 # CONSULTA HORAS DE VOO
-@app.route("/consultar_horas")
-def consultarHoras():
-    return render_template("consultar_horas.html")
-
-
 @app.route("/visualizar_horas")
 def visualizarHoras():
     return render_template("visualizar_horas.html")
