@@ -61,7 +61,7 @@ def cadastrarUsuario():
             erro_cpf = True
         elif pessoa_email:
             erro_email = True
-        else:   
+        else:
             nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
                                  cargo=cargo, data_nascimento=data_nascimento,
                                  senha=senha)
@@ -138,7 +138,7 @@ def cadastrarVoo():
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
     pessoa_logada_id = pessoa_logada.id
-    
+
     cadastrou_voo = False
     if request.method == 'POST':
         piloto_id = request.form['piloto_id']
@@ -162,6 +162,9 @@ def cadastrarVoo():
 @app.route("/listar_voo")
 def listarVoo():
     voos = Voo.listar()
+    pilotos = []
+    for k in voos:
+        pilotos.append(Pessoa.encontrar_pelo_id(k.id_piloto))
     return render_template("listar_voo.html",  **locals())
 
 
@@ -245,11 +248,12 @@ def cadastrarAula():
 @app.route("/listar_aula")
 def listarAula():
     aulas = Aula.listar()
-    alunos=[]
-    for k in aulas: 
+    alunos = []
+    for k in aulas:
         alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
 
     return render_template("listar_aula.html", **locals())
+
 
 @app.route("/deletar_aula", methods=['GET'])
 def deletarAula():
@@ -259,7 +263,7 @@ def deletarAula():
         aula.remover()
     return redirect(url_for('listarAula'))
 
-#LOGIN DO SISTEMA
+# LOGIN DO SISTEMA
 @app.route("/login",  methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
