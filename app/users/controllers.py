@@ -48,7 +48,10 @@ def load_user():
         }
         return json.dumps(val)
     else:
-        return ""
+        val = {
+            'isLoggedIn': current_user.is_authenticated
+        }
+        return json.dumps(val)
 
 
 @users.route('/logout/')
