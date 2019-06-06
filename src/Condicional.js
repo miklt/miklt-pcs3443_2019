@@ -1,11 +1,12 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 import Login from "./Login"
 import Agendamento from "./Agendamento"
 import Cadastro from "./Cadastro"
 import Perfil from "./Perfil"
 import Socios from "./Socios"
+import Logout from "./Logout"
 
 class Condicional extends React.Component {
 
@@ -87,7 +88,12 @@ class Condicional extends React.Component {
                         <Socios {...routeProps} />
                     )}
                 />
-
+                <Route
+                    path="/logout"
+                    render={(routeProps) => (
+                        <Logout {...routeProps} state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout} />
+                    )}
+                />
             </div>
             
         ) 

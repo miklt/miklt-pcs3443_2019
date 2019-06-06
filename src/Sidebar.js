@@ -17,7 +17,7 @@ class Sidebar extends React.Component {
                 {!this.props.state.isLoggedIn && 
                     <li><Aba name="Login" nameHtml="./Login"/></li>
                 }
-                {this.props.state.role == "Funcionario" &&
+                {true &&
                     <li><Aba name="Cadastro" nameHtml="./Cadastro"/></li>
                 }
                 {this.props.state.role == "Instrutor" && 
@@ -30,7 +30,7 @@ class Sidebar extends React.Component {
                     <li><Aba name="Configurações" nameHtml="./Configuracoes"/></li>
                 }
                 {this.props.state.isLoggedIn && 
-                    <li><Aba name="Log Out" nameHtml="./Logout"/></li>
+                    <li><Aba name="Log Out" nameHtml="./Logout" /></li>
                 }
             </ul>
             </div>

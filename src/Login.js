@@ -41,7 +41,7 @@ class Login extends React.Component {
     };
 
     render () {
-        if(this.props.isLoggedIn === false)    
+        if(this.props.state.isLoggedIn === false)    
             return (
                 <div>
                     <form className="telaLogin" onSubmit={this.handleSubmit}>
@@ -59,7 +59,7 @@ class Login extends React.Component {
             )
         else
             return(
-                <Redirect to="/sobre" />
+                <Redirect to="/" />
             )
     }
 }
