@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from aeroclube.models.pessoa_model import Pessoa
+from aeroclube.models.aula_model import Aula
+from aeroclube.models.voo_model import Voo
 from datetime import datetime, date
 
 
@@ -59,10 +61,10 @@ def listarUsuario():
 
 @app.route("/editar_usuario",  methods=['GET', 'POST'])
 def editarUsuario():
-    
+
     id_usuario = request.args['id']
     usuario = Pessoa.encontrar_pelo_id(id_usuario)
-    if usuario: 
+    if usuario:
         if request.method == 'POST':
             nome = request.form['nome']
             cpf = request.form['cpf']
@@ -79,7 +81,7 @@ def editarUsuario():
             usuario.cargo = cargo
             db.session.commit()
             editou_pessoa = True
-        
+
         current_nome = usuario.nome
         current_cpf = usuario.cpf
         current_email = usuario.email
@@ -107,7 +109,8 @@ def cadastrarVoo():
 
 @app.route("/listar_voo")
 def listarVoo():
-    return render_template("listar_voo.html")
+    voos = Voo.listar()
+    return render_template("listar_voo.html",  **locals())
 
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
