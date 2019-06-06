@@ -39,3 +39,11 @@ class Aula(Base):
     @classmethod
     def encontrar_pela_data(cls, data):
         return cls.query.filter_by(data=data).first()
+
+    @classmethod
+    def listar(cls):
+        return cls.query.all()
+
+    def remover(self):
+        db.session.delete(self)
+        db.session.commit()

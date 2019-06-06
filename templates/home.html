@@ -2,192 +2,313 @@
 
 {% block title%} Aeroclube | Administrador {% endblock title%}
 
-{% block titulo %}Home - Dashboard{% endblock %}
-{% block subtitulo%}Bem vindo, João{% endblock %}
+{% block titulo %}Dashboard do {{pessoa_logada_cargo}}{% endblock %}
+{% block subtitulo%}Bem vindo, {{pessoa_logada_nome}}{% endblock %}
 {%block conteudo%}
-<div class="content bg-white border-b">
-    <div class="row">
-        
-        <div class="col-sm-6 col-lg-4">
-            <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
-                <div class="block-content block-content-full bg-success">
-                    <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 5</div>
-                    <div class="h5 text-white-op text-uppercase push-5-t">Quantidade de novos alunos</div>
-                </div>
-                <div class="block-content block-content-full block-content-mini">
-                    <i class="fa fa-arrow-up text-success"></i> +30% Essa semana
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-            <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
-                <div class="block-content block-content-full bg-danger">
-                    <div class="h1 font-w700 text-white">53</div>
-                    <div class="h5 text-white-op text-uppercase push-5-t">Quantidade de voos</div>
-                </div>
-                <div class="block-content block-content-full block-content-mini">
-                    <i class="fa fa-arrow-down text-danger"></i> +5% Essa semana
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-            <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
-                <div class="block-content block-content-full bg-warning">
-                    <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 8.6</div>
-                    <div class="h5 text-white-op text-uppercase push-5-t">Média da turma</div>
-                </div>
-                <div class="block-content block-content-full block-content-mini">
-                    <i class="fa fa-chevron-up text-warning"></i> +2% Essa semana
-                </div>
-            </a>
-        </div>
-        
-    </div>
-</div>
-<!-- Page Content -->
-<div class="content">
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Main Dashboard Chart -->
-            <div class="block">
-                <div class="block-header">
-                    <h3 class="block-title">Lista de disponibilidade dos pilotos
-                    </h3>
-                </div>
-                <div class="block-content">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 50px;">#</th>
-                                <th>Nome</th>
-                                
-                                <th class="hidden-xs" style="width: 30%;">Disponibilidade</th>
-                                <th class="text-center" style="width: 20%;">Aluno vinculado</th>
-                                <th class="text-center" style="width: 100px;">Opcoes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>Miguel Oliveira</td>
-                                
-                                <td class="hidden-xs">
-                                    <span class="label label-danger">Indisponível</span>
-                                </td>
-                                <td class="text-center">Jorge Almeida
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
 
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                       
-                                    </div>
-                                </td>
-                                
-                                
-                            </tr>
-                            <tr>
-                                <td class="text-center">2</td>
-                                <td>Laura Souza</td>
-                                
-                                <td class="hidden-xs">
-                                    <span class="label label-success">Disponível</span>
-                                </td>
-                                <td class="text-center"></td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                               
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">3</td>
-                                <td>Enzo Torrini</td>
-                                
-                                <td class="hidden-xs">
-                                    <span class="label label-success">Disponível</span>
-                                </td>
-                                <td class="text-center"></td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                        
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">4</td>
-                                <td>Alice Freire</td>
-                                
-                                <td class="hidden-xs">
-                                    <span class="label label-danger">Indisponível</span>
-                                </td>
-                                <td class="text-center">Joao Pedro</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </div>
+{%if pessoa_logada_cargo == 'Administrador' %}
+    <div class="content bg-white border-b">
+        <div class="row">
+            
+            <div class="col-sm-6 col-lg-4">
+                <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <div class="block-content block-content-full bg-success">
+                        <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 5</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Quantidade de novos alunos</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-mini">
+                        <i class="fa fa-arrow-up text-success"></i> +30% Essa semana
+                    </div>
+                </a>
             </div>
-            <!-- END Main Dashboard Chart -->
+            <div class="col-sm-6 col-lg-4">
+                <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <div class="block-content block-content-full bg-danger">
+                        <div class="h1 font-w700 text-white">53</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Quantidade de voos</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-mini">
+                        <i class="fa fa-arrow-down text-danger"></i> +5% Essa semana
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <div class="block-content block-content-full bg-warning">
+                        <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 8.6</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Média da turma</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-mini">
+                        <i class="fa fa-chevron-up text-warning"></i> +2% Essa semana
+                    </div>
+                </a>
+            </div>
+            
         </div>
-        <div class="col-lg-4">
-            <!-- Latest Sales Widget -->
-            <div class="block">
-                <div class="block-header">
-                    
-                    <h3 class="block-title">Voos de hoje</h3>
-                </div>
-                
-                <div class="block-content">
-                    <div class="pull-t pull-r-l">
-                        <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
-                        <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
-                        <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="2500">
-                            <div>
-                                <table class="table remove-margin-b font-s13">
-                                    <tbody>
+    </div>
+    <!-- Page Content -->
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Main Dashboard Chart -->
+                <div class="block">
+                    <div class="block-header">
+                        <h3 class="block-title">Lista de disponibilidade dos pilotos
+                        </h3>
+                    </div>
+                    <div class="block-content">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="width: 50px;">#</th>
+                                    <th>Nome</th>
+                                    <th class="hidden-xs" style="width: 30%;">Disponibilidade</th>
+                                    <th class="text-center" style="width: 20%;">Aluno vinculado</th>
+                                    <th class="text-center" style="width: 100px;">Opcoes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">1</td>
+                                    <td>Miguel Oliveira</td>
+                                    
+                                    <td class="hidden-xs">
+                                        <span class="label label-danger">Indisponível</span>
+                                    </td>
+                                    <td class="text-center">Jorge Almeida
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+
+                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
                                         
-                                        <tr>
-                                            <td class="font-w600">Miguel Oliveira</td>
-                                            <td class="hidden-xs text-muted text-right">7:15</td>
-                                            <td class="font-w600 text-success text-right">30 minutos</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-w600">Miguel Oliveira</td>
-                                            <td class="hidden-xs text-muted text-right">8:30</td>
-                                            <td class="font-w600 text-success text-right">45 minutos</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-w600">Alice Freire</td>
-                                            <td class="hidden-xs text-muted text-right">14:45</td>
-                                            <td class="font-w600 text-success text-right">60 minutos</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-w600">Alice Freire</td>
-                                            <td class="hidden-xs text-muted text-right">16:00</td>
-                                            <td class="font-w600 text-success text-right">50 minutos</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                        </div>
-                        <!-- END Slick slider -->
+                                        </div>
+                                    </td>
+                                    
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="text-center">2</td>
+                                    <td>Laura Souza</td>
+                                    
+                                    <td class="hidden-xs">
+                                        <span class="label label-success">Disponível</span>
+                                    </td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
+                                                
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">3</td>
+                                    <td>Enzo Torrini</td>
+                                    
+                                    <td class="hidden-xs">
+                                        <span class="label label-success">Disponível</span>
+                                    </td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">4</td>
+                                    <td>Alice Freire</td>
+                                    
+                                    <td class="hidden-xs">
+                                        <span class="label label-danger">Indisponível</span>
+                                    </td>
+                                    <td class="text-center">Joao Pedro</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+                <!-- END Main Dashboard Chart -->
             </div>
-            <!-- END Latest Sales Widget -->
+            <div class="col-lg-4">
+                <!-- Latest Sales Widget -->
+                <div class="block">
+                    <div class="block-header">
+                        
+                        <h3 class="block-title">Voos de hoje</h3>
+                    </div>
+                    
+                    <div class="block-content">
+                        <div class="pull-t pull-r-l">
+                            <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                            <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                            <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="2500">
+                                <div>
+                                    <table class="table remove-margin-b font-s13">
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td class="font-w600">Miguel Oliveira</td>
+                                                <td class="hidden-xs text-muted text-right">7:15</td>
+                                                <td class="font-w600 text-success text-right">30 minutos</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-w600">Miguel Oliveira</td>
+                                                <td class="hidden-xs text-muted text-right">8:30</td>
+                                                <td class="font-w600 text-success text-right">45 minutos</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-w600">Alice Freire</td>
+                                                <td class="hidden-xs text-muted text-right">14:45</td>
+                                                <td class="font-w600 text-success text-right">60 minutos</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-w600">Alice Freire</td>
+                                                <td class="hidden-xs text-muted text-right">16:00</td>
+                                                <td class="font-w600 text-success text-right">50 minutos</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                            <!-- END Slick slider -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END Latest Sales Widget -->
+            </div>
         </div>
     </div>
-</div>
-<!-- END Page Content -->
+    <!-- END Page Content -->
+
+{%endif%}
+
+{% if pessoa_logada_cargo == 'Aluno' %}
+    <div class="content bg-white border-b">
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <div class="block-content block-content-full bg-success">
+                        <div class="h1 font-w700 text-white"> 45 <span class="h2 text-white-op">h</span></div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Horas Acumuladas</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-mini">
+                        <i class="fa fa-arrow-up text-success"></i> +3 horas nessa semana
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <div class="block-content block-content-full bg-primary">
+                        <div class="h1 font-w700 text-white">4.57</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Media das notas</div>
+                    </div>
+                    <div class="block-content block-content-full block-content-mini">
+                        <i class="fa fa-clock-o "></i> Nota 4 no ultimo voo
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <div class="block-content block-content-full bg-warning">
+                        <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 150</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Minimo de horas</div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- Page Content -->
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Default Elements -->
+                <div class="block">
+                    <div class="block-header">
+                       
+                        <h3 class="block-title">Dados Cadastrais</h3>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-lg-8">
+                                <label for="profile-email">Nome</label>
+                                <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='Jorge Almeida'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-xs-8">
+                                    <label for="profile-email">CPF</label>
+                                    <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='437.867.971-15'>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <div class="col-xs-8">
+                                <label for="profile-email">Email Address</label>
+                                <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='jorgea@gmail.com'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-8">
+                                <label for="profile-email">Data de Nascimento</label>
+                                <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='03/06/97'>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <!-- END Default Elements --> 
+            </div>
+            <div class="col-lg-4">
+                <!-- Latest Sales Widget -->
+                <div class="block">
+                    <div class="block-header">
+                      
+                        <h3 class="block-title">Proximos Voos</h3>
+                    </div>
+                    
+                    <div class="block-content">
+                        <div class="pull-t pull-r-l">
+                            <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                            <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                            <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="2500">
+                                <div>
+                                    <table class="table remove-margin-b font-s13">
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td class="font-w600">4a feira</td>
+                                                <td class="hidden-xs text-muted text-right">15:00</td>
+                                                <td class="font-w600 text-success text-right">2 horas</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-w600">Sabado</td>
+                                                <td class="hidden-xs text-muted text-right">10:00</td>
+                                                <td class="font-w600 text-success text-right">1 hora</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                            <!-- END Slick slider -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END Latest Sales Widget -->
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endif %}
 
 {% endblock conteudo%}
 
