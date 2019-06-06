@@ -16,17 +16,17 @@ class Aeronave(db.Model):
         self.modelo = modelo
 
 
-class Voo(Aeronave):
+class Voo(db.Model):
     __tablename__ = "voo"
     __mapper_args__ = {'polymorphic_identity': 'voo'}
 
     dataVoo = db.Column(db.DateTime, default = db.func.current_timestamp(),primary_key = True)
     
-    aeronave = db.Column(db.Integer, db.ForeignKey('aeronave.id'),primary_key = True)
+    aeronave = db.Column(db.Integer, nullable = False)
 
     horaSaida = db.Column(db.String(128), nullable = False)
 
-    duracao = db.Column(db.String(128), nullable = False, unique = True)
+    duracao = db.Column(db.String(128), nullable = False)
     
     tipo=db.Column(db.String, db.Enum('Aula','Voo simples',name='tipo'),default='Voo simples')
 
@@ -41,19 +41,20 @@ class Aula(Voo):
     __tablename__ = "aula"
     __mapper_args__ = {'polymorphic_identity': 'aula'}
 
-    aluno = db.Column(db.String(128), db.ForeignKey('login.name'), primary_key = True)
+    aluno = db.Column(db.String(128), db.ForeignKey('login.name'))
 
     instrutor = db.Column(db.String(128), db.ForeignKey('login.name'))
 
     parecer = db.Column(db.Integer, nullable = False)
 
-    dataAula = db.Column(db.DateTime,db.ForeignKey('voo.dataVoo'))
+    dataAula = db.Column(db.DateTime,db.ForeignKey('voo.dataVoo'), primary_key = True)
 
     def __init__(self,aluno,instrutor,parecer,dataVoo,horaSaida,duracao,aeronave,tipo):
         self.aluno = aluno
         self.instrutor = instrutor                
         self.parecer = parecer
-        super().__init__(horaSaida = horaSaida,dataVoo=dataVoo,duracao = duracao,aeronave=aeronave,tipo = self.getTipo())
+        
+        super().__init__(horaSaida = horaSaida, dataVoo=dataVoo, duracao = duracao, aeronave=aeronave, tipo = self.getTipo())
     @staticmethod
     def getTipo():
         return "Aula"
@@ -62,9 +63,9 @@ class VooSimples(Voo):
     __tablename__ = "voosimples"
     __mapper_args__ = {'polymorphic_identity': 'voosimples'}
 
-    piloto = db.Column(db.String(128), db.ForeignKey('login.name'), primary_key = True)
+    piloto = db.Column(db.String(128), db.ForeignKey('login.name'))
 
-    dataVooSimples = db.Column(db.DateTime,db.ForeignKey('voo.dataVoo'))
+    dataVooSimples = db.Column(db.DateTime,db.ForeignKey('voo.dataVoo'), default=db.func.current_timestamp(), primary_key = True)
 
     def __init__(self,piloto,dataVoo,horaSaida,duracao,aeronave,tipo):
         self.piloto=piloto
