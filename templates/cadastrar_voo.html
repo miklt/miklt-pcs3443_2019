@@ -35,13 +35,13 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="piloto_id" name="piloto_id" size="1">
+                                    <select  {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="piloto_id" name="piloto_id" size="1">
                                         <option>Selecione uma opcao</option>
                                         {% for piloto in pilotos %}
-                                        <option value="{{piloto.id}}">{{piloto.nome}}</option>
+                                        <option  {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == piloto.id %} selected {% endif %} value="{{piloto.id}}">{{piloto.nome}}</option>
                                         {% endfor %}
                                         {% for instrutor in instrutores %}
-                                        <option value="{{instrutor.id}}">{{instrutor.nome}}</option>
+                                        <option {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == instrutor.id %} selected {% endif %} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
                                     
                                     </select>

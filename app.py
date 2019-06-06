@@ -132,6 +132,13 @@ def deletarUsuario():
 # VOO
 @app.route("/cadastrar_voo",  methods=['GET', 'POST'])
 def cadastrarVoo():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+    
     cadastrou_voo = False
     if request.method == 'POST':
         piloto_id = request.form['piloto_id']
@@ -178,6 +185,13 @@ def editarVoo():
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+
     if request.method == 'POST':
         id_aluno = request.form['id_aluno']
         id_instrutor = request.form['id_instrutor']
