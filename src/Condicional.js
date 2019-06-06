@@ -1,4 +1,6 @@
 import React from "react"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import Login from "./Login"
 import Agendamento from "./Agendamento"
 import Cadastro from "./Cadastro"
@@ -13,7 +15,7 @@ class Condicional extends React.Component {
     }
 
     render () {
-        switch(this.pagina) {
+        /*switch(this.pagina) {
             default:
                 return (
                     <div></div>
@@ -77,13 +79,8 @@ class Condicional extends React.Component {
                     </ul>
                 </div>  
                 )
-            case "/sobre":
-                return(
-                    <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
-                        <h1>Escola de Aviação ltd.</h1>
-                        <p>A Escola de Aviação ltd. é um aeroclube especializado em formar alunos para os diversos desafios encontrados no céu. Se você procura um lugar para aprender ou simmplesmente praticar, sua busca acabou.</p>
-                    </div>    
-                )
+            
+            
             case "/contato":
                 return(
                     <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
@@ -92,7 +89,20 @@ class Condicional extends React.Component {
                         <p>Telefone: (11) 92568-7895</p>
                     </div>
                 )
-        }    
+        } */
+
+        return (
+            <Route
+                path="/sobre"
+                render={() => (
+                    <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
+                        <h1>Escola de Aviação ltd.</h1>
+                        <p>A Escola de Aviação ltd. é um aeroclube especializado em formar alunos para os diversos desafios encontrados no céu. Se você procura um lugar para aprender ou simmplesmente praticar, sua busca acabou.</p>
+                    </div>   
+                )}
+            />
+        ) 
+            
     }
 }
 

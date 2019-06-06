@@ -1,5 +1,6 @@
 import React from "react"
 import "./Header.css"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Header extends React.Component {
     render () {
@@ -12,9 +13,9 @@ class Header extends React.Component {
                     <div className="coluna col6">
                         <nav>
                             <ul className="menu inline sem-marcador">
-                                <li><a href="servicos">Serviços</a></li>
-                                <li><a href="sobre">Sobre</a></li>
-                                <li><a href="contato">Contato</a></li>
+                                <li><Link to="/servicos/">Serviços</Link></li>
+                                <li><Link to="/sobre/">Sobre</Link></li>
+                                <li><Link to="/contato/">Contato</Link></li>
                             </ul>
                         </nav>
                     </div>
