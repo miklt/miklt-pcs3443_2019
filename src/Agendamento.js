@@ -20,6 +20,7 @@ class Agendamento extends React.Component {
             duracao: '',
             aeronave: '',
             tipo: '',
+            matricula:'',
            
         };
     }
@@ -39,6 +40,7 @@ class Agendamento extends React.Component {
             aeronave:  this.state.aeronave,
             tipo:      this.state.tipo,
             piloto:    this.state.piloto,
+            matricula: this.state.matricula,
         })
         .catch(error => {
             alert(error)
@@ -50,18 +52,19 @@ class Agendamento extends React.Component {
             <div>
                 <form className="telaAgendamento" onSubmit={this.handleSubmit}>
 
-
-                    <label htmlFor="instrutor">Instrutor: </label>
-                    <input type="text" name="instrutor" id="instrutor" onChange={this.handleChange} required />
+                <label htmlFor="tipo">Tipo de Voo: </label>
+                    <select defaultValue="" name="tipo" id="tipo" onChange={this.handleChange} onClick={this.changeVisibility} required>
+                    <option value="" disabled>Selecione</option>
+                        <option value="Aula">Aula</option>
+                        <option value='Voo Simples'>Voo Simples</option>
+                    </select>
                     <br />
                         
-                    <label htmlFor="aeronave">Avião: </label>
-                    <input type="text" name="aviao" id="aviao" onChange={this.handleChange} required />
+                    <label htmlFor="aeronave">Aeronave: </label>
+                    <input type="text" name="aeronave" id="aeronave" onChange={this.handleChange} required />
                     <br />
 
-                    <label htmlFor="dataVoo">Data do Voo: </label>
-                    <input type="date" name="dataVoo" id="dataVoo" onChange={this.handleChange} required />
-                    <br />
+    
                     <label htmlFor="horaSaida">Hora de Saida: </label>
                     <input type="text" name="horaSaida" id="horaSaida" onChange={this.handleChange} required />
                     <br />
@@ -69,23 +72,30 @@ class Agendamento extends React.Component {
                     <label htmlFor="duracao">Duração: </label>
                     <input type="text" name="duracao" id="duracao" onChange={this.handleChange} required />
                     <br />
-                    
-                    <label htmlFor="piloto">Piloto: </label>
+                    {(this.state.tipo==="Voo Simples") &&
+                
+                    <div>
+                         <label htmlFor="piloto">Piloto: </label>
                     <input type="text" name="piloto" id="piloto" onChange={this.handleChange} required />
                     <br />
-                    
-                    <label htmlFor="tipo">Tipo de Voo: </label>
-                    <select defaultValue="Voo Simples" name="tipo" id="tipo" onChange={this.handleChange} onClick={this.changeVisibility} required>
-                    <option value="" disabled>Selecione</option>
-                        <option value="Aula">Aula</option>
-                        <option value='Voo Simples'>Voo Simples</option>
-                    </select>
-                    <br />
+                    </div>
+                
+                }
 
                     {(this.state.tipo==="Aula") &&
                     <div>
                             <label htmlFor="aluno">Aluno: </label>
                     <input type="text" name="aluno" id="aluno" onChange={this.handleChange} required />
+                    <br />
+
+                    <label htmlFor="matricula">Número da Matrícula: </label>
+                    <input type="text" name="matricula" id="matricula" onChange={this.handleChange} required />
+                    <br />
+                    
+                    
+                    
+                    <label htmlFor="instrutor">Instrutor: </label>
+                    <input type="text" name="instrutor" id="instrutor" onChange={this.handleChange} required />
                     <br />
                     </div>
                 }
@@ -96,7 +106,7 @@ class Agendamento extends React.Component {
         )
      
         
-      /*   não precisa de horaSaida, tirar
+      /*   ?
       
       
       
