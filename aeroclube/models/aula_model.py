@@ -3,27 +3,30 @@ from dao import db, Base
 
 class Aula(Base):
     __tablename__ = 'aula'
-    id = db.Column(db.Integer, db.ForeignKey('voo.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     id_aluno = db.Column(db.Integer, db.ForeignKey(
         'pessoa.id'))
     id_instrutor = db.Column(db.Integer, db.ForeignKey(
         'pessoa.id'))
     data = db.Column(db.DateTime)
     duracao = db.Column(db.Integer)
-    avaliacao = db.Column(db.String(200), unique=True)
     nota = db.Column(db.Integer)
+
+    avaliacao = db.Column(db.String(200), unique=True)
 
     def __init__(self, id_aluno, id_instrutor, data, duracao, nota, avaliacao):
         self.id_aluno = id_aluno
         self.id_instrutor = id_instrutor
-        self.duracao = duracao
         self.data = data
+        self.duracao = duracao
         self.nota = nota
-        self.avaliacao = avaliacao
 
-    @classmethod
-    def encontrar_pelo_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
+        self.avaliacao = avaliacao
+    
+    def adicionar(self):
+        db.session.add(self)
+        db.session.commit()
+
 
     @classmethod
     def encontrar_pelo_id_aluno(cls, id_aluno):

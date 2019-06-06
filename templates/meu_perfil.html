@@ -2,9 +2,9 @@
 
 {% block title%} Apache | Administrador {% endblock title%}
 
-{% block titulo %}Editar{% endblock %}
+{% block titulo %}Editar meu Perfil{% endblock %}
 
-{% block subtitulo%}Editar Usuário{% endblock %}
+{% block subtitulo%}Altere seus dados cadastrais{% endblock %}
 
 {%block conteudo%}
 
@@ -14,7 +14,7 @@
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Tudo certo!</h3>
-            <p>Usuário <a class="alert-link" href="javascript:void(0)">editado com sucesso.</a>!</p>
+            <p>Perfil <a class="alert-link" href="javascript:void(0)">editado com sucesso.</a>!</p>
         </div>
         <!-- END Success Alert -->
     </div>
@@ -28,10 +28,10 @@
             <!-- Static Labels -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">Formulario de Edição</h3>
+                    <h3 class="block-title">Formulario do Usuário</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="/editar_usuario?id={{id_usuario}}" method="post">
+                    <form class="form-horizontal push-10-t" action="{{ url_for('meuPerfil') }}" method="post">
                         
                         <div class="form-group">
                             <div class="col-sm-9">
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="cargo" name="cargo" size="1" selected='{{current_cargo}}'>
+                                    <select disabled class="form-control" id="cargo" name="cargo" size="1">
                                         <option {{selected_administrador}} value="Administrador">Administrador</option>
                                         <option {{selected_piloto}} value="Piloto">Piloto</option>
                                         <option {{selected_instrutor}} value="Instrutor">Instrutor</option>

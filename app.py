@@ -1,9 +1,9 @@
-
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
+
+from datetime import datetime, date, time
 from aeroclube.models.voo_model import Voo
-from datetime import datetime, date
 
 
 app = Flask(__name__)
@@ -17,11 +17,23 @@ app.secret_key = 'aeroclube'
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    return render_template("home.html", **locals())
 
 # USUARIO
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
+    if not 'pessoa' in session:
+         return redirect(url_for('login'))
+
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
     if request.method == 'POST':
         nome = request.form['nome']
         cpf = request.form['cpf']
@@ -56,12 +68,23 @@ def cadastrarUsuario():
 
 @app.route("/listar_usuario")
 def listarUsuario():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
     pessoas = Pessoa.listar()
     return render_template("listar_usuario.html", **locals())
 
 
 @app.route("/editar_usuario",  methods=['GET', 'POST'])
 def editarUsuario():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
 
     id_usuario = request.args['id']
     usuario = Pessoa.encontrar_pelo_id(id_usuario)
@@ -77,7 +100,7 @@ def editarUsuario():
             senha = request.form['senha']
 
             usuario.nome = nome
-            usuario.cpf = cpf
+            usuario.cpf = cpf   
             usuario.email = email
             usuario.data_nascimento = data_nascimento
             usuario.cargo = cargo
@@ -91,6 +114,15 @@ def editarUsuario():
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
         current_senha = usuario.senha
+
+        if current_cargo == 'Administrador':
+            selected_administrador = 'selected'
+        if current_cargo == 'Piloto':
+            selected_piloto = 'selected'
+        if current_cargo == 'Aluno':
+            selected_aluno = 'selected'
+        if current_cargo == 'Instrutor':
+            selected_instrutor = 'selected'
     return render_template("editar_usuario.html", **locals())
 
 
@@ -152,8 +184,29 @@ def editarVoo():
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
     if request.method == 'POST':
-        pass
+        id_aluno = request.form['id_aluno']
+        id_instrutor = request.form['id_instrutor']
+
+        data_str = request.form['data']
+        hora_str = request.form['horario']  # juntar com data?
+
+        data_hora_str = data_str+' '+hora_str        
+        data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
+
+        duracao = request.form['duracao']
+
+
+        #### FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
+
+        nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
+                                  duracao=duracao, nota=None, avaliacao=None)
+          
+        nova_aula.adicionar()
+        cadastrou_aula = True
+
     usuarios = Pessoa.encontrar_por_cargo('Aluno')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
     return render_template("cadastrar_aula.html",  **locals())
 
 
@@ -166,12 +219,71 @@ def listarAula():
         alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
     return render_template("listar_aula.html", **locals())
 
+#LOGIN DO SISTEMA
+@app.route("/login",  methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+        pessoa = Pessoa.encontrar_pelo_email(email)
+        if pessoa:
+            if pessoa.senha == senha:
+                session['pessoa'] = pessoa.id
+                return redirect(url_for('home'))
+           
+        pessoa_nao_encontrada = True
+    return render_template("login.html", **locals())
+
+@app.route('/logout')
+def logout():
+   session.pop('pessoa', None)
+   return redirect(url_for('login'))
+
+
+#Editar proprio Perfil
+@app.route('/meu_perfil', methods=['GET', 'POST'])
+def meuPerfil():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        cpf = request.form['cpf']
+        email = request.form['email']
+        data_nascimento_str = request.form['data_nascimento']
+        data_nascimento = datetime.strptime(data_nascimento_str,
+                                            '%d/%m/%Y').date()
+        senha = request.form['senha']
+
+        pessoa_logada.nome = nome
+        pessoa_logada.cpf = cpf
+        pessoa_logada.email = email
+        pessoa_logada.data_nascimento = data_nascimento
+        pessoa_logada.senha = senha
+        db.session.commit()
+        editou_pessoa = True
+
+    current_nome = pessoa_logada.nome
+    current_cpf = pessoa_logada.cpf
+    current_email = pessoa_logada.email
+    current_data_nascimento = pessoa_logada.data_nascimento.strftime('%d/%m/%Y')
+    current_cargo = pessoa_logada.cargo
+    current_senha = pessoa_logada.senha
+    
+    if current_cargo == 'Administrador':
+        selected_administrador = 'selected'
+    if current_cargo == 'Piloto':
+        selected_piloto = 'selected'
+    if current_cargo == 'Aluno':
+        selected_aluno = 'selected'
+    if current_cargo == 'Instrutor':
+        selected_instrutor = 'selected'
+    return render_template("meu_perfil.html", **locals())
+
 # CONSULTA HORAS DE VOO
-@app.route("/consultar_horas")
-def consultarHoras():
-    return render_template("consultar_horas.html")
-
-
 @app.route("/visualizar_horas")
 def visualizarHoras():
     return render_template("visualizar_horas.html")
