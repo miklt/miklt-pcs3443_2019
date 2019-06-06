@@ -22,6 +22,7 @@ class Pessoa(Base):
         self.cargo = cargo
         self.dataCadastro = date.today()
         self.senha = senha
+        self.horasVoo = 0
 
     def adicionar(self):
         db.session.add(self)

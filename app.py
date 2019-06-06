@@ -21,6 +21,10 @@ def home():
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
+    if pessoa_logada_cargo == 'Aluno':
+        horas_voo = pessoa_logada.horasVoo
+    if pessoa_logada_cargo == 'Administrador':
+        quantidade_alunos = len(Pessoa.encontrar_por_cargo('Aluno'))
     return render_template("home.html", **locals())
 
 # USUARIO
@@ -56,7 +60,7 @@ def cadastrarUsuario():
             erro_cpf = True
         elif pessoa_email:
             erro_email = True
-        else:
+        else:   
             nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
                                  cargo=cargo, data_nascimento=data_nascimento,
                                  senha=senha)
@@ -113,15 +117,6 @@ def editarUsuario():
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
         current_senha = usuario.senha
-
-        if current_cargo == 'Administrador':
-            selected_administrador = 'selected'
-        if current_cargo == 'Piloto':
-            selected_piloto = 'selected'
-        if current_cargo == 'Aluno':
-            selected_aluno = 'selected'
-        if current_cargo == 'Instrutor':
-            selected_instrutor = 'selected'
     return render_template("editar_usuario.html", **locals())
 
 
@@ -249,15 +244,6 @@ def meuPerfil():
     current_data_nascimento = pessoa_logada.data_nascimento.strftime('%d/%m/%Y')
     current_cargo = pessoa_logada.cargo
     current_senha = pessoa_logada.senha
-    
-    if current_cargo == 'Administrador':
-        selected_administrador = 'selected'
-    if current_cargo == 'Piloto':
-        selected_piloto = 'selected'
-    if current_cargo == 'Aluno':
-        selected_aluno = 'selected'
-    if current_cargo == 'Instrutor':
-        selected_instrutor = 'selected'
     return render_template("meu_perfil.html", **locals())
 
 # CONSULTA HORAS DE VOO
