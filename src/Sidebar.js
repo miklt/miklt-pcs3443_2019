@@ -17,7 +17,8 @@ class Sidebar extends React.Component {
                 {!this.props.state.isLoggedIn && 
                     <li><Aba name="Login" nameHtml="/login"/></li>
                 }
-                {true &&
+                {this.props.state.role === "Instrutor" && 
+                //true &&
                     <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
                 }
                 {this.props.state.role === "Instrutor" && 
