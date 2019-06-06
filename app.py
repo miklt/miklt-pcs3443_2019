@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from aeroclube.models.pessoa_model import Pessoa
-from datetime import datetime, date
+from aeroclube.models.aula_model import Aula
+
+from datetime import datetime, date, time
 
 
 app = Flask(__name__)
@@ -73,7 +75,7 @@ def editarUsuario():
             cargo = request.form['cargo']
 
             usuario.nome = nome
-            usuario.cpf = cpf
+            usuario.cpf = cpf   
             usuario.email = email
             usuario.data_nascimento = data_nascimento
             usuario.cargo = cargo
@@ -113,8 +115,29 @@ def listarVoo():
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
     if request.method == 'POST':
-        pass
+        id_aluno = request.form['id_aluno']
+        id_instrutor = request.form['id_instrutor']
+
+        data_str = request.form['data']
+        hora_str = request.form['horario']  # juntar com data?
+
+        data_hora_str = data_str+' '+hora_str        
+        data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
+
+        duracao = request.form['duracao']
+
+
+        #### FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
+
+        nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
+                                  duracao=duracao, nota=None, avaliacao=None)
+          
+        nova_aula.adicionar()
+        cadastrou_aula = True
+
     usuarios = Pessoa.encontrar_por_cargo('Aluno')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
     return render_template("cadastrar_aula.html",  **locals())
 
 
