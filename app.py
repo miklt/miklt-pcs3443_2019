@@ -215,7 +215,7 @@ def listarAula():
     aulas = Aula.listar()
     alunos=[]
     for k in aulas:
-        print (aulas.nome)
+        print (k.id)
         alunos = alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
     return render_template("listar_aula.html", **locals())
 
