@@ -17,10 +17,9 @@ class Sidebar extends React.Component {
                     <div>
                         <ul className="sidebarAba">
                             <li className="sidebarHeader">MENU</li>
-                            <li><Aba name="Agendamentos" nameHtml="./Agendamento"/></li>
-                            <li><Aba name="Perfil" nameHtml="./Perfil"/></li>
-                            <li><Aba name="Configurações" nameHtml="./Configuracoes"/></li>
-                            <li><Aba name="Log Out" nameHtml="./Logout"/></li>
+                            <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
+                            <li><Aba name="Perfil" nameHtml="/perfil"/></li>
+                            <li><Aba name="Log Out" nameHtml="/logout"/></li>
                         </ul>
                     </div>
                 )
@@ -29,10 +28,9 @@ class Sidebar extends React.Component {
                     <div>
                         <ul className="sidebarAba">
                             <li className="sidebarHeader">MENU</li>
-                            <li><Aba name="Agendamentos" nameHtml="./Agendamento"/></li>
-                            <li><Aba name="Perfil" nameHtml="./Perfil"/></li>
-                            <li><Aba name="Configurações" nameHtml="./Configuracoes"/></li>
-                            <li><Aba name="Log Out" nameHtml="./Logout"/></li>
+                            <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
+                            <li><Aba name="Perfil" nameHtml="/perfil"/></li>
+                            <li><Aba name="Log Out" nameHtml="/logout"/></li>
                         </ul>
                     </div>
                 )
@@ -41,11 +39,10 @@ class Sidebar extends React.Component {
                     <div>
                         <ul className="sidebarAba">
                             <li className="sidebarHeader">MENU</li>
-                            <li><Aba name="Agendamentos" nameHtml="./Agendamento"/></li>
-                            <li><Aba name="Sócios" nameHtml="./Socios"/></li>
-                            <li><Aba name="Perfil" nameHtml="./Perfil"/></li>
-                            <li><Aba name="Configurações" nameHtml="./Configuracoes"/></li>
-                            <li><Aba name="Log Out" nameHtml="./Logout"/></li>
+                            <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
+                            <li><Aba name="Sócios" nameHtml="/socios"/></li>
+                            <li><Aba name="Perfil" nameHtml="/perfil"/></li>
+                            <li><Aba name="Log Out" nameHtml="/logout"/></li>
                         </ul>
                     </div>
                 )
@@ -55,8 +52,8 @@ class Sidebar extends React.Component {
                 <div>
                     <ul className="sidebarAba">
                         <li className="sidebarHeader">MENU</li>
-                        <li><Aba name="Login" nameHtml="./Login"/></li>
-                        <li><Aba name="Cadastro" nameHtml="./Cadastro"/></li>
+                        <li><Aba name="Login" nameHtml="/login"/></li>
+                        <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
                     </ul>
                 </div>
             )

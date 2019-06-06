@@ -15,85 +15,12 @@ class Condicional extends React.Component {
     }
 
     render () {
-        /*switch(this.pagina) {
-            default:
-                return (
-                    <div></div>
-                )
-            case "/Login":
-                return (
-                    <div>
-                        <Login state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout}/>
-                    </div>
-                )
-            case "/Agendamento":
-                if (this.props.state.isLoggedIn)    
-                    return (
-                        <div>
-                            <Agendamento state={this.props.state}/>
-                        </div>
-                    )
-                else
-                    return(
-                        <div></div>
-                    )
-            case "/Perfil":
-                if (this.props.state.isLoggedIn)    
-                    return (
-                        <div>
-                            <p><Perfil state={this.props.state}/></p>
-                        </div>
-                    )
-                else
-                    return(
-                        <div></div>
-                    )
-            case "/Cadastro":
-                return (
-                    <div>
-                        <Cadastro />
-                    </div>
-                )
-            case "/Socios":
-                return (
-                    <div>
-                        <Socios />
-                    </div>
-                )
-
-            case "/Log Out":
-                this.props.logout()
-                return (
-                    <div></div>
-                )
-            case "/servicos":
-                return(
-                <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
-                    <h1>Serviços:</h1>
-                    <ul>
-                        <li>Curso básico para aeronaves</li>
-                        <li>Curso intermediário para aeronaves</li>
-                        <li>Curso avançado para aeronaves</li>
-                        <li>Prática com instrutor</li>
-                        <li>Prática sem instrutor</li>
-                    </ul>
-                </div>  
-                )
+                  
             
-            
-            case "/contato":
-                return(
-                    <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
-                        <h1>Contato</h1>
-                        <p>Endereço: Av. Prof. Luciano Gualberto, 158 - Butantã, São Paulo - SP, 05508-010</p>
-                        <p>Telefone: (11) 92568-7895</p>
-                    </div>
-                )
-        } */
+           
 
         return (
             <div>
-
                 <Route
                     path="/sobre"
                     render={() => (
@@ -129,7 +56,7 @@ class Condicional extends React.Component {
                     )}
                 />
 
-                
+
                 <Route
                     path="/login"
                     render={(routeProps) => (
@@ -146,6 +73,18 @@ class Condicional extends React.Component {
                     path="/cadastro"
                     render={(routeProps) => (
                         <Cadastro {...routeProps} />
+                    )}
+                />
+                <Route
+                    path="/perfil"
+                    render={(routeProps) => (
+                        <Perfil {...routeProps} state={this.props.state}/>
+                    )}
+                />
+                <Route
+                    path="/socios"
+                    render={(routeProps) => (
+                        <Socios {...routeProps} />
                     )}
                 />
 

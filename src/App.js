@@ -66,10 +66,15 @@ class App extends React.Component {
         return (
             <Router>
                 <div>
-                    <div className="header">
-                    <Route path="/" component={Header}/>
-                    </div>
+                    
                     <div className="divTable">
+                        <div className="divRow">   
+                            <div className="divCell">    
+                                <div className="header" >
+                                    <Route path="/" component={Header}/>
+                                </div>
+                            </div>
+                        </div>
                         <div className="divRow">
                             <div className="divCell">
                                 <Route
