@@ -34,8 +34,6 @@
             <h1 class="display-4"> <strong>Cadastro de Piloto</strong></h1>
             <hr>
             <form method="POST" action="/cadastro-piloto">
-              <input type="text" name="matricula" placeholder="Matricula">
-              <br>
               <input type="text" name="nome" placeholder="Nome">
               <br>
               <input type="text" name="sobrenome" placeholder="Sobrenome">
@@ -55,16 +53,17 @@
               <input type="text" name="sexo" placeholder="Sexo">
               <br>
               <input type="text" name="breve" placeholder="Numero do Breve">
-            </form>  
-    <a href='/'>
-      <button type="button" value='Cadastrar'class="btn btn-primary" style="float:right; margin-left:5px;">Cadastrar</button>
-    </a>
-    <a href='/cadastro-piloto'>
-      <button type="button" class="btn btn-warning" style="float:right;">Limpar</button>
-    </a>
-    <a href='/'>
-      <button type="button" class="btn btn-light" style="float: left">Tela Anterior</button>
-    </a>
+              <a href='/cadastro-piloto'>
+                    <button type="submit" value='Cadastrar'class="btn btn-primary" style="float:right; margin-left:5px;">Cadastrar</button>
+                </a>
+                <a href='/cadastro-piloto'>
+                    <button type="submit" class="btn btn-warning" style="float:right;">Limpar</button>
+                </a>
+                
+            </form> 
+            <a href='/inicial'>
+                    <button type="submit" class="btn btn-light" style="float: left">Tela Anterior</button>
+                </a> 
   </body>
 
 </html>

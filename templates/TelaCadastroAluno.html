@@ -36,8 +36,6 @@
             <h1 class="display-4"> <strong>Cadastro de Aluno</strong></h1>
             <hr>
             <form method="POST" action="/cadastro-aluno">
-                <input type="text" name="matricula" placeholder="Matricula" required>
-                <br>
                 <input type="text" name="nome" placeholder="Nome">
                 <br>
                 <input type="text" name="sobrenome" placeholder="Sobrenome">
@@ -55,17 +53,18 @@
                 <input type="text" name="cpf" placeholder="CPF" max-length='11'>
                 <br>
                 <input type="text" name="sexo" placeholder="Sexo">
-                <br><br>
-                <a href='/'>
-                    <button type="input" value='Cadastrar'class="btn btn-primary" style="float:right; margin-left:5px;">Cadastrar</button>
+                <br>
+                <a href='/cadastro-aluno'>
+                    <button type="submit" value='Cadastrar'class="btn btn-primary" style="float:right; margin-left:5px;">Cadastrar</button>
                 </a>
                 <a href='/cadastro-aluno'>
-                    <button type="input" class="btn btn-warning" style="float:right;">Limpar</button>
+                    <button type="submit" class="btn btn-warning" style="float:right;">Limpar</button>
                 </a>
-                <a href='/'>
-                    <button type="input" class="btn btn-light" style="float: left">Tela Anterior</button>
-                </a>
-            </form>    
+                
+            </form> 
+            <a href='/inicial'>
+                    <button type="submit" class="btn btn-light" style="float: left">Tela Anterior</button>
+                </a>   
         </div>           
     </div>
     
