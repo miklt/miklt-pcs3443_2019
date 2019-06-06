@@ -16,9 +16,10 @@ def agendarVoo():
     #if data['tipo']=='Aula':
         #v=models.Aula(data['aluno'],data['instrutor'],data['parecer'],data['dataVoo'],data['horaSaida'],data['duracao'],data['aeronave'],data['tipo'])
  
-    v=models.VooSimples("instrutor",datetime.date.today(),"112","110","paperplane","Voo simples")
+    v=models.VooSimples("Maria",db.func.current_timestamp(),"112","111","1","Voo Simples")
+    g=models.Aula("Joao","Maria","5",db.func.current_timestamp(),"11","2","4","Aula")
     
-    db.session.add(v)
+    db.session.add(g)
     db.session.commit()
     
 
@@ -27,8 +28,8 @@ def agendarVoo():
 @voo.route('/consultarAula/', methods=["GET"])
 def consultarAula():
     #data=request.get_json()
-    data="aluno"
-    sample=models.Aula.query.filter_by(aluno =data).all()
+    data="oi"
+    sample=models.Aula.query.filter_by(aluno ="Joao").all()
     print(sample)
     return "oi"
 
@@ -38,7 +39,8 @@ def consultarHoras():
     #data="aluno"
     #sample=models.Aula.query(func.sum().label("duracao")).filter(aluno=data).all()
     
-    sample=select([func.sum(models.Aula.duracao)]).where(models.Aula.aluno=="aluno").as_scalar()
+
+    sample=models.Aula.query.with_entities(func.sum(models.Aula.duracao).label('total de horas')).filter_by(aluno ="Joao").all()
     
     print(sample)
-    return "oi"
+    return "ao"
