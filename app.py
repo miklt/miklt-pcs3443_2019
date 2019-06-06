@@ -31,6 +31,7 @@ def cadastrarUsuario():
         data_nascimento = datetime.strptime(data_nascimento_str,
                                             '%d/%m/%Y').date()
         cargo = request.form['cargo']
+        senha = request.form['senha']
 
         pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
         pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
@@ -47,7 +48,8 @@ def cadastrarUsuario():
             erro_email = True
         else:
             nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
-                                 cargo=cargo, data_nascimento=data_nascimento)
+                                 cargo=cargo, data_nascimento=data_nascimento,
+                                 senha=senha)
             if cargo == 'Aluno':
                 nova_pessoa.cod_curso = "12345"
             nova_pessoa.adicionar()
