@@ -187,6 +187,8 @@ def cadastrarVoo():
     return render_template("cadastrar_voo.html",  **locals())
 
 
+
+
 @app.route("/listar_voo")
 def listarVoo():
     voos = Voo.listar()
@@ -205,7 +207,27 @@ def deletarVoo():
     return redirect(url_for('listarVoo'))
 
 
-@app.route("/editar_voo",  methods=['GET', 'POST'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/editar_voo",  methods=['GET', 'POST']) 
 def editarVoo():
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -246,7 +268,7 @@ def editarVoo():
     return render_template("editar_voo.html", **locals())
 
 # Aula
-@app.route("/cadastrar_aula",  methods=['GET', 'POST'])
+@app.route("/cadastrar_aula",  methods=['GET', 'POST']) 
 def cadastrarAula():
     if not 'pessoa' in session:
         return redirect(url_for('login'))
@@ -261,26 +283,137 @@ def cadastrarAula():
 
         data_str = request.form['data']
         hora_str = request.form['horario']  # juntar com data?
-
-        data_hora_str = data_str+' '+hora_str
+        data_hora_str = data_str+' '+hora_str        
         data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
-
         duracao = request.form['duracao']
-
-        # FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
-
-        nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor,
-                         data=data_hora, duracao=duracao,
-                         nota=None, avaliacao=None)
-
-        nova_aula.adicionar()
-        cadastrou_aula = True
+        #### FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
+        try:
+            nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
+                                  duracao=duracao, nota=None, avaliacao=None)
+            nova_aula.adicionar()
+            erro_cadastro_aula = False
+        except:
+            erro_cadastro_aula = True
 
     usuarios = Pessoa.encontrar_por_cargo('Aluno')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
 
     return render_template("cadastrar_aula.html",  **locals())
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/editar_aula",  methods=['GET', 'POST'])
+def editarAula():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+    alunos = Pessoa.encontrar_por_cargo('Aluno')
+
+    erro_edicao = False
+    id_aula = request.args['id']
+    aula = Aula.encontrar_pelo_id(id_aula)
+    if aula:
+        if request.method == 'POST':
+            id_aluno = request.form['id_aluno']
+            id_instrutor = request.form['id_instrutor']
+
+            data_str = request.form['data']
+            hora_str = request.form['horario']  
+            data_hora_str = data_str+' '+hora_str        
+            data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
+            duracao = request.form['duracao']
+
+            aula.id_aluno = id_aluno
+            aula.id_instrutor = id_instrutor
+            aula.data = data
+            aula.duracao = duracao
+        try:
+            db.session.commit()
+            erro_edicao = False
+        except:
+            erro_edicao = True
+
+        aluno_selecionado = aula.id_aluno
+        instrutor_selecionado = aula.id_instrutor
+
+
+        current_id_aluno = aula.id_aluno
+        current_id_instrutor = aula.id_instrutor
+        current_data = aula.data.strftime("%d/%m/%Y")
+        current_horario = aula.data.strftime("%H:%M")
+        current_duracao = aula.duracao
+        if aula.nota == None:
+            current_nota = "Aula não foi avaliada"
+        else:
+            current_nota = aula.nota
+        if aula.avaliacao == None:
+            current_avaliacao = "Aula não foi avaliada"
+        else:
+            current_avaliacao = aula.avaliacao
+
+    return render_template("editar_aula.html", **locals())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 @app.route("/listar_aula")
 def listarAula():
