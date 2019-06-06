@@ -44,8 +44,9 @@ class Cadastro extends React.Component {
             nomeCurso: this.state.nomeCurso,
             dataDiploma: this.state.dataDiploma,
             role: this.state.role,
-        })
-        .catch(error => {
+        }).then(response => {
+            alert(response)
+        }).catch(error => {
             alert(error)
         });
     };

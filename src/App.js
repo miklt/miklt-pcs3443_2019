@@ -2,48 +2,65 @@ import React from "react"
 import Header from "./Header"
 import Sidebar from "./Sidebar"
 import Condicional from "./Condicional"
+import axios from 'axios';
+import { setToken, isAuthenticated, removeToken, getToken} from "./Auth";
 import "./App.css"
 
 export const url_v3 = 'http://127.0.0.1:5000/'
 
-class App extends React.Component {
 
+class App extends React.Component {
     constructor() {
         super()
         this.handleChange = this.handleChange.bind(this);
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
+
         this.state = {
             name: '',
-            role: '',
-            user: '',
+            matricula: '',
             isLoggedIn: false,
+            role: ''
         }
+
+        const url = url_v3+'auth';
+        axios.post(url, { 
+            matricula: getToken(), 
+         }).then(response => {
+            this.setState({
+                name: response.data.name,
+                matricula: getToken(),
+                isLoggedIn: isAuthenticated(),
+                role: response.data.role
+            })
+         })
     }
 
-    login(isLoggedIn, role) {
+    login(name, matricula, role, isLoggedIn) {
         this.setState({
+            name: name,
+            role: role,
+            matricula: matricula,
             isLoggedIn: isLoggedIn,
-            role : role,
         })
+        setToken(matricula)
     }
     
     logout() {
         this.setState({
             name: '',
             role: '',
-            user: '',
+            matricula: '',
             isLoggedIn: false,
         })
+        removeToken()
     }
-
 
     handleChange(event) {
         this.setState({[event.target.name] : event.target.value})
     }
 
     render () {
-
         return (
             <div>
                 <div className="header">
