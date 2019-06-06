@@ -5,9 +5,9 @@ class Aula(Base):
     __tablename__ = 'aula'
     id = db.Column(db.Integer, db.ForeignKey('voo.id'), primary_key=True)
     id_aluno = db.Column(db.Integer, db.ForeignKey(
-        'pessoa.id'), primary_key=True)
+        'pessoa.id'))
     id_instrutor = db.Column(db.Integer, db.ForeignKey(
-        'pessoa.id'), primary_key=True)
+        'pessoa.id'))
     data = db.Column(db.DateTime)
     duracao = db.Column(db.Integer)
     avaliacao = db.Column(db.String(200), unique=True)
