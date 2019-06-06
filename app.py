@@ -187,8 +187,6 @@ def cadastrarVoo():
     return render_template("cadastrar_voo.html",  **locals())
 
 
-
-
 @app.route("/listar_voo")
 def listarVoo():
     voos = Voo.listar()
