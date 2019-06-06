@@ -45,15 +45,15 @@ class Condicional extends React.Component {
                     path="/servicos"
                     render={() => (
                         <div style={{position: "relative", left: "5em", width: "750px", textAlign: "justify"}}>
-                    <h1>Serviços:</h1>
-                    <ul>
-                        <li>Curso básico para aeronaves</li>
-                        <li>Curso intermediário para aeronaves</li>
-                        <li>Curso avançado para aeronaves</li>
-                        <li>Prática com instrutor</li>
-                        <li>Prática sem instrutor</li>
-                    </ul>
-                </div>  
+                            <h1>Serviços:</h1>
+                            <ul>
+                                <li>Curso básico para aeronaves</li>
+                                <li>Curso intermediário para aeronaves</li>
+                                <li>Curso avançado para aeronaves</li>
+                                <li>Prática com instrutor</li>
+                                <li>Prática sem instrutor</li>
+                            </ul>
+                        </div>  
                     )}
                 />
 
