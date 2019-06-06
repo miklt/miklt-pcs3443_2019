@@ -1,0 +1,36 @@
+.telaConsultaAula {
+    margin: 2em 20em 20em;
+    line-height: 2em;
+}
+
+.telaConsultaAula input {
+    display: block;
+}
+
+.telaConsultaAula button{
+    font-family: Microsoft JhengHei Light, sans-serif;
+    width: auto;
+    color: white;
+    background-color: black;
+    border: solid;
+    border-color: black;
+    margin: 1em 0em;
+}
+
+.telaConsultaAula button:hover{
+    background-color: #2c71b1;
+    border-color: #2c71b1;
+    border-bottom-color: #2c71b1;
+}
+
+
+.telaConsultaAula select {
+    display: block;
+    font-family: Microsoft JhengHei Light, sans-serif;
+    width: 100%;
+}
+
+.telaConsultaAula input {
+    display: block;
+    font-family: Microsoft JhengHei Light, sans-serif;
+}
