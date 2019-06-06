@@ -10,7 +10,7 @@ class Login(UserMixin, db.Model):
     __tablename__ = 'login'
     __mapper_args__ = {'polymorphic_identity': 'login'}
 
-    id = db.Column(db.Integer, primary_key = True)
+    matricula = db.Column(db.Integer, primary_key = True)
     date_created = db.Column(db.DateTime, default = db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default = db.func.current_timestamp(), onupdate = db.func.current_timestamp())
 
@@ -35,11 +35,14 @@ class Login(UserMixin, db.Model):
     def checkPassword(self, password):
         return check_password_hash(self.password, password)
 
+    def get_id(self):
+        return self.matricula
+
 
 # Recarrega o usuário.
 @login.user_loader
-def load_user(id):
-    return Login.query.get(int(id))
+def load_user(matricula):
+    return Login.query.get(int(matricula))
 
 
 """
@@ -49,7 +52,7 @@ class Socio(Login):
     __tablename__ = 'socio'
     __mapper_args__ = {'polymorphic_identity': 'socio'}
 
-    matricula = db.Column(db.Integer, db.ForeignKey('login.id'), primary_key = True)
+    matricula = db.Column(db.Integer, db.ForeignKey('login.matricula'), primary_key = True)
     endereco = db.Column(db.String(192))
     dataNascimento = db.Column(db.DateTime, nullable = False)
     cpf = db.Column(db.String(11), nullable = False, unique = True)
