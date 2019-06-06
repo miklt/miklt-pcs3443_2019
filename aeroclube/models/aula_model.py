@@ -22,6 +22,10 @@ class Aula(Base):
         self.avaliacao = avaliacao
 
     @classmethod
+    def encontrar_pelo_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
+    @classmethod
     def encontrar_pelo_id_aluno(cls, id_aluno):
         return cls.query.filter_by(id_aluno=id_aluno).first()
 
@@ -32,6 +36,11 @@ class Aula(Base):
     @classmethod
     def encontrar_pela_data(cls, data):
         return cls.query.filter_by(data=data).first()
+
     @classmethod
     def listar(cls):
         return cls.query.all()
+
+    def remover(self):
+        db.session.delete(self)
+        db.session.commit()

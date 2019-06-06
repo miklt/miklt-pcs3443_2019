@@ -27,6 +27,10 @@ class Voo(Base):
         return cls.query.filter_by(id_piloto=id_piloto).first()
 
     @classmethod
+    def encontrar_pela_data(cls, data):
+        return cls.query.filter_by(data=data).first()
+
+    @classmethod
     def listar(cls):
         return cls.query.all()
 

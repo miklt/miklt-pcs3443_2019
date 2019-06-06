@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
+from aeroclube.models.voo_model import Voo
 from datetime import datetime, date
 
 
@@ -28,6 +29,7 @@ def cadastrarUsuario():
         data_nascimento = datetime.strptime(data_nascimento_str,
                                             '%d/%m/%Y').date()
         cargo = request.form['cargo']
+        senha = request.form['senha']
 
         pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
         pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
@@ -44,7 +46,8 @@ def cadastrarUsuario():
             erro_email = True
         else:
             nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
-                                 cargo=cargo, data_nascimento=data_nascimento)
+                                 cargo=cargo, data_nascimento=data_nascimento,
+                                 senha=senha)
             if cargo == 'Aluno':
                 nova_pessoa.cod_curso = "12345"
             nova_pessoa.adicionar()
@@ -60,10 +63,10 @@ def listarUsuario():
 
 @app.route("/editar_usuario",  methods=['GET', 'POST'])
 def editarUsuario():
-    
+
     id_usuario = request.args['id']
     usuario = Pessoa.encontrar_pelo_id(id_usuario)
-    if usuario: 
+    if usuario:
         if request.method == 'POST':
             nome = request.form['nome']
             cpf = request.form['cpf']
@@ -72,20 +75,23 @@ def editarUsuario():
             data_nascimento = datetime.strptime(data_nascimento_str,
                                                 '%d/%m/%Y').date()
             cargo = request.form['cargo']
+            senha = request.form['senha']
 
             usuario.nome = nome
             usuario.cpf = cpf
             usuario.email = email
             usuario.data_nascimento = data_nascimento
             usuario.cargo = cargo
+            usuario.senha = senha
             db.session.commit()
             editou_pessoa = True
-        
+
         current_nome = usuario.nome
         current_cpf = usuario.cpf
         current_email = usuario.email
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
+        current_senha = usuario.senha
     return render_template("editar_usuario.html", **locals())
 
 
@@ -108,7 +114,8 @@ def cadastrarVoo():
 
 @app.route("/listar_voo")
 def listarVoo():
-    return render_template("listar_voo.html")
+    voos = Voo.listar()
+    return render_template("listar_voo.html",  **locals())
 
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])

@@ -14,13 +14,14 @@ class Pessoa(Base):
     horasVoo = db.Column(db.Integer)
     senha = db.Column(db.String(200), unique=True)
 
-    def __init__(self, nome, cpf, email, cargo, data_nascimento):
+    def __init__(self, nome, cpf, email, cargo, data_nascimento, senha):
         self.nome = nome
         self.cpf = cpf
         self.email = email
         self.data_nascimento = data_nascimento
         self.cargo = cargo
         self.dataCadastro = date.today()
+        self.senha = senha
 
     def adicionar(self):
         db.session.add(self)
