@@ -107,7 +107,7 @@ def cadastrarVoo():
 
 @app.route("/listar_voo")
 def listarVoo():
-    return render_template("listar_aula.html")
+    return render_template("listar_voo.html")
 
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
