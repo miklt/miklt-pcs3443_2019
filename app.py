@@ -205,27 +205,7 @@ def deletarVoo():
     return redirect(url_for('listarVoo'))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route("/editar_voo",  methods=['GET', 'POST']) 
+@app.route("/editar_voo",  methods=['GET', 'POST'])
 def editarVoo():
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -266,7 +246,7 @@ def editarVoo():
     return render_template("editar_voo.html", **locals())
 
 # Aula
-@app.route("/cadastrar_aula",  methods=['GET', 'POST']) 
+@app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
     if not 'pessoa' in session:
         return redirect(url_for('login'))
@@ -280,53 +260,33 @@ def cadastrarAula():
         id_instrutor = request.form['id_instrutor']
 
         data_str = request.form['data']
-        hora_str = request.form['horario']  # juntar com data?
-        data_hora_str = data_str+' '+hora_str        
-        data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
+        hora_str = request.form['horario']
         duracao = request.form['duracao']
-        #### FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
+        # FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
         try:
-            nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor, data=data_hora,
-                                  duracao=duracao, nota=None, avaliacao=None)
-            nova_aula.adicionar()
-            erro_cadastro_aula = False
-        except:
-            erro_cadastro_aula = True
+            data_hora = datetime.strptime(data_str+' '+hora_str,
+                                          '%d/%m/%Y %H:%M')
+
+            if data_hora < datetime.now():
+                erro_cadastro = True
+                mensagem_erro = "Data inválida"
+            else:
+                nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor,
+                                 data=data_hora, duracao=duracao,
+                                 nota=None, avaliacao=None)
+                nova_aula.adicionar()
+                cadastrou_aula = True
+        except ValueError:
+            erro_cadastro = True
+            mensagem_erro = "Formato da data/horário inválido"
+        except Exception:
+            erro_cadastro = True
+            mensagem_erro = "Erro. Não foi possível editar aula"
 
     usuarios = Pessoa.encontrar_por_cargo('Aluno')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
 
     return render_template("cadastrar_aula.html",  **locals())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @app.route("/editar_aula",  methods=['GET', 'POST'])
@@ -340,7 +300,6 @@ def editarAula():
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
     alunos = Pessoa.encontrar_por_cargo('Aluno')
 
-    erro_edicao = False
     id_aula = request.args['id']
     aula = Aula.encontrar_pelo_id(id_aula)
     if aula:
@@ -349,35 +308,42 @@ def editarAula():
             id_instrutor = request.form['id_instrutor']
 
             data_str = request.form['data']
-            hora_str = request.form['horario']  
-            data_hora_str = data_str+' '+hora_str        
-            data_hora = datetime.strptime(data_hora_str, '%d/%m/%Y %H:%M')
+            hora_str = request.form['horario']
             duracao = request.form['duracao']
+            try:
+                data_hora = datetime.strptime(data_str+' '+hora_str,
+                                              '%d/%m/%Y %H:%M')
+                if data_hora < datetime.now():
+                    erro_edicao = True
+                    mensagem_erro = "Data inválida"
+                else:
+                    aula.id_aluno = id_aluno
+                    aula.id_instrutor = id_instrutor
+                    aula.data = data_hora
+                    aula.duracao = duracao
 
-            aula.id_aluno = id_aluno
-            aula.id_instrutor = id_instrutor
-            aula.data = data
-            aula.duracao = duracao
-        try:
-            db.session.commit()
-            erro_edicao = False
-        except:
-            erro_edicao = True
+                    db.session.commit()
+                    editou_aula = True
+            except ValueError:
+                erro_edicao = True
+                mensagem_erro = "Formato da data/horário inválido"
+            except Exception:
+                erro_edicao = True
+                mensagem_erro = "Erro. Não foi possível editar aula"
 
         aluno_selecionado = aula.id_aluno
         instrutor_selecionado = aula.id_instrutor
-
 
         current_id_aluno = aula.id_aluno
         current_id_instrutor = aula.id_instrutor
         current_data = aula.data.strftime("%d/%m/%Y")
         current_horario = aula.data.strftime("%H:%M")
         current_duracao = aula.duracao
-        if aula.nota == None:
+        if aula.nota is None:
             current_nota = "Aula não foi avaliada"
         else:
             current_nota = aula.nota
-        if aula.avaliacao == None:
+        if aula.avaliacao is None:
             current_avaliacao = "Aula não foi avaliada"
         else:
             current_avaliacao = aula.avaliacao
@@ -385,41 +351,14 @@ def editarAula():
     return render_template("editar_aula.html", **locals())
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
 @app.route("/listar_aula")
 def listarAula():
     aulas = Aula.listar()
     alunos = []
+    instrutores = []
     for k in aulas:
         alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
-
+        instrutores.append(Pessoa.encontrar_pelo_id(k.id_instrutor))
     return render_template("listar_aula.html", **locals())
 
 

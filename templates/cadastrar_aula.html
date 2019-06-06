@@ -2,23 +2,36 @@
 
 {% block title%} Aeroclube | Cadastro de aula {% endblock title%}
 
-{% block titulo %}Editar{% endblock %}
+{% block titulo %}Agendamento{% endblock %}
 
-{% block subtitulo%}Edicao de agendamento{% endblock %}
+{% block subtitulo%}Nova Aula{% endblock %}
 
 {%block conteudo%}
  
-{%if edutou_pessoa == true %}
+{%if cadastrou_aula == true %}
     <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Tudo certo!</h3>
-            <p>Aula <a class="alert-link" href="javascript:void(0)">editada com sucesso.</a>!</p>
+            <p>Aula <a class="alert-link" href="javascript:void(0)">marcado com sucesso</a>!</p>
         </div>
         <!-- END Success Alert -->
     </div>
 {%endif%}
+
+{%if erro_cadastro == true %}
+    <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
+        <!-- Danger Alert -->
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h3 class="font-w300 push-15">Error</h3>
+            <p> {{mensagem_erro}} <a class="alert-link" href="javascript:void(0)"></a>!</p>
+        </div>
+        <!-- END Danger Alert -->
+    </div>
+{%endif%}
+
 
 <div class="content content-narrow">
     <!-- Material Design -->

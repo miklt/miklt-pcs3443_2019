@@ -6,7 +6,7 @@
 
 {% block titulo %}Visualização{% endblock %}
 
-{% block subtitulo%}Voos agendados e já realizados{% endblock %}
+{% block subtitulo%}Aulas agendados e já realizados{% endblock %}
 
 {%block conteudo%}
 
@@ -27,6 +27,7 @@
                                 <th class="text-center" style="width: 50px;">#</th>
                                 <th>Data</th>
                                 <th>Duração</th>
+                                <th>Instrutor</th>
                                 <th>Aluno</th>
                                 <th>Avaliação</th>
                                 <th>Comentário</th>
@@ -40,14 +41,15 @@
                                 <td>{{aulas[k].id}}</td>
                                 <td>{{aulas[k].data}}</td>
                                 <td>{{aulas[k].duracao}}</td>
+                                <td>{{instrutores[k].nome}}</td>
                                 <td>{{alunos[k].nome}}</td>
                                 <td>{{aulas[k].avaliacao}}</td>
                                 <td>{{aulas[k].comentario}}</td>
                                 <td class="text-center">
                                         <div class="btn-group">
     
-                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Usuario" href="/editar_aula?id={{aulas[k].id}}"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Usuario" href="/deletar_aula?id={{aulas[k].id}}"><i class="fa fa-times"></i></a>
+                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Aula" href="/editar_aula?id={{aulas[k].id}}"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Aula" href="/deletar_aula?id={{aulas[k].id}}"><i class="fa fa-times"></i></a>
     
                                         </div>
                                     </td>
