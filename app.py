@@ -77,12 +77,14 @@ def editarUsuario():
             data_nascimento = datetime.strptime(data_nascimento_str,
                                                 '%d/%m/%Y').date()
             cargo = request.form['cargo']
+            senha = request.form['senha']
 
             usuario.nome = nome
             usuario.cpf = cpf
             usuario.email = email
             usuario.data_nascimento = data_nascimento
             usuario.cargo = cargo
+            usuario.senha = senha
             db.session.commit()
             editou_pessoa = True
 
@@ -91,6 +93,7 @@ def editarUsuario():
         current_email = usuario.email
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
+        current_senha = usuario.senha
     return render_template("editar_usuario.html", **locals())
 
 
