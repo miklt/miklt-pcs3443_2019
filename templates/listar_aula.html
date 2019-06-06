@@ -33,65 +33,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                                {% for k in range (0, len(aulas) %}
+                            
+                            {% for k in range (0, aulas|length ) %}
                             <tr>
                                 <td>{{aulas[k].data}}</td>
                                 <td>{{aulas[k].duracao}}</td>
                                 <td>{{alunos[k].nome}}</td>
                                 <td>{{aulas[k].avaliacao}}</td>
                                 <td>{{aulas[k].comentario}}</td>
-                                <td class="hidden-xs">
-                                    <span class="label label-warning">Administrador</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Usuario"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Usuario"><i class="fa fa-times"></i></button>
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">2</td>
-                                <td>Estela Souza</td>
-                                <td class="hidden-xs">
-                                    <span class="label label-info">Aluno</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Usuario"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Usuario"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">3</td>
-                                <td>Fernando Delfim</td>
-                                <td class="hidden-xs">
-                                    <span class="label label-warning">Administrador</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Usuario"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Usuario"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">4</td>
-                                <td>Maria Freire</td>
-                                <td class="hidden-xs">
-                                    <span class="label label-success">Instrutora</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Usuario"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Usuario"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
+                            </tr>   
+                            {% endfor %}  
                         </tbody>
                     </table>
                 </div>
