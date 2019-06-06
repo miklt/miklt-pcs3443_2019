@@ -33,7 +33,6 @@ class Cadastro extends React.Component {
         event.preventDefault();
 
         const url = url_v3+'register';
-        console.log(this.state)
         axios.post(url, {
             name: this.state.name,
             email: this.state.email,
