@@ -3,7 +3,7 @@ from dao import db, Base
 
 class Voo(Base):
     __tablename__ = 'voo'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     id_piloto = db.Column(db.Integer, db.ForeignKey('pessoa.id'))
     duracao = db.Column(db.Integer)
     data = db.Column(db.DateTime)
