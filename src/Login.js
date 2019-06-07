@@ -1,8 +1,6 @@
 import React from "react"
 
 import "./Login.css"
-import {url_v3} from "./App"
-import axios from 'axios'
 
 class Login extends React.Component {
         
@@ -25,25 +23,11 @@ class Login extends React.Component {
         event.preventDefault();
         this.setState({"error": ''})
 
-        const url = url_v3+'login';
-        axios.post(url, {
-            matricula: this.state.matricula,
-            password: this.state.password
-        }).then(response => {
+        this.props.login(this.state.matricula, this.state.password).then(response => {
             if (response.data.error) {
-                this.setState({"error": response.data.error});
-                this.props.logout();
-            } else {
-                this.props.login(
-                    response.data.name,
-                    response.data.matricula,
-                    response.data.role,
-                    response.data.isLoggedIn
-                );
+                this.setState({"error": response.data.error})
             }
         })
-
-        return false;
     };
 
     render () {

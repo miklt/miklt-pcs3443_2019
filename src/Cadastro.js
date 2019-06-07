@@ -56,7 +56,6 @@ class Cadastro extends React.Component {
     render () {
         
         return (
-            
             <div id = "cadastro">
                 <form className="telaCadastro" onSubmit={this.handleSubmit}>
                     <h1>Cadastrar novo usuário</h1>

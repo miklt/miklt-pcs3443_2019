@@ -21,8 +21,8 @@ class App extends React.Component {
         this.state = {
             name: '',
             matricula: '',
+            role: '',
             isLoggedIn: false,
-            role: ''
         }
 
         const url = url_v3+'auth';
@@ -38,32 +38,49 @@ class App extends React.Component {
          })
     }
 
-    login(name, matricula, role, isLoggedIn) {
-        if(isLoggedIn) {
+    async login(matricula, password) {
+        const url = url_v3+'login';
+        
+        const response = await axios.post(url, {
+            matricula: matricula,
+            password: password
+        });
+
+        if (response.data.isLoggedIn) {
             this.setState({
-                name: name,
-                role: role,
-                matricula: matricula,
-                isLoggedIn: isLoggedIn,
-            })
-            setToken(matricula)
+                name: response.data.name,
+                role: response.data.role,
+                matricula: response.data.matricula,
+                isLoggedIn: response.data.isLoggedIn,
+            });
+
+            setToken(matricula);
         } else {
             this.logout()
         }
+
+        return response;
     }
     
-    logout() {
+    async logout() {
+        const url = url_v3+'logout';
+
+        await axios.post(url, {
+            matricula: getToken()
+        });
+
         this.setState({
             name: '',
             role: '',
             matricula: '',
             isLoggedIn: false,
         })
+
         removeToken()
     }
 
     handleChange(event) {
-        this.setState({[event.target.name] : event.target.value})
+        this.setState({[event.target.name]: event.target.value})
     }
 
     render () {
