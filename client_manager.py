@@ -246,7 +246,11 @@ def home8():
 		db.session.add(login)
 		db.session.commit()
 		if not(senha == '' or matricula == ''):
-			socio = Socio.query.filter_by(matricula = matricula).first()
+			socio = Socio.query.filter_by(matricula = matricula)
+			if (socio.count()==0):
+				return redirect('/')
+			else:
+				socio = socio.first()
 			if (senha== socio.senha):
 				print(socio)
 				if(socio.tipo == 'aluno'):
