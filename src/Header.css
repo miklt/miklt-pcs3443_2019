@@ -1,6 +1,6 @@
 .header{
     background: #ffffff;
-    width: 0
+    width: 0;
 }
 
 .menu{
@@ -8,6 +8,13 @@
     text-align: right;
     margin-top: 25px;
     background: rgb(255, 255, 255)
+}
+
+a.logo{
+    font-size: 2.5em;
+    color: black;
+    text-decoration: none;
+    margin: 100px;
 }
 
 li a{

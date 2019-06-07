@@ -5,21 +5,17 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class Header extends React.Component {
     render () {
         return (
-            <div className="linha">
-                <header>
-                    <div className="coluna col 4">
-                        <h1 className="logo">Aviação ltd.</h1>
-                    </div>
-                    <div className="coluna col6">
-                        <nav>
-                            <ul className="menu inline sem-marcador">
-                                <li><Link to="/servicos">Serviços</Link></li>
-                                <li><Link to="/sobre">Sobre</Link></li>
-                                <li><Link to="/contato">Contato</Link></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </header>
+            <div className="divRow">
+                <div className="divCell" style={{whiteSpace: "nowrap", verticalAlign: "middle", padding: "20px"}}>
+                    <Link to="/" className="logo">Aviação ltd.</Link>
+                </div>
+                <div className="divCell" style={{width: "409px", verticalAlign: "middle", padding: "20px"}}>
+                    <ul className="menu inline sem-marcador">
+                        <li><Link to="/servicos">Serviços</Link></li>
+                        <li><Link to="/sobre">Sobre</Link></li>
+                        <li><Link to="/contato">Contato</Link></li>
+                    </ul>
+                </div>
             </div>
         )
     }
