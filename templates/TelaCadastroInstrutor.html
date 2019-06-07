@@ -1,82 +1,86 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title> 
-      AeroClube!
+<head>
+    <title>
+        AeroClube!
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style type="text/css">
-      body {
-        font-family: Lato
-      }
+        body {
+            font-family: Lato
+        }
     </style>
     <script src="script.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top" style="background-color: #bda53b" id="navbar">
         <div class="container">
-          <a class="navbar-brand" href="#"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="navbar-brand" href="#"><i class="fas fa-plane-departure"></i> AeroClube</a>     
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="navbar-brand" href="#"><i class="fas fa-plane-departure"></i> AeroClube</a>
+                </div>
             </div>
-          </div>
         </div>
     </nav>
-    
-    <div class="container" style="padding: 20px; text-align: center;">
-      <div class="jumbotron">
-        <h1 class="display-4"> <strong>Cadastro de Instrutor</strong></h1>
-        <hr>
-    <form method="POST" action="/cadastro-instrutor">
 
-    <input type="text" name="nome" placeholder="Nome" >
-    <br>
-    <input type="text" name="sobrenome" placeholder="Sobrenome">
-    <br>
-    <input type="number" name="idade" placeholder="Idade">
-    <br>
-    <input type="password" name="senha" placeholder="Senha">
-    <br>
-    <input type="text" name="endereco" placeholder="Endereco">
-    <br>
-    <input type="number" name="telefone" placeholder="Telefone">
-    <br>
-    <input type="email" name="email" placeholder="Email">
-    <br>
-    <input type="number" name="cpf" placeholder="CPF">
-    <br>
-    <input type="text" name="sexo" placeholder="Sexo">
-    <br>
-    <input type="number" name="breve" placeholder="Numero do Breve">
-    <br>
-    <input type="text" name="formacao" placeholder="Instituicao de Ensino">
-    <br>
-    <br>
-    </h2>Data de Obtencao do Diploma: </h2>
-    <input type="date" name="diploma" placeholder="Obtencao do Diploma">
-    <br>
-    <br>
-    <a href='/cadastro-instrutor'>
-            <input type="submit" value='Cadastrar'class="btn btn-primary" style="float:right; margin-left:5px;">
-        </a>
-    </form> 
-    <a href='/cadastro-instrutor'>
-            <button type="button" class="btn btn-warning" style="float:right;">Limpar</button>
-        </a>
-        <a href='/inicial'>
-            <button type="button" class="btn btn-light" style="float: left">Tela Anterior</button>
-        </a>  
-    <br>
-    
-  </body>
+    <div class="container" style="padding: 20px; text-align: center;">
+        <div class="jumbotron">
+            <h1 class="display-4"> <strong>Cadastro de Instrutor</strong></h1>
+            <hr>
+            <form method="POST" action="/cadastro-instrutor">
+
+                <input class="btn btn-light" type="text" name="nome" placeholder="Nome">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="text" name="sobrenome" placeholder="Sobrenome">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="number" name="idade" placeholder="Idade">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="password" name="senha" placeholder="Senha">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="text" name="endereco" placeholder="Endereço">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="number" name="telefone" placeholder="Telefone">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="email" name="email" placeholder="E-mail">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="number" name="cpf" placeholder="CPF">
+                <br>
+                <select style="margin-top: 6px; width: 197px" class="btn btn-light" name="sexo">
+                  <option value="F">Feminino</option>
+                  <option value="M">Masculino</option>
+                  <option value="O">Outro</option>
+              </select>
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="number" name="breve" placeholder="Número do Brevê">
+                <br>
+                <input style="margin-top: 6px" class="btn btn-light" type="text" name="formacao" placeholder="Instituição de Ensino">
+                <br>
+                <br>
+                <p>Data de Obtenção do Diploma:</p>
+                <input class="btn btn-light" type="date" name="diploma" placeholder="Obtenção do Diploma">
+                <br>
+                <br>
+                <a href='/inicial'>
+                    <input type="submit" value='Cadastrar' class="btn btn-primary" style="float:right; margin-left:5px;">
+                </a>
+            </form>
+            <a href='/cadastro-instrutor'>
+                <button type="button" class="btn btn-warning" style="float:right;">Limpar</button>
+            </a>
+            <a href='/inicial'>
+                <button type="button" class="btn btn-light" style="float: left">Tela Anterior</button>
+            </a>
+            <br>
+
+</body>
 
 </html>
