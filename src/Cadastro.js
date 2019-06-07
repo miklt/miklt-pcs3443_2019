@@ -58,9 +58,9 @@ class Cadastro extends React.Component {
         return (
             
             <div id = "cadastro">
-                <h1>Cadastrar novo usuário</h1>
                 <form className="telaCadastro" onSubmit={this.handleSubmit}>
-
+                    <h1>Cadastrar novo usuário</h1>
+                    
                     <label htmlFor="name">Nome:</label>
                     <input type="text" name="name" id="name" onChange={this.handleChange} required />
                     <br />

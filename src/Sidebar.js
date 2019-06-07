@@ -1,7 +1,6 @@
 import React from "react"
 import Aba from "./Aba"
 import "./Sidebar.css"
-import axios from "axios";
 
 class Sidebar extends React.Component {
 

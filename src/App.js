@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "./Header"
 import Sidebar from "./Sidebar"
@@ -49,7 +49,6 @@ class App extends React.Component {
             setToken(matricula)
         } else {
             this.logout()
-            window.location.reload()
         }
     }
     

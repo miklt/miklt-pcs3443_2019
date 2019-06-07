@@ -1,5 +1,4 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 import "./Login.css"
 import {url_v3} from "./App"
@@ -13,6 +12,7 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.state = {
             password: "",
+            error: ""
         }
     }
 
@@ -22,45 +22,46 @@ class Login extends React.Component {
 
     handleSubmit(event){
         event.preventDefault();
+        this.setState({"error": ''})
 
         const url = url_v3+'login';
         axios.post(url, {
             matricula: this.state.matricula,
             password: this.state.password
         }).then(response => {
-            console.log(response.data)
-            this.props.login(
-                response.data.name,
-                response.data.matricula,
-                response.data.role,
-                response.data.isLoggedIn
-            );
+            if (response.data.error) {
+                this.setState({"error": response.data.error});
+                this.props.logout();
+            } else {
+                this.props.login(
+                    response.data.name,
+                    response.data.matricula,
+                    response.data.role,
+                    response.data.isLoggedIn
+                );
+            }
         })
 
-        return true;
+        return false;
     };
 
     render () {
-        if(this.props.state.isLoggedIn === false)    
-            return (
-                <div>
-                    <form className="telaLogin" onSubmit={this.handleSubmit}>
-                        <label htmlFor="matricula">Matrícula:</label>
-                        <input type="text" name="matricula" id="matricula" onChange={this.handleChange}/>
-                        <br />
+        return (
+            <div>
+                <form className = "telaLogin" onSubmit={this.handleSubmit}>
+                    <label htmlFor = "matricula">Matrícula:</label>
+                    <input type="text" name="matricula" id="matricula" onChange={this.handleChange} required/>
+                    <br />
 
-                        <label htmlFor = "password" onClick={this.handleSubmit}>Senha:</label>
-                        <input type="password" name="password" id="password" onChange={this.handleChange}/>
-                        <br />
+                    <label htmlFor = "password">Senha:</label>
+                    <input type="password" name="password" id="password" onChange={this.handleChange} required/>
+                    <br />
 
-                        <button type="submit">Go</button>
-                    </form>
-                </div>
-            )
-        else
-            return(
-                <Redirect to="/" />
-            )
+                    <button type="submit">Go</button>
+                    <div className="error-message">{this.state.error}</div>
+                </form>
+            </div>
+        )
     }
 }
 

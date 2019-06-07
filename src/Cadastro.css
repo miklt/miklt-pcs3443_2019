@@ -2,9 +2,10 @@
     margin: 0em 20em 20em;
 }
 
-.telaCadastro select,.telaCadastro input, .telaCadastro input .data{
+.telaCadastro select,.telaCadastro input, .telaCadastro input .data {
     width: 100%;
     display: block;
+    margin-top: 5px;
 }
 
 .telaCadastro button{
@@ -20,4 +21,8 @@
 .telaCadastro button:hover{
     background-color: #2c71b1;
     border-color: #2c71b1;
+}
+
+.telaCadastro .h1{
+    margin-left: 500px;
 }

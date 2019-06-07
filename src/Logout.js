@@ -1,8 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-
-import {url_v3} from "./App"
-import axios from 'axios'
+import { Redirect } from "react-router-dom";
 
 class Logout extends React.Component {
         
@@ -11,7 +8,10 @@ class Logout extends React.Component {
     }
 
     render () {
-        this.props.logout()
+        if (window.confirm("Deseja fazer o log out?")) {
+            this.props.logout()
+        }
+
         return(
             <Redirect to="/" />
         )

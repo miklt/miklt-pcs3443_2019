@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import Login from "./Login"
 import Agendamento from "./Agendamento"
@@ -16,10 +16,6 @@ class Condicional extends React.Component {
     }
 
     render () {
-                  
-            
-           
-
         return (
             <div>
                 <Route
@@ -57,11 +53,12 @@ class Condicional extends React.Component {
                     )}
                 />
 
-
                 <Route
                     path="/login"
                     render={(routeProps) => (
-                        <Login {...routeProps} state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout} />
+                        !this.props.state.isLoggedIn ?
+                        <Login {...routeProps} state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout} /> :
+                        <Redirect to='/' />
                     )}
                 />
                 <Route
@@ -73,13 +70,17 @@ class Condicional extends React.Component {
                 <Route
                     path="/cadastro"
                     render={(routeProps) => (
-                        <Cadastro {...routeProps} />
+                        this.props.state.role === "Funcionario" || true ?
+                        <Cadastro {...routeProps} /> :
+                        <Redirect to='/' />
                     )}
                 />
                 <Route
                     path="/perfil"
                     render={(routeProps) => (
-                        <Perfil {...routeProps} state={this.props.state}/>
+                        this.props.state.isLoggedIn ?
+                        <Perfil {...routeProps} state={this.props.state}/> :
+                        <Redirect to='/login' />
                     )}
                 />
                 <Route
@@ -91,7 +92,9 @@ class Condicional extends React.Component {
                 <Route
                     path="/logout"
                     render={(routeProps) => (
-                        <Logout {...routeProps} state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout} />
+                        this.props.state.isLoggedIn ?
+                        <Logout {...routeProps} state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout} /> :
+                        <Redirect to='/login' />
                     )}
                 />
             </div>
