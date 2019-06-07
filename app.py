@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
-from datetime import datetime
+from datetime import datetime, timedelta
 from aeroclube.models.voo_model import Voo
 import re
 
@@ -220,24 +220,28 @@ def editarVoo():
             duracao = request.form['duracao']
 
             try:
-                data = datetime.strptime(data_str+' '+hora_str,
-                                         '%d/%m/%Y %H:%M')
-                if data < datetime.now():
+                try:
+                    data = datetime.strptime(data_str+' '+hora_str,
+                                             '%d/%m/%Y %H:%M')
+                except ValueError:
                     erro_edicao = True
-                    mensagem_erro = "Data inválida"
+                    mensagem_erro = "Formato da data/horário inválido"
                 else:
-                    voo.id_piloto = piloto_id
-                    voo.data = data
-                    voo.duracao = duracao
+                    if data < datetime.now():
+                        raise Exception("Data inválida")
+                    else:
+                        voo.id_piloto = piloto_id
+                        voo.data = data
+                        voo.duracao = duracao
 
-                    db.session.commit()
-                    editou_voo = True
-            except ValueError:
+                        db.session.commit()
+                        editou_voo = True
+            except ValueError as ve:
                 erro_edicao = True
-                mensagem_erro = "Formato da data/horário inválido"
-            except Exception:
+                mensagem_erro = ve
+            except Exception as ex:
                 erro_edicao = True
-                mensagem_erro = "Erro. Não foi possível editar voo"
+                mensagem_erro = ex
 
         piloto_selecionado = voo.id_piloto
         current_data = voo.data.strftime("%d/%m/%Y")
@@ -255,38 +259,99 @@ def cadastrarAula():
     pessoa_logada_cargo = pessoa_logada.cargo
     pessoa_logada_id = pessoa_logada.id
 
-    if request.method == 'POST':
-        id_aluno = request.form['id_aluno']
-        id_instrutor = request.form['id_instrutor']
-
-        data_str = request.form['data']
-        hora_str = request.form['horario']
-        duracao = request.form['duracao']
-        # FALTA ALGORITMO PARA AVALIAR DISPONIBILIDADE DO INSTRUTOR
-        try:
-            data_hora = datetime.strptime(data_str+' '+hora_str,
-                                          '%d/%m/%Y %H:%M')
-
-            if data_hora < datetime.now():
-                erro_cadastro = True
-                mensagem_erro = "Data inválida"
-            else:
-                nova_aula = Aula(id_aluno=id_aluno, id_instrutor=id_instrutor,
-                                 data=data_hora, duracao=duracao,
-                                 nota=None, avaliacao=None)
-                nova_aula.adicionar()
-                cadastrou_aula = True
-        except ValueError:
-            erro_cadastro = True
-            mensagem_erro = "Formato da data/horário inválido"
-        except Exception:
-            erro_cadastro = True
-            mensagem_erro = "Erro. Não foi possível editar aula"
-
     usuarios = Pessoa.encontrar_por_cargo('Aluno')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
 
     return render_template("cadastrar_aula.html",  **locals())
+
+
+@app.route("/cadastrar_aula_hora",  methods=['GET', 'POST'])
+def cadastrarAulaHora():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+
+    id_aluno = request.args['id_aluno']
+    aluno_selecionado = Pessoa.encontrar_pelo_id('id_aluno')
+    id_instrutor = request.args['id_instrutor']
+    instrutor_selecionado = Pessoa.encontrar_pelo_id('id_instrutor')
+    data_str = request.args['data']
+    data_selecionada = (datetime.strptime(data_str, "%d/%m/%Y")
+                        + timedelta(hours=8))
+    data_str = data_selecionada.strftime("%d/%m/%Y")
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    aulas_instrutor = Aula.encontrar_pelo_id_instrutor(id_instrutor)
+    voos_instrutor = Voo.encontrar_pelo_id_piloto(id_instrutor)
+    aulas_aluno = Aula.encontrar_pelo_id_aluno(id_aluno)
+
+    # filtrando pela data
+    aulas_instrutor = [aula for aula in aulas_instrutor
+                       if aula.data.date() ==
+                       data_selecionada.date()]
+    voos_instrutor = [voo for voo in voos_instrutor
+                      if voo.data.date() ==
+                      data_selecionada.date()]
+    aulas_aluno = [aula for aula in aulas_aluno
+                   if aula.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for aula in aulas_instrutor:
+        for i in range(aula.duracao):
+            for horario in horarios:
+                if horario == aula.data + timedelta(hours=i):
+                    horarios.remove(horario)
+    for voo in voos_instrutor:
+        for i in range(voo.duracao):
+            for horario in horarios:
+                if horario == voo.data + timedelta(hours=i):
+                    horarios.remove(horario)
+    for aula in aulas_aluno:
+        for i in range(aula.duracao):
+            for horario in horarios:
+                if horario == aula.data + timedelta(hours=i):
+                    horarios.remove(horario)
+
+    if request.method == 'POST':
+        try:
+            data_str = request.form['horario']
+            duracao = int(request.form['duracao'])
+            try:
+                data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                erro_cadastro = True
+                mensagem_erro = "Formato da Hora inválido"
+            else:
+                for i in range(duracao):
+                    if (data+timedelta(hours=1))not in horarios:
+                        raise Exception("Duração conflitante")
+                if data < datetime.now():
+                    raise Exception("Data inválida")
+                else:
+                    nova_aula = Aula(id_aluno=id_aluno,
+                                     id_instrutor=id_instrutor,
+                                     data=data, duracao=duracao,
+                                     nota=None, avaliacao=None)
+                    nova_aula.adicionar()
+                    cadastrou_aula = True
+        except ValueError as ve:
+            erro_cadastro = True
+            mensagem_erro = ve
+        except Exception as ex:
+            erro_cadastro = True
+            mensagem_erro = ex
+
+    alunos = Pessoa.encontrar_por_cargo('Aluno')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
+    return render_template("cadastrar_aula_hora.html",  **locals())
 
 
 @app.route("/editar_aula",  methods=['GET', 'POST'])
@@ -421,7 +486,7 @@ def meuPerfil():
     current_nome = pessoa_logada.nome
     current_cpf = pessoa_logada.cpf
     current_email = pessoa_logada.email
-    current_data_nascimento = pessoa_logada.data_nascimento.strftime('%d/%m/%Y')
+    current_data_nasc = pessoa_logada.data_nascimento.strftime('%d/%m/%Y')
     current_cargo = pessoa_logada.cargo
     current_senha = pessoa_logada.senha
     return render_template("meu_perfil.html", **locals())

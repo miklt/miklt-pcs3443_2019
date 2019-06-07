@@ -43,14 +43,13 @@
                     <h3 class="block-title">Formulario de Edicao</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="/cadastrar_aula_hora" method="GET">
+                    <form class="form-horizontal push-10-t" {%if cadastrou_aula %} action="/cadastrar_aula_hora" {% endif %} method="POST">
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="id_instrutor" name="id_instrutor" size="1">
-                                        <option>Selecione uma opcao</option>
+                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" readonly>
                                         {% for instrutor in instrutores %}
-                                        <option {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == instrutor.id %} selected {% endif %} value="{{instrutor.id}}">{{instrutor.nome}}</option>
+                                        <option {%if instrutor_selecionado.id == instrutor.id %} selected {%endif%} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
                                     </select>
                                     <label for="material-select">Instrutor</label>
@@ -60,10 +59,9 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1">
-                                        <option>Selecione uma opcao</option>
-                                        {% for usuario in usuarios %}
-                                        <option value="{{usuario.id}}">{{usuario.nome}}</option>
+                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1" readonly>
+                                        {% for aluno in alunos %}
+                                        <option {%if aluno_selecionado.id == aluno.id %} selected {%endif%}  value="{{aluno.id}}">{{aluno.nome}}</option>
                                         {% endfor %}
                                     </select>
                                     <label for="material-select">Aluno</label>
@@ -73,18 +71,48 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa">
+                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa"  value={{data_str}} readonly>
                                     <label for="material-color-primary">Data do Voo</label>
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button class="btn btn-sm btn-primary" type="submit">Escolher data</button>
+                                <div class="form-material">
+                                    <select class="form-control" id="horario" name="horario" size="1">
+                                        <option>Selecione uma opção</option>
+                                        {% for horario in horarios %}
+                                        <option value="{{horario}}">{{horario.strftime("%H:%M")}}</option>
+                                        {% endfor %}
+                                </select>
+                                <label for="material-select">Horário</label>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material">
+                                    <select class="form-control" id="duracao" name="duracao" size="1">
+                                        <option>Selecione uma opção</option>
+                                        {% for i in range(1,6) %}
+                                            <option value={{i}}>{{i}}</option>
+                                        {%endfor%}
+                                </select>
+                                <label for="material-select">Duração</label>
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button class="btn btn-sm btn-primary" type="submit">Agendar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="/cadastrar_aula">
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button class="btn btn-sm btn-primary" type="submit">Escolher outra data</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

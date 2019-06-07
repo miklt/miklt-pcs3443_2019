@@ -22,7 +22,7 @@ class Aula(Base):
         self.nota = nota
 
         self.avaliacao = avaliacao
-    
+
     def adicionar(self):
         db.session.add(self)
         db.session.commit()
@@ -33,15 +33,15 @@ class Aula(Base):
 
     @classmethod
     def encontrar_pelo_id_aluno(cls, id_aluno):
-        return cls.query.filter_by(id_aluno=id_aluno).first()
+        return cls.query.filter_by(id_aluno=id_aluno).all()
 
     @classmethod
     def encontrar_pelo_id_instrutor(cls, id_instrutor):
-        return cls.query.filter_by(id_instrutor=id_instrutor).first()
+        return cls.query.filter_by(id_instrutor=id_instrutor).all()
 
     @classmethod
     def encontrar_pela_data(cls, data):
-        return cls.query.filter_by(data=data).first()
+        return cls.query.filter_by(data=data).all()
 
     @classmethod
     def listar(cls):
