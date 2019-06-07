@@ -73,12 +73,13 @@ def logout():
     return json.dumps(val)
 
 
+# Exibe todos os dados referentes a um usuário, exceto a senha
 @users.route('/user', methods = ['GET'])
 def showUser():
     userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
     user = models.role[userLogin.role].query.get(userLogin.matricula)
 
-    return repr(userLogin)
+    return repr(user)
 
 
 # Registra novo usuário
@@ -120,12 +121,16 @@ def register():
             dataDiploma = datetime.strptime(data['dataDiploma'], '%Y-%m-%d'))
     
     else:
-        return "não deu"
+        return json.dumps({
+            'error': "Não foi possível cadastrar o papel {}.".format(role)
+        }, default = str)
 
     db.session.add(u)
     db.session.commit()
 
-    return "foi"
+    return json.dumps({
+            'error': ''
+    }, default = str)
 
 
 # Registra novo usuário

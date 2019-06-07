@@ -42,7 +42,7 @@ class Login(UserMixin, db.Model):
             'email': self.email,
             'role': self.role
         }
-        return json.dumps(val)
+        return json.dumps(val, default = str)
 
 
 # Recarrega o usuário.
@@ -80,7 +80,13 @@ class Socio(Login):
         pass
 
     def __repr__(self):
-        return super()
+        val = json.loads(super().__repr__())
+        val['endereco'] = self.endereco
+        val['dataNascimento'] = self.dataNascimento
+        val['cpf'] = self.cpf
+        val['numeroBreve'] = self.numeroBreve
+
+        return json.dumps(val, default = str)
 
 
 class Aluno(Socio):
@@ -97,7 +103,7 @@ class Aluno(Socio):
         return 'Aluno'
 
     def __repr__(self):
-        return super()
+        return super().__repr__()
 
 
 class Piloto(Socio):
@@ -115,7 +121,7 @@ class Piloto(Socio):
         return 'Piloto'
 
     def __repr__(self):
-        return super()
+        return super().__repr__()
 
 
 class Instrutor(Piloto):
@@ -143,6 +149,14 @@ class Instrutor(Piloto):
     def getRole():
         return 'Instrutor'
 
+    def __repr__(self):
+        val = json.loads(super().__repr__())
+        val['nomeInstituicao'] = self.nomeInstituicao
+        val['nomeCurso'] = self.nomeCurso
+        val['dataDiploma'] = self.dataDiploma
+
+        return json.dumps(val, default = str)
+
 
 class Funcionario(Login):
     def __init__(self, name, email, password):
@@ -156,7 +170,7 @@ class Funcionario(Login):
         return 'Funcionario'
 
     def __repr__(self):
-        return super()
+        return super().__repr__()
 
 
 
