@@ -51,7 +51,6 @@ class Voos(db.Model):
 	rate = db.Column(db.String(80), nullable = True)
 	data_hora = db.Column(db.String(80), nullable = True)
 
-	
 @app.route('/cadastro-aluno',methods =["GET","POST"])
 def home():
 	if request.form:
@@ -184,8 +183,8 @@ def home6():
 
 	if request.method =='POST':
 		matricula = request.form.get('matricula')
-		socios = Socio.query.filter_by(matricula = matricula)
-	return render_template('ResultadoConsultaSocio.html',socios = socios)
+		socio = Socio.query.filter_by(matricula = matricula)
+	return render_template('ResultadoConsultaSocio.html',socios = socio)
 
 @app.route('/resultado-consulta-instrutor',methods =["GET","POST"])
 def hommee6():
@@ -243,12 +242,14 @@ def home8():
 		matricula = request.form.get('matricula')
 		senha = request.form.get('senha')
 		login = Login(matricula = matricula)
+		if (senha == '' or matricula == ''):
+			return redirect(url_for('erro_login'))
 		db.session.add(login)
 		db.session.commit()
 		if not(senha == '' or matricula == ''):
 			socio = Socio.query.filter_by(matricula = matricula)
 			if (socio.count()==0):
-				return redirect('/')
+				return redirect(url_for('inicial_aluno'))	
 			else:
 				socio = socio.first()
 			if (senha== socio.senha):
@@ -268,6 +269,10 @@ def home8():
 
 	return render_template('TelaLogin.html')
 
+@app.route('/erro-login',methods =["GET","POST"])
+def erro_login():
+	return render_template('ErroLogin.html')
+
 @app.route('/consulta-voo',methods =["GET","POST"])
 def home9():
 	return render_template('ConsultaVoo.html')
@@ -284,7 +289,12 @@ def home10():
 def homme1():
 	matricula = Login.query.first().matricula
 	voos = Voos.query.filter_by(aluno = matricula)
-	return render_template('ResultadoConsultaVooIndividual.html',voos = voos)
+	
+	
+	if (voos.count()==0):
+		return render_template('ErroResultadoConsultaVooIndividual.html')
+	else: 
+		return render_template('ResultadoConsultaVooIndividual.html',voos = voos)
 
 @app.route('/listar-voo',methods =["GET","POST"])
 def home11():
