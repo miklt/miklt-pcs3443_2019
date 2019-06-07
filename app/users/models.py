@@ -2,6 +2,7 @@ from app import db
 from app import login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+import json
 
 """
 Sistema de login
@@ -18,16 +19,13 @@ class Login(UserMixin, db.Model):
     email = db.Column(db.String(128), nullable = False, unique = True)
     password = db.Column(db.String(128), nullable = False)
     role = db.Column(db.String, db.Enum('Funcionario', 'Piloto', 'Instrutor', 'Aluno', name='papeis'), default='Aluno')
-    active = db.Column(db.Boolean, default = True, nullable = False)
+    isActive = db.Column(db.Boolean, default = True, nullable = False)
 
     def __init__(self, name, email, password, role):
         self.name = name
         self.email = email
         self.role = role
         self.setPassword(password)
-
-    def __repr__(self):
-        return "<Nome: {}, Papel: {}>".format(self.name, self.role)
 
     def setPassword(self, password):
         self.password = generate_password_hash(password)
@@ -37,6 +35,14 @@ class Login(UserMixin, db.Model):
 
     def get_id(self):
         return self.matricula
+
+    def __repr__(self):
+        val = {
+            'name': self.name,
+            'email': self.email,
+            'role': self.role
+        }
+        return json.dumps(val)
 
 
 # Recarrega o usuário.
@@ -73,6 +79,9 @@ class Socio(Login):
     def getRole():
         pass
 
+    def __repr__(self):
+        return super()
+
 
 class Aluno(Socio):
     def __init__(self, name, email, password, endereco, dataNascimento, cpf):
@@ -86,6 +95,9 @@ class Aluno(Socio):
     @staticmethod
     def getRole():
         return 'Aluno'
+
+    def __repr__(self):
+        return super()
 
 
 class Piloto(Socio):
@@ -101,6 +113,9 @@ class Piloto(Socio):
     @staticmethod
     def getRole():
         return 'Piloto'
+
+    def __repr__(self):
+        return super()
 
 
 class Instrutor(Piloto):
@@ -139,6 +154,9 @@ class Funcionario(Login):
     @staticmethod
     def getRole():
         return 'Funcionario'
+
+    def __repr__(self):
+        return super()
 
 
 

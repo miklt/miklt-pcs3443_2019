@@ -14,56 +14,72 @@ def signin():
         return "autenticado"
 
     data = request.get_json()
-    user = models.Login.query.filter_by(matricula = data['matricula']).first()
+    user = models.Login.query.get(data['matricula'])
+    val = {}
 
     if user is not None and user.checkPassword(data['password']):
-        login_user(user, remember = True)
-        val = {
-            'name': user.name,
-            'matricula': user.matricula,
-            'role': user.role,
-            'isLoggedIn': current_user.is_authenticated
-        }
-        return json.dumps(val)
+        if user.isActive:
+            login_user(user, remember = True)
+            val = {
+                'name': user.name,
+                'matricula': user.matricula,
+                'role': user.role,
+                'isLoggedIn': True
+            }
+        else:
+            val = {
+                'isLoggedIn': False,
+                'error': "Usuário desativado."
+            }
     else:
         val = {
-            'isLoggedIn': current_user.is_authenticated,
-            'error': "Matricula/Senha incorreta."
+            'error': "Matricula/senha incorreta.",
+            'isLoggedIn': False,
         }
-        return json.dumps(val)
+
+    return json.dumps(val)
 
 
 # Recarrega o usuário.
 @users.route('/auth', methods = ['POST'])
-@models.login.user_loader
 def load_user():
-    if request.get_json()['matricula']:
-        user = models.Login.query.get(int(request.get_json()['matricula']))
+    req = request.get_json()
+    if req and req['matricula']:
+        user = models.load_user(req['matricula'])
         val = {
             'name': user.name,
             'matricula': user.matricula,
             'role': user.role,
             'isLoggedIn': current_user.is_authenticated
         }
-        return json.dumps(val)
     else:
         val = {
             'isLoggedIn': current_user.is_authenticated
         }
-        return json.dumps(val)
+
+    return json.dumps(val)
 
 # Faz o logout
-@users.route('/logout/')
+@users.route('/logout', methods = ['POST'])
 def logout():
-    logout_user()
-    return "logout"
+    req = request.get_json()
+    if req and req['matricula']:
+        models.load_user(req['matricula'])
+        logout_user()
+
+    val = {
+        'isLoggedIn': current_user.is_authenticated
+    }
+    return json.dumps(val)
 
 
-@users.route('/user/')
+@users.route('/user', methods = ['GET'])
 def showUser():
-    if current_user.is_authenticated:
-        return "Name: {}, Email: {}, Role: {}".format(current_user.name, current_user.email, current_user.role)
-    return "Não logado"
+    userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
+    user = models.role[userLogin.role].query.get(userLogin.matricula)
+
+    return repr(userLogin)
+
 
 # Registra novo usuário
 @users.route('/register', methods=['POST'])
