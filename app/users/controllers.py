@@ -18,7 +18,6 @@ def signin():
 
     if user is not None and user.checkPassword(data['password']):
         login_user(user, remember = True)
-        print("login feito")
         val = {
             'name': user.name,
             'matricula': user.matricula,
@@ -27,9 +26,9 @@ def signin():
         }
         return json.dumps(val)
     else:
-        print("não")
         val = {
-            'isLoggedIn': current_user.is_authenticated
+            'isLoggedIn': current_user.is_authenticated,
+            'error': "Matricula/Senha incorreta."
         }
         return json.dumps(val)
 
@@ -106,6 +105,20 @@ def register():
     
     else:
         return "não deu"
+
+    db.session.add(u)
+    db.session.commit()
+
+    return "foi"
+
+
+# Registra novo usuário
+@users.route('/registerFunc/', methods=['GET'])
+def registerFunc():
+    u = models.Funcionario(
+        name = 'name',
+        email = 'email',
+        password = 'password')
 
     db.session.add(u)
     db.session.commit()
