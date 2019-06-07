@@ -38,21 +38,21 @@
             <hr>
             <form method="POST" action="/cadastro-instrutor">
 
-                <input class="btn btn-light" type="text" name="nome" placeholder="Nome">
+                <input class="btn btn-light" type="text" name="nome" placeholder="Nome" required>
                 <br>
-                <input style="margin-top: 6px" class="btn btn-light" type="text" name="sobrenome" placeholder="Sobrenome">
+                <input style="margin-top: 6px" class="btn btn-light" type="text" name="sobrenome" placeholder="Sobrenome" required>
                 <br>
                 <input style="margin-top: 6px" class="btn btn-light" type="number" name="idade" placeholder="Idade">
                 <br>
-                <input style="margin-top: 6px" class="btn btn-light" type="password" name="senha" placeholder="Senha">
+                <input style="margin-top: 6px" class="btn btn-light" type="password" name="senha" placeholder="Senha" required>
                 <br>
                 <input style="margin-top: 6px" class="btn btn-light" type="text" name="endereco" placeholder="Endereço">
                 <br>
                 <input style="margin-top: 6px" class="btn btn-light" type="number" name="telefone" placeholder="Telefone">
                 <br>
-                <input style="margin-top: 6px" class="btn btn-light" type="email" name="email" placeholder="E-mail">
+                <input style="margin-top: 6px" class="btn btn-light" type="email" name="email" placeholder="E-mail" required>
                 <br>
-                <input style="margin-top: 6px" class="btn btn-light" type="number" name="cpf" placeholder="CPF">
+                <input style="margin-top: 6px" class="btn btn-light" type="number" name="cpf" placeholder="CPF" required>
                 <br>
                 <select style="margin-top: 6px; width: 197px" class="btn btn-light" name="sexo">
                   <option value="F">Feminino</option>
@@ -60,13 +60,13 @@
                   <option value="O">Outro</option>
               </select>
                 <br>
-                <input style="margin-top: 6px" class="btn btn-light" type="number" name="breve" placeholder="Número do Brevê">
+                <input style="margin-top: 6px" class="btn btn-light" type="number" name="breve" placeholder="Número do Brevê" required>
                 <br>
-                <input style="margin-top: 6px" class="btn btn-light" type="text" name="formacao" placeholder="Instituição de Ensino">
+                <input style="margin-top: 6px" class="btn btn-light" type="text" name="formacao" placeholder="Instituição de Ensino" required>
                 <br>
                 <br>
                 <p>Data de Obtenção do Diploma:</p>
-                <input class="btn btn-light" type="date" name="diploma" placeholder="Obtenção do Diploma">
+                <input class="btn btn-light" type="date" name="diploma" placeholder="Obtenção do Diploma" required>
                 <br>
                 <br>
                 <a href='/inicial'>
