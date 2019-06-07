@@ -242,14 +242,16 @@ def home8():
 		matricula = request.form.get('matricula')
 		senha = request.form.get('senha')
 		login = Login(matricula = matricula)
-		if (senha == '' or matricula == ''):
+		if (matricula == ''):
 			return redirect(url_for('erro_login'))
 		db.session.add(login)
 		db.session.commit()
-		if not(senha == '' or matricula == ''):
+		if (senha == '' and matricula != ''):
+			return redirect(url_for('senha_incorreta'))	
+		if not(matricula == ''):
 			socio = Socio.query.filter_by(matricula = matricula)
 			if (socio.count()==0):
-				return redirect(url_for('inicial_aluno'))	
+				return redirect(url_for('erro_login'))	
 			else:
 				socio = socio.first()
 			if (senha== socio.senha):
@@ -265,13 +267,18 @@ def home8():
 				else:
 					return redirect('/inicial')
 			else:
-				erro = 'Senha incorreta'
+				return redirect(url_for('senha_incorreta'))	
 
 	return render_template('TelaLogin.html')
 
 @app.route('/erro-login',methods =["GET","POST"])
 def erro_login():
 	return render_template('ErroLogin.html')
+
+	
+@app.route('/senha-incorreta',methods =["GET","POST"])
+def senha_incorreta():
+	return render_template('SenhaIncorreta.html')
 
 @app.route('/consulta-voo',methods =["GET","POST"])
 def home9():
