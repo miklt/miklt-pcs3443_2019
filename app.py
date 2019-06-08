@@ -54,16 +54,16 @@ def cadastrarUsuario():
 
             if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
                 erro_cadastro = True
-                mensagem_erro = "Formato do CPF inválido"
+                mensagem_erro = "Formato do CPF invalido"
             elif pessoa_nome:
                 erro_cadastro = True
-                mensagem_erro = "Nome já cadastrado"
+                mensagem_erro = "Nome ja cadastrado"
             elif pessoa_cpf:
                 erro_cadastro = True
-                mensagem_erro = "CPF já cadastrado"
+                mensagem_erro = "CPF ja cadastrado"
             elif pessoa_email:
                 erro_cadastro = True
-                mensagem_erro = "E-mail já cadastrado"
+                mensagem_erro = "E-mail ja cadastrado"
             else:
                 nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
                                      cargo=cargo,
