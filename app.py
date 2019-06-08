@@ -117,7 +117,7 @@ def editarUsuario():
                                                     '%d/%m/%Y').date()
                 if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
                     erro_edicao = True
-                    mensagem_erro = "Formato do CPF inválido"
+                    mensagem_erro = "Formato do CPF invalido"
                 else:
                     usuario.nome = nome
                     usuario.cpf = cpf
@@ -129,10 +129,10 @@ def editarUsuario():
                     editou_pessoa = True
             except ValueError:
                 erro_edicao = True
-                mensagem_erro = "Formato da data inválido"
+                mensagem_erro = "Formato da data invalido"
             except Exception:
                 erro_edicao = True
-                mensagem_erro = "Não foi possível editar o usuário"
+                mensagem_erro = "Nao foi possivel editar o usuario"
 
         current_nome = usuario.nome
         current_cpf = usuario.cpf
@@ -170,17 +170,17 @@ def cadastrarVoo():
             data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
             if data < datetime.now():
                 erro_cadastro = True
-                mensagem_erro = "Data inválida"
+                mensagem_erro = "Data invalida"
             else:
                 novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
                 novo_voo.adicionar()
                 cadastrou_voo = True
         except ValueError:
             erro_cadastro = True
-            mensagem_erro = "Formato da data/horário inválido"
+            mensagem_erro = "Formato da data/horario invalido"
         except Exception:
             erro_cadastro = True
-            mensagem_erro = "Erro. Não foi possível cadastrar voo"
+            mensagem_erro = "Erro. Nao foi possivel cadastrar voo"
 
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
@@ -225,10 +225,10 @@ def editarVoo():
                                              '%d/%m/%Y %H:%M')
                 except ValueError:
                     erro_edicao = True
-                    mensagem_erro = "Formato da data/horário inválido"
+                    mensagem_erro = "Formato da data/horario invalido"
                 else:
                     if data < datetime.now():
-                        raise Exception("Data inválida")
+                        raise Exception("Data invalida")
                     else:
                         voo.id_piloto = piloto_id
                         voo.data = data
@@ -327,13 +327,13 @@ def cadastrarAulaHora():
                 data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
             except ValueError:
                 erro_cadastro = True
-                mensagem_erro = "Formato da Hora inválido"
+                mensagem_erro = "Formato da Hora invalido"
             else:
                 for i in range(duracao):
                     if (data+timedelta(hours=1))not in horarios:
-                        raise Exception("Duração conflitante")
+                        raise Exception("Duracao conflitante")
                 if data < datetime.now():
-                    raise Exception("Data inválida")
+                    raise Exception("Data invalida")
                 else:
                     nova_aula = Aula(id_aluno=id_aluno,
                                      id_instrutor=id_instrutor,
@@ -380,7 +380,7 @@ def editarAula():
                                               '%d/%m/%Y %H:%M')
                 if data_hora < datetime.now():
                     erro_edicao = True
-                    mensagem_erro = "Data inválida"
+                    mensagem_erro = "Data invalida"
                 else:
                     aula.id_aluno = id_aluno
                     aula.id_instrutor = id_instrutor
@@ -391,10 +391,10 @@ def editarAula():
                     editou_aula = True
             except ValueError:
                 erro_edicao = True
-                mensagem_erro = "Formato da data/horário inválido"
+                mensagem_erro = "Formato da data/horario invalido"
             except Exception:
                 erro_edicao = True
-                mensagem_erro = "Erro. Não foi possível editar aula"
+                mensagem_erro = "Erro. Nao foi possivel editar aula"
 
         aluno_selecionado = aula.id_aluno
         instrutor_selecionado = aula.id_instrutor
@@ -405,11 +405,11 @@ def editarAula():
         current_horario = aula.data.strftime("%H:%M")
         current_duracao = aula.duracao
         if aula.nota is None:
-            current_nota = "Aula não foi avaliada"
+            current_nota = "Aula nao foi avaliada"
         else:
             current_nota = aula.nota
         if aula.avaliacao is None:
-            current_avaliacao = "Aula não foi avaliada"
+            current_avaliacao = "Aula nao foi avaliada"
         else:
             current_avaliacao = aula.avaliacao
 
@@ -497,12 +497,12 @@ def visualizarHoras():
     return render_template("visualizar_horas.html")
 
 
-# cria as tabelas do banco de dados, caso elas não estejam criadas
+# cria as tabelas do banco de dados, caso elas nao estejam criadas
 @app.before_first_request
 def create_tables():
     print("criar tabelas")
     db.create_all()
-# fim criaçaõ de tabelas
+# fim criacao de tabelas
 
 
 if __name__ == '__main__':
