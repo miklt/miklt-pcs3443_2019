@@ -7,7 +7,7 @@ from aeroclube.models.voo_model import Voo
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db' ##alterar para postdgree e instalar um servidor de banco de dados
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
@@ -479,4 +479,4 @@ def create_tables():
 if __name__ == '__main__':
     from dao import db
     db.init_app(app)
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)

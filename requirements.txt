@@ -1,2 +1,4 @@
 Flask
 flask-sqlalchemy
+Python 3.6.8
+
