@@ -31,6 +31,7 @@ class Cadastro extends React.Component {
 
     handleSubmit(event){ 
         event.preventDefault();
+        this.setState({"error": ''})
 
         const url = url_v3+'register';
         axios.post(url, {
@@ -46,11 +47,12 @@ class Cadastro extends React.Component {
             dataDiploma: this.state.dataDiploma,
             role: this.state.role,
         }).then(response => {
-            alert(this.state.role + " cadastrado.")
-            window.location.reload()
-        }).catch(error => {
-            alert(error)
-        });
+            if (response.data.error) {
+                this.setState({"error": response.data.error})
+            } else {
+                alert(this.state.role + " cadastrado.")
+            }
+        })
     };
 
     render () {
@@ -117,6 +119,7 @@ class Cadastro extends React.Component {
 
 
                     <button type="submit">Go</button>
+                    <div className="error-message">{this.state.error}</div>
                 </form>
             </div>
         )
