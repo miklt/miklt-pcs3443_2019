@@ -73,10 +73,10 @@ def cadastrarUsuario():
                 cadastrou_pessoa = True
         except ValueError:
             erro_cadastro = True
-            mensagem_erro = "Formato da data inválido"
+            mensagem_erro = "Formato da data invalido"
         except Exception:
             erro_cadastro = True
-            mensagem_erro = "Erro. Não foi possível cadastrar usuário"
+            mensagem_erro = "Erro. Não foi possível cadastrar usuario"
 
     return render_template("cadastrar_usuario.html", **locals())
 
