@@ -7,7 +7,7 @@ from aeroclube.models.voo_model import Voo
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db' ##alterar para postdgree e instalar um servidor de banco de dados
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db' ##alterar para postgree e instalar um servidor de banco de dados
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
