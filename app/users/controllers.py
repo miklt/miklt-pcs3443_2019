@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import request
 from flask_login import current_user, login_user, logout_user
+from sqlalchemy import exc
 from app import db
 import app.users.models as models
 from datetime import datetime
@@ -70,6 +71,7 @@ def logout():
     val = {
         'isLoggedIn': current_user.is_authenticated
     }
+
     return json.dumps(val)
 
 
@@ -77,9 +79,12 @@ def logout():
 @users.route('/user', methods = ['GET'])
 def showUser():
     userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
-    user = models.role[userLogin.role].query.get(userLogin.matricula)
+    if userLogin is None:
+        user = {}
+    else:
+        user = models.role[userLogin.role].query.get(userLogin.matricula)
 
-    return repr(user)
+    return json.dumps(user.getValues(), default = str)
 
 
 # Registra novo usuário
@@ -87,6 +92,7 @@ def showUser():
 def register():
     data = request.get_json()
     role = data['role']
+    val = {}
 
     if role == 'Aluno':
         u = models.Aluno(
@@ -125,12 +131,18 @@ def register():
             'error': "Não foi possível cadastrar o papel {}.".format(role)
         }, default = str)
 
-    db.session.add(u)
-    db.session.commit()
+    try:
+        db.session.add(u)
+        db.session.commit()
+    except exc.IntegrityError as e:
+        db.session.rollback()
+        print(e.statement)
+        val['error'] = "Erro: {} já cadastrado.".format(str(e.orig).split('.')[1])
+    else:
+        val['matricula'] = u.matricula
 
-    return json.dumps({
-            'error': ''
-    }, default = str)
+    finally:
+        return json.dumps(val, default = str)
 
 
 # Registra novo usuário

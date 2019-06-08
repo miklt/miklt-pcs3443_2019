@@ -5,8 +5,8 @@ from flask_cors import CORS
 
 # App
 app = Flask(__name__)
-CORS(app)
 app.config.from_object('config')
+CORS(app)
 db = SQLAlchemy(app)
 login = LoginManager(app)
 

@@ -36,14 +36,12 @@ class Login(UserMixin, db.Model):
     def get_id(self):
         return self.matricula
 
-    def __repr__(self):
-        val = {
+    def getValues(self):
+        return {
             'name': self.name,
             'email': self.email,
             'role': self.role
         }
-        return json.dumps(val, default = str)
-
 
 # Recarrega o usuário.
 @login.user_loader
@@ -79,14 +77,14 @@ class Socio(Login):
     def getRole():
         pass
 
-    def __repr__(self):
-        val = json.loads(super().__repr__())
+    def getValues(self):
+        val = super().getValues()
         val['endereco'] = self.endereco
         val['dataNascimento'] = self.dataNascimento
         val['cpf'] = self.cpf
         val['numeroBreve'] = self.numeroBreve
 
-        return json.dumps(val, default = str)
+        return val
 
 
 class Aluno(Socio):
@@ -102,8 +100,8 @@ class Aluno(Socio):
     def getRole():
         return 'Aluno'
 
-    def __repr__(self):
-        return super().__repr__()
+    def getValues(self):
+        return super().getValues()
 
 
 class Piloto(Socio):
@@ -120,8 +118,8 @@ class Piloto(Socio):
     def getRole():
         return 'Piloto'
 
-    def __repr__(self):
-        return super().__repr__()
+    def getValues(self):
+        return super().getValues()
 
 
 class Instrutor(Piloto):
@@ -149,13 +147,13 @@ class Instrutor(Piloto):
     def getRole():
         return 'Instrutor'
 
-    def __repr__(self):
-        val = json.loads(super().__repr__())
+    def getValues(self):
+        val = super().getValues()
         val['nomeInstituicao'] = self.nomeInstituicao
         val['nomeCurso'] = self.nomeCurso
         val['dataDiploma'] = self.dataDiploma
 
-        return json.dumps(val, default = str)
+        return val
 
 
 class Funcionario(Login):
@@ -169,8 +167,8 @@ class Funcionario(Login):
     def getRole():
         return 'Funcionario'
 
-    def __repr__(self):
-        return super().__repr__()
+    def getValues(self):
+        return super().getValues()
 
 
 
