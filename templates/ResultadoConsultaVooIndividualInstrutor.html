@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        AeroClube!
+        Resultado Consulta de Voo
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -18,12 +18,12 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top" style="background-color: #bda53b" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+				<span class="navbar-toggler-icon"></span>
+			</button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="navbar-brand" href="#"><i class="fas fa-plane-departure"></i> AeroClube</a>
@@ -31,33 +31,34 @@
             </div>
         </div>
     </nav>
-
     <div class="container" style="padding: 20px; text-align: center;">
         <div class="jumbotron">
-            <h1 class="display-4"> <strong>Bem-Vind@!</strong></h1>
-            <hr>
+            <h1 class="display-4"> <strong>Resultado Consulta de Voo</strong></h1>
+            <hr> {% for voo in voos %}
+            <p><strong>Número de Voo</strong>: {{voo.numero_voo}} </p>
+            <!-- ARRUMAR -->
+            <p><strong>Matrícula do Aluno</strong>: {{voo.aluno}}</p>
+            <!-- ARRUMAR -->
+            <p><strong>Matrícula do Instrutor</strong>: {{voo.instrutor}}</p>
+            <p><strong>Horas</strong>: {{voo.horas}}</p>
+            <!-- ARRUMAR -->
+            <p><strong>Nota</strong>: {{voo.rate}}</p>
+            <!-- ARRUMAR -->
+            <br>
+            <br>
+            <br> {% endfor %}
+            <br>
+            <a href='/consulta-voo-individual-instrutor'>
+                <button type="button" class="btn btn-light" style="float: left">Tela Anterior</button>
+            </a>
             <br>
 
-            <a href="/consulta-voo-individual-piloto">
-                <button type="submit" style="height: 40px; width: 170px" class="btn btn-outline-info">Consultar Um Voo</button>
-            </a>
-            <br>
-            <br>
-
-            <a href="/resultado-voos-piloto">
-                <button type="submit" style="height: 40px; width: 170px" class="btn btn-outline-info">Consultar Voos</button>
-            </a>
-            <br>
-            <br>
-            <a href="/visualiza-cadastro-piloto">
-                <button type="submit" style="height: 40px; width: 170px" class="btn btn-outline-info">Visualizar Cadastro</button>
-            </a>
-            <br> <br>
-            <a href='/'>
-                <button type="submit" class="btn btn-light" style="float: center">Logout</button>
-            </a>
         </div>
+
     </div>
+
+
+
 </body>
 
 </html>

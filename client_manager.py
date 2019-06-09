@@ -339,38 +339,81 @@ def home8():
 def erro_login():
 	return render_template('ErroLogin.html')
 
-	
 @app.route('/senha-incorreta',methods =["GET","POST"])
 def senha_incorreta():
 	return render_template('SenhaIncorreta.html')
 
-@app.route('/consulta-voo',methods =["GET","POST"])
-def home9():
-	return render_template('ConsultaVoo.html')
+@app.route('/consulta-voo-individual-instrutor',methods =["GET","POST"])
+def homwe9():
+	return render_template('ConsultaVooInstrutor.html')
 
-@app.route('/resultado-voo',methods =["GET","POST"])
+@app.route('/resultado-voo-individual-instrutor',methods =["GET","POST"])
+def howafme10():
+	if request.method =='POST':
+		numero_voo = request.form.get('numero_voo')
+		voos = Voos.query.filter_by(numero_voo = numero_voo)
+	if (voos.count()==0):
+		return render_template('ErroResultadoConsultaVooInstrutor.html')
+	else: 
+		return render_template('ResultadoConsultaVooIndividualInstrutor.html',voos = voos)
+
+@app.route('/resultado-voos-instrutor',methods =["GET","POST"])
+def homme1afafwa():
+	matricula = Login.query.first().matricula
+	voos = Voos.query.filter_by(aluno = matricula)
+	
+	if (voos.count()==0):
+		return render_template('ErroResultadoConsultaVooInstrutor.html')
+	else: 
+		return render_template('ResultadoConsultaVoosInstrutor.html',voos = voos)
+
+@app.route('/consulta-voo-individual-aluno',methods =["GET","POST"])
+def homwrwe9():
+	return render_template('ConsultaVooAluno.html')
+
+@app.route('/resultado-voo-individual-aluno',methods =["GET","POST"])
+def homewq10():
+	if request.method =='POST':
+		numero_voo = request.form.get('numero_voo')
+		voos = Voos.query.filter_by(numero_voo = numero_voo)
+	if (voos.count()==0):
+		return render_template('ErroResultadoConsultaVooAluno.html')
+	else: 
+		return render_template('ResultadoConsultaVooIndividualAluno.html',voos = voos)
+
+@app.route('/resultado-voos-aluno',methods =["GET","POST"])
+def homme1qeafwa():
+	matricula = Login.query.first().matricula
+	voos = Voos.query.filter_by(aluno = matricula)
+	
+	if (voos.count()==0):
+		return render_template('ErroResultadoConsultaVooAluno.html')
+	else: 
+		return render_template('ResultadoConsultaVoosAluno.html',voos = voos)
+
+@app.route('/consulta-voo-individual-piloto',methods =["GET","POST"])
+def home9():
+	return render_template('ConsultaVooPiloto.html')
+
+@app.route('/resultado-voo-individual-piloto',methods =["GET","POST"])
 def home10():
 	if request.method =='POST':
 		numero_voo = request.form.get('numero_voo')
 		voos = Voos.query.filter_by(numero_voo = numero_voo)
-	return render_template('ResultadoConsultaVoo.html',voos = voos)
+	if (voos.count()==0):
+		return render_template('ErroResultadoConsultaVooPiloto.html')
+	else: 
+		return render_template('ResultadoConsultaVooIndividualPiloto.html',voos = voos)
 
-
-@app.route('/consultar-voos',methods =["GET","POST"])
-def homme1():
+@app.route('/resultado-voos-piloto',methods =["GET","POST"])
+def hommfawwa():
 	matricula = Login.query.first().matricula
 	voos = Voos.query.filter_by(aluno = matricula)
 	
-	
 	if (voos.count()==0):
-		return render_template('ErroResultadoConsultaVooIndividual.html')
+		return render_template('ErroResultadoConsultaVooPiloto.html')
 	else: 
-		return render_template('ResultadoConsultaVooIndividual.html',voos = voos)
-
-@app.route('/listar-voo',methods =["GET","POST"])
-def home11():
-	voos = Voos.query.all()
-	return render_template('ResultadoConsultaVoo.html',voos = voos)
+		return render_template('ResultadoConsultaVoosPiloto.html',voos = voos)
 
 @app.route('/emissao-brevet',methods =["GET","POST"])
 def emissao_brevet():
