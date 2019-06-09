@@ -105,34 +105,6 @@ class Agendamento extends React.Component {
             </div>
         )
      
-        
-      /*   ?
-      
-      
-      
-      
-      
-      
-      
-      
-      <select name="instrutor" id="instrutor">
-                        <option value="" disabled selected>Select your option</option>
-                        <option value="I1">Instrutor 1</option>
-                        <option value="I2">Instrutor 2</option>
-                        <option value="I3">Instrutor 3</option>
-                        <option value="I4">Instrutor 4</option>
-                        <option value="I5">Instrutor 5</option>
-                    </select>
-                    
-                    
-                    <select id="aviao" name="aviao">
-                        <option value="" disabled selected>Select your option</option>
-                        <option value="A1">Avião 1</option>
-                        <option value="A2">Avião 2</option>
-                        <option value="A3">Avião 3</option>
-                        <option value="A4">Avião 4</option>
-                        <option value="A5">Avião 5</option>
-                    </select>*/
     }
 }
 
