@@ -13,8 +13,7 @@ class ConsultaAula extends React.Component {
 
         this.state = {
             matricula: '',
-
-            
+            isVisible: false,  /// NOVO ATRIBUTO            
         };
     }
     handleChange(event) {
@@ -43,6 +42,10 @@ class ConsultaAula extends React.Component {
         .catch(error => {
             alert(error)
         });
+
+        this.setState({       /// PÕE UM setState NO FINAL DO handleSubmit
+            isVisible : true,
+        })
     };
 
     render () {
@@ -57,7 +60,7 @@ class ConsultaAula extends React.Component {
                     <br />
 
                     <button type="submit" onSubmit={this.handleSubmit}>Go</button>
-                    {(this.handleSubmit(event)=== ? ) &&
+                    {this.state.isVisible  &&    /// PÕE O isVisible AQUI
                      <div>
                         <label>Aluno:</label>
                    
