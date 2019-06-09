@@ -353,7 +353,7 @@ def howafme10():
 		numero_voo = request.form.get('numero_voo')
 		voos = Voos.query.filter_by(numero_voo = numero_voo)
 	if (voos.count()==0):
-		return render_template('ErroResultadoConsultaVooInstrutor.html')
+		return render_template('ErroResultadoConsultaVooIndividualInstrutor.html')
 	else: 
 		return render_template('ResultadoConsultaVooIndividualInstrutor.html',voos = voos)
 
@@ -377,7 +377,7 @@ def homewq10():
 		numero_voo = request.form.get('numero_voo')
 		voos = Voos.query.filter_by(numero_voo = numero_voo)
 	if (voos.count()==0):
-		return render_template('ErroResultadoConsultaVooAluno.html')
+		return render_template('ErroResultadoConsultaVooIndividualAluno.html')
 	else: 
 		return render_template('ResultadoConsultaVooIndividualAluno.html',voos = voos)
 
@@ -401,7 +401,7 @@ def home10():
 		numero_voo = request.form.get('numero_voo')
 		voos = Voos.query.filter_by(numero_voo = numero_voo)
 	if (voos.count()==0):
-		return render_template('ErroResultadoConsultaVooPiloto.html')
+		return render_template('ErroResultadoConsultaVooIndividualPiloto.html')
 	else: 
 		return render_template('ResultadoConsultaVooIndividualPiloto.html',voos = voos)
 
