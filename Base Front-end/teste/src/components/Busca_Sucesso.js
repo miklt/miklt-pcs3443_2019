@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import '../css/paginaCadastroSucesso.css';
 import { Link, Redirect } from 'react-router-dom';
-import { Table } from 'reactstrap';
+import { Table } from 'react-bootstrap';
 //import logo from '../images/sucesso.png';
 
 class Busca_Sucesso extends Component {

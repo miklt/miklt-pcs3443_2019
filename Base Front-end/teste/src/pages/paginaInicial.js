@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from '../images/airplane.png';
 import '../css/paginaInicial.css';
 import { Link } from 'react-router-dom';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import Naveg from '../components/Naveg';
 
 class paginaInicial extends Component {
