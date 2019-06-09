@@ -18,6 +18,7 @@ class Busca_Sucesso extends Component {
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>Data de Nascimento</th>
+                        <th>Endereço</th>
                         <th>Telefone de Contato</th>
                     </tr>
                 </thead>
@@ -28,6 +29,7 @@ class Busca_Sucesso extends Component {
                         <td>{this.props.nome}</td>
                         <td>{this.props.email}</td>
                         <td>{this.props.dataNascimento}</td>
+                        <td>{this.props.endereco}</td>
                         <td>{this.props.telefone}</td>
                     </tr>
                 </tbody>

@@ -17,6 +17,7 @@ class paginaCadastro extends Component {
    this.handleEnderecoChange=this.handleEnderecoChange.bind(this);
    this.state = {
       nome: '',
+      num_matric: '',
       email: '',
       cpf: '',
       dataNascimento: '',
@@ -64,8 +65,10 @@ handleSubmit = event => {
    
    axios.post(`https://testeparaaviacao.herokuapp.com/api/Aluno`,user)
      .then(res => {
-          if (res.data.status === 'success')
+          if (res.data.status === 'success'){
              this.setState({redirect: true});
+             this.setState({num_matric: res.data.data.num_matric});
+          }
           console.log(res.data.status);
           console.log(res);
           console.log(res.data);
@@ -87,7 +90,7 @@ handleSubmit = event => {
 
  render() {
    if (this.state.redirect === true){
-       return <Cadastro_Sucesso />
+       return <Cadastro_Sucesso num_matric={this.state.num_matric} nome={this.state.nome}/>
    }
    return (
          <div className="pagina">
