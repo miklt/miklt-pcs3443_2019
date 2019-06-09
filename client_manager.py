@@ -233,7 +233,7 @@ def home7():
 		aluno.numero_horas = int(aluno.numero_horas) + int(horas)
 		db.session.commit()
 
-	return render_template('TelaCadastroVoo.html')
+	return render_template('TelaCadastroVooAula.html')
 
 @app.route('/',methods =["GET","POST"])
 def home8():
