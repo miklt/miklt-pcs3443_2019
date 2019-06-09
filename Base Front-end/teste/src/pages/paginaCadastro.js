@@ -14,11 +14,13 @@ class paginaCadastro extends Component {
    this.handleCpfChange=this.handleCpfChange.bind(this);
    this.handleDataNascimentoChange=this.handleDataNascimentoChange.bind(this);
    this.handleTelefoneChange=this.handleTelefoneChange.bind(this);
+   this.handleEnderecoChange=this.handleEnderecoChange.bind(this);
    this.state = {
       nome: '',
       email: '',
       cpf: '',
       dataNascimento: '',
+      endereco: '',
       telefone: '',
       redirect: false
   };
@@ -40,6 +42,10 @@ handleDataNascimentoChange(dataNascimento) {
    this.setState({dataNascimento: dataNascimento,});
 }
 
+handleEnderecoChange(endereco) {
+   this.setState({endereco: endereco,});
+}
+
 handleTelefoneChange(telefone) {
    this.setState({telefone: telefone,});
 }
@@ -52,6 +58,7 @@ handleSubmit = event => {
      email: this.state.email,
      cpf: this.state.cpf,
      data_nascimento: this.state.dataNascimento,
+     endereco: this.state.endereco,
      telefone: this.state.telefone
    };
    
@@ -91,11 +98,13 @@ handleSubmit = event => {
                email={this.state.email}
                cpf={this.state.cpf}
                dataNascimento={this.state.dataNascimento}
+               endereco={this.state.endereco}
                telefone={this.state.telefone}
                onNameChange={this.handleNameChange}
                onEmailChange={this.handleEmailChange}
                onCpfChange={this.handleCpfChange}
                onDataNascimentoChange={this.handleDataNascimentoChange}
+               onEnderecoChange={this.handleEnderecoChange}
                onTelefoneChange={this.handleTelefoneChange}/>
                <button id="buttonSuccess" type="submit">Enviar</button> 
            </form>

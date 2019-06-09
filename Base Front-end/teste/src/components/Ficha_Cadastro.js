@@ -11,6 +11,7 @@ class Ficha_Cadastro extends Component {
         this.handleCpfChange=this.handleCpfChange.bind(this)
         this.handleDataNascimentoChange=this.handleDataNascimentoChange.bind(this)
         this.handleTelefoneChange=this.handleTelefoneChange.bind(this)
+        this.handleEnderecoChange = this.handleEnderecoChange.bind(this)
     }
 
     handleNameChange(e) {
@@ -27,6 +28,10 @@ class Ficha_Cadastro extends Component {
     
     handleDataNascimentoChange(e) {
         this.props.onDataNascimentoChange(e.target.value);
+    }
+
+    handleEnderecoChange(e) {
+        this.props.onEnderecoChange(e.target.value);
     }
     
     handleTelefoneChange(e) {
@@ -45,6 +50,8 @@ class Ficha_Cadastro extends Component {
                     <input type="text" name="cpf" value={this.props.cpf} onChange={this.handleCpfChange}></input><br/>
                     <label>Data de nascimento</label><br/>
                     <input type="text" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
+                    <label>Endereço</label><br/>
+                    <input type="text" name="endereco" value={this.props.endereco} onChange={this.handleEnderecoChange}></input><br/>
                     <label>Telefone</label><br/>
                     <input type="text" name="telefone" value={this.props.telefone} onChange={this.handleTelefoneChange}></input><br/>
                 <h2>{}</h2>

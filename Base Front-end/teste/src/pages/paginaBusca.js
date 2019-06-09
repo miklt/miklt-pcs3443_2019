@@ -8,7 +8,7 @@ import Naveg from '../components/Naveg';
 class paginaBusca extends Component {
  constructor(props) {
    super(props);
-   this.handleCpfChange=this.handleCpfChange.bind(this);
+   this.handleNumMatricChange=this.handleNumMatricChange.bind(this);
    this.state = {
       nome: '',
       email: '',
@@ -20,16 +20,16 @@ class paginaBusca extends Component {
   };
  }
 
-handleCpfChange(e) {
-   this.setState({cpf: e.target.value,});
+handleNumMatricChange(e) {
+   this.setState({num_matric: e.target.value,});
 }
 
 handleSubmit = event => {
    event.preventDefault();
-   axios.get(`https://testeparaaviacao.herokuapp.com/api/Aluno`,{params: {cpf:this.state.cpf}})
+   axios.get(`https://testeparaaviacao.herokuapp.com/api/Aluno`,{params: {num_matric:this.state.num_matric}})
      .then(res => {
           if (res.data.status === 'success')
-             this.setState({num_matric: res.data.data.num_matric});
+             this.setState({cpf: res.data.data.cpf});
              this.setState({nome: res.data.data.nome});
              this.setState({email: res.data.data.email});   
              this.setState({dataNascimento: res.data.data.data_nascimento});
@@ -78,14 +78,14 @@ handleSubmit = event => {
         <div className="pagina">
             <Naveg/>
             <form onSubmit={this.handleSubmit}>
-                <h1>Digite o CPF do aluno que deseja buscar: </h1>
-                <label>CPF</label><br/>
-                <input type="text" name="cpf" value={this.state.cpf} onChange={this.handleCpfChange}></input><br/>
+                <h1>Digite o numero de matricula do aluno que deseja buscar: </h1>
+                <label>Numero de Matricula</label><br/>
+                <input type="text" name="cpf" value={this.state.num_matric} onChange={this.handleNumMatricChange}></input><br/>
                 <button id="buttonSuccess" type="submit">Enviar</button>
-                <button id="buttonDanger1">
-                   <Link id="link" to="/">Voltar</Link>
-               </button>
            </form>
+           <button id="buttonDanger1">
+                   <Link id="link" to="/">Voltar</Link>
+            </button>
        </div>
   );
 }
