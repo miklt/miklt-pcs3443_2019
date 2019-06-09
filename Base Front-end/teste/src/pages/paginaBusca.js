@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/Busca_Sucesso.css';
 import { Link, Redirect } from 'react-router-dom';
 import Busca_Sucesso from '../components/Busca_Sucesso';
+import Naveg from '../components/Naveg';
 
 class paginaBusca extends Component {
  constructor(props) {
@@ -75,12 +76,13 @@ handleSubmit = event => {
   }
     return (
         <div className="pagina">
+            <Naveg/>
             <form onSubmit={this.handleSubmit}>
                 <h1>Digite o CPF do aluno que deseja buscar: </h1>
                 <label>CPF</label><br/>
                 <input type="text" name="cpf" value={this.state.cpf} onChange={this.handleCpfChange}></input><br/>
                 <button id="buttonSuccess" type="submit">Enviar</button>
-                <button id="buttonDanger">
+                <button id="buttonDanger1">
                    <Link id="link" to="/">Voltar</Link>
                </button>
            </form>

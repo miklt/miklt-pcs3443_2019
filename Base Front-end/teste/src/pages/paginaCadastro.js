@@ -4,6 +4,7 @@ import '../css/paginaCadastro.css';
 import { Link, Redirect } from 'react-router-dom';
 import Ficha_Cadastro from '../components/Ficha_Cadastro';
 import Cadastro_Sucesso from '../components/Cadastro_Sucesso';
+import Naveg from '../components/Naveg';
 
 class paginaCadastro extends Component {
  constructor(props) {
@@ -83,6 +84,7 @@ handleSubmit = event => {
   }
    return (
        <div className="pagina">
+           <Naveg/>
            <form onSubmit={this.handleSubmit}>
                <Ficha_Cadastro 
                nome={this.state.nome}
@@ -96,10 +98,10 @@ handleSubmit = event => {
                onDataNascimentoChange={this.handleDataNascimentoChange}
                onTelefoneChange={this.handleTelefoneChange}/>
                <button id="buttonSuccess" type="submit">Enviar</button> 
-               <button id="buttonDanger">
+           </form>
+           <button id="buttonDanger">
                    <Link id="link" to="/">Voltar</Link>
                </button>
-           </form>
        </div>
   );
 }
