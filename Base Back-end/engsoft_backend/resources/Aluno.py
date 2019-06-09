@@ -28,7 +28,8 @@ class AlunoResource(Resource):
             data_nascimento = json_data['data_nascimento'],
             telefone = json_data['telefone'],
             total_horas_voo = 0,
-            concluiu_teoria = 'Nao'
+            concluiu_teoria = 'Nao',
+            concluiu_pratica = 'Nao'
             )
         db.session.add(matric)
         db.session.commit()
@@ -85,3 +86,9 @@ class AlunoResource(Resource):
         db.session.commit()
         result = aluno_schema.dump(aluno).data
         return result
+
+    def Verificar(aluno):
+        if aluno.total_horas_voo >= 30:
+            aluno.concluiu_pratica = 'Sim'
+        else:
+            aluno.concluiu_pratica = 'Nao'
