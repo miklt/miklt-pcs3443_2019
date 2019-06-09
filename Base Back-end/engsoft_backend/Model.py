@@ -39,7 +39,7 @@ class AlunoSchema(ma.Schema):
     endereco = fields.String(required=True, validate=validate.Length(min=1))
     cpf = fields.String(required=True, validate=validate.Length(min=11,max=11))
     data_nascimento = fields.String(required=True, validate=validate.Length(min=1))
-    telefone = fields.String(required=True)
+    telefone = fields.String(required=True, validate=validate.Length(min=1))
     total_horas_voo = fields.Integer(required=False)
     concluiu_teoria = fields.String(required=False)
     concluiu_pratica = fields.String(required=False)
@@ -111,3 +111,16 @@ class VooSchema(ma.Schema):
     instrutor_id = fields.Integer(required=True)
     aluno_id = fields.Integer(required=True)
     data_cadastro = fields.DateTime()
+
+class Funcionario(db.Model):
+    __tablename__ = 'funcionarios'
+    user = db.Column(db.String(200), nullable=False, primary_key=True)
+    password = db.Column(db.String(200), nullable=False)
+
+    def __init__(self, user, password):
+        self.user = user
+        self.password = password
+
+class FuncionarioSchema(ma.Schema):
+    user = fields.String(required=True)
+    password = fields.String(required=True)
