@@ -34,8 +34,8 @@ class ConsultaAula extends React.Component {
             
            var data = document.createElement ("div")
            var text = document.createTextNode(response.data.aluno)
-           text += " "
-           text += document.createTextNode(response.data.instrutor)
+          // text += " "
+           //text += document.createTextNode(response.data.instrutor)
            data.appendChild(text)
      
            
@@ -57,15 +57,22 @@ class ConsultaAula extends React.Component {
                     <br />
 
                     <button type="submit" onSubmit={this.handleSubmit}>Go</button>
-                    <div id="aluno"/>
-                    <br />
-                    <div id="instrutor"/>
-
-
+                    {(this.handleSubmit(event)=== ? ) &&
+                     <div>
+                        <label>Aluno:</label>
+                   
+                        <div id="aluno"></div>
+                        <br />
+                          
+                        <label>Instrutor:</label>
+                        <div id="instrutor"></div>
+                        <br />
+                    </div>
+                    }               
                   
                 </form>
             </div>
-
+                    
 
         )
     }
