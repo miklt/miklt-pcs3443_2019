@@ -130,14 +130,26 @@ def home1():
 		db.session.commit()
 		#pilotos = Piloto.query.all()
 	return render_template('TelaCadastroPiloto.html')#,pilotos =pilotos) #,alunos = alunos)
-@app.route('/visualizar-cadastro',methods=['GET'])
+
+@app.route('/listar-cadastros',methods=['GET'])
 def visualizar():
 	alunos = Socio.query.filter_by(tipo = 'aluno')
 	pilotos = Socio.query.filter_by(tipo = 'piloto')
 	instrutores = Socio.query.filter_by(tipo = 'instrutor')
 	funcionarios = Socio.query.filter_by(tipo = 'funcionario')
 	db.session.commit()
-	return render_template('Visualizar.html',alunos = alunos
+	return render_template('ListarSocios.html',alunos = alunos
+						,pilotos = pilotos,instrutores = instrutores,funcionarios = funcionarios)
+
+						
+@app.route('/listar-cadastros-instrutor',methods=['GET'])
+def visualizarinstrutor():
+	alunos = Socio.query.filter_by(tipo = 'aluno')
+	pilotos = Socio.query.filter_by(tipo = 'piloto')
+	instrutores = Socio.query.filter_by(tipo = 'instrutor')
+	funcionarios = Socio.query.filter_by(tipo = 'funcionario')
+	db.session.commit()
+	return render_template('ListarSociosInstrutor.html',alunos = alunos
 						,pilotos = pilotos,instrutores = instrutores,funcionarios = funcionarios)
 
 @app.route('/cadastro-instrutor',methods =["GET","POST"])
@@ -174,10 +186,6 @@ def home3():
 def homee3():
 	return render_template('ConsultaSocioInstrutor.html')
 
-@app.route('/inicial',methods =["GET","POST"]) # tela inicial funcionario
-def home4():
-	return render_template('TelaInicial.html')
-
 @app.route('/resultado-consulta',methods =["GET","POST"])
 def home6():
 
@@ -194,8 +202,8 @@ def hommee6():
 		socios = Socio.query.filter_by(matricula = matricula)
 	return render_template('ResultadoConsultaSocioInstrutor.html',socios = socios)
 
-@app.route('/visualiza-cadastro-individual',methods =["GET","POST"])
-def resultado_consulta_aluno():
+@app.route('/visualiza-cadastro-aluno',methods =["GET","POST"])
+def resultado_consulta_individual_aluno():
 
 	matricula = Login.query.first().matricula
 	socios = Socio.query.filter_by(matricula = matricula)
@@ -210,7 +218,63 @@ def resultado_consulta_aluno():
 			print(socio)
 			db.session.commit()
 			return redirect(url_for('emissao_brevet',nome = socio.nome,horas = socio.numero_horas,matricula = matricula))
-	return render_template('ResultadoConsultaSocioIndividual.html',socios = socios)
+	return render_template('ResultadoConsultaIndividualAluno.html',socios = socios)
+
+	
+@app.route('/visualiza-cadastro-instrutor',methods =["GET","POST"])
+def resultado_consulta_individual_instrutor():
+
+	matricula = Login.query.first().matricula
+	socios = Socio.query.filter_by(matricula = matricula)
+	socio = socios.first()
+	if(socio.tipo == 'aluno'):
+		if(int(socio.numero_horas)>= 35):
+			print(socio)
+			socio.tipo = 'piloto'
+			socio.instituicao = 'Poli'
+			socio.data_diploma = datetime.datetime.now()
+			socio.numero_brevet = random.randint(1,1000000)
+			print(socio)
+			db.session.commit()
+			return redirect(url_for('emissao_brevet',nome = socio.nome,horas = socio.numero_horas,matricula = matricula))
+	return render_template('ResultadoConsultaIndividualInstrutor.html',socios = socios)
+	
+@app.route('/visualiza-cadastro-piloto',methods =["GET","POST"])
+def resultado_consulta_individual_piloto():
+
+	matricula = Login.query.first().matricula
+	socios = Socio.query.filter_by(matricula = matricula)
+	socio = socios.first()
+	if(socio.tipo == 'aluno'):
+		if(int(socio.numero_horas)>= 35):
+			print(socio)
+			socio.tipo = 'piloto'
+			socio.instituicao = 'Poli'
+			socio.data_diploma = datetime.datetime.now()
+			socio.numero_brevet = random.randint(1,1000000)
+			print(socio)
+			db.session.commit()
+			return redirect(url_for('emissao_brevet',nome = socio.nome,horas = socio.numero_horas,matricula = matricula))
+	return render_template('ResultadoConsultaIndividualPiloto.html',socios = socios)
+		
+@app.route('/visualiza-cadastro-funcionario',methods =["GET","POST"])
+def resultado_consulta_individual_funcionario():
+
+	matricula = Login.query.first().matricula
+	socios = Socio.query.filter_by(matricula = matricula)
+	socio = socios.first()
+	if(socio.tipo == 'aluno'):
+		if(int(socio.numero_horas)>= 35):
+			print(socio)
+			socio.tipo = 'piloto'
+			socio.instituicao = 'Poli'
+			socio.data_diploma = datetime.datetime.now()
+			socio.numero_brevet = random.randint(1,1000000)
+			print(socio)
+			db.session.commit()
+			return redirect(url_for('emissao_brevet',nome = socio.nome,horas = socio.numero_horas,matricula = matricula))
+	return render_template('ResultadoConsultaIndividualFuncionario.html',socios = socios)
+
 
 @app.route('/cadastro-voo',methods =["GET","POST"])
 def home7():
@@ -261,7 +325,7 @@ def home8():
 				elif(socio.tipo == 'instrutor'):
 					return redirect(url_for('inicial_instrutor'))
 				elif(socio.tipo == 'piloto'):
-					return redirect(url_for('inicial_aluno'))
+					return redirect(url_for('inicial_piloto'))
 				elif(socio.tipo == 'funcionario'):
 					return redirect(url_for('inicial_funcionario'))
 				else:
@@ -315,13 +379,18 @@ def emissao_brevet():
 	horas = request.args.get('horas')
 	return render_template('EmitirBreve.html',nome = nome,matricula= matricula,horas= horas)
 
-@app.route('/inicial-individual',methods =["GET","POST"])
+@app.route('/inicial-aluno',methods =["GET","POST"])
 def inicial_aluno():
 	return render_template('TelaInicialAluno.html')
 
+	
+@app.route('/inicial-piloto',methods =["GET","POST"])
+def inicial_piloto():
+	return render_template('TelaInicialPiloto.html')
+
 @app.route('/inicial',methods =["GET","POST"])
 def inicial_funcionario():
-	return render_template('TelaInicial.html')
+	return render_template('TelaInicialFuncionario.html')
 
 @app.route('/inicial-instrutor',methods =["GET","POST"])
 def inicial_instrutor():
