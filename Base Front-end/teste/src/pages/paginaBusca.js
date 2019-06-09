@@ -15,6 +15,7 @@ class paginaBusca extends Component {
       cpf: '',
       num_matric: '',
       dataNascimento: '',
+      endereco: '',
       telefone: '',
       success: false,
   };
@@ -33,6 +34,7 @@ handleSubmit = event => {
              this.setState({nome: res.data.data.nome});
              this.setState({email: res.data.data.email});   
              this.setState({dataNascimento: res.data.data.data_nascimento});
+             this.setState({endereco: res.data.data.endereco});
              this.setState({telefone: res.data.data.telefone});
              this.setState({success: true});
           console.log(res.data.status);
@@ -65,6 +67,7 @@ handleSubmit = event => {
                num_matric={this.state.num_matric}
                email={this.state.email}
                dataNascimento={this.state.dataNascimento}
+               endereco={this.state.endereco}
                telefone={this.state.telefone}
                />
                <button id="buttonDanger">
