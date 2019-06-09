@@ -13,18 +13,22 @@ class Aluno(db.Model):
     email = db.Column(db.String(250), nullable=False)
     endereco = db.Column(db.String(250), nullable=False)
     cpf = db.Column(db.String(11), nullable=False)
-    data_nascimento = db.Column(db.String, nullable=False)
-    telefone = db.Column(db.BigInteger, nullable=False)
+    data_nascimento = db.Column(db.String(20), nullable=False)
+    telefone = db.Column(db.String(20), nullable=False)
+    total_horas_voo = db.Column(db.Integer, nullable=False)
+    concluiu_teoria = db.Column(db.String(3), nullable=False)
     data_matric = db.Column(db.TIMESTAMP  , server_default=db.func.current_timestamp(), nullable=False)
     
 
-    def __init__(self, nome, email, endereco, cpf, data_nascimento, telefone):
+    def __init__(self, nome, email, endereco, cpf, data_nascimento, telefone, total_horas_voo, concluiu_teoria):
         self.nome = nome
         self.email = email
         self.endereco = endereco
         self.cpf = cpf
         self.data_nascimento = data_nascimento
         self.telefone = telefone
+        self.total_horas_voo = total_horas_voo
+        self.concluiu_teoria = concluiu_teoria
 
 class AlunoSchema(ma.Schema):
     num_matric = fields.Integer(dump_only=True)
@@ -33,8 +37,10 @@ class AlunoSchema(ma.Schema):
     endereco = fields.String(required=True, validate=validate.Length(min=1))
     cpf = fields.String(required=True, validate=validate.Length(min=11,max=11))
     data_nascimento = fields.String(required=True, validate=validate.Length(min=1))
-    telefone = fields.Integer(required=True)
-    data_matric = fields.DateTime()
+    telefone = fields.String(required=True)
+    total_horas_voo = fields.Integer(required=False)
+    concluiu_teoria = fields.String(required=False)
+    data_matric = fields.DateTime(required=False)
 
 class Instrutor(db.Model):
     __tablename__ = 'instrutores'
@@ -44,12 +50,13 @@ class Instrutor(db.Model):
     endereco = db.Column(db.String(250), nullable=False)
     cpf = db.Column(db.String(11), nullable=False)
     data_nascimento = db.Column(db.String, nullable=False)
-    telefone = db.Column(db.BigInteger, nullable=False)
+    telefone = db.Column(db.String(20), nullable=False)
     breve = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.String(20), nullable=False)
     data_cadastro = db.Column(db.TIMESTAMP  , server_default=db.func.current_timestamp(), nullable=False)
     
 
-    def __init__(self, nome, email, endereco, cpf, data_nascimento, telefone, breve):
+    def __init__(self, nome, email, endereco, cpf, data_nascimento, telefone, breve, status):
         self.nome = nome
         self.email = email
         self.endereco = endereco
@@ -57,6 +64,7 @@ class Instrutor(db.Model):
         self.data_nascimento = data_nascimento
         self.telefone = telefone
         self.breve = breve
+        self.status = status
 
 class InstrutorSchema(ma.Schema):
     num_cadastro = fields.Integer(dump_only=True)
@@ -64,6 +72,29 @@ class InstrutorSchema(ma.Schema):
     email = fields.String(required=True, validate=validate.Length(min=1))
     cpf = fields.String(required=True, validate=validate.Length(min=11,max=11))
     data_nascimento = fields.String(required=True, validate=validate.Length(min=1))
-    telefone = fields.Integer(required=True)
+    telefone = fields.String(required=True)
     breve = fields.String(required=True)
+    status = fields.String(required=False)
     data_cadastro = fields.DateTime()
+
+class Voo(db.Model):
+    __tablename__ = 'voos'
+    num_voo = db.Column(db.BigInteger, primary_key=True)
+    data_voo = db.Column(db.String, nullable=False)
+    data_cadastro = db.Column(db.TIMESTAMP  , server_default=db.func.current_timestamp(), nullable=False)
+    hora_inicio = db.Column(db.String, nullable=False)
+    horas_total = db.Column(db.Integer, nullable=False)
+    nota = db.Column(db.Integer, nullable=False)
+    instrutor_id = db.Column(db.BigInteger, db.ForeignKey('instrutores.num_cadastro', ondelete='CASCADE'), nullable=False)
+    instrutor = db.relationship('Instrutor', backref=db.backref('instrutores', lazy='dynamic'))
+    aluno_id = db.Column(db.BigInteger, db.ForeignKey('alunos.num_matric', ondelete='CASCADE'), nullable=False)
+    aluno = db.relationship('Aluno', backref=db.backref('alunos', lazy='dynamic'))
+
+
+    def __init__(self, data_voo, hora_inicio, horas_total, nota, instrutor_cadastro):
+        self.data_voo = data_voo
+        self.hora_inicio = hora_inicio
+        self.horas_total = horas_total
+        self.nota = nota
+        self.instrutor_cadastro = instrutor_cadastro
+        self.telefone = telefone

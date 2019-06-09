@@ -7,26 +7,28 @@ aluno_schema = AlunoSchema()
 
 class AlunoResource(Resource):
 
-    def post(self):
+    def post(self):  # Cadastra um aluno
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
         data, errors = aluno_schema.load(json_data)
-        if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '':
+        if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400
         if errors:
             return errors, 422
         teste = Aluno.query.filter_by(cpf=json_data['cpf']).first()
         if teste:
-            return {'message': 'Aluno com essa matricula ja existe'}, 400
+            return {'message': 'Aluno com este CPF já está matriculado'}, 400
         matric = Aluno(
             nome = json_data['nome'],
             email = json_data['email'],
             endereco = json_data['endereco'],
             cpf = json_data['cpf'],
             data_nascimento = json_data['data_nascimento'],
-            telefone = json_data['telefone']
+            telefone = json_data['telefone'],
+            total_horas_voo = 0,
+            concluiu_teoria = 'Nao'
             )
         db.session.add(matric)
         db.session.commit()
@@ -35,19 +37,51 @@ class AlunoResource(Resource):
 
         return { "status": 'success', 'data': result }, 201
 
-    def get(self):
-        cprf = request.args.get('cpf')
-        aluno = Aluno.query.filter_by(cpf=cprf).first()
+    def get(self):  # Busca aluno por CPF
+        n_matricula = request.args.get('num_matric')
+        aluno = Aluno.query.filter_by(num_matric=n_matricula).first()
         if not aluno:
-            return {'message' : 'Nenhum aluno com este CPF'}
+            return {'message' : 'Nenhum aluno com este número de matrícula'}
         result = aluno_schema.dump(aluno).data
         return { "status": 'success', 'data': result}, 201
 
-    def delete(self):
-        cprf = request.args.get('cpf')
-        aluno = Aluno.query.filter_by(cpf=cprf).delete()
+    def delete(self):  # Deleta aluno da base de dados
+        n_matricula = request.args.get('num_matric')
+        aluno = Aluno.query.filter_by(num_matric=n_matricula).delete()
+        if not aluno:
+            return {'message': 'Nenhum aluno com este CPF'}, 400
         db.session.commit()
 
         result = aluno_schema.dump(aluno).data
 
         return { "status": 'success', 'data': result}, 204
+
+    def put(self):
+        json_data = request.get_json(force=True)
+        #n_matricula = request.args.get('num_matric')
+        aluno = Aluno.query.filter_by(num_matric=json_data['num_matric']).first()
+        if not aluno:
+            return {'message' : 'Nenhum aluno com este número de matrícula'}
+        
+        if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['telefone'] == '':
+            return {'message': 'Preencha todos os campos'}, 400
+        
+        aluno.nome = json_data['nome']
+        aluno.email = json_data['email']
+        aluno.endereco = json_data['endereco']
+        aluno.cpf = json_data['cpf']
+        aluno.data_nascimento = json_data['data_nascimento']
+        aluno.telefone = json_data['telefone']
+
+        db.session.commit()
+
+        result = aluno_schema.dump(aluno).data
+        return { "status": 'success', 'data': result}, 201
+
+
+    def Habilitar(n_matricula):
+        aluno = Aluno.query.filter_by(num_matric=n_matricula).first()
+        aluno.concluiu_teoria = 'Sim'
+        db.session.commit()
+        result = aluno_schema.dump(aluno).data
+        return result
