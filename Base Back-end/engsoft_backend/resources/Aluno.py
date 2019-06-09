@@ -1,6 +1,10 @@
 from flask import request
 from flask_restful import Resource
 from Model import db, Aluno, AlunoSchema
+import re
+
+EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
+CPF_REGEX = re.compile("^[ 0-9]{11}$")
 
 alunos_schema = AlunoSchema(many=True)
 aluno_schema = AlunoSchema()
@@ -15,10 +19,14 @@ class AlunoResource(Resource):
         data, errors = aluno_schema.load(json_data)
         if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400
+        if not EMAIL_REGEX.match(json_data['email']):
+            return {'message': 'Email invalido'}, 400
+        if not CPF_REGEX.match(json_data['cpf']):
+            return {'message': 'Cpf invalido'}, 400
         if errors:
             return errors, 422
-        teste = Aluno.query.filter_by(cpf=json_data['cpf']).first()
-        if teste:
+        teste_cpf_existe = Aluno.query.filter_by(cpf=json_data['cpf']).first()
+        if teste_cpf_existe:
             return {'message': 'Aluno com este CPF já está matriculado'}, 400
         matric = Aluno(
             nome = json_data['nome'],
