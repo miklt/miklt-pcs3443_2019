@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <head>
     <title>
         Resultado Consulta de Voo
@@ -22,8 +19,8 @@
         <div class="container">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+        <span class="navbar-toggler-icon"></span>
+      </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="navbar-brand" href="#"><i class="fas fa-plane-departure"></i> AeroClube</a>
@@ -33,21 +30,30 @@
     </nav>
     <div class="container" style="padding: 20px; text-align: center;">
         <div class="jumbotron">
-            <h1 class="display-4"> <strong>Resultado Consulta de Voos</strong></h1>
-            <hr> {% for voo in voos %}
-            <p><strong>Número de Voo</strong>: {{voo.numero_voo}} </p>
-            <p><strong>Horas</strong>: {{voo.horas}}</p>
-            <br> {% endfor %}
-            <br>
-            <a href='/inicial-piloto'>
-                <button type="input" class="btn btn-light" style="float: left">Tela Anterior</button>
-            </a>
-        </div>
+            <h1 class="display-4"> <strong>Cadastro de Voo</strong></h1>
+            <hr>
+            <form method="POST" action="/cadastro-voo">
+                <form>
+                    <input style="margin-top:10px; margin-bottom: 10px" class="btn btn-light" type="number" name="horas_de_voo" placeholder="Horas de Voo">
+                    <br>
+                    <br> Data e Hora do Voo:
+                    <input style="margin-top:10px" class="btn btn-light" type="datetime-local" name="data_hora_voo">
+                    <br>
+                    <br>
+                    <br>
 
-    </div>
+                    <a href="/inicial-instrutor">
+                        <button class="btn btn-primary" type="submit" style="float:right; margin-left:5px;">Cadastrar</button>
+                    </a>
 
-
-
+                </form>
+                <a href='/cadastro-voo'>
+                    <button type="submit" class="btn btn-warning" style="float:right;">Limpar</button>
+                </a>
+                <a href='/inicial-piloto'>
+                    <button type="submit" class="btn btn-light" style="float: left">Tela Anterior</button>
+                </a>
+                <br>
 </body>
 
 </html>

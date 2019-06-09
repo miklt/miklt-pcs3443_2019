@@ -36,16 +36,7 @@
             <h1 class="display-4"> <strong>Resultado Consulta de Voo</strong></h1>
             <hr> {% for voo in voos %}
             <p><strong>Número de Voo</strong>: {{voo.numero_voo}} </p>
-            <!-- ARRUMAR -->
-            <p><strong>Matrícula do Aluno</strong>: {{voo.aluno}}</p>
-            <!-- ARRUMAR -->
-            <p><strong>Matrícula do Instrutor</strong>: {{voo.instrutor}}</p>
             <p><strong>Horas</strong>: {{voo.horas}}</p>
-            <!-- ARRUMAR -->
-            <p><strong>Nota</strong>: {{voo.rate}}</p>
-            <!-- ARRUMAR -->
-            <br>
-            <br>
             <br> {% endfor %}
             <br>
             <a href='/consulta-voo-individual-piloto'>
