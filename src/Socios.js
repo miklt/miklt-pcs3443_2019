@@ -9,16 +9,18 @@ class Socios extends React.Component {
     }
 
     montarTabela() {
-        const url = url_v3
+        const url = url_v3+"socios" // ALTERAR PARA O ENDEREÇO CERTO
         var table = document.getElementById("myTable")
         axios.get(url)
             .then(response => {
                 console.log(response)
-                /*var row = table.insertRow(0)
-                var cellId = row.insertCell(0)
-                var cellName = row.insertCell(1)
-                cellId.innerHTML = response.data.matricula
-                cellName.innerHTML = response.data.name*/
+                response.data.foreach(data => {
+                    var row = table.insertRow(0)
+                    var cellId = row.insertCell(0)
+                    var cellName = row.insertCell(1)
+                    cellId.innerHTML = data.matricula
+                    cellName.innerHTML = data.name
+                })
             })
         
     }
