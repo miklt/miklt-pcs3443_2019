@@ -1,31 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">
-    <i class="fa fa-fighter-jet text-success"></i>
-    Aero Clube
-    <i class="fa fa-fighter-jet text-success"></i>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <!-- <i class="fa fa-fighter-jet text-success"></i> -->
+      Aeroclube
+      <i class="fa fa-fighter-jet text-success"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColour01" aria-controls="navbarColour01" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Alunos <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/list-instrutor">Instrutores</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/list-voo">Voos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/list-funcionario">Funcionários</a>
-      </li>
-    </ul>
-    <a class="nav-link" href="#">Sair</a>
+    <div class="navbar-collapse collapse show" id="navbarColour01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Alunos <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/list-instrutor">Instrutores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/list-voo">Voos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/list-funcionario">Funcionários</a>
+        </li>
+      </ul>
+      <a class="nav-link" href="#">Sair</a>
+    </div>
   </div>
-</nav>
+</div>
 
 <div class="container mt-5">
   <router-outlet></router-outlet>
