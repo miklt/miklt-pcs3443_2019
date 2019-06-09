@@ -1,0 +1,27 @@
+table.tabelaSocios {
+    font-family: Microsoft JhengHei Light, sans-serif;
+    width: 350px;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.tabelaSocios td, table.tabelaSocios th {
+    border: 0px solid #000000;
+    padding: 3px 2px;
+  }
+  table.tabelaSocios tbody td {
+    font-size: 13px;
+    color: #535353;
+  }
+  table.tabelaSocios thead {
+    background: #2C71B1;
+    border-bottom: 5px solid #FFFFFF;
+  }
+  table.tabelaSocios thead th {
+    font-size: 17px;
+    font-weight: normal;
+    color: #FFFFFF;
+    text-align: center;
+  }
+  table.tabelaSocios tfoot td {
+    font-size: 14px;
+  }
