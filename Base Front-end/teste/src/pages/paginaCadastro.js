@@ -73,7 +73,7 @@ handleSubmit = event => {
      .catch(function (error) {
           if (error.response) {
              alert(error.response.data.message);
-             console.log(error.response.status);
+             console.log(error.response.data);
              console.log(error.response.headers);
           } else if (error.request) {
              console.log(error.request);
@@ -86,13 +86,13 @@ handleSubmit = event => {
  }
 
  render() {
-  if (this.state.redirect === true){
+   if (this.state.redirect === true){
        return <Cadastro_Sucesso />
-  }
+   }
    return (
-       <div className="pagina">
-           <Naveg/>
-           <form onSubmit={this.handleSubmit}>
+         <div className="pagina">
+            <Naveg/>
+            <form onSubmit={this.handleSubmit}>
                <Ficha_Cadastro 
                nome={this.state.nome}
                email={this.state.email}
@@ -107,10 +107,10 @@ handleSubmit = event => {
                onEnderecoChange={this.handleEnderecoChange}
                onTelefoneChange={this.handleTelefoneChange}/>
                <button id="buttonSuccess" type="submit">Enviar</button> 
-           </form>
-           <button id="buttonDanger">
+            </form>
+            <button id="buttonDanger">
                    <Link id="link" to="/">Voltar</Link>
-               </button>
+            </button>
        </div>
   );
 }

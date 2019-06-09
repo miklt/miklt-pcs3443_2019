@@ -11,7 +11,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-
+    margin-top: 1%;
 }
 
 #buttonDanger1 {
@@ -23,9 +23,8 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    
     margin-top: 1%;
-    margin-left: 1%;
-
 }
 
 #link {
