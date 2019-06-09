@@ -396,6 +396,7 @@ def homwrwe9():
 @app.route('/resultado-voo-individual-aluno',methods =["GET","POST"])
 def homewq10():
 	if request.method =='POST':
+		matricula = Login.query.first().matricula
 		numero_voo = request.form.get('numero_voo')
 		voos = Voos.query.filter_by(numero_voo = numero_voo, aluno = matricula)
 	if (voos.count()==0):
