@@ -14,7 +14,7 @@ class Socios extends React.Component {
         axios.get(url)
             .then(response => {
                 console.log(response)
-                response.data.foreach(data => {
+                response.data.forEach(data => {
                     var row = table.insertRow(0)
                     var cellId = row.insertCell(0)
                     var cellName = row.insertCell(1)
