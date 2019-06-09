@@ -79,11 +79,11 @@ def home():
 	return render_template('TelaCadastroAluno.html')
 
 @app.route('/cadastro-funcionario',methods =["GET","POST"])
-def homee():
+def homexx():
 	if request.form:
 		print(request.form)
 		matricula = Socio.query.count()
-		aluno = Socio(nome = request.form.get('nome'),
+		funcionario = Socio(nome = request.form.get('nome'),
 						matricula = matricula + 1,
 						senha = request.form.get('senha'),
 						sobrenome = request.form.get('sobrenome'),
@@ -100,7 +100,7 @@ def homee():
 						numero_horas = 0,
 
 						)
-		db.session.add(aluno)
+		db.session.add(funcionario)
 		db.session.commit()
 		#alunos = Aluno.query.all()
 	return render_template('TelaCadastroFuncionario.html')
@@ -285,7 +285,7 @@ def home7():
 		mat_aluno = request.form.get('matricula_aluno')
 		horas = request.form.get('horas_de_voo')
 		numero = Voos.query.count()
-		voo = Voos(numero_voo = numero+ 1,
+		voo = Voos(numero_voo = numero + 1,
 					aluno = request.form.get('matricula_aluno'),
 					instrutor = matricula,
 					horas = request.form.get('horas_de_voo'),
@@ -426,7 +426,6 @@ def emissao_brevet():
 def inicial_aluno():
 	return render_template('TelaInicialAluno.html')
 
-	
 @app.route('/inicial-piloto',methods =["GET","POST"])
 def inicial_piloto():
 	return render_template('TelaInicialPiloto.html')

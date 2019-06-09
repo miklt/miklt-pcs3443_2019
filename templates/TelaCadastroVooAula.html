@@ -33,12 +33,12 @@
             <h1 class="display-4"> <strong>Cadastro de Voo</strong></h1>
             <hr>
             <form method="POST" action="/cadastro-voo">
-                <input class="btn btn-light" type="number" name="matricula_aluno" placeholder="Matrícula Aluno">
-                <br>
-                <input style="margin-top:10px; margin-bottom: 10px" class="btn btn-light" type="number" name="horas_de_voo" placeholder="Horas de Voo">
-                <br>
-                <br> Avaliação do Voo
                 <form>
+                    <input class="btn btn-light" type="number" name="matricula_aluno" placeholder="Matrícula Aluno">
+                    <br>
+                    <input style="margin-top:10px; margin-bottom: 10px" class="btn btn-light" type="number" name="horas_de_voo" placeholder="Horas de Voo">
+                    <br>
+                    <br> Avaliação do Voo
                     <input style="margin-left:10px" type="radio" name="rate" value="1" checked> 1
                     <input style="margin-left:10px" type="radio" name="rate" value="2"> 2
                     <input style="margin-left:10px" type="radio" name="rate" value="3"> 3
@@ -55,10 +55,10 @@
                 </a>
 
                 <a href='/cadastro-voo'>
-                    <button type="button" class="btn btn-warning" style="float:right;">Limpar</button>
+                    <button type="submit" class="btn btn-warning" style="float:right;">Limpar</button>
                 </a>
                 <a href='/inicial-instrutor'>
-                    <button type="button" class="btn btn-light" style="float: left">Tela Anterior</button>
+                    <button type="submit" class="btn btn-light" style="float: left">Tela Anterior</button>
                 </a>
                 <br>
 </body>
