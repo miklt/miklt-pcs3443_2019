@@ -6,7 +6,8 @@ from aeroclube.models.voo_model import Voo
 import re
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db' ##alterar para postgree e instalar um servidor de banco de dados
+# alterar para postgre e instalar um servidor de banco de dados
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
@@ -16,7 +17,7 @@ app.secret_key = 'aeroclube'
 
 @app.route("/")
 def home():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -30,7 +31,7 @@ def home():
 # USUARIO
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
 
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
@@ -83,7 +84,7 @@ def cadastrarUsuario():
 
 @app.route("/listar_usuario")
 def listarUsuario():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -95,7 +96,7 @@ def listarUsuario():
 
 @app.route("/editar_usuario",  methods=['GET', 'POST'])
 def editarUsuario():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -154,45 +155,106 @@ def deletarUsuario():
 # VOO
 @app.route("/cadastrar_voo",  methods=['GET', 'POST'])
 def cadastrarVoo():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
     pessoa_logada_id = pessoa_logada.id
 
-    if request.method == 'POST':
-        piloto_id = request.form['piloto_id']
-        data_str = request.form['data_voo']
-        hora_str = request.form['hora']
-        duracao = request.form['duracao']
-        try:
-            data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
-            if data < datetime.now():
-                erro_cadastro = True
-                mensagem_erro = "Data invalida"
-            else:
-                novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
-                novo_voo.adicionar()
-                cadastrou_voo = True
-        except ValueError:
-            erro_cadastro = True
-            mensagem_erro = "Formato da data/horario invalido"
-        except Exception:
-            erro_cadastro = True
-            mensagem_erro = "Erro. Nao foi possivel cadastrar voo"
-
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
     return render_template("cadastrar_voo.html",  **locals())
+
+
+@app.route("/cadastrar_voo_hora",  methods=['GET', 'POST'])
+def cadastrarVooHora():
+    if 'pessoa' not in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+
+    id_piloto = request.args['id_piloto']
+    piloto_selecionado = Pessoa.encontrar_pelo_id(id_piloto)
+    data_str = request.args['data']
+    data_selecionada = (datetime.strptime(data_str, "%d/%m/%Y")
+                        + timedelta(hours=8))
+    data_str = data_selecionada.strftime("%d/%m/%Y")
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    voos_piloto = Voo.encontrar_pelo_id_piloto(id_piloto)
+
+    # filtrando pela data
+    voos_piloto = [voo for voo in voos_piloto
+                   if voo.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for voo in voos_piloto:
+        for i in range(voo.duracao):
+            for horario in horarios:
+                if horario == voo.data + timedelta(hours=i):
+                    horarios.remove(horario)
+
+    # caso piloto seja instrutor, verificar aulas marcadas tambem
+    if piloto_selecionado.cargo == 'Instrutor':
+        aulas_piloto = Aula.encontrar_pelo_id_instrutor(id_piloto)
+        aulas_piloto = [aula for aula in aulas_piloto
+                        if aula.data.date() ==
+                        data_selecionada.date()]
+        for aula in aulas_piloto:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
+    if request.method == 'POST':
+        try:
+            data_str = request.form['horario']
+            duracao = int(request.form['duracao'])
+            try:
+                data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                erro_cadastro = True
+                mensagem_erro = "Formato da Hora invalido"
+            else:
+                for i in range(duracao):
+                    if (data+timedelta(hours=1))not in horarios:
+                        raise Exception("Duracao conflitante")
+                if data < datetime.now():
+                    raise Exception("Data invalida")
+                else:
+                    novo_voo = Voo(id_piloto=id_piloto,
+                                   data=data, duracao=duracao)
+                    novo_voo.adicionar()
+                    cadastrou_voo = True
+        except ValueError as ve:
+            erro_cadastro = True
+            mensagem_erro = ve
+        except Exception as ex:
+            erro_cadastro = True
+            mensagem_erro = ex
+
+    pilotos = Pessoa.encontrar_por_cargo('Piloto')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+    return render_template("cadastrar_voo_hora.html",  **locals())
 
 
 @app.route("/listar_voo")
 def listarVoo():
     voos = Voo.listar()
     pilotos = []
+    datas = []
+    horarios = []
     for k in voos:
         pilotos.append(Pessoa.encontrar_pelo_id(k.id_piloto))
+        datas.append(datetime.strftime(k.data, "%d/%m/%Y"))
+        horarios.append(datetime.strftime(k.data, "%H:%M"))
     return render_template("listar_voo.html",  **locals())
 
 
@@ -252,7 +314,7 @@ def editarVoo():
 # Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -267,7 +329,7 @@ def cadastrarAula():
 
 @app.route("/cadastrar_aula_hora",  methods=['GET', 'POST'])
 def cadastrarAulaHora():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -321,8 +383,11 @@ def cadastrarAulaHora():
 
     if request.method == 'POST':
         try:
+            print("BAD_REQUEST 1")
             data_str = request.form['horario']
+            print("BAD_REQUEST 2")
             duracao = int(request.form['duracao'])
+            print("ASHUSAUHDAUHSDHUAUHDSAUHDUHS")
             try:
                 data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
             except ValueError:
@@ -356,7 +421,7 @@ def cadastrarAulaHora():
 
 @app.route("/editar_aula",  methods=['GET', 'POST'])
 def editarAula():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -421,9 +486,13 @@ def listarAula():
     aulas = Aula.listar()
     alunos = []
     instrutores = []
+    datas = []
+    horarios = []
     for k in aulas:
         alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
         instrutores.append(Pessoa.encontrar_pelo_id(k.id_instrutor))
+        datas.append(datetime.strftime(k.data, "%d/%m/%Y"))
+        horarios.append(datetime.strftime(k.data, "%H:%M"))
     return render_template("listar_aula.html", **locals())
 
 
@@ -434,6 +503,17 @@ def deletarAula():
     if aula:
         aula.remover()
     return redirect(url_for('listarAula'))
+
+
+@app.route("/avaliar_aula")
+def avaliarAula():
+    id_aula = request.args['id']
+    aula = Aula.encontrar_pelo_id(id_aula)
+    if aula:
+        if request.method == 'POST':
+            pass
+    return render_template("avaliar_aula.html", **locals())
+
 
 # LOGIN DO SISTEMA
 @app.route("/login",  methods=['GET', 'POST'])
@@ -460,7 +540,7 @@ def logout():
 # Editar proprio Perfil
 @app.route('/meu_perfil', methods=['GET', 'POST'])
 def meuPerfil():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
