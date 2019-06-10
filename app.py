@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from aeroclube.models.voo_model import Voo
 import re
 import operator
+import datetime as datetimee
 
 app = Flask(__name__)
 # alterar para postgre e instalar um servidor de banco de dados
@@ -35,7 +36,7 @@ def home():
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
     if pessoa_logada_cargo == 'Aluno':
-        horas_voo = pessoa_logada.horasVoo
+        horas_voo = pessoa_logad.horasVoo
     if pessoa_logada_cargo == 'Administrador':
         quantidade_alunos = len(Pessoa.encontrar_por_cargo('Aluno'))
         aulas = Aula.listar()
@@ -48,8 +49,20 @@ def home():
         tamanho = len(aulas)
         media_aulas = total/tamanho
 
-        voos = len(Voo.listar())
+        voos = Voo.listar()
+        quantidade_voos = len(voos)
 
+        dia_hoje = datetimee.date.today()
+        
+         # filtrando pela data
+        voos_dia = [voo for voo in voos
+                   if voo.data.date() == dia_hoje]
+
+        print()
+        print()
+        print()
+        print(voos_dia)
+        print(voos_dia)
     return render_template("home.html", **locals())
 
 ############ USUARIO
@@ -473,6 +486,9 @@ def cadastrarAulaHora():
 
     alunos = Pessoa.encontrar_por_cargo('Aluno')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
+    if request.method == 'POST':
+        return render_template("cadastrar_aula.html",  **locals())
 
     return render_template("cadastrar_aula_hora.html",  **locals())
 
