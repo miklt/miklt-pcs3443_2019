@@ -10,8 +10,8 @@ class Aula(Base):
         'pessoa.id'))
     data = db.Column(db.DateTime)
     duracao = db.Column(db.Integer)
+    
     nota = db.Column(db.Integer)
-
     avaliacao = db.Column(db.String(200), unique=True)
 
     def __init__(self, id_aluno, id_instrutor, data, duracao, nota, avaliacao):

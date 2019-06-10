@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+
+from flask import send_from_directory, abort
 from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
 from datetime import datetime, timedelta
@@ -12,6 +14,15 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 
 app.secret_key = 'aeroclube'
+
+app.config["CERTIFICADOS"] = "static/certificados" 
+
+@app.route("/download_breve/<nome_arquivo>")  # No converter (defaults to string)
+def downloadBreve(nome_arquivo):
+    try:
+        return send_from_directory(app.config["CERTIFICADOS"], filename=nome_arquivo, as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
 
 
 @app.route("/")
@@ -170,7 +181,7 @@ def cadastrarVoo():
             data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
             if data < datetime.now():
                 erro_cadastro = True
-                mensagem_erro = "Data invalida"
+                mensagem_erro = "Data invalida. Digite uma data que ainda nao passou"
             else:
                 novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
                 novo_voo.adicionar()
@@ -263,6 +274,69 @@ def cadastrarAula():
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
 
     return render_template("cadastrar_aula.html",  **locals())
+
+@app.route("/avaliar_aula",  methods=['GET', 'POST'])
+def avaliarAula():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+
+    id_aluno = request.args['id_aluno']
+    aluno_selecionado = Pessoa.encontrar_pelo_id('id_aluno')
+    id_instrutor = request.args['id_instrutor']
+    instrutor_selecionado = Pessoa.encontrar_pelo_id('id_instrutor')
+    data_str = request.args['data']
+   
+
+    # remove horarios indisponiveis
+    for aula in aulas_instrutor:
+        for i in range(aula.duracao):
+            for horario in horarios:
+                if horario == aula.data + timedelta(hours=i):
+                    horarios.remove(horario)
+    for voo in voos_instrutor:
+        for i in range(voo.duracao):
+            for horario in horarios:
+                if horario == voo.data + timedelta(hours=i):
+                    horarios.remove(horario)
+    for aula in aulas_aluno:
+        for i in range(aula.duracao):
+            for horario in horarios:
+                if horario == aula.data + timedelta(hours=i):
+                    horarios.remove(horario)
+
+    if request.method == 'POST':
+        try:
+            comentario = request.form['comentario']
+            nota = int(request.form['nota'])
+           
+            nova_aula = Aula(id_aluno=id_aluno,
+                                id_instrutor=id_instrutor,
+                                data=data, duracao=duracao,
+                                nota=nota, avaliacao=comentario)
+            nova_aula.adicionar()
+            cadastrou_aula = True
+        except ValueError as ve:
+            erro_cadastro = True
+            mensagem_erro = ve
+        except Exception as ex:
+            erro_cadastro = True
+            mensagem_erro = ex
+
+    alunos = Pessoa.encontrar_por_cargo('Aluno')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
+    return render_template("avaliar_aula.html",  **locals())
+
+
+
+
+
+
+
 
 
 @app.route("/cadastrar_aula_hora",  methods=['GET', 'POST'])
@@ -508,4 +582,4 @@ def create_tables():
 if __name__ == '__main__':
     from dao import db
     db.init_app(app)
-    app.run(host='0.0.0.0', port=80, debug=False)
+    app.run(host='0.0.0.0', port=80, debug=True)
