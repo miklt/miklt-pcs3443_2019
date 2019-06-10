@@ -12,8 +12,11 @@ import { CreateVooComponent } from './voos/create-voo/create-voo.component';
 import { ListVooComponent } from './voos/list-voo/list-voo.component';
 import { EditVooComponent } from './voos/edit-voo/edit-voo.component';
 import { ReadVooComponent } from './voos/read-voo/read-voo.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+  // Login
+  { path: 'login', component: LoginComponent },
   // Alunos
   { path: 'create-aluno', component: CreateAlunoComponent },
   { path: 'list-aluno', component: ListAlunoComponent },

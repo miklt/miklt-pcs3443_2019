@@ -20,6 +20,7 @@ import { ListVooComponent } from './voos/list-voo/list-voo.component';
 import { CreateVooComponent } from './voos/create-voo/create-voo.component';
 import { EditVooComponent } from './voos/edit-voo/edit-voo.component';
 import { ReadVooComponent } from './voos/read-voo/read-voo.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ReadVooComponent } from './voos/read-voo/read-voo.component';
     ListVooComponent,
     CreateVooComponent,
     EditVooComponent,
-    ReadVooComponent
+    ReadVooComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
