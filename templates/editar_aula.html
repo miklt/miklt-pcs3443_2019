@@ -72,24 +72,27 @@
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
                                     <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa" value='{{current_data}}'>
-                                    <label for="material-color-primary">Data do Voo</label>
+                                    <label for="material-color-primary">Data da Aula</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="horario" name="horario" placeholder="Formato hh:mm" value='{{current_horario}}'>
-                                    <label for="material-color-primary">Horario</label>
+                                    <input class="form-control" type="text" id="horario" name="horario" placeholder="Formato hh:mm" value='{{current_horario}}' readonly>
+                                    <label for="material-color-primary">Horário da Aula</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="duracao" name="duracao" placeholder="Apenas horas inteiras" value='{{current_duracao}}'>
-                                    <label for="material-color-primary">Duração</label>
-                                </div>
+                                <div class="form-material">
+                                    <select class="form-control" id="duracao" name="duracao" size="1">
+                                        {% for i in range(1,6) %}
+                                            <option {%if current_duracao == i %} selected {%endif%} value={{i}}>{{i}}</option>
+                                        {%endfor%}
+                                </select>
+                                <label for="material-select">Duração</label>
                             </div>
                         </div>
                         <div class="form-group">

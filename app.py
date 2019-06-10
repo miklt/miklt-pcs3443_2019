@@ -3,7 +3,8 @@ from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
 from datetime import datetime, timedelta
 from aeroclube.models.voo_model import Voo
-import re, operator
+import re
+import operator
 
 app = Flask(__name__)
 # alterar para postgre e instalar um servidor de banco de dados
@@ -276,26 +277,65 @@ def editarVoo():
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
 
     id_voo = request.args['id']
-    voo = Voo.encontrar_pelo_id(id_voo)
+    current_voo = Voo.encontrar_pelo_id(id_voo)
+
+    piloto_selecionado = Pessoa.encontrar_pelo_id(current_voo.id_piloto)
+    current_data = current_voo.data.strftime("%d/%m/%Y")
+    current_hora = current_voo.data
+    current_duracao = current_voo.duracao
+    data_selecionada = datetime.strptime(current_data,
+                                         "%d/%m/%Y") + timedelta(hours=8)
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    voos_piloto = Voo.encontrar_pelo_id_piloto(piloto_selecionado.id)
+
+    # filtrando pela data
+    voos_piloto = [voo for voo in voos_piloto
+                   if voo.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for voo in voos_piloto:
+        if voo.id != current_voo.id:
+            for i in range(voo.duracao):
+                for horario in horarios:
+                    if horario == voo.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
+    # caso piloto seja instrutor, verificar aulas marcadas tambem
+    if piloto_selecionado.cargo == 'Instrutor':
+        aulas_piloto = Aula.encontrar_pelo_id_instrutor(piloto_selecionado.id)
+        aulas_piloto = [aula for aula in aulas_piloto
+                        if aula.data.date() ==
+                        data_selecionada.date()]
+        for aula in aulas_piloto:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
     if voo:
         if request.method == 'POST':
-            piloto_id = request.form['piloto_id']
-            data_str = request.form['data_voo']
-            hora_str = request.form['hora']
-            duracao = request.form['duracao']
+            data_str = request.form['horario']
+            duracao = int(request.form['duracao'])
 
             try:
                 try:
-                    data = datetime.strptime(data_str+' '+hora_str,
-                                             '%d/%m/%Y %H:%M')
+                    data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
                 except ValueError:
                     erro_edicao = True
                     mensagem_erro = "Formato da data/horario invalido"
                 else:
+
                     if data < datetime.now():
                         raise Exception("Data invalida")
                     else:
-                        voo.id_piloto = piloto_id
+                        for i in range(duracao):
+                            if (data+timedelta(hours=1))not in horarios:
+                                raise Exception("Duracao conflitante")
                         voo.data = data
                         voo.duracao = duracao
 
@@ -308,10 +348,6 @@ def editarVoo():
                 erro_edicao = True
                 mensagem_erro = ex
 
-        piloto_selecionado = voo.id_piloto
-        current_data = voo.data.strftime("%d/%m/%Y")
-        current_hora = voo.data.strftime("%H:%M")
-        current_duracao = voo.duracao
     return render_template("editar_voo.html", **locals())
 
 # Aula
