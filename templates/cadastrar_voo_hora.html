@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa"  value={{data_str}} readonly>
+                                    <input required class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa"  value={{data_str}} readonly>
                                     <label for="material-color-primary">Data do Voo</label>
                                 </div>
                             </div>
@@ -74,8 +74,8 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="horario" name="horario" size="1">
-                                        <option>Selecione uma opção</option>
+                                    <select required class="form-control" id="horario" name="horario" size="1">
+                                        <option value="">Selecione uma opção</option>                                        
                                         {% for horario in horarios %}
                                         <option value="{{horario}}">{{horario.strftime("%H:%M")}}</option>
                                         {% endfor %}

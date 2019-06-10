@@ -47,8 +47,9 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="id_instrutor" name="id_instrutor" size="1">
-                                        <option>Selecione uma opcao</option>
+                                    <select required {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="id_instrutor" name="id_instrutor" size="1">
+                                        <option value="">Selecione uma opção</option>                                        
+
                                         {% for instrutor in instrutores %}
                                         <option {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == instrutor.id %} selected {% endif %} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
@@ -60,8 +61,8 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1">
-                                        <option>Selecione uma opcao</option>
+                                    <select required class="form-control" id="id_aluno" name="id_aluno" size="1">
+                                        <option value="">Selecione uma opção</option>                                        
                                         {% for usuario in usuarios %}
                                         <option value="{{usuario.id}}">{{usuario.nome}}</option>
                                         {% endfor %}
@@ -73,7 +74,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa">
+                                    <input required class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa">
                                     <label for="material-color-primary">Data do Voo</label>
                                 </div>
                             </div>

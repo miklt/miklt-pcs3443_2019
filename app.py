@@ -48,9 +48,7 @@ def home():
         tamanho = len(aulas)
         media_aulas = total/tamanho
 
-
-
-
+        voos = len(Voo.listar())
 
     return render_template("home.html", **locals())
 
