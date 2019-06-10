@@ -55,6 +55,10 @@ export class ReadAlunoComponent implements OnInit {
     });
   }
 
+  goToVoo(voo: Voo) {
+    this.router.navigate(['read-voo', voo.id]);
+  }
+
   ngOnInit() {
   }
 

@@ -42,11 +42,11 @@
           </tr>
           <tr>
             <td><b>Horário de Saída</b></td>
-            <td>{{voo.horarioSaida}}</td>
+            <td>{{voo.horarioSaida | mask: '00:00'}}</td>
           </tr>
           <tr>
             <td><b>Horário de Chegada</b></td>
-            <td>{{voo.horarioChegada}}</td>
+            <td>{{voo.horarioChegada | mask: '00:00'}}</td>
           </tr>
             
           </tbody>

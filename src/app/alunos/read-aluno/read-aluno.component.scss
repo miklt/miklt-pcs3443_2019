@@ -14,7 +14,10 @@
     padding: 3%;
     border: 1px solid #ccc;
     border-radius: 10px;
-    position: relative;
-    left: 10%;
+    box-sizing: border-box;
     height: 100%;
 }
+
+.table-hover td {
+    cursor: pointer;
+  }
