@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="alert alert-dismissible alert-success" *ngIf="success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Pronto!</strong> Instrutor atualizado.
+      <strong>Pronto!</strong> Instrutor atualizado com sucesso.
     </div>
     <div class="alert alert-dismissible alert-danger" *ngIf="error">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -28,11 +28,11 @@
             <input type="tel" class="form-control" id="cpf-input"  [(ngModel)]="instrutor.cpf" mask="000.000.000-00" [showMaskTyped] = "true">
           </div>
           <div class="form-group">
-            <label for="nascimento-input">Data de Nascimento</label>
+            <label for="nascimento-input">Data de nascimento</label>
             <input type="text" class="form-control" id="nascimento-input"  [(ngModel)]="instrutor.dataNascimento" mask="00/00/0000" [showMaskTyped] = "true">
           </div>
           <div class="form-group">
-            <label for="email-input">Email address</label>
+            <label for="email-input">E-mail</label>
             <input type="email" class="form-control" id="email-input"  [(ngModel)]="instrutor.email">
           </div>
           <div class="form-group">
@@ -40,7 +40,7 @@
             <input type="text" class="form-control" id="endereco-input"  [(ngModel)]="instrutor.endereco" placeholder="Rua, numero e complemento">
           </div>
           <div class="form-group">
-            <label for="breve-input">Num. do Brevê</label>
+            <label for="breve-input">Nº do brevê</label>
             <input type="text" class="form-control" id="breve-input"  [(ngModel)]="instrutor.numeroBreve" mask="000000" [showMaskTyped] = "true">
           </div>
           <div class="form-group">
@@ -48,11 +48,11 @@
             <input type="text" class="form-control" id="curso-input"  [(ngModel)]="instrutor.nomeCurso" placeholder="Nome do curso">
           </div>
           <div class="form-group">
-            <label for="instituicao-input">Instituição do Curso</label>
+            <label for="instituicao-input">Instituição do curso</label>
             <input type="text" class="form-control" id="instituicao-input"  [(ngModel)]="instrutor.instituicaoCurso" placeholder="">
           </div>
           <div class="form-group">
-            <label for="diploma-input">Data de Obtenção do Diploma</label>
+            <label for="diploma-input">Data de obtenção do diploma</label>
             <input type="text" class="form-control" id="diploma-input"  [(ngModel)]="instrutor.dataObtencaoDiploma" mask="00/00/0000" [showMaskTyped] = "true">
           </div>
         </fieldset>

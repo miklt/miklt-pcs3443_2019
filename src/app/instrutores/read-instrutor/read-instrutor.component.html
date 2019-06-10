@@ -2,10 +2,10 @@
   <div class="col-12">
     <div class="row mb-4">
       <div class="col-6">
-        <h2>instrutor - {{instrutor.nome}}</h2>
+        <h2>Instrutor - {{instrutor.nome}}</h2>
       </div>
       <div class="col-6">
-        <button class="btn btn-outline-success float-right" (click)="editInstrutor(instrutor)"> Editar Instrutor</button>      
+        <button class="btn btn-outline-success float-right" (click)="editInstrutor(instrutor)"> Editar instrutor</button>      
       </div>
     </div>
 
@@ -21,7 +21,7 @@
       <table class="table table-bordered" *ngIf="!loading">
         <tbody *ngIf="!loading">
         <tr>
-          <td><b>Num. Matricula</b></td>
+          <td><b>Nº de matrícula</b></td>
           <td>{{instrutor.numeroMatricula}}</td>
         </tr>
         <tr>
@@ -29,7 +29,7 @@
           <td>{{instrutor.nome}}</td>
         </tr>
         <tr>
-          <td><b>Email</b></td>
+          <td><b>E-mail</b></td>
           <td>{{instrutor.email}}</td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
           <td>{{instrutor.cpf | mask: '000.000.000-00'}}</td>
         </tr>
         <tr>
-          <td><b>Data de Nascimento</b></td>
+          <td><b>Data de nascimento</b></td>
           <td>{{instrutor.dataNascimento | mask: '00/00/0000'}}</td>
         </tr>
         <tr>
@@ -45,7 +45,7 @@
           <td>{{instrutor.endereco}}</td>
         </tr>
         <tr>
-          <td><b>Num. Brevê</b></td>
+          <td><b>Nº do brevê</b></td>
           <td>{{instrutor.numeroBreve | mask: '000000'}}</td>
         </tr>
         <tr>
@@ -53,11 +53,11 @@
           <td>{{instrutor.nomeCurso}}</td>
         </tr>
         <tr>
-          <td><b>Instituição do Curso</b></td>
+          <td><b>Instituição do curso</b></td>
           <td>{{instrutor.instituicaoCurso}}</td>
         </tr>
         <tr>
-          <td><b>Data de Obtenção do Diploma</b></td>
+          <td><b>Data de obtenção do diploma</b></td>
           <td>{{instrutor.dataObtencaoDiploma | mask: '00/00/0000'}}</td>
         </tr>
           

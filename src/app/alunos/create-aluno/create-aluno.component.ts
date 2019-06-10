@@ -40,7 +40,7 @@ export class CreateAlunoComponent implements OnInit {
     let errorText = '';
 // tslint:disable-next-line: forin
     for (const e in errResponse.error) {
-      errorText += `<b>${e}:</b> ${errResponse.error[e][0]} <br>`;
+      errorText += `<b>${e}:</b> ${errResponse.error[e]} <br>`;
     }
 
     return errorText;
