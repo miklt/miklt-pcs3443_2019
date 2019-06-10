@@ -21,11 +21,11 @@ class Login extends React.Component {
 
     handleSubmit(event){
         event.preventDefault();
-        this.setState({"error": ''})
+        this.setState({error: ''})
 
         this.props.login(this.state.matricula, this.state.password).then(response => {
             if (response.data.error) {
-                this.setState({"error": response.data.error})
+                this.setState({error: response.data.error})
             }
         })
     };
