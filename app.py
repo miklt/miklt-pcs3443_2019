@@ -385,11 +385,8 @@ def cadastrarAulaHora():
 
     if request.method == 'POST':
         try:
-            print("BAD_REQUEST 1")
             data_str = request.form['horario']
-            print("BAD_REQUEST 2")
             duracao = int(request.form['duracao'])
-            print("ASHUSAUHDAUHSDHUAUHDSAUHDUHS")
             try:
                 data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
             except ValueError:
