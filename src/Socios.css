@@ -1,6 +1,6 @@
 table.tabelaSocios {
     font-family: Microsoft JhengHei Light, sans-serif;
-    width: 350px;
+    width: 1200px;
     text-align: center;
     border-collapse: collapse;
   }
@@ -13,7 +13,7 @@ table.tabelaSocios {
     color: #535353;
   }
   table.tabelaSocios thead {
-    background: #2C71B1;
+    background: #2c71b1;
     border-bottom: 5px solid #FFFFFF;
   }
   table.tabelaSocios thead th {
