@@ -26,10 +26,10 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width: 50px;">#</th>
+                                <th>Piloto</th>
                                 <th>Data</th>
+                                <th>Horário</th>
                                 <th>Duração</th>
-                                <th>Pilotos</th>
                                 <th class="text-center" style="width: 100px;">Opções</th>
                             </tr>
                         </thead>
@@ -37,10 +37,10 @@
                             
                             {% for k in range (0, voos|length ) %}
                             <tr>
-                                <td>{{voos[k].id}}</td>
-                                <td>{{voos[k].data}}</td>
-                                <td>{{voos[k].duracao}}</td>
                                 <td>{{pilotos[k].nome}}</td>
+                                <td>{{datas[k]}}</td>
+                                <td>{{horarios[k]}}</td>
+                                <td>{{voos[k].duracao}}</td> 
                                 <td class="text-center">
                                     <div class="btn-group">
     
