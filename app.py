@@ -3,7 +3,7 @@ from aeroclube.models.pessoa_model import Pessoa
 from aeroclube.models.aula_model import Aula
 from datetime import datetime, timedelta
 from aeroclube.models.voo_model import Voo
-import re
+import re, operator
 
 app = Flask(__name__)
 # alterar para postgre e instalar um servidor de banco de dados
@@ -250,6 +250,7 @@ def cadastrarVooHora():
 @app.route("/listar_voo")
 def listarVoo():
     voos = Voo.listar()
+    voos.sort(key=operator.attrgetter('data'))
     pilotos = []
     datas = []
     horarios = []
@@ -483,6 +484,7 @@ def editarAula():
 @app.route("/listar_aula")
 def listarAula():
     aulas = Aula.listar()
+    aulas.sort(key=operator.attrgetter('data'))
     alunos = []
     instrutores = []
     datas = []
