@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../models/aluno.model';
 import { AlunoService } from '../../services/aluno.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VooService } from 'src/app/services/voo.service';
+import { Voo } from 'src/app/models/voo.model';
 
 @Component({
   selector: 'app-read-aluno',
@@ -12,7 +14,13 @@ export class ReadAlunoComponent implements OnInit {
 
   aluno: Aluno = new Aluno();
   loading = false;
-  constructor(public alunoService: AlunoService, public route: ActivatedRoute, private router: Router) {
+  horasDeVoo: number;
+  horasRestantes: number;
+  horasObrigatorias: number;
+  voosDoAluno: Voo[] = [];
+  porcentagemCompleta: number;
+
+  constructor(public alunoService: AlunoService, public route: ActivatedRoute, private router: Router, private vooService: VooService) {
     this.loading = true;
     this.route.params.subscribe(params => {
       this.aluno.numeroMatricula = params.id;
@@ -23,6 +31,12 @@ export class ReadAlunoComponent implements OnInit {
         console.log(aluno);
         this.aluno = aluno;
         this.loading = false;
+        this.horasDeVoo = 153;
+        this.horasObrigatorias = 200;
+        this.horasRestantes = this.horasObrigatorias - this.horasDeVoo;
+        this.porcentagemCompleta = (this.horasDeVoo / (this.horasObrigatorias) * 100);
+        this.load();
+
       });
     });
   }
@@ -30,6 +44,15 @@ export class ReadAlunoComponent implements OnInit {
 
   editAluno(aluno: Aluno) {
     this.router.navigate(['edit-aluno', aluno.numeroMatricula]);
+  }
+
+  load() {
+    this.loading = true;
+    this.vooService.getAll().subscribe(response => {
+      this.voosDoAluno = response.data.map(obj => new Voo(obj)).filter(v => v.aluno === this.aluno.numeroMatricula);
+      console.log(this.voosDoAluno);
+      this.loading = false;
+    });
   }
 
   ngOnInit() {

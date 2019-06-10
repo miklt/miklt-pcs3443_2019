@@ -1,15 +1,14 @@
 <div class="row">
     <div class="col-12">
       <div class="row mb-4">
-        <div class="col-6">
+        <div class="col-7">
           <h2>Aluno - {{aluno.nome}}</h2>
         </div>
         <div class="col-6">
           <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)"> Editar aluno</button>      
         </div>
-      </div>
 
-    </div>
+      </div>
     <div class="col-12 text-center" *ngIf="loading">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
@@ -17,7 +16,7 @@
       <span class="ml-3">Carregando...</span>
     </div>
 
-    <div class="col-8">
+    <div class="col-7">
         <table class="table table-bordered" *ngIf="!loading">
           <tbody *ngIf="!loading">
           <tr>
@@ -52,4 +51,50 @@
           </tbody>
         </table>
     </div>
+    <div id="container-horas" class="col-3">
+      <p id="horas-titulo" class="text-center">Horas de Voo:</p>
+      <p id="horas-valor" class="text-center">{{ horasDeVoo }}</p>
+      <p id="horas-restantes" class="text-center"> Faltam {{ horasRestantes }} horas de voo para você conseguir seu brevê</p>
+      <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar" [style.width.%]="porcentagemCompleta" aria-valuenow="porcentagemCompleta" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <p class="text-center">{{ horasDeVoo }} / {{ horasObrigatorias }} </p>
+    </div>
+
+    <div class="col-7">
+      <h4>Voos Realizados - {{aluno.nome}}</h4>
+    </div>
+
+    <h6 class="col-12" *ngIf= "voosDoAluno.length == 0 && !loading ">Não há voos realizados</h6>
+
+
+    <div class="col-12" *ngIf= "voosDoAluno.length != 0 ">
+      <table class="table table-bordered" *ngIf="!loading">
+        <tbody *ngIf="!loading">
+
+          <tr class="table-info">
+            <td>ID</td>
+            <td>Data</td>
+            <td>Saída</td>
+            <td>Chegada</td>
+            <td>Tempo de Voo</td>
+            <td>Instrutor</td>
+            <td>Parecer</td>
+          </tr>
+
+          <tr *ngFor = 'let voo of voosDoAluno' class="table-default">
+              <td>{{voo.id}}</td>
+              <td>{{voo.data | mask: '00/00/0000'}}</td>
+              <td>{{voo.horarioSaida | mask: 'HH:mm'}}</td>
+              <td>{{voo.horarioChegada | mask: 'HH:mm'}}</td>
+              <td>{{ voo.getTempoDeVoo() }} minutos</td>
+              <td>{{voo.dadosInstrutor.nome}}</td>
+              <td>{{voo.parecer}}</td>
+            </tr>
+
+          
+        </tbody>
+      </table>
+  </div>
+    
   </div>

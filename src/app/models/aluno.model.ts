@@ -5,7 +5,7 @@ export class Aluno {
   email: string;
   dataNascimento: string;
   endereco: string;
-  numeroMatricula: string;
+  numeroMatricula: number;
 }
 
 export interface APIResponse<T> {
