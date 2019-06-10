@@ -26,7 +26,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width: 50px;">#</th>
+                                <th class="text-center" style="width: 50px;">ID</th>
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>CPF</th>
@@ -44,7 +44,18 @@
                                     <td>{{pessoa.cpf}}</td>
                                     <td>{{pessoa.data_nascimento}}</td>
                                     <td class="hidden-xs">
-                                        <span class="label label-warning">{{pessoa.cargo}}</span>
+                                        {% if pessoa.cargo == 'Administrador' %}
+                                            <span class="label label-danger">Administrador</span>
+                                        {% endif %}
+                                        {% if pessoa.cargo == 'Aluno' %}
+                                            <span class="label label-warning">Aluno</span>
+                                        {% endif %}
+                                        {% if pessoa.cargo == 'Instrutor' %}
+                                            <span class="label label-success">Instrutor</span>
+                                        {% endif %}
+                                        {% if pessoa.cargo == 'Piloto' %}
+                                            <span class="label label-primary">Piloto</span>
+                                        {% endif %}
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">

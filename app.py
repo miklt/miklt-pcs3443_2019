@@ -6,9 +6,11 @@ from aeroclube.models.aula_model import Aula
 from datetime import datetime, timedelta
 from aeroclube.models.voo_model import Voo
 import re
+import operator
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db' ##alterar para postgree e instalar um servidor de banco de dados
+# alterar para postgre e instalar um servidor de banco de dados
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
@@ -27,7 +29,7 @@ def downloadBreve(nome_arquivo):
 
 @app.route("/")
 def home():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -36,12 +38,26 @@ def home():
         horas_voo = pessoa_logada.horasVoo
     if pessoa_logada_cargo == 'Administrador':
         quantidade_alunos = len(Pessoa.encontrar_por_cargo('Aluno'))
+        aulas = Aula.listar()
+        total = 0
+        for aula in aulas:
+            if aula.nota == None:
+                aula_sem_nota = True
+            else:
+                total = total + aula.nota
+        tamanho = len(aulas)
+        media_aulas = total/tamanho
+
+
+
+
+
     return render_template("home.html", **locals())
 
-# USUARIO
+############ USUARIO
 @app.route("/cadastrar_usuario",  methods=['GET', 'POST'])
 def cadastrarUsuario():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
 
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
@@ -94,7 +110,7 @@ def cadastrarUsuario():
 
 @app.route("/listar_usuario")
 def listarUsuario():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -106,7 +122,7 @@ def listarUsuario():
 
 @app.route("/editar_usuario",  methods=['GET', 'POST'])
 def editarUsuario():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -146,7 +162,9 @@ def editarUsuario():
                 mensagem_erro = "Nao foi possivel editar o usuario"
 
         current_nome = usuario.nome
-        current_cpf = usuario.cpf
+        cpf = str(usuario.cpf)
+        current_cpf = '{}.{}.{}-{}'.format(cpf[:3], cpf[3:6],
+                                           cpf[6:9], cpf[9:])
         current_email = usuario.email
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
@@ -162,48 +180,110 @@ def deletarUsuario():
         usuario.remover()
     return redirect(url_for('listarUsuario'))
 
-# VOO
+####### VOO
 @app.route("/cadastrar_voo",  methods=['GET', 'POST'])
 def cadastrarVoo():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
     pessoa_logada_id = pessoa_logada.id
 
-    if request.method == 'POST':
-        piloto_id = request.form['piloto_id']
-        data_str = request.form['data_voo']
-        hora_str = request.form['hora']
-        duracao = request.form['duracao']
-        try:
-            data = datetime.strptime(data_str+' '+hora_str, '%d/%m/%Y %H:%M')
-            if data < datetime.now():
-                erro_cadastro = True
-                mensagem_erro = "Data invalida. Digite uma data que ainda nao passou"
-            else:
-                novo_voo = Voo(id_piloto=piloto_id, duracao=duracao, data=data)
-                novo_voo.adicionar()
-                cadastrou_voo = True
-        except ValueError:
-            erro_cadastro = True
-            mensagem_erro = "Formato da data/horario invalido"
-        except Exception:
-            erro_cadastro = True
-            mensagem_erro = "Erro. Nao foi possivel cadastrar voo"
-
     pilotos = Pessoa.encontrar_por_cargo('Piloto')
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
     return render_template("cadastrar_voo.html",  **locals())
 
 
+@app.route("/cadastrar_voo_hora",  methods=['GET', 'POST'])
+def cadastrarVooHora():
+    if 'pessoa' not in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+
+    id_piloto = request.args['id_piloto']
+    piloto_selecionado = Pessoa.encontrar_pelo_id(id_piloto)
+    data_str = request.args['data']
+    data_selecionada = (datetime.strptime(data_str, "%d/%m/%Y")
+                        + timedelta(hours=8))
+    data_str = data_selecionada.strftime("%d/%m/%Y")
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    voos_piloto = Voo.encontrar_pelo_id_piloto(id_piloto)
+
+    # filtrando pela data
+    voos_piloto = [voo for voo in voos_piloto
+                   if voo.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for voo in voos_piloto:
+        for i in range(voo.duracao):
+            for horario in horarios:
+                if horario == voo.data + timedelta(hours=i):
+                    horarios.remove(horario)
+
+    # caso piloto seja instrutor, verificar aulas marcadas tambem
+    if piloto_selecionado.cargo == 'Instrutor':
+        aulas_piloto = Aula.encontrar_pelo_id_instrutor(id_piloto)
+        aulas_piloto = [aula for aula in aulas_piloto
+                        if aula.data.date() ==
+                        data_selecionada.date()]
+        for aula in aulas_piloto:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
+    if request.method == 'POST':
+        try:
+            data_str = request.form['horario']
+            duracao = int(request.form['duracao'])
+            try:
+                data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                erro_cadastro = True
+                mensagem_erro = "Data invalida. Digite uma data que ainda nao passou"
+            else:
+                for i in range(duracao):
+                    if (data+timedelta(hours=i))not in horarios:
+                        raise Exception("Duracao conflitante")
+                if data < datetime.now():
+                    raise Exception("Data invalida")
+                else:
+                    novo_voo = Voo(id_piloto=id_piloto,
+                                   data=data, duracao=duracao)
+                    novo_voo.adicionar()
+                    cadastrou_voo = True
+        except ValueError as ve:
+            erro_cadastro = True
+            mensagem_erro = ve
+        except Exception as ex:
+            erro_cadastro = True
+            mensagem_erro = ex
+
+    pilotos = Pessoa.encontrar_por_cargo('Piloto')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+    return render_template("cadastrar_voo_hora.html",  **locals())
+
+
 @app.route("/listar_voo")
 def listarVoo():
     voos = Voo.listar()
+    voos.sort(key=operator.attrgetter('data'))
     pilotos = []
+    datas = []
+    horarios = []
     for k in voos:
         pilotos.append(Pessoa.encontrar_pelo_id(k.id_piloto))
+        datas.append(datetime.strftime(k.data, "%d/%m/%Y"))
+        horarios.append(datetime.strftime(k.data, "%H:%M"))
     return render_template("listar_voo.html",  **locals())
 
 
@@ -222,26 +302,65 @@ def editarVoo():
     instrutores = Pessoa.encontrar_por_cargo('Instrutor')
 
     id_voo = request.args['id']
-    voo = Voo.encontrar_pelo_id(id_voo)
+    current_voo = Voo.encontrar_pelo_id(id_voo)
+
+    piloto_selecionado = Pessoa.encontrar_pelo_id(current_voo.id_piloto)
+    current_data = current_voo.data.strftime("%d/%m/%Y")
+    current_hora = current_voo.data
+    current_duracao = current_voo.duracao
+    data_selecionada = datetime.strptime(current_data,
+                                         "%d/%m/%Y") + timedelta(hours=8)
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    voos_piloto = Voo.encontrar_pelo_id_piloto(piloto_selecionado.id)
+
+    # filtrando pela data
+    voos_piloto = [voo for voo in voos_piloto
+                   if voo.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for voo in voos_piloto:
+        if voo.id != current_voo.id:
+            for i in range(voo.duracao):
+                for horario in horarios:
+                    if horario == voo.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
+    # caso piloto seja instrutor, verificar aulas marcadas tambem
+    if piloto_selecionado.cargo == 'Instrutor':
+        aulas_piloto = Aula.encontrar_pelo_id_instrutor(piloto_selecionado.id)
+        aulas_piloto = [aula for aula in aulas_piloto
+                        if aula.data.date() ==
+                        data_selecionada.date()]
+        for aula in aulas_piloto:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
     if voo:
         if request.method == 'POST':
-            piloto_id = request.form['piloto_id']
-            data_str = request.form['data_voo']
-            hora_str = request.form['hora']
-            duracao = request.form['duracao']
+            data_str = request.form['horario']
+            duracao = int(request.form['duracao'])
 
             try:
                 try:
-                    data = datetime.strptime(data_str+' '+hora_str,
-                                             '%d/%m/%Y %H:%M')
+                    data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
                 except ValueError:
                     erro_edicao = True
                     mensagem_erro = "Formato da data/horario invalido"
                 else:
+
                     if data < datetime.now():
                         raise Exception("Data invalida")
                     else:
-                        voo.id_piloto = piloto_id
+                        for i in range(duracao):
+                            if (data+timedelta(hours=i))not in horarios:
+                                raise Exception("Duracao conflitante")
                         voo.data = data
                         voo.duracao = duracao
 
@@ -254,16 +373,12 @@ def editarVoo():
                 erro_edicao = True
                 mensagem_erro = ex
 
-        piloto_selecionado = voo.id_piloto
-        current_data = voo.data.strftime("%d/%m/%Y")
-        current_hora = voo.data.strftime("%H:%M")
-        current_duracao = voo.duracao
     return render_template("editar_voo.html", **locals())
 
-# Aula
+######### Aula
 @app.route("/cadastrar_aula",  methods=['GET', 'POST'])
 def cadastrarAula():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -275,73 +390,9 @@ def cadastrarAula():
 
     return render_template("cadastrar_aula.html",  **locals())
 
-@app.route("/avaliar_aula",  methods=['GET', 'POST'])
-def avaliarAula():
-    if not 'pessoa' in session:
-        return redirect(url_for('login'))
-    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
-    pessoa_logada_nome = pessoa_logada.nome
-    pessoa_logada_cargo = pessoa_logada.cargo
-    pessoa_logada_id = pessoa_logada.id
-
-    id_aluno = request.args['id_aluno']
-    aluno_selecionado = Pessoa.encontrar_pelo_id('id_aluno')
-    id_instrutor = request.args['id_instrutor']
-    instrutor_selecionado = Pessoa.encontrar_pelo_id('id_instrutor')
-    data_str = request.args['data']
-   
-
-    # remove horarios indisponiveis
-    for aula in aulas_instrutor:
-        for i in range(aula.duracao):
-            for horario in horarios:
-                if horario == aula.data + timedelta(hours=i):
-                    horarios.remove(horario)
-    for voo in voos_instrutor:
-        for i in range(voo.duracao):
-            for horario in horarios:
-                if horario == voo.data + timedelta(hours=i):
-                    horarios.remove(horario)
-    for aula in aulas_aluno:
-        for i in range(aula.duracao):
-            for horario in horarios:
-                if horario == aula.data + timedelta(hours=i):
-                    horarios.remove(horario)
-
-    if request.method == 'POST':
-        try:
-            comentario = request.form['comentario']
-            nota = int(request.form['nota'])
-           
-            nova_aula = Aula(id_aluno=id_aluno,
-                                id_instrutor=id_instrutor,
-                                data=data, duracao=duracao,
-                                nota=nota, avaliacao=comentario)
-            nova_aula.adicionar()
-            cadastrou_aula = True
-        except ValueError as ve:
-            erro_cadastro = True
-            mensagem_erro = ve
-        except Exception as ex:
-            erro_cadastro = True
-            mensagem_erro = ex
-
-    alunos = Pessoa.encontrar_por_cargo('Aluno')
-    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
-
-    return render_template("avaliar_aula.html",  **locals())
-
-
-
-
-
-
-
-
-
 @app.route("/cadastrar_aula_hora",  methods=['GET', 'POST'])
 def cadastrarAulaHora():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -404,7 +455,7 @@ def cadastrarAulaHora():
                 mensagem_erro = "Formato da Hora invalido"
             else:
                 for i in range(duracao):
-                    if (data+timedelta(hours=1))not in horarios:
+                    if (data+timedelta(hours=i))not in horarios:
                         raise Exception("Duracao conflitante")
                 if data < datetime.now():
                     raise Exception("Data invalida")
@@ -430,7 +481,7 @@ def cadastrarAulaHora():
 
 @app.route("/editar_aula",  methods=['GET', 'POST'])
 def editarAula():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
@@ -440,44 +491,86 @@ def editarAula():
     alunos = Pessoa.encontrar_por_cargo('Aluno')
 
     id_aula = request.args['id']
-    aula = Aula.encontrar_pelo_id(id_aula)
+    current_aula = Aula.encontrar_pelo_id(id_aula)
+
+    current_id_aluno = current_aula.id_aluno
+    current_id_instrutor = current_aula.id_instrutor
+    current_data = current_aula.data.strftime("%d/%m/%Y")
+    current_hora = current_aula.data
+    current_duracao = current_aula.duracao
+
+    aluno_selecionado = Pessoa.encontrar_pelo_id(current_id_aluno)
+    instrutor_selecionado = Pessoa.encontrar_pelo_id(current_id_instrutor)
+    data_selecionada = datetime.strptime(current_data,
+                                         "%d/%m/%Y") + timedelta(hours=8)
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    aulas_instrutor = Aula.encontrar_pelo_id_instrutor(current_id_instrutor)
+    voos_instrutor = Voo.encontrar_pelo_id_piloto(current_id_instrutor)
+    aulas_aluno = Aula.encontrar_pelo_id_aluno(current_id_aluno)
+
+    # filtrando pela data
+    aulas_instrutor = [aula for aula in aulas_instrutor
+                       if aula.data.date() ==
+                       data_selecionada.date()]
+    voos_instrutor = [voo for voo in voos_instrutor
+                      if voo.data.date() ==
+                      data_selecionada.date()]
+    aulas_aluno = [aula for aula in aulas_aluno
+                   if aula.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for aula in aulas_instrutor:
+        if aula.id != current_aula.id:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+    for voo in voos_instrutor:
+        for i in range(voo.duracao):
+            for horario in horarios:
+                if horario == voo.data + timedelta(hours=i):
+                    horarios.remove(horario)
+    for aula in aulas_aluno:
+        if aula.id != current_aula.id:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
     if aula:
         if request.method == 'POST':
-            id_aluno = request.form['id_aluno']
-            id_instrutor = request.form['id_instrutor']
-
-            data_str = request.form['data']
-            hora_str = request.form['horario']
-            duracao = request.form['duracao']
             try:
-                data_hora = datetime.strptime(data_str+' '+hora_str,
-                                              '%d/%m/%Y %H:%M')
-                if data_hora < datetime.now():
+                data_str = request.form['horario']
+                duracao = int(request.form['duracao'])
+                try:
+                    data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
+                except ValueError:
                     erro_edicao = True
-                    mensagem_erro = "Data invalida"
+                    mensagem_erro = "Formato da Hora invalido"
                 else:
-                    aula.id_aluno = id_aluno
-                    aula.id_instrutor = id_instrutor
-                    aula.data = data_hora
-                    aula.duracao = duracao
+                    for i in range(duracao):
+                        if (data+timedelta(hours=i))not in horarios:
+                            raise Exception("Duracao conflitante")
+                    if data < datetime.now():
+                        raise Exception("Data invalida")
+                    else:
+                        aula.data = data
+                        aula.duracao = duracao
 
-                    db.session.commit()
-                    editou_aula = True
-            except ValueError:
+                        db.session.commit()
+                        editou_aula = True
+            except ValueError as ve:
                 erro_edicao = True
-                mensagem_erro = "Formato da data/horario invalido"
-            except Exception:
+                mensagem_erro = ve
+            except Exception as ex:
                 erro_edicao = True
-                mensagem_erro = "Erro. Nao foi possivel editar aula"
+                mensagem_erro = ex
 
-        aluno_selecionado = aula.id_aluno
-        instrutor_selecionado = aula.id_instrutor
-
-        current_id_aluno = aula.id_aluno
-        current_id_instrutor = aula.id_instrutor
-        current_data = aula.data.strftime("%d/%m/%Y")
-        current_horario = aula.data.strftime("%H:%M")
-        current_duracao = aula.duracao
         if aula.nota is None:
             current_nota = "Aula nao foi avaliada"
         else:
@@ -493,11 +586,16 @@ def editarAula():
 @app.route("/listar_aula")
 def listarAula():
     aulas = Aula.listar()
+    aulas.sort(key=operator.attrgetter('data'))
     alunos = []
     instrutores = []
+    datas = []
+    horarios = []
     for k in aulas:
         alunos.append(Pessoa.encontrar_pelo_id(k.id_aluno))
         instrutores.append(Pessoa.encontrar_pelo_id(k.id_instrutor))
+        datas.append(datetime.strftime(k.data, "%d/%m/%Y"))
+        horarios.append(datetime.strftime(k.data, "%H:%M"))
     return render_template("listar_aula.html", **locals())
 
 
@@ -509,9 +607,53 @@ def deletarAula():
         aula.remover()
     return redirect(url_for('listarAula'))
 
+
+@app.route("/avaliar_aula",  methods=['GET', 'POST'])
+def avaliarAula():
+    if not 'pessoa' in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+    
+    #Encontrar aula selecionada
+    id_aula = request.args['id']
+    current_aula = Aula.encontrar_pelo_id(id_aula)
+
+    #Atributos da aula que ja foram definidos
+    current_id_aluno = current_aula.id_aluno
+    aluno_selecionado = Pessoa.encontrar_pelo_id(current_id_aluno)
+    current_id_instrutor = current_aula.id_instrutor
+    instrutor_selecionado = Pessoa.encontrar_pelo_id('id_instrutor')
+    current_data = current_aula.data.strftime("%d/%m/%Y")
+    current_duracao = current_aula.duracao
+
+    if request.method == 'POST':
+        try:
+            comentario = request.form['comentario']
+            nota = int(request.form['nota'])  
+            current_aula.nota = nota
+            current_aula.avaliacao = comentario
+            db.session.commit()
+            avaliou_aula = True
+        except ValueError as ve:
+            erro_cadastro = True
+            mensagem_erro = ve
+        except Exception as ex:
+            erro_cadastro = True
+            mensagem_erro = ex
+
+    alunos = Pessoa.encontrar_por_cargo('Aluno')
+    instrutores = Pessoa.encontrar_por_cargo('Instrutor')
+
+    return render_template("avaliar_aula.html",  **locals())
+
+
 # LOGIN DO SISTEMA
 @app.route("/login",  methods=['GET', 'POST'])
-def login():
+def login():    
+
     if request.method == 'POST':
         email = request.form['email']
         senha = request.form['senha']
@@ -534,7 +676,7 @@ def logout():
 # Editar proprio Perfil
 @app.route('/meu_perfil', methods=['GET', 'POST'])
 def meuPerfil():
-    if not 'pessoa' in session:
+    if 'pessoa' not in session:
         return redirect(url_for('login'))
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome

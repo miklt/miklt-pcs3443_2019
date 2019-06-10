@@ -25,7 +25,7 @@
         <!-- Danger Alert -->
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h3 class="font-w300 push-15">Error</h3>
+            <h3 class="font-w300 push-15">Erro</h3>
             <p> {{mensagem_erro}} <a class="alert-link" href="javascript:void(0)"></a>!</p>
         </div>
         <!-- END Danger Alert -->
@@ -42,12 +42,12 @@
                     <h3 class="block-title">Agendamento de Voo</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" action="/cadastrar_voo" method="POST">
+                    <form class="form-horizontal push-10-t" action="/cadastrar_voo_hora" method="GET">
                         
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select  {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="piloto_id" name="piloto_id" size="1">
+                                    <select  {%if pessoa_logada_cargo != 'Administrador' %} disabled {% endif %} class="form-control" id="id_piloto" name="id_piloto" size="1">
                                         <option>Selecione uma opcao</option>
                                         {% for piloto in pilotos %}
                                         <option  {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == piloto.id %} selected {% endif %} value="{{piloto.id}}">{{piloto.nome}}</option>
@@ -55,7 +55,6 @@
                                         {% for instrutor in instrutores %}
                                         <option {%if pessoa_logada_cargo != 'Administrador' and pessoa_logada_id == instrutor.id %} selected {% endif %} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
-                                    
                                     </select>
                                     <label for="material-select">Piloto</label>
                                 </div>
@@ -65,7 +64,7 @@
                         <div class="form-group">
                                 <div class="col-sm-9">
                                     <div class="form-material form-material-primary">
-                                        <input class="form-control" type="text" id="data_voo" name="data_voo" placeholder="Formato dd/mm/aa">
+                                        <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa">
                                         <label for="material-color-primary">Data do Voo</label>
                                     </div>
                                 </div>
@@ -73,25 +72,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="hora" name="hora" placeholder="Formato hh:mm">
-                                    <label for="material-color-primary">Horario do Voo</label>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="duracao" name="duracao" placeholder="Apenas horas inteiras">
-                                    <label for="material-color-primary">Duração</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <button class="btn btn-sm btn-primary" type="submit">Agendar</button>
+                                <button class="btn btn-sm btn-primary" type="submit">Escolher data</button>
                             </div>
                         </div>
 

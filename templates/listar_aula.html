@@ -24,11 +24,11 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width: 50px;">#</th>
-                                <th>Data</th>
-                                <th>Duração (horas)</th>
-                                <th>Instrutor</th>
                                 <th>Aluno</th>
+                                <th>Instrutor</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Duração (horas)</th>
                                 <th>Avaliação</th>
                                 <th>Comentário</th>
                                 <th class="text-center" style="width: 100px;">Opções</th>
@@ -38,16 +38,26 @@
                             
                             {% for k in range (aulas|length ) %}
                             <tr>
-                                <td>{{aulas[k].id}}</td>
-                                <td>{{aulas[k].data}}</td>
-                                <td>{{aulas[k].duracao}}</td>
-                                <td>{{instrutores[k].nome}}</td>
                                 <td>{{alunos[k].nome}}</td>
+                                <td>{{instrutores[k].nome}}</td>
+                                <td>{{datas[k]}}</td>
+                                <td>{{horarios[k]}}</td>
+                                <td>{{aulas[k].duracao}}</td>
+                                {% if aulas[k].nota == None %}
+                                <td>Aula não avaliada</td>
+                                {%else%}
+                                <td>{{aulas[k].nota}}</td>
+                                {%endif%}
+
+                                {% if aulas[k].avaliacao == None %}
+                                <td>Aula não avaliada</td>
+                                {%else%}
                                 <td>{{aulas[k].avaliacao}}</td>
-                                <td>{{aulas[k].comentario}}</td>
+                                {%endif%}
+
                                 <td class="text-center">
                                         <div class="btn-group">
-    
+                                            <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Avaliar Aula" href="/avaliar_aula?id={{aulas[k].id}}"><i class="fa fa-pencil"></i> Avaliar</a>
                                             <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar Aula" href="/editar_aula?id={{aulas[k].id}}"><i class="fa fa-pencil"></i></a>
                                             <a class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remover Aula" href="/deletar_aula?id={{aulas[k].id}}"><i class="fa fa-times"></i></a>
     

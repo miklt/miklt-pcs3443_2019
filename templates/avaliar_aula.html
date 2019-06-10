@@ -1,37 +1,36 @@
 {% extends "base_admin.html" %}
 
-{% block title%} Aeroclube | Cadastro de aula {% endblock title%}
+{% block title%} Aeroclube | Avaliação de aula {% endblock title%}
 
-{% block titulo %}Agendamento{% endblock %}
+{% block titulo %}Avaliação{% endblock %}
 
-{% block subtitulo%}Nova Aula{% endblock %}
+{% block subtitulo%}Avaliar aula{% endblock %}
 
 {%block conteudo%}
  
-{%if cadastrou_aula == true %}
+{%if avaliou_aula == true %}
     <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Tudo certo!</h3>
-            <p>Aula <a class="alert-link" href="javascript:void(0)">marcado com sucesso</a>!</p>
+            <p>Aula <a class="alert-link" href="javascript:void(0)">avaliada com sucesso</a>!</p>
         </div>
         <!-- END Success Alert -->
     </div>
 {%endif%}
 
-{%if erro_cadastro == true %}
+{%if erro_edicao == true %}
     <div class="col-sm-8 col-lg-8 col-lg-offset-2 col-sm-offset-2">
         <!-- Danger Alert -->
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h3 class="font-w300 push-15">Error</h3>
-            <p> {{mensagem_erro}} <a class="alert-link" href="javascript:void(0)"></a>!</p>
+            <h3 class="font-w300 push-15">Erro</h3>
+            <p>{{mensagem_erro}} <a class="alert-link" href="javascript:void(0)"></a>!</p>
         </div>
         <!-- END Danger Alert -->
     </div>
 {%endif%}
-
 
 <div class="content content-narrow">
     <!-- Material Design -->
@@ -40,26 +39,14 @@
             <!-- Static Labels -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">Formulario de Edicao</h3>
+                    <h3 class="block-title">Agendamento de Aula</h3>
                 </div>
                 <div class="block-content block-content-narrow">
-                    <form class="form-horizontal push-10-t" {%if cadastrou_aula %} action="/cadastrar_aula_hora" {% endif %} method="POST">
+                    <form class="form-horizontal push-10-t" action="/avaliar_aula?id={{id_aula}}" method="POST">
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" readonly>
-                                        {% for instrutor in instrutores %}
-                                        <option {%if instrutor_selecionado.id == instrutor.id %} selected {%endif%} value="{{instrutor.id}}">{{instrutor.nome}}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label for="material-select">Instrutor</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <div class="form-material">
-                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1" readonly>
+                                    <select class="form-control" id="id_aluno" name="id_aluno" size="1" desabled>
                                         {% for aluno in alunos %}
                                         <option {%if aluno_selecionado.id == aluno.id %} selected {%endif%}  value="{{aluno.id}}">{{aluno.nome}}</option>
                                         {% endfor %}
@@ -70,49 +57,38 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <div class="form-material form-material-primary">
-                                    <input class="form-control" type="text" id="data" name="data" placeholder="Formato dd/mm/aa"  value={{data_str}} readonly>
-                                    <label for="material-color-primary">Data do Voo</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="horario" name="horario" size="1">
-                                        <option>Selecione uma opção</option>
-                                        {% for horario in horarios %}
-                                        <option value="{{horario}}">{{horario.strftime("%H:%M")}}</option>
+                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" disabled>
+                                        {% for instrutor in instrutores %}
+                                        <option {%if instrutor_selecionado.id == instrutor.id %} selected {%endif%} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
-                                </select>
-                                <label for="material-select">Horário</label>
+                                    </select>
+                                    <label for="material-select">Instrutor</label>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <div class="form-material">
-                                    <select class="form-control" id="duracao" name="duracao" size="1">
-                                        <option>Selecione uma opção</option>
-                                        {% for i in range(1,6) %}
-                                            <option value={{i}}>{{i}}</option>
-                                        {%endfor%}
-                                </select>
-                                <label for="material-select">Duração</label>
+                                <div class="form-material form-material-primary">
+                                    <input class="form-control" type="integer" id="nota" name="nota" placeholder="Nota enter 1 e 5">
+                                    <label for="material-color-primary">Nota</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button class="btn btn-sm btn-primary" type="submit">Agendar</button>
+                                <div class="form-material form-material-primary">
+                                    <input class="form-control" type="text" id="comentario" name="comentario" placeholder="Comentário">
+                                    <label for="material-color-primary">Comentario</label>
+                                </div>
                             </div>
                         </div>
-                    </form>
-                    <form action="/cadastrar_aula">
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button class="btn btn-sm btn-primary" type="submit">Escolher outra data</button>
+                                <button class="btn btn-sm btn-primary" type="submit">Avaliar</button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

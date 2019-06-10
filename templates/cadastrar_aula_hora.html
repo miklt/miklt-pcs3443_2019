@@ -14,7 +14,7 @@
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h3 class="font-w300 push-15">Tudo certo!</h3>
-            <p>Aula <a class="alert-link" href="javascript:void(0)">marcado com sucesso</a>!</p>
+            <p>Aula <a class="alert-link" href="javascript:void(0)">marcada com sucesso</a>!</p>
         </div>
         <!-- END Success Alert -->
     </div>
@@ -25,7 +25,7 @@
         <!-- Danger Alert -->
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h3 class="font-w300 push-15">Error</h3>
+            <h3 class="font-w300 push-15">Erro</h3>
             <p> {{mensagem_erro}} <a class="alert-link" href="javascript:void(0)"></a>!</p>
         </div>
         <!-- END Danger Alert -->
@@ -40,14 +40,14 @@
             <!-- Static Labels -->
             <div class="block">
                 <div class="block-header">
-                    <h3 class="block-title">Formulario de Edicao</h3>
+                    <h3 class="block-title">Agendamento de Aula</h3>
                 </div>
                 <div class="block-content block-content-narrow">
                     <form class="form-horizontal push-10-t" {%if cadastrou_aula %} action="/cadastrar_aula_hora" {% endif %} method="POST">
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">
-                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" readonly>
+                                    <select class="form-control" id="id_instrutor" name="id_instrutor" size="1" disabled>
                                         {% for instrutor in instrutores %}
                                         <option {%if instrutor_selecionado.id == instrutor.id %} selected {%endif%} value="{{instrutor.id}}">{{instrutor.nome}}</option>
                                         {% endfor %}
