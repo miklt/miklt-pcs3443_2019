@@ -136,7 +136,9 @@ def editarUsuario():
                 mensagem_erro = "Nao foi possivel editar o usuario"
 
         current_nome = usuario.nome
-        current_cpf = usuario.cpf
+        cpf = str(usuario.cpf)
+        current_cpf = '{}.{}.{}-{}'.format(cpf[:3], cpf[3:6],
+                                           cpf[6:9], cpf[9:])
         current_email = usuario.email
         current_data_nascimento = usuario.data_nascimento.strftime('%d/%m/%Y')
         current_cargo = usuario.cargo
