@@ -227,7 +227,7 @@ def cadastrarVooHora():
                 mensagem_erro = "Formato da Hora invalido"
             else:
                 for i in range(duracao):
-                    if (data+timedelta(hours=1))not in horarios:
+                    if (data+timedelta(hours=i))not in horarios:
                         raise Exception("Duracao conflitante")
                 if data < datetime.now():
                     raise Exception("Data invalida")
@@ -334,7 +334,7 @@ def editarVoo():
                         raise Exception("Data invalida")
                     else:
                         for i in range(duracao):
-                            if (data+timedelta(hours=1))not in horarios:
+                            if (data+timedelta(hours=i))not in horarios:
                                 raise Exception("Duracao conflitante")
                         voo.data = data
                         voo.duracao = duracao
@@ -431,7 +431,7 @@ def cadastrarAulaHora():
                 mensagem_erro = "Formato da Hora invalido"
             else:
                 for i in range(duracao):
-                    if (data+timedelta(hours=1))not in horarios:
+                    if (data+timedelta(hours=i))not in horarios:
                         raise Exception("Duracao conflitante")
                 if data < datetime.now():
                     raise Exception("Data invalida")
@@ -467,44 +467,86 @@ def editarAula():
     alunos = Pessoa.encontrar_por_cargo('Aluno')
 
     id_aula = request.args['id']
-    aula = Aula.encontrar_pelo_id(id_aula)
+    current_aula = Aula.encontrar_pelo_id(id_aula)
+
+    current_id_aluno = current_aula.id_aluno
+    current_id_instrutor = current_aula.id_instrutor
+    current_data = current_aula.data.strftime("%d/%m/%Y")
+    current_hora = current_aula.data
+    current_duracao = current_aula.duracao
+
+    aluno_selecionado = Pessoa.encontrar_pelo_id(current_id_aluno)
+    instrutor_selecionado = Pessoa.encontrar_pelo_id(current_id_instrutor)
+    data_selecionada = datetime.strptime(current_data,
+                                         "%d/%m/%Y") + timedelta(hours=8)
+
+    horarios = [data_selecionada + timedelta(hours=i)
+                for i in range(13)]
+
+    # Obtendo todas as aulas e voos do instrutor e do aluno
+    aulas_instrutor = Aula.encontrar_pelo_id_instrutor(current_id_instrutor)
+    voos_instrutor = Voo.encontrar_pelo_id_piloto(current_id_instrutor)
+    aulas_aluno = Aula.encontrar_pelo_id_aluno(current_id_aluno)
+
+    # filtrando pela data
+    aulas_instrutor = [aula for aula in aulas_instrutor
+                       if aula.data.date() ==
+                       data_selecionada.date()]
+    voos_instrutor = [voo for voo in voos_instrutor
+                      if voo.data.date() ==
+                      data_selecionada.date()]
+    aulas_aluno = [aula for aula in aulas_aluno
+                   if aula.data.date() ==
+                   data_selecionada.date()]
+
+    # remove horarios indisponiveis
+    for aula in aulas_instrutor:
+        if aula.id != current_aula.id:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+    for voo in voos_instrutor:
+        for i in range(voo.duracao):
+            for horario in horarios:
+                if horario == voo.data + timedelta(hours=i):
+                    horarios.remove(horario)
+    for aula in aulas_aluno:
+        if aula.id != current_aula.id:
+            for i in range(aula.duracao):
+                for horario in horarios:
+                    if horario == aula.data + timedelta(hours=i):
+                        horarios.remove(horario)
+
     if aula:
         if request.method == 'POST':
-            id_aluno = request.form['id_aluno']
-            id_instrutor = request.form['id_instrutor']
-
-            data_str = request.form['data']
-            hora_str = request.form['horario']
-            duracao = request.form['duracao']
             try:
-                data_hora = datetime.strptime(data_str+' '+hora_str,
-                                              '%d/%m/%Y %H:%M')
-                if data_hora < datetime.now():
+                data_str = request.form['horario']
+                duracao = int(request.form['duracao'])
+                try:
+                    data = datetime.strptime(data_str, '%Y-%m-%d %H:%M:%S')
+                except ValueError:
                     erro_edicao = True
-                    mensagem_erro = "Data invalida"
+                    mensagem_erro = "Formato da Hora invalido"
                 else:
-                    aula.id_aluno = id_aluno
-                    aula.id_instrutor = id_instrutor
-                    aula.data = data_hora
-                    aula.duracao = duracao
+                    for i in range(duracao):
+                        if (data+timedelta(hours=i))not in horarios:
+                            raise Exception("Duracao conflitante")
+                    if data < datetime.now():
+                        raise Exception("Data invalida")
+                    else:
+                        aula.data = data
+                        aula.duracao = duracao
 
-                    db.session.commit()
-                    editou_aula = True
-            except ValueError:
+                        db.session.commit()
+                        editou_aula = True
+            except ValueError as ve:
                 erro_edicao = True
-                mensagem_erro = "Formato da data/horario invalido"
-            except Exception:
+                mensagem_erro = ve
+            except Exception as ex:
                 erro_edicao = True
-                mensagem_erro = "Erro. Nao foi possivel editar aula"
+                mensagem_erro = ex
 
-        aluno_selecionado = aula.id_aluno
-        instrutor_selecionado = aula.id_instrutor
-
-        current_id_aluno = aula.id_aluno
-        current_id_instrutor = aula.id_instrutor
-        current_data = aula.data.strftime("%d/%m/%Y")
-        current_horario = aula.data.strftime("%H:%M")
-        current_duracao = aula.duracao
         if aula.nota is None:
             current_nota = "Aula nao foi avaliada"
         else:
