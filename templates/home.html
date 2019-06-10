@@ -22,8 +22,8 @@
             <div class="col-sm-6 col-lg-4">
                 <a class="block block-rounded block-link-hover3 text-center" >
                     <div class="block-content block-content-full bg-primary">
-                        <div class="h1 font-w700 text-white">{{quantidade_voos}}</div>
-                        <div class="h5 text-white-op text-uppercase push-5-t">Quantidade de voos</div>
+                        <div class="h1 font-w700 text-white">{{quantidade_decolagens_realizadas}}</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Voos e Aulas Realizados</div>
                     </div>
                     
                 </a>
@@ -48,85 +48,41 @@
                 <!-- Main Dashboard Chart -->
                 <div class="block">
                     <div class="block-header">
-                        <h3 class="block-title">Lista de disponibilidade dos pilotos
+                        <h3 class="block-title">Decolagens de hoje
                         </h3>
                     </div>
                     <div class="block-content">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-center" style="width: 50px;">#</th>
-                                    <th>Nome</th>
-                                    <th class="hidden-xs" style="width: 30%;">Disponibilidade</th>
-                                    <th class="text-center" style="width: 20%;">Aluno vinculado</th>
-                                    <th class="text-center" style="width: 100px;">Opcoes</th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center" style="width: 50px;">Horário</th>
+                                    <th style="width: 50px;">Duração</th>
+                                    <th>Piloto</th>
+                                    <th>Aluno</th>
+                                    <th class="text-center">Tipo</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for k in range (0, decolagens_hoje|length ) %}
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td>Miguel Oliveira</td>
-                                    
-                                    <td class="hidden-xs">
-                                        <span class="label label-danger">Indisponível</span>
-                                    </td>
-                                    <td class="text-center">Jorge Almeida
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
+                                <td class="text-center">{{k}}</td>
+                                <td class="text-center">{{horarios_decolagens[k]}}</td>
+                                <td class="text-center">{{decolagens_hoje[k].duracao}} h</td> 
+                                <td>{{instrutores_decolagens[k]}}</td>
+                                <td>{{alunos_decolagens[k]}}</td>
 
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                        
-                                        </div>
-                                    </td>
-                                    
-                                    
+                                {%if tipo[k] == "Voo" %}
+                                <td class="text-center" class="hidden-xs">
+                                    <span class="label label-primary">Voo</span>
+                                </td>
+                                {%else%}
+                                <td class="text-center" class="hidden-xs">
+                                    <span class="label label-warning">Aula</span>
+                                </td>
+                                {%endif%}
                                 </tr>
-                                <tr>
-                                    <td class="text-center">2</td>
-                                    <td>Laura Souza</td>
-                                    
-                                    <td class="hidden-xs">
-                                        <span class="label label-success">Disponível</span>
-                                    </td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                                
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">3</td>
-                                    <td>Enzo Torrini</td>
-                                    
-                                    <td class="hidden-xs">
-                                        <span class="label label-success">Disponível</span>
-                                    </td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                            
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td>Alice Freire</td>
-                                    
-                                    <td class="hidden-xs">
-                                        <span class="label label-danger">Indisponível</span>
-                                    </td>
-                                    <td class="text-center">Joao Pedro</td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar disponibilidade"><i class="fa fa-pencil"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
+                                {%endfor%}
                             </tbody>
                         </table>
                     </div>
@@ -137,8 +93,7 @@
                 <!-- Latest Sales Widget -->
                 <div class="block">
                     <div class="block-header">
-                        
-                        <h3 class="block-title">Voos de hoje</h3>
+                        <h3 class="block-title">Alunos sem aulas agendadas</h3>
                     </div>
                     
                     <div class="block-content">
@@ -149,27 +104,16 @@
                                 <div>
                                     <table class="table remove-margin-b font-s13">
                                         <tbody>
-                                            
+                                            {% for aluno in alunos_nao_agendados %}
                                             <tr>
-                                                <td class="font-w600">Miguel Oliveira</td>
-                                                <td class="hidden-xs text-muted text-right">7:15</td>
-                                                <td class="font-w600 text-success text-right">30 minutos</td>
+                                                <td class="font-w600">{{aluno.nome}}</td>
+                                                <td class="hidden-xs text-muted text-center"></td>
                                             </tr>
-                                            <tr>
-                                                <td class="font-w600">Miguel Oliveira</td>
-                                                <td class="hidden-xs text-muted text-right">8:30</td>
-                                                <td class="font-w600 text-success text-right">45 minutos</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="font-w600">Alice Freire</td>
-                                                <td class="hidden-xs text-muted text-right">14:45</td>
-                                                <td class="font-w600 text-success text-right">60 minutos</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="font-w600">Alice Freire</td>
-                                                <td class="hidden-xs text-muted text-right">16:00</td>
-                                                <td class="font-w600 text-success text-right">50 minutos</td>
-                                            </tr>
+                                            <!-- <td class="hidden-xs text-muted text-right">8:30</td> -->
+                                            <!-- <td class="font-w600 text-success text-right">45 minutos</td> -->
+
+                                            {% endfor %}
+
                                         </tbody>
                                     </table>
                                 </div>
