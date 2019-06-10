@@ -14,7 +14,7 @@ class paginaAluno extends Component {
         <h1 className="pagina">Portal Aluno </h1>
         <br/>
         <Card style={{ width: '18rem' }} className="dashboardAlu">
-        <Card.Header as="h5">Dados Cadatrais</Card.Header>
+        <Card.Header as="h5">Dados Cadastrais</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta dos seus dados de matricula.</Card.Title>
             <Button variant="primary" href="/busca">Clique Aqui</Button>
