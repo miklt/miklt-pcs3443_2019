@@ -9,7 +9,7 @@ table.tabelaSocios {
     padding: 3px 2px;
   }
   table.tabelaSocios tbody td {
-    font-size: 13px;
+    font-size: 17px;
     color: #000000;
     padding: 6px 10px;
   }
@@ -18,7 +18,7 @@ table.tabelaSocios {
     border-bottom: 5px solid #FFFFFF;
   }
   table.tabelaSocios thead th {
-    font-size: 17px;
+    font-size: 23px;
     font-weight: normal;
     color: #FFFFFF;
     text-align: center;
