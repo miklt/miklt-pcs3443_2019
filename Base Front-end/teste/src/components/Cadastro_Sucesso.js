@@ -10,8 +10,8 @@ class Cadastro_Sucesso extends Component {
              <header className="App-header">
                  <img src={logo} className="App-logo" alt="logo" />
                  <h1 className="App-title">Cadastro realizado com sucesso!</h1><br/>
-                 <h2>Aluno: {this.props.nome}</h2><br/>
-                 <h2>Número de matrícula: {this.props.num_matric}</h2><br/>
+                 <h2>{this.props.funcao}: {this.props.nome}</h2><br/>
+                 <h2>{this.props.chave}: {this.props.num_matric}</h2><br/>
                  <button id="inicio">
                      <Link to="/" id="link">Inicio</Link>
                  </button>

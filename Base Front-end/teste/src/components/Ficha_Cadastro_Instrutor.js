@@ -3,11 +3,12 @@ import MaskedInput from 'react-text-mask'
 import '../css/Ficha_Cadastro.css';
 
 
-class Ficha_Cadastro_Aluno extends Component {
+class Ficha_Cadastro_Instrutor extends Component {
     constructor(props){
         super(props);
         this.handleNameChange=this.handleNameChange.bind(this)
         this.handleEmailChange=this.handleEmailChange.bind(this)
+        this.handleBreveChange=this.handleBreveChange.bind(this)
         this.handleCpfChange=this.handleCpfChange.bind(this)
         this.handleDataNascimentoChange=this.handleDataNascimentoChange.bind(this)
         this.handleTelefoneChange=this.handleTelefoneChange.bind(this)
@@ -24,6 +25,10 @@ class Ficha_Cadastro_Aluno extends Component {
     
     handleCpfChange(e) {
         this.props.onCpfChange(e.target.value);
+    }
+
+    handleBreveChange(e){
+        this.props.onBreveChange(e.target.value);
     }
     
     handleDataNascimentoChange(e) {
@@ -43,11 +48,13 @@ class Ficha_Cadastro_Aluno extends Component {
             <div className='Ficha'>
                 <h1>Ficha de Cadastro de Novo Aluno:</h1>
                     <label>Nome</label><br/>
-                    <input  type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
+                    <input type="text" name="nome" value={this.props.nome} onChange={this.handleNameChange}></input><br/>
                     <label>E-mail</label><br/>
                     <input type="text" name="email" value={this.props.email} onChange={this.handleEmailChange}></input><br/>
                     <label>CPF (apenas números)</label><br/>
                     <input type="text" name="cpf" value={this.props.cpf} onChange={this.handleCpfChange}></input><br/>
+                    <label>Breve</label><br/>
+                    <input type="text" name="breve" value={this.props.breve} onChange={this.handleBreveChange}></input><br/>
                     <label>Data de nascimento (dd/mm/yyyy)</label><br/>
                     <input type="text" name="dataNascimento" value={this.props.dataNascimento} onChange={this.handleDataNascimentoChange}></input><br/>
                     <label>Endereço</label><br/>
@@ -60,7 +67,7 @@ class Ficha_Cadastro_Aluno extends Component {
     }
 }
 
-export default Ficha_Cadastro_Aluno;
+export default Ficha_Cadastro_Instrutor;
 
 
 /*               

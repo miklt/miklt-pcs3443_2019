@@ -9,6 +9,8 @@ import paginaFunc from './pages/paginaFunc';
 import paginaCadastroAluno from './pages/paginaCadastroAluno';
 import paginaBuscaAluno from './pages/paginaBuscaAluno';
 import paginaLogin from './pages/paginaLogin';
+import paginaCadastroInstrutor from './pages/paginaCadastroInstrutor';
+import paginaBuscaInstrutor from './pages/paginaBuscaInstrutor';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 
@@ -19,6 +21,8 @@ ReactDOM.render(
             <Route path="/home" component={paginaInicial} />
             <Route path="/aluno" component={paginaAluno} />
             <Route path="/instrutor" component={paginaInstru} />
+            <Route path="/cadastroInstrutor" component={paginaCadastroInstrutor} />
+            <Route path="/buscaInstrutor" component={paginaBuscaInstrutor} />
             <Route path="/funcionario" component={paginaFunc} />
             <Route path="/cadastroAluno" component={paginaCadastroAluno} />
             <Route path="/buscaAluno" component={paginaBuscaAluno} />
