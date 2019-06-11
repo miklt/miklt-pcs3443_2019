@@ -80,7 +80,7 @@ handleSubmit = event => {
                concluiu_teoria={this.state.concluiu_teoria}
                />
                <button id="buttonDanger">
-                   <Link id="link" to="/home">Voltar</Link>
+                   <Link id="link" to="/aluno">Voltar</Link>
                </button>
             </div>
         );
@@ -96,7 +96,7 @@ handleSubmit = event => {
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>
            <button id="buttonDanger1">
-                   <Link id="link" to="/home">Voltar</Link>
+                   <Link id="link" to="/aluno">Voltar</Link>
             </button>
        </div>
   );

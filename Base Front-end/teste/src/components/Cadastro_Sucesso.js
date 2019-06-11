@@ -13,7 +13,7 @@ class Cadastro_Sucesso extends Component {
                  <h2>{this.props.funcao}: {this.props.nome}</h2><br/>
                  <h2>{this.props.chave}: {this.props.num_matric}</h2><br/>
                  <button id="inicio">
-                     <Link to="/" id="link">Inicio</Link>
+                     <Link to="/home" id="link">Inicio</Link>
                  </button>
                  </header>
          </div>

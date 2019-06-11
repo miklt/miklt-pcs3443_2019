@@ -77,7 +77,7 @@ handleSubmit = event => {
                telefone={this.state.telefone}
                />
                <button id="buttonDanger">
-                   <Link id="link" to="/home">Voltar</Link>
+                   <Link id="link" to="/instrutor">Voltar</Link>
                </button>
             </div>
         );
@@ -93,7 +93,7 @@ handleSubmit = event => {
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>
            <button id="buttonDanger1">
-                   <Link id="link" to="/home">Voltar</Link>
+                   <Link id="link" to="/instrutor">Voltar</Link>
             </button>
        </div>
   );
