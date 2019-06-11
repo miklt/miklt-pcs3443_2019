@@ -23,17 +23,19 @@ ReactDOM.render(
         <Switch>
             <Route path="/" exact={true} component={paginaLogin} />
             <Route path="/home" component={paginaInicial} />
-            <Route path="/aluno" component={paginaAluno} />
-            <Route path="/instrutor" component={paginaInstru} />
-            <Route path="/cadastroInstrutor" component={paginaCadastroInstrutor} />
-            <Route path="/buscaInstrutor" component={paginaBuscaInstrutor} />
-            <Route path="/funcionario" component={paginaFunc} />
-            <Route path="/cadastroAluno" component={paginaCadastroAluno} />
-            <Route path="/buscaAluno" component={paginaBuscaAluno} />
-            <Route path="/buscaVooAluno" component={paginaBuscaVooAluno} />
-            <Route path="/avaliaVoo" component={paginaAvaliaVoo} />
-            <Route path="/buscaVooInstru" component={paginaBuscaVooInstru} />
-            <Route path="/excluiVoo" component={paginaExcluiVoo} />
+            <Route path="/aluno" exact={true} component={paginaAluno} />
+            <Route path="/aluno/buscaDados" component={paginaBuscaAluno} />
+            <Route path="/aluno/buscaVoo" component={paginaBuscaVooAluno} />
+            <Route path="/instrutor" exact={true} component={paginaInstru} />
+            <Route path="/instrutor/buscaDados" component={paginaBuscaInstrutor} />
+            <Route path="/instrutor/avaliaVoo" component={paginaAvaliaVoo} />
+            <Route path="/instrutor/buscaVoo" component={paginaBuscaVooInstru} />
+            <Route path="/instrutor/excluiVoo" component={paginaExcluiVoo} />
+            <Route path="/funcionario" exact={true} component={paginaFunc} />
+            <Route path="/funcionario/cadastroAluno" component={paginaCadastroAluno} />
+            <Route path="/funcionario/buscaAluno" component={paginaBuscaAluno} />
+            <Route path="/funcionario/cadastroInstrutor" component={paginaCadastroInstrutor} />
+            <Route path="/funcionario/buscaInstrutor" component={paginaBuscaInstrutor} />
         </Switch>
     </ BrowserRouter>
     , document.getElementById('root'));
