@@ -88,7 +88,7 @@ handleSubmit = event => {
             <Naveg/>
             <form onSubmit={this.handleSubmit}>
                 <h1>Digite seu número de Cadastro: </h1>
-                <label>Numero de Cadastro</label><br/>
+                <label>Número de Cadastro</label><br/>
                 <input type="text" name="num_cadastro" value={this.state.num_cadastro} onChange={this.handleNumCadastroChange}></input><br/>
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>

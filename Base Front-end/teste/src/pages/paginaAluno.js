@@ -18,7 +18,7 @@ class paginaAluno extends Component {
         <Card.Header as="h5">Dados Cadastrais</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta dos seus dados de matricula.</Card.Title>
-            <Button variant="primary" href="/buscaAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/aluno/buscaDados">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardAlu">
@@ -32,7 +32,7 @@ class paginaAluno extends Component {
         <Card.Header as="h5">Voos</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta de seus voos aula.</Card.Title>
-            <Button variant="primary" href="/buscaVooAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/aluno/buscaVoo">Clique Aqui</Button>
         </Card.Body>
         </Card>
       </div>

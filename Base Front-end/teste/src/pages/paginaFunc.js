@@ -18,28 +18,28 @@ class paginaFunc extends Component {
         <Card.Header as="h5">Cadastro Aluno</Card.Header>
         <Card.Body>
             <Card.Title>Realize o cadastro de um novo aluno aqui.</Card.Title>
-            <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/cadastroAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
         <Card.Header as="h5">Cadastro Instrutor</Card.Header>
         <Card.Body>
             <Card.Title>Realize o cadastro de um novo instrutor aqui.</Card.Title>
-            <Button variant="primary" href="/cadastroInstrutor">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/cadastroInstrutor">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
         <Card.Header as="h5">Consulta Aluno</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta dos dados de um aluno.</Card.Title>
-            <Button variant="primary" href="/buscaAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/buscaAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
         <Card.Header as="h5">Consulta Instrutor</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta dos dados de um instrutor.</Card.Title>
-            <Button variant="primary" href="/buscaInstrutor">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/buscaInstrutor">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
