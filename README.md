@@ -1,4 +1,6 @@
-# Escola-de-Aviacao-EngSoft
-Esse projeto visa desenvolver um aplicativo para gerenciamento de uma escola de aviação civil
-Oi Deivid
-Deivid zika
+﻿# Escola-de-Aviacao-EngSoft
+
+A seguir, seguem algumas explicações para entendimento do código e testes que possam ser feitos.
+
+- Backend:
+
