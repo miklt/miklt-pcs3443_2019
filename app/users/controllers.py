@@ -164,34 +164,27 @@ def registerFunc():
 def getSocios():
     
     val = []
-    
-    """ for i in range(1, 4):
-        u1 = models.Login.query.get(i)
-        u2 = models.Socio.query.get(i)
-        val.append({
+    i = 1
+
+    while 1:
+        u1 = models.Socio.query.filter_by(matricula=i).first()
+        u2 = models.Login.query.filter_by(matricula=i).first()
+        if (u1 == None) or (u2 == None):
+            break
+        d = {
             "matricula" : u1.matricula,
             "name" : u1.name,
             "role" : u1.role,
             "email" : u1.email,
             "endereco" : u2.endereco,
-            "dataNascimento" : u2.dataNascimento,
+            "dataNascimento" : u2.dataNascimento.strftime("%d/%b/%Y"),
             "cpf" : u2.cpf,
             "numeroBreve" : u2.numeroBreve 
-        }) """
-
-    val.append({
-            "matricula" : 1,
-            "name" : "Pedro",
-            "role" : "Aluno",
-            "email" : "pedro@pedro.pedro",
-            "endereco" : "R. Pedro",
-            "dataNascimento" : "22/05/1998",
-            "cpf" : "123456789",
-            "numeroBreve" : "5491543" 
-        })
-
+        }
+        val.append(d)
+        i += 1
+        
     return json.dumps(val)
 
     
-    
-    
+  
