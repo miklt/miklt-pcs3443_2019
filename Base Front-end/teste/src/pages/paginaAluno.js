@@ -32,7 +32,7 @@ class paginaAluno extends Component {
         <Card.Header as="h5">Voos</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta de seus voos aula.</Card.Title>
-            <Button variant="primary" href="/busca">Clique Aqui</Button>
+            <Button variant="primary" href="/buscaVooAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
       </div>

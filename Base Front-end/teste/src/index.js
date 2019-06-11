@@ -8,9 +8,13 @@ import paginaInstru from './pages/paginaInstru';
 import paginaFunc from './pages/paginaFunc';
 import paginaCadastroAluno from './pages/paginaCadastroAluno';
 import paginaBuscaAluno from './pages/paginaBuscaAluno';
+import paginaBuscaVooAluno from './pages/paginaBuscaVooAluno';
 import paginaLogin from './pages/paginaLogin';
 import paginaCadastroInstrutor from './pages/paginaCadastroInstrutor';
 import paginaBuscaInstrutor from './pages/paginaBuscaInstrutor';
+import paginaAvaliaVoo from './pages/paginaAvaliaVoo';
+import paginaBuscaVooInstru from './pages/paginaBuscaVooInstru';
+import paginaExcluiVoo from './pages/paginaExcluiVoo';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 
@@ -26,6 +30,10 @@ ReactDOM.render(
             <Route path="/funcionario" component={paginaFunc} />
             <Route path="/cadastroAluno" component={paginaCadastroAluno} />
             <Route path="/buscaAluno" component={paginaBuscaAluno} />
+            <Route path="/buscaVooAluno" component={paginaBuscaVooAluno} />
+            <Route path="/avaliaVoo" component={paginaAvaliaVoo} />
+            <Route path="/buscaVooInstru" component={paginaBuscaVooInstru} />
+            <Route path="/excluiVoo" component={paginaExcluiVoo} />
         </Switch>
     </ BrowserRouter>
     , document.getElementById('root'));
