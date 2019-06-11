@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import Busca_Sucesso from '../components/Busca_Sucesso';
 import Naveg from '../components/Naveg';
 
-class paginaBusca extends Component {
+class paginaBuscaAluno extends Component {
  constructor(props) {
    super(props);
    this.handleNumMatricChange=this.handleNumMatricChange.bind(this);
@@ -71,7 +71,7 @@ handleSubmit = event => {
                telefone={this.state.telefone}
                />
                <button id="buttonDanger">
-                   <Link id="link" to="/">Voltar</Link>
+                   <Link id="link" to="/home">Voltar</Link>
                </button>
             </div>
         );
@@ -87,11 +87,11 @@ handleSubmit = event => {
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>
            <button id="buttonDanger1">
-                   <Link id="link" to="/">Voltar</Link>
+                   <Link id="link" to="/home">Voltar</Link>
             </button>
        </div>
   );
 }
 
 }
-export default paginaBusca;
+export default paginaBuscaAluno;

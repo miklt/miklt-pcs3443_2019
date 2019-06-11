@@ -3,7 +3,7 @@ import MaskedInput from 'react-text-mask'
 import '../css/Ficha_Cadastro.css';
 
 
-class Ficha_Cadastro extends Component {
+class Ficha_Cadastro_Aluno extends Component {
     constructor(props){
         super(props);
         this.handleNameChange=this.handleNameChange.bind(this)
@@ -60,7 +60,7 @@ class Ficha_Cadastro extends Component {
     }
 }
 
-export default Ficha_Cadastro;
+export default Ficha_Cadastro_Aluno;
 
 
 /*               

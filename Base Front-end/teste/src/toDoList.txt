@@ -1,0 +1,28 @@
+O QUE O FRONT PRECISA IMPLEMENTAR:
+
+Geral:
+- Uma página “sobre nós”, escrito qualquer merda, que basta vcs deixarem a pagina preparada e esse textinho a gente escreve na quarta mesmo
+- Uma página pra entrar, pra que só nós possamos efetivamente entrar no site
+
+Portal do RH (funcionário):
+- Cadastrar aluno
+- Cadastrar instrutor
+- Consultar dados cadastrais do aluno
+- Consultar dados cadastrais do instrutor
+- Alterar dados cadastrais do aluno
+- Alterar dados cadastrais do instrutor
+- Deletar aluno
+- Deletar instrutor
+- Colocar que o aluno concluiu teoria e está habilitado pra voo
+
+Portal do Aluno:
+- Verificar os voos ja feitos por ele
+- Verificar um voo específico com base no número do voo (voo_id)
+- Verificar suas informações, cadastrais e em relaçao a se ja está aprovado na teoria e prática etc
+
+Portal do Instrutor:
+- Verificar os voos ja feitos por ele
+- Verificar um voo específico com base no numero do voo
+- Verificar seus dados
+- Registrar um voo
+- Deletar um voo

@@ -6,8 +6,8 @@ import paginaInicial from './pages/paginaInicial';
 import paginaAluno from './pages/paginaAluno';
 import paginaInstru from './pages/paginaInstru';
 import paginaFunc from './pages/paginaFunc';
-import paginaCadastro from './pages/paginaCadastro';
-import paginaBusca from './pages/paginaBusca';
+import paginaCadastroAluno from './pages/paginaCadastroAluno';
+import paginaBuscaAluno from './pages/paginaBuscaAluno';
 import paginaLogin from './pages/paginaLogin';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
@@ -20,8 +20,8 @@ ReactDOM.render(
             <Route path="/aluno" component={paginaAluno} />
             <Route path="/instrutor" component={paginaInstru} />
             <Route path="/funcionario" component={paginaFunc} />
-            <Route path="/cadastro" component={paginaCadastro} />
-            <Route path="/busca" component={paginaBusca} />
+            <Route path="/cadastroAluno" component={paginaCadastroAluno} />
+            <Route path="/buscaAluno" component={paginaBuscaAluno} />
         </Switch>
     </ BrowserRouter>
     , document.getElementById('root'));

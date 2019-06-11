@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/paginaCadastro.css';
 import { Link, Redirect } from 'react-router-dom';
-import Ficha_Cadastro from '../components/Ficha_Cadastro';
+import Ficha_Cadastro_Aluno from '../components/Ficha_Cadastro_Aluno';
 import Cadastro_Sucesso from '../components/Cadastro_Sucesso';
 import Naveg from '../components/Naveg';
 
-class paginaCadastro extends Component {
+class paginaCadastroAluno extends Component {
  constructor(props) {
    super(props);
    this.handleNameChange=this.handleNameChange.bind(this);
@@ -96,7 +96,7 @@ handleSubmit = event => {
          <div className="pagina">
             <Naveg/>
             <form onSubmit={this.handleSubmit}>
-               <Ficha_Cadastro 
+               <Ficha_Cadastro_Aluno 
                nome={this.state.nome}
                email={this.state.email}
                cpf={this.state.cpf}
@@ -112,11 +112,11 @@ handleSubmit = event => {
                <button id="buttonSuccess" type="submit">Enviar</button> 
             </form>
             <button id="buttonDanger">
-                   <Link id="link" to="/">Voltar</Link>
+                   <Link id="link" to="/funcionario">Voltar</Link>
             </button>
        </div>
   );
 }
 
 }
-export default paginaCadastro;
+export default paginaCadastroAluno;

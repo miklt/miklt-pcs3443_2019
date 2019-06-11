@@ -13,6 +13,7 @@ class paginaInstru extends Component {
         <br/>
         <h1 className="pagina">Portal Instrutor </h1>
         <br/>
+        <br/>
         <Card style={{ width: '18rem' }} className="dashboardIns">
         <Card.Header as="h5">Avaliar</Card.Header>
         <Card.Body>
@@ -24,6 +25,13 @@ class paginaInstru extends Component {
         <Card.Header as="h5">Voos</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta de seus voos aula.</Card.Title>
+            <Button variant="primary" href="/busca">Clique Aqui</Button>
+        </Card.Body>
+        </Card>
+        <Card style={{ width: '18rem' }} className="dashboardIns">
+        <Card.Header as="h5">Exluir Voo</Card.Header>
+        <Card.Body>
+            <Card.Title>Exclua um voo aula regitrado.</Card.Title>
             <Button variant="primary" href="/busca">Clique Aqui</Button>
         </Card.Body>
         </Card>
