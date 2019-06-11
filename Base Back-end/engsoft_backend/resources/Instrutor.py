@@ -1,6 +1,13 @@
 from flask import request
 from flask_restful import Resource
 from Model import db, Instrutor, InstrutorSchema
+import re
+
+EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
+CPF_REGEX = re.compile("^[ 0-9]{11}$")
+DATA_REGEX = re.compile("^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/]\d{4}$")
+TELEFONE_REGEX = re.compile("^([0-9]|\(|\)|\+)+$")
+BREVE_REGEX = re.compile("^[ 0-9]{6}$")
 
 instrutores_schema = InstrutorSchema(many=True)
 instrutor_schema = InstrutorSchema()
@@ -15,10 +22,16 @@ class InstrutorResource(Resource):
         data, errors = instrutor_schema.load(json_data)
         if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['breve'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400
-        if not EMAIL_REGEX.match(json_data['email']):
-            return {'message': 'Email invalido'}, 400
+       if not EMAIL_REGEX.match(json_data['email']):
+            return {'message': 'E-mail inválido'}, 400
         if not CPF_REGEX.match(json_data['cpf']):
-            return {'message': 'Cpf invalido'}, 400
+            return {'message': 'CPF inválido'}, 400
+        if not DATA_REGEX.match(json_data['data_nascimento']):
+            return {'message': 'Data inválida! Favor, inserir no formato indicado.'}, 400
+        if not TELEFONE_REGEX.match(json_data['telefone']):
+            return {'message': 'Telefone inválido!'}, 400
+        if not BREVE_REGEX.match(json_data['breve']):
+            return {'message': 'Favor, digitar um número de brevê válido'}, 400
         if errors:
             return errors, 422
         teste = Instrutor.query.filter_by(cpf=json_data['cpf']).first()
