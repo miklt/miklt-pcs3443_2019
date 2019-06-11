@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import paginaInicial from '../components/paginaInicial';
-import Naveg from '../components/Naveg';
+import logo from '../images/airplane.png';
+import '../css/paginaLogin.css';
+import paginaInicial from '../pages/paginaInicial';
 
 class paginaLogin extends Component {
  constructor(props) {
@@ -11,42 +12,47 @@ class paginaLogin extends Component {
    this.state = {
       usuario: '',
       senha: '',
+      submit: false,
   };
  }
 
- handleUsuarioChange(usuario) {
-   this.setState({usuario: usuario,});
+ handleUsuarioChange(e) {
+   this.setState({usuario: e.target.value,});
 }
 
-handleSenhaChange(senha) {
-  this.setState({senha: senha,});
+handleSenhaChange(e) {
+  this.setState({senha: e.target.value,});
 }
 
 handleSubmit = event => {
    event.preventDefault();
-
-   const user = {
+   
+   this.setState({submit: true,})
+  /* const user = {
      usuario: this.state.usuario,
      senha: this.state.senha,
-   };
+   };*/
 }
 
  render(){
-  if (this.state.usuario === "Admin" && this.state.senha === "lab_engsoft"){
-         return <paginaInicial/>
+  if (this.state.usuario === "Admin" && this.state.senha === "lab_engsoft" && this.state.submit==true){
+        return <Redirect to="/home"/>
         }
-    return (
-      <div className="login">
-      <Naveg/>
+  return (
+      <div className="login ">
+      <h1 className="h1">Bandeco's Aeroclube</h1>
       <form onSubmit={this.handleSubmit}>
-          <h1>Faça seu login: </h1>
-          <label>Usuario</label><br/>
-          <input type="text" name="usuario" value={this.state.usuario} onChange={this.handleUsuarioChange}></input><br/>
-          <label>Senha</label><br/>
-          <input type="text" name="senha" value={this.state.senha} onChange={this.handleSenhaChange}></input><br/>
+          <h2>Faça seu login: </h2>
+          <label className="label">Usuario</label><br/>
+          <input className="input" type="text" name="usuario" value={this.state.usuario} onChange={this.handleUsuarioChange}></input><br/>
+          <label className="label">Senha</label><br/>
+          <input className="input" type="password" name="senha" value={this.state.senha} onChange={this.handleSenhaChange}></input><br/>
           <button id="buttonSuccess" type="submit">Enviar</button>
      </form>
- </div>
+     <footer>
+         <img src={logo} className="App-logo" alt="logo" />
+      </footer>
+     </div>
   );
 }
 

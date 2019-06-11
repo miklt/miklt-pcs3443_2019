@@ -11,7 +11,7 @@ class Naveg extends Component {
   render() {
     return (
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">Home</Navbar.Brand>
+        <Navbar.Brand href="/home">Home</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/aluno">Portal Aluno</Nav.Link>
           <Nav.Link href="/instrutor">Portal Instrutor</Nav.Link>

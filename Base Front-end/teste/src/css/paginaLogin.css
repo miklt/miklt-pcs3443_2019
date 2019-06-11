@@ -1,13 +1,28 @@
-input{
+.h1 {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+  font-size: 60px;
+  padding: 40px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  
+}
+
+
+.login {
+  text-align: center;
+}
+
+.input {
     width: 30%;
-    padding: 12px;
+    padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     resize: vertical;
   }
   
-  label {
-    padding: 12px 12px 12px 0;
+.label {
+    padding: 6px 6px 6px 0;
     display: inline-block;
   }
