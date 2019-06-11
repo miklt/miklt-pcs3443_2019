@@ -73,6 +73,7 @@ class InstrutorSchema(ma.Schema):
     num_cadastro = fields.Integer(dump_only=True)
     nome = fields.String(required=True, validate=validate.Length(min=1))
     email = fields.String(required=True, validate=validate.Length(min=1))
+    endereco = fields.String(required=True)
     cpf = fields.String(required=True, validate=validate.Length(min=11,max=11))
     data_nascimento = fields.String(required=True, validate=validate.Length(min=1))
     telefone = fields.String(required=True)
