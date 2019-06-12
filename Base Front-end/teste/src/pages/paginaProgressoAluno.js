@@ -58,7 +58,8 @@ handleSubmit = event => {
         return (
            <div className="pagina">
                <Naveg/>
-               <h1>Dados Cadastrais Do Aluno:</h1>
+               <br/>
+               <h1>Progresso Aluno:</h1>
                <Progresso
                nome={this.state.nome}
                total_horas_voo={this.state.total_horas_voo}
@@ -76,8 +77,8 @@ handleSubmit = event => {
         <div className="pagina">
             <Naveg/>
             <form onSubmit={this.handleSubmit}>
-                <h1>Digite o numero de matricula do aluno que deseja ver o progresso: </h1>
-                <label>Numero de Matricula</label><br/>
+                <h1>Progresso Aluno</h1>
+                <label>Digite Seu Número de Matricula</label><br/>
                 <input type="text" name="cpf" value={this.state.num_matric} onChange={this.handleNumMatricChange}></input><br/>
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>

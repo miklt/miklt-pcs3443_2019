@@ -17,9 +17,6 @@ class paginaBuscaAluno extends Component {
       dataNascimento: '',
       endereco: '',
       telefone: '',
-      total_horas_voo: '',
-      concluiu_pratica: '',
-      concluiu_teorica: '',
       success: false,
   };
  }
@@ -39,9 +36,6 @@ handleSubmit = event => {
              this.setState({dataNascimento: res.data.data.data_nascimento});
              this.setState({endereco: res.data.data.endereco});
              this.setState({telefone: res.data.data.telefone});
-             this.setState({total_horas_voo: res.data.data.total_horas_voo});
-             this.setState({concluiu_pratica: res.data.data.concluiu_pratica});
-             this.setState({concluiu_teoria: res.data.data.concluiu_teoria});
              this.setState({success: true});
           }
           console.log(res.data.status);
@@ -77,9 +71,6 @@ handleSubmit = event => {
                dataNascimento={this.state.dataNascimento}
                endereco={this.state.endereco}
                telefone={this.state.telefone}
-               total_horas_voo={this.state.total_horas_voo}
-               concluiu_pratica={this.state.concluiu_pratica}
-               concluiu_teoria={this.state.concluiu_teoria}
                />
                <button id="buttonDanger">
                    <Link id="link" to="/aluno">Voltar</Link>
@@ -92,8 +83,8 @@ handleSubmit = event => {
         <div className="pagina">
             <Naveg/>
             <form onSubmit={this.handleSubmit}>
-                <h1>Digite o numero de matricula do aluno que deseja buscar: </h1>
-                <label>Numero de Matricula</label><br/>
+                <h1>Busca Dados Cadastrais</h1>
+                <label>Digite Seu Número de Matricula</label><br/>
                 <input type="text" name="cpf" value={this.state.num_matric} onChange={this.handleNumMatricChange}></input><br/>
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>

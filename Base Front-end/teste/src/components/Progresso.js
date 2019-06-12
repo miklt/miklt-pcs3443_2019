@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import '../css/paginaAvaliaVoo.css';
+import Naveg from '../components/Naveg';
 import { Table } from 'react-bootstrap';
 
 class Busca_Sucesso_Aluno extends Component {
@@ -8,7 +10,14 @@ class Busca_Sucesso_Aluno extends Component {
     }
     render() {
         return (
-            <div></div>
+            <div>
+                <br/><br/>
+                <h1>Aluno: {this.props.nome}</h1>
+                <h2>Situação: </h2><br/><br/>
+                <label>Total De Horas Voo Aula: {this.props.total_horas_voo}</label><br/>
+                <label>Concluir Aulas Teóricas? {this.props.concluiu_teoria}</label><br/>
+                <label>Concluir Aulas Práticas? {this.props.concluiu_pratica}</label><br/>
+            </div>
         )
       }
 }
