@@ -34,14 +34,31 @@
     <div class="container" style="padding: 20px; text-align: center;">
         <div class="jumbotron">
             <h1 class="display-4"> <strong>Resultado Consulta de Voos</strong></h1>
-            <hr> {% for voo in voos %}
-            <p><strong>Número de Voo</strong>: {{voo.numero_voo}} </p>
-            <p><strong>Matrícula do Aluno</strong>: {{voo.aluno}}</p>
-            <p><strong>Horas</strong>: {{voo.horas}}</p>
-            <p><strong>Nota</strong>: {{voo.rate}}</p>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Voos Como Piloto</h2>
+                    {% for pilotovoo in voos %}
+                    <br>
+                    <p><strong>Número de Voo</strong>: {{pilotovoo.numero_voo}} </p>
+                    <p><strong>Horas</strong>: {{pilotovoo.horas}}</p>
+                    {% endfor %}
+                    <br>
+                </div>
+
+                <div class="col-sm-6">
+                    <h2>Voos Como Instrutor</h2>
+                    {% for instrutorvoo in voos %}
+                    <br>
+                    <p><strong>Número de Voo</strong>: {{instrutorvoo.numero_voo}} </p>
+                    <p><strong>Matrícula do Aluno</strong>: {{instrutorvoo.aluno}}</p>
+                    <p><strong>Horas</strong>: {{instrutorvoo.horas}}</p>
+                    <p><strong>Nota</strong>: {{instrutorvoo.rate}}</p>
+                    {% endfor %}
+                    <br>
+                </div>
+            </div>
             <br>
-            <br>
-            <br> {% endfor %}
             <br>
             <a href='/inicial-instrutor'>
                 <button type="input" class="btn btn-light" style="float: left">Tela Anterior</button>

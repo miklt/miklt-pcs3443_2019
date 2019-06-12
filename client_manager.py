@@ -284,6 +284,9 @@ def home7():
 		mat_aluno = request.form.get('matricula_aluno')
 		horas = request.form.get('horas_de_voo')
 		numero = Voos.query.count()
+		aluno = Socio.query.filter_by(matricula = mat_aluno).first()
+		if(aluno.tipo != 'aluno'):
+			return redirect(url_for('erro-cadastro-aula'))
 		voo = Voos(numero_voo = numero + 1,
 					aluno = request.form.get('matricula_aluno'),
 					instrutor = matricula,
@@ -292,11 +295,15 @@ def home7():
 					data_hora = request.form.get('data_hora_voo'),
 			)
 		db.session.add(voo)
-		aluno = Socio.query.filter_by(matricula = mat_aluno).first()
 		aluno.numero_horas = int(aluno.numero_horas) + int(horas)
 		db.session.commit()
 
 	return render_template('TelaCadastroVooAula.html')
+
+@app.route('/erro-cadastro-aula',methods = ["GET","POST"])
+def home_erro_aula():
+	return render_template('ErroMatriculaCadastroAula.html')
+
 
 @app.route('/cadastro-voo',methods =["GET","POST"])
 def homesaw7():
@@ -382,12 +389,13 @@ def howafme10():
 @app.route('/resultado-voos-instrutor',methods =["GET","POST"])
 def homme1afafwa():
 	matricula = Login.query.first().matricula
-	voos = Voos.query.filter_by(aluno = matricula)
+	instrutorvoo = Voos.query.filter_by(instrutor = matricula)
+	pilotovoo = Voos.query.filter_by(aluno = matricula)
 	
-	if (voos.count()==0):
+	if (instrutorvoo.count()==0 and pilotovoo.count()==0):
 		return render_template('ErroResultadoConsultaVooInstrutor.html')
 	else: 
-		return render_template('ResultadoConsultaVoosInstrutor.html',voos = voos)
+		return render_template('ResultadoConsultaVoosInstrutor.html',instrutorvoo = instrutorvoo,pilotovoo = pilotovoo)
 
 @app.route('/consulta-voo-individual-aluno',methods =["GET","POST"])
 def homwrwe9():
