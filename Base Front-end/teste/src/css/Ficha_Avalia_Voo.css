@@ -1,0 +1,15 @@
+input{
+    text-align: center;
+    width: 20%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  
+  label {
+    padding: 6px 6px 6px;
+    display: inline-block;
+  }
+
