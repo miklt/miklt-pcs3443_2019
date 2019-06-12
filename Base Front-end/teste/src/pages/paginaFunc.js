@@ -60,14 +60,14 @@ class paginaFunc extends Component {
         <Card.Header as="h5">Excluir Aluno</Card.Header>
         <Card.Body>
             <Card.Title>Exclua os registros de cadastro de um aluno.</Card.Title>
-            <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/deletaAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
         <Card.Header as="h5">Excluir Instrutor</Card.Header>
         <Card.Body>
             <Card.Title>Exclua os registros de cadastro de um instrutor.</Card.Title>
-            <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/deletaInstrutor">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">

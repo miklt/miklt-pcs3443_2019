@@ -19,6 +19,8 @@ import paginaAlterarAluno from './pages/paginaAlterarAluno';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import paginaAlterarInstrutor from './pages/paginaAlterarInstrutor';
 import paginaHabilitarAluno from './pages/paginaHabilitarAluno';
+import paginaDeletarAluno from './pages/paginaDeletarAluno';
+import paginaDeletarInstrutor from './pages/paginaDeletarInstrutor';
 
 
 ReactDOM.render(
@@ -44,6 +46,8 @@ ReactDOM.render(
             <Route path="/funcionario/habilitaAluno" component={paginaHabilitarAluno} />
             <Route path="/funcionario/alteraAluno" component={paginaAlterarAluno} />
             <Route path="/funcionario/alteraInstrutor" component={paginaAlterarInstrutor} />
+            <Route path="/funcionario/deletaAluno" component={paginaDeletarAluno} />
+            <Route path="/funcionario/deletaInstrutor" component={paginaDeletarInstrutor} />
         </Switch>
     </ BrowserRouter>
     , document.getElementById('root'));
