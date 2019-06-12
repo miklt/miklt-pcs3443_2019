@@ -11,6 +11,6 @@ class VooInstrutorResource(Resource):
         n_cadastro = request.args.get('instrutor_id')
         voos = Voo.query.filter_by(instrutor_id=n_cadastro).all()
         if not voos:
-            return {'message' : 'Este instrutor não realizou nenhum voo!'}
+            return {'message' : 'Este instrutor não realizou nenhum voo!'}, 400
         result = voos_schema.dump(voos).data
         return { "status": 'success', 'data': result}, 201

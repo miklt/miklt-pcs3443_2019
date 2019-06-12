@@ -11,6 +11,6 @@ class VooAlunoResource(Resource):
         n_matricula = request.args.get('aluno_id')
         voos = Voo.query.filter_by(aluno_id=n_matricula).all()
         if not voos:
-            return {'message' : 'Este aluno não realizou nenhum voo!'}
+            return {'message' : 'Este aluno não realizou nenhum voo!'}, 400
         result = voos_schema.dump(voos).data
         return { "status": 'success', 'data': result}, 201

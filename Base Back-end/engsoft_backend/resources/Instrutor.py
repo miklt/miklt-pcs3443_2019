@@ -81,7 +81,7 @@ class InstrutorResource(Resource):
         #n_cadastro = request.args.get('num_cadastro')
         instrutor = Instrutor.query.filter_by(num_cadastro=json_data['num_cadastro']).first()
         if not instrutor:
-            return {'message' : 'Nenhum instrutor com este número de cadastro'}
+            return {'message' : 'Nenhum instrutor com este número de cadastro'}, 400
         
         if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400

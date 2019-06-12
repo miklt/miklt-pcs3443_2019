@@ -35,14 +35,14 @@ class VooResource(Resource):
 
         instrutor = Instrutor.query.filter_by(num_cadastro=json_data['instrutor_id']).first()
         if not instrutor:
-            return {'message' : 'Nenhum instrutor com este número de cadastro'}
+            return {'message' : 'Nenhum instrutor com este número de cadastro'}, 400
 
         aluno = Aluno.query.filter_by(num_matric=json_data['aluno_id']).first()
         if not aluno:
-            return {'message' : 'Nenhum aluno com este número de matrícula'}
+            return {'message' : 'Nenhum aluno com este número de matrícula'}, 400
 
         if aluno.concluiu_teoria == 'Nao':
-            return {'message' : 'Impossível cadastrar voo! Aluno não possui certificado teórico.'}
+            return {'message' : 'Impossível cadastrar voo! Aluno não possui certificado teórico.'}, 400
 
         aluno.total_horas_voo = aluno.total_horas_voo + json_data['horas_total']
         AlunoResource.Verificar(aluno)
@@ -65,7 +65,7 @@ class VooResource(Resource):
         n_voo = request.args.get('voo_id')
         voo = Voo.query.filter_by(voo_id=n_voo).first()
         if not voo:
-            return {'message' : 'Nenhum voo com este número de série'}
+            return {'message' : 'Nenhum voo com este número de série'}, 400
         result = voo_schema.dump(voo).data
         return { "status": 'success', 'data': result}, 201
 

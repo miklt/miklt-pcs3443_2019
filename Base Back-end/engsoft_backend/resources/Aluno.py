@@ -76,7 +76,7 @@ class AlunoResource(Resource):
         #n_matricula = request.args.get('num_matric')
         aluno = Aluno.query.filter_by(num_matric=json_data['num_matric']).first()
         if not aluno:
-            return {'message' : 'Nenhum aluno com este número de matrícula'}
+            return {'message' : 'Nenhum aluno com este número de matrícula'}, 400
         
         if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400
