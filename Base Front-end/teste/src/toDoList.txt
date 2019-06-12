@@ -24,5 +24,5 @@ Portal do Instrutor:
 - Verificar os voos ja feitos por ele
 - Verificar um voo específico com base no numero do voo
 - Verificar seus dados -> Check
-- Registrar um voo
+- Registrar um voo -> Check
 - Deletar um voo
