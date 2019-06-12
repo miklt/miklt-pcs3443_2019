@@ -38,7 +38,7 @@ export class EditFuncionarioComponent implements OnInit {
     this.loading = true;
     this.success = false;
     this.error = false;
-    this.funcionario.update(funcionario).subscribe(response => {
+    this.funcionarioService.update(funcionario).subscribe(response => {
       console.log(response);
       this.success = true;
       this.loading = false;
