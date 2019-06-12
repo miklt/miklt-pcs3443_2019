@@ -70,7 +70,7 @@ class paginaFunc extends Component {
             <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
-        <Card style={{ width: '18rem' }} className="dashboardFuncH">
+        <Card style={{ width: '18rem' }} className="dashboardFunc">
         <Card.Header as="h5">Habilita Aluno</Card.Header>
         <Card.Body>
             <Card.Title>Habilita um aluno a realizar voos aula.</Card.Title>

@@ -3,6 +3,7 @@
 }
 
 .dashboardAlu {
+    text-align: center;
     margin-left: 10%;
     margin-right: 1%;
     margin-bottom: 5%;
@@ -10,19 +11,25 @@
 }
 
 .dashboardIns{
-    margin-left: 7%;
-    margin-right: 1%;
+    text-align: center;
+    margin-left: 11%;
     margin-bottom: 5%;
     display: inline-block;
 }
 
+.dashboardInsH{
+    text-align: center;
+    margin-left: 41%;
+}
+
 .dashboardFunc{
-    margin-left: 7%;
-    margin-right: 1%;
+    text-align: center;
+    margin-left: 11%;
     margin-bottom: 3%;
     display: inline-block;
 }
 
 .dashboardFuncH{
+    text-align: center;
     margin-left: 41%;
 }

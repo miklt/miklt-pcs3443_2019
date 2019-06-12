@@ -35,7 +35,7 @@ class paginaInstru extends Component {
             <Button variant="primary" href="/instrutor/excluiVoo">Clique Aqui</Button>
         </Card.Body>
         </Card>
-        <Card style={{ width: '18rem' }} className="dashboardIns">
+        <Card style={{ width: '18rem' }} className="dashboardInsH">
         <Card.Header as="h5">Dados Cadastrais</Card.Header>
         <Card.Body>
             <Card.Title>Realize a consulta dos seus dados de cadastro.</Card.Title>
