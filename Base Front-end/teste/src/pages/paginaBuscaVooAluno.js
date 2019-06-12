@@ -99,7 +99,7 @@ handleSubmit = event => {
       <Naveg/>
       <form onSubmit={this.handleSubmit}>
           <h1>Busca Voo Aluno</h1><br/><br/>
-          <h2 className="info">Escolha se deseha buscar por Id do voo ou listar todos os voos por número de matrícula</h2>
+          <h2 className="info">Escolha se deseja buscar por Id do voo ou listar todos os voos por número de matrícula</h2>
           <br/>
           <select type="text" name="escolha" value={this.props.escolha} onChange={this.handleEscolhaChange}>
                         <option value={''}>Modo de Busca</option>
