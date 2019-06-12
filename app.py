@@ -11,7 +11,7 @@ import datetime as datetimee
 
 app = Flask(__name__)
 # alterar para postgre e instalar um servidor de banco de dados
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:57273LIns@localhost/Lab'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://j:j@ec2-3-92-214-16.compute-1.amazonaws.com/lab'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
@@ -31,8 +31,8 @@ def downloadBreve(nome_arquivo):
 
 @app.route("/")
 def home():
-    if 'pessoa' not in session:
-        return redirect(url_for('login'))
+    #if 'pessoa' not in session:
+    #    return redirect(url_for('login'))
     print()
     print(session)
     print()
