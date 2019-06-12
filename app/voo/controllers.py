@@ -109,3 +109,26 @@ def registerAero():
     finally:
         return json.dumps(val, default = str)
      
+
+
+@voo.route('/listaAero', methods=['GET'])
+def getSocios():
+    
+    val = []
+    i = 1
+
+    
+    u1 = models.Aeronave.query.all()
+    
+    for u in u1:
+        d = {
+        "num" : u.num,
+        "modelo" : u.modelo,
+        "ano" : u.ano,
+        } 
+        val.append(d)
+        
+        
+        
+        
+    return json.dumps(val)
