@@ -32,7 +32,7 @@ handleSubmit = event => {
    event.preventDefault();
    axios.get(`https://testeparaaviacao.herokuapp.com/api/Aluno`,{params: {num_matric:this.state.num_matric}})
      .then(res => {
-          if (res.data.status === 'success')
+          if (res.data.status === 'success'){
              this.setState({cpf: res.data.data.cpf});
              this.setState({nome: res.data.data.nome});
              this.setState({email: res.data.data.email});   
@@ -43,9 +43,11 @@ handleSubmit = event => {
              this.setState({concluiu_pratica: res.data.data.concluiu_pratica});
              this.setState({concluiu_teoria: res.data.data.concluiu_teoria});
              this.setState({success: true});
+          }
           console.log(res.data.status);
           console.log(res);
           console.log(res.data);
+          
     })
      .catch(function (error) {
           if (error.response) {
@@ -60,8 +62,7 @@ handleSubmit = event => {
           }
           console.log(error.config);
      })
- }
-
+}
  render() {
   if (this.state.success === true){
         return (

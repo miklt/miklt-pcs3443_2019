@@ -31,7 +31,7 @@ handleSubmit = event => {
    event.preventDefault();
    axios.get(`https://testeparaaviacao.herokuapp.com/api/Instrutor`,{params: {num_cadastro:this.state.num_cadastro}})
      .then(res => {
-          if (res.data.status === 'success')
+          if (res.data.status === 'success'){
              this.setState({cpf: res.data.data.cpf});
              this.setState({nome: res.data.data.nome});
              this.setState({email: res.data.data.email});   
@@ -41,6 +41,7 @@ handleSubmit = event => {
              this.setState({telefone: res.data.data.telefone});
              this.setState({status: res.data.data.status});
              this.setState({success: true});
+          }
           console.log(res.data.status);
           console.log(res);
           console.log(res.data);
