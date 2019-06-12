@@ -33,12 +33,14 @@ acessar e modificar os dados do site.
 		->images: pasta que guarda as imagens utilizadas em componentes e páginas.
 		->pages: pasta que guarda todas os componentes do tipo página.
 
-	Na pasta componentes, escontram-se todos os componentes utilizados que não são páginas. Assim, qualquer tipo de ficha de cadastro, ou barra de navegação, se encontram nessa mesma pasta. Na pasta pagina, os componentes páginas são todos os componentes que representam páginas inteiras, e são essas páginas que instancializam outros componentes e definem o layout das páginas do próprio site. 
+	Na pasta componentes, escontram-se todos os componentes utilizados que não são páginas. Assim, qualquer tipo de ficha de cadastro, ou barra de navegação, 
+	se encontram nessa mesma pasta. Na pasta pagina, os componentes páginas são todos os componentes que representam páginas inteiras, e são essas páginas que instancializam outros componentes e definem o layout das páginas do próprio site. 
 
 	O sistema de login utilizado não possui rotas protegidas de fato, ele é apenas uma página inicial para mostrar o formato de como esse login 
 	seria implementado no front, mas não é de fato um sistema de autenticação completo.
 
-	Explicando por exemplo o componente "paginaCadastroAluno". Esse componente representa uma página, logo, em primeiro momento ele instancializa-se a barra de navegação no topo da página e um componente "Ficha_Cadastro_Aluno" no meio da página. Preenchidos os dados do aluno, faz-se um pedido de POST para o Backend, de modo a salvar esse novo aluno no banco. Caso esse request obtenha status de sucesso, a página retira a "Ficha_Cadastro_Aluno" e instancializa o componente "Cadastro_Sucesso", que indica o sucesso no cadastro. Por esse exemplo, percebe-se a forma como as coisas foram implementadas. Os elementos dinâmicos de página vão instancializando componentes estáticos dependendo do estado da página. 
+	Explicando por exemplo o componente "paginaCadastroAluno". Esse componente representa uma página, logo, em primeiro momento ele instancializa-se a barra 
+	de navegação no topo da página e um componente "Ficha_Cadastro_Aluno" no meio da página. Preenchidos os dados do aluno, faz-se um pedido de POST para o Backend, de modo a salvar esse novo aluno no banco. Caso esse request obtenha status de sucesso, a página retira a "Ficha_Cadastro_Aluno" e instancializa o componente "Cadastro_Sucesso", que indica o sucesso no cadastro. Por esse exemplo, percebe-se a forma como as coisas foram implementadas. Os elementos dinâmicos de página vão instancializando componentes estáticos dependendo do estado da página. 
 
 
 	Link para página inicial do site: https://teste-react-engsoft.herokuapp.com/
