@@ -59,7 +59,7 @@ class InstrutorResource(Resource):
         n_cadastro = request.args.get('num_cadastro')
         instrutor = Instrutor.query.filter_by(num_cadastro=n_cadastro).first()
         if not instrutor:
-            return {'message' : 'Nenhum instrutor com este número de cadastro'}
+            return {'message' : 'Nenhum instrutor com este número de cadastro'}, 400
         result = instrutor_schema.dump(instrutor).data
         return { "status": 'success', 'data': result}, 201
 
@@ -96,7 +96,7 @@ class InstrutorResource(Resource):
             return {'message': 'Telefone inválido!'}, 400
         if not BREVE_REGEX.match(json_data['breve']):
             return {'message': 'Favor, digitar um número de brevê válido'}, 400
-            
+
         instrutor.nome = json_data['nome']
         instrutor.email = json_data['email']
         instrutor.endereco = json_data['endereco']
