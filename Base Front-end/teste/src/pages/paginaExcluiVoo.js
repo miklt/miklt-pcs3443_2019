@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../css/paginaExcluiVoo.css';
+import '../css/Busca_Sucesso.css';
 import { Link, Redirect } from 'react-router-dom';
+import Exclui_Voo_Sucesso from '../components/Exclui_Voo_Sucesso';
 import Naveg from '../components/Naveg';
 
 class paginaExcluiVoo extends Component {
  constructor(props) {
    super(props);
+   this.handleVooIdChange=this.handleVooIdChange   .bind(this);
    this.state = {
+      voo_id: '',
+      success: false,
   };
  }
+
+handleVooIdChange(e) {
+   this.setState({voo_id: e.target.value,});
+}
 
 handleSubmit = event => {
    event.preventDefault();
 
-   /* usar como base para metodos post
-   const user = {
-     nome: this.state.nome,
-     email: this.state.email,
-     cpf: this.state.cpf,
-     data_nascimento: this.state.dataNascimento,
-     endereco: this.state.endereco,
-     telefone: this.state.telefone
-   };
-   
-   axios.post(`https://testeparaaviacao.herokuapp.com/api/Aluno`,user)
+   const data={params: {voo_id:this.state.voo_id}}
+
+   axios.delete(`https://testeparaaviacao.herokuapp.com/api/Voo`,data)
      .then(res => {
-          if (res.data.status === 'success'){
-             this.setState({redirect: true});
-             this.setState({num_matric: res.data.data.num_matric});
-          }
+          if (res.data.status === 'success')
+             this.setState({success: true});
+          console.log(data)
           console.log(res.data.status);
           console.log(res);
           console.log(res.data);
@@ -37,7 +36,7 @@ handleSubmit = event => {
      .catch(function (error) {
           if (error.response) {
              alert(error.response.data.message);
-             console.log(error.response.data);
+             console.log(error.response.status);
              console.log(error.response.headers);
           } else if (error.request) {
              console.log(error.request);
@@ -46,18 +45,35 @@ handleSubmit = event => {
              console.log('Error', error.message);
           }
           console.log(error.config);
-     })*/
+     })
  }
 
  render() {
-   /*if (this.state.redirect === true){
-       return <Cadastro_Sucesso funcao="Aluno" chave="Número de Matrícula" num_matric={this.state.num_matric} nome={this.state.nome}/>
-   }*/
-   return (
-         <div className="pagina">
+  if (this.state.success === true){
+        return (
+           <div className="pagina">
+               <h1>Dados Cadastrais Do Aluno:</h1>
+               <Exclui_Voo_Sucesso
+               voo_id={this.state.voo_id}
+               />
+               <button id="buttonDanger">
+                   <Link id="link" to="/aluno">Voltar</Link>
+               </button>
+            </div>
+        );
+      
+  }
+    return (
+        <div className="pagina">
             <Naveg/>
-            <button id="buttonDanger">
-                   <Link id="link" to="/instrutor">Voltar</Link>
+            <form onSubmit={this.handleSubmit}>
+                <h1>Digite o id do voo que deseja excluir: </h1>
+                <label>Identificador do voo</label><br/>
+                <input type="text" name="cpf" value={this.state.voo_id} onChange={this.handleVooIdChange}></input><br/>
+                <button id="buttonSuccess" type="submit">Enviar</button>
+           </form>
+           <button id="buttonDanger1">
+                   <Link id="link" to="/aluno">Voltar</Link>
             </button>
        </div>
   );

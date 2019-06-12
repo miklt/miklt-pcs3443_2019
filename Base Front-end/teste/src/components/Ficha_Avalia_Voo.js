@@ -7,7 +7,7 @@ class Ficha_Avalia_Voo extends Component {
     constructor(props){
         super(props);
         this.handleDataVooChange=this.handleDataVooChange.bind(this);
-        this.handleHoraVooChange=this.handleHoraVooChange.bind(this);
+        this.handleHoraInicioChange=this.handleHoraInicioChange.bind(this);
         this.handleHorasTotalChange=this.handleHorasTotalChange.bind(this);
         this.handleNotaChange=this.handleNotaChange.bind(this);
         this.handleInstrutorIdChange=this.handleInstrutorIdChange.bind(this);
@@ -18,8 +18,8 @@ class Ficha_Avalia_Voo extends Component {
         this.props.onDataVooChange(e.target.value);
      }
     
-     handleHoraVooChange(e) {
-        this.props.onHoraVooChange(e.target.value);
+     handleHoraInicioChange(e) {
+        this.props.onHoraInicioChange(e.target.value);
     }
     
     handleHorasTotalChange(e) {
@@ -51,12 +51,12 @@ class Ficha_Avalia_Voo extends Component {
                     <label>Data (dd/mm/yyyy)</label>
                     <input type="text" name="data_voo" value={this.props.data_voo} onChange={this.handleDataVooChange}></input>
                     <label>Hora</label> 
-                    <input type="text" name="hora_voo" value={this.props.hora_voo} onChange={this.handleHoraVooChange}></input>
+                    <input type="text" name="hora_inicio" value={this.props.hora_inicio} onChange={this.handleHoraInicioChange}></input>
                     <br/><br/>
                     <label>Duração (horas)</label>
-                    <input type="text" name="horas_total" value={this.props.horas_total} onChange={this.handleHorasTotalChange}></input>
+                    <input type="number" name="horas_total" value={this.props.horas_total} onChange={this.handleHorasTotalChange}></input>
                     <label>Nota</label>
-                    <select type="text" name="nota" value={this.props.nota} onChange={this.handleNotaChange}>
+                    <select type="number" name="nota" value={this.props.nota} onChange={this.handleNotaChange}>
                         <option value={''}>...</option>
                         <option value={1}>1</option>
                         <option value={2}>2</option>

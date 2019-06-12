@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/paginaAvaliaVoo.css';
 import Ficha_Avalia_Voo from '../components/Ficha_Avalia_Voo';
-import Cadastro_Sucesso from '../components/Cadastro_Sucesso';
+import Cadastro_Voo_Sucesso from '../components/Cadastro_Voo_Sucesso';
 import { Link, Redirect } from 'react-router-dom';
 import Naveg from '../components/Naveg';
 
@@ -10,18 +10,19 @@ class paginaAvaliaVoo extends Component {
    constructor(props) {
       super(props);
       this.handleDataVooChange=this.handleDataVooChange.bind(this);
-      this.handleHoraVooChange=this.handleHoraVooChange.bind(this);
+      this.handleHoraInicioChange=this.handleHoraInicioChange.bind(this);
       this.handleHorasTotalChange=this.handleHorasTotalChange.bind(this);
       this.handleNotaChange=this.handleNotaChange.bind(this);
       this.handleInstrutorIdChange=this.handleInstrutorIdChange.bind(this);
       this.handleAlunoIdChange=this.handleAlunoIdChange.bind(this);
       this.state = {
          data_voo: '',
-         hora_voo: '',
+         hora_inicio: '',
          horas_total: '',
          nota: '',
          instrutor_id: '',
          aluno_id: '',
+         voo_id: '',
          redirect: false
      };
     }
@@ -30,8 +31,8 @@ class paginaAvaliaVoo extends Component {
        this.setState({data_voo: data_voo,});
     }
    
-   handleHoraVooChange(hora_voo) {
-      this.setState({hora_voo: hora_voo,});
+   handleHoraInicioChange(hora_inicio) {
+      this.setState({hora_inicio: hora_inicio,});
    }
 
    handleHorasTotalChange(horas_total) {
@@ -55,7 +56,7 @@ class paginaAvaliaVoo extends Component {
    
       const voo = {
         data_voo: this.state.data_voo,
-        hora_voo: this.state.hora_voo,
+        hora_inicio: this.state.hora_inicio,
         horas_total: this.state.horas_total,
         nota: this.state.nota,
         instrutor_id: this.state.instrutor_id,
@@ -63,12 +64,11 @@ class paginaAvaliaVoo extends Component {
       };
       
       axios.post('https://testeparaaviacao.herokuapp.com/api/Voo',voo)
-        .then(res => {
-             if (res.data.status === 'success'){
+      .then(res => {
+            if (res.data.status === 'success'){
                 this.setState({redirect: true});
-                this.setState({num_matric: res.data.data.num_matric});
+                this.setState({voo_id: res.data.data.voo_id});
              }
-             console.log(voo);
              console.log(res.data.status);
              console.log(res);
              console.log(res.data);
@@ -90,7 +90,7 @@ class paginaAvaliaVoo extends Component {
 
  render() {
    if (this.state.redirect === true){
-       return <Cadastro_Sucesso funcao="Voo" chave="Id do Voo" num_matric={this.state.num_matric} nome={this.state.nome}/>
+       return <Cadastro_Voo_Sucesso voo_id={this.state.voo_id}/>
    }
    return (
          <div className="pagina">
@@ -98,13 +98,13 @@ class paginaAvaliaVoo extends Component {
             <form onSubmit={this.handleSubmit}>
                <Ficha_Avalia_Voo 
                data_voo={this.state.data_voo}
-               hora_voo={this.state.hora_voo}
+               hora_inicio={this.state.hora_inicio}
                horas_total={this.state.horas_total}
                nota={this.state.nota}
                instrutor_id={this.state.instrutor_id}
                aluno_id={this.state.aluno_id}
                onDataVooChange={this.handleDataVooChange}
-               onHoraVooChange={this.handleHoraVooChange}
+               onHoraInicioChange={this.handleHoraInicioChange}
                onHotasTotalChange={this.handleHorasTotalChange}
                onNotaChange={this.handleNotaChange}
                onInstrutorIdChange={this.handleInstrutorIdChange}
