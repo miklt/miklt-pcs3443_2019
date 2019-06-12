@@ -9,7 +9,7 @@ import { CreateAlunoComponent } from './alunos/create-aluno/create-aluno.compone
 import {HttpClientModule} from '@angular/common/http';
 import { AlunoService } from './services/aluno.service';
 import { ReadAlunoComponent } from './alunos/read-aluno/read-aluno.component';
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { FormsModule } from '@angular/forms';
 import { EditAlunoComponent } from './alunos/edit-aluno/edit-aluno.component';
 import { CreateInstrutorComponent } from './instrutores/create-instrutor/create-instrutor.component';
@@ -46,9 +46,7 @@ import { LoginComponent } from './login/login.component';
     NgxMaskModule.forRoot(),
     FormsModule
   ],
-  providers: [
-    AlunoService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

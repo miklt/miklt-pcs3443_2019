@@ -10,20 +10,20 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isFuncionario()">
         <a class="nav-link" href="/">Alunos <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isFuncionario()">
         <a class="nav-link" href="/list-instrutor">Instrutores</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isFuncionario() || isInstrutor()">
         <a class="nav-link" href="/list-voo">Voos</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isFuncionario()">
         <a class="nav-link" href="/list-funcionario">Funcionários</a>
       </li>
     </ul>
-    <a class="nav-link" href="#">Sair</a>
+    <a class="nav-link" href="#" (click)="logout()">Sair</a>
   </div>
 </nav>
 
