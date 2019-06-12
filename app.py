@@ -11,10 +11,11 @@ import datetime as datetimee
 
 app = Flask(__name__)
 # alterar para postgre e instalar um servidor de banco de dados
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:57273LIns@localhost/Lab'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
+
 
 app.secret_key = 'aeroclube'
 
@@ -32,6 +33,11 @@ def downloadBreve(nome_arquivo):
 def home():
     if 'pessoa' not in session:
         return redirect(url_for('login'))
+    print()
+    print(session)
+    print()
+    print()
+    print()
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
@@ -63,9 +69,11 @@ def home():
             else:
                 total = total + aula.nota
         tamanho = len(aulas) - desconto
-        media_aulas = total/tamanho
-        media_aulas = "{0:.2f}".format(media_aulas)
-
+        try:
+            media_aulas = total/tamanho
+            media_aulas = "{0:.2f}".format(media_aulas)
+        except:
+            medias_aulas = "Sem aulas"
 
 
         #decolagens do dia
@@ -156,38 +164,38 @@ def cadastrarUsuario():
         cargo = request.form['cargo']
         senha = request.form['senha']
 
-        try:
-            data_nascimento = datetime.strptime(data_nascimento_str,
-                                                '%d/%m/%Y').date()
-            pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
-            pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
-            pessoa_email = Pessoa.encontrar_pelo_email(email)
+        # try:
+        data_nascimento = datetime.strptime(data_nascimento_str,
+                                            '%d/%m/%Y').date()
+        pessoa_nome = Pessoa.encontrar_pelo_nome(nome)
+        pessoa_cpf = Pessoa.encontrar_pelo_cpf(cpf)
+        pessoa_email = Pessoa.encontrar_pelo_email(email)
 
-            if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
-                erro_cadastro = True
-                mensagem_erro = "Formato do CPF invalido"
-            elif pessoa_nome:
-                erro_cadastro = True
-                mensagem_erro = "Nome ja cadastrado"
-            elif pessoa_cpf:
-                erro_cadastro = True
-                mensagem_erro = "CPF ja cadastrado"
-            elif pessoa_email:
-                erro_cadastro = True
-                mensagem_erro = "E-mail ja cadastrado"
-            else:
-                nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
-                                     cargo=cargo,
-                                     data_nascimento=data_nascimento,
-                                     senha=senha)
-                nova_pessoa.adicionar()
-                cadastrou_pessoa = True
-        except ValueError:
+        if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
             erro_cadastro = True
-            mensagem_erro = "Formato da data invalido"
-        except Exception:
+            mensagem_erro = "Formato do CPF invalido"
+        elif pessoa_nome:
             erro_cadastro = True
-            mensagem_erro = "Erro. Nao foi possivel cadastrar usuario"
+            mensagem_erro = "Nome ja cadastrado"
+        elif pessoa_cpf:
+            erro_cadastro = True
+            mensagem_erro = "CPF ja cadastrado"
+        elif pessoa_email:
+            erro_cadastro = True
+            mensagem_erro = "E-mail ja cadastrado"
+        else:
+            nova_pessoa = Pessoa(nome=nome, cpf=cpf, email=email,
+                                    cargo=cargo,
+                                    data_nascimento=data_nascimento,
+                                    senha=senha)
+            nova_pessoa.adicionar()
+            cadastrou_pessoa = True
+        # except ValueError:
+        #     erro_cadastro = True
+        #     mensagem_erro = "Formato da data invalido"
+        # except Exception:
+        #     erro_cadastro = True
+        #     mensagem_erro = "Erro. Nao foi possivel cadastrar usuario"
 
     return render_template("cadastrar_usuario.html", **locals())
 
@@ -236,6 +244,7 @@ def editarUsuario():
                     usuario.data_nascimento = data_nascimento
                     usuario.cargo = cargo
                     usuario.senha = senha
+                    db.session.add(usuario)
                     db.session.commit()
                     editou_pessoa = True
             except ValueError:
@@ -746,11 +755,12 @@ def login():
         senha = request.form['senha']
         pessoa = Pessoa.encontrar_pelo_email(email)
         if pessoa:
+            pessoa_nao_encontrada = True
+
             if pessoa.senha == senha:
                 session['pessoa'] = pessoa.id
                 return redirect(url_for('home'))
 
-        pessoa_nao_encontrada = True
     return render_template("login.html", **locals())
 
 
@@ -803,8 +813,19 @@ def visualizarHoras():
 # cria as tabelas do banco de dados, caso elas nao estejam criadas
 @app.before_first_request
 def create_tables():
-    print("criar tabelas")
-    db.create_all()
+    try:
+        db.create_all()
+        print("criar tabelas")
+        print()
+        print()
+        print()
+
+    except:
+        print("erro")
+        print()
+        print()
+        print()
+        print()
 # fim criacao de tabelas
 
 
