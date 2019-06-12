@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12">
+    <div class="alert alert-dismissible alert-success" *ngIf="success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Pronto!</strong> Funcionário cadastrado com sucesso.
+    </div>
+    <div class="alert alert-dismissible alert-danger" *ngIf="error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Ops!</strong>
+      <p [innerHtml]="errorMsg"></p>
+    </div>
+  </div>
+  <div class="col-12 text-center" *ngIf="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <span class="ml-3">Carregando...</span>
+  </div>
+  <div class="col-12">
+        <fieldset>
+          <legend>Novo Funcionário</legend>
+          <div class="form-group">
+            <label for="nome-input">Nome completo</label>
+            <input type="text" class="form-control" id="nome-input" [(ngModel)]="novoFuncionario.nome">
+          </div>
+          <div class="form-group">
+            <label for="cpf-input">CPF</label>
+            <input type="tel" class="form-control" id="cpf-input"  [(ngModel)]="novoFuncionario.cpf" mask="000.000.000-00" [showMaskTyped] = "true">
+          </div>
+          <div class="form-group">
+            <label for="nascimento-input">Data de nascimento</label>
+            <input type="text" class="form-control" id="nascimento-input"  [(ngModel)]="novoFuncionario.dataNascimento" mask="00/00/0000" [showMaskTyped] = "true">
+          </div>
+          <div class="form-group">
+            <label for="email-input">E-mail</label>
+            <input type="email" class="form-control" id="email-input"  [(ngModel)]="novoFuncionario.email">
+          </div>
+        </fieldset>
+
+        <button class="btn btn-success" (click)="salvarFuncionario(novoFuncionario)">Cadastrar</button>
+    </div>
+  </div>

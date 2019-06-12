@@ -13,6 +13,10 @@ import { ListVooComponent } from './voos/list-voo/list-voo.component';
 import { EditVooComponent } from './voos/edit-voo/edit-voo.component';
 import { ReadVooComponent } from './voos/read-voo/read-voo.component';
 import { LoginComponent } from './login/login.component';
+import { CreateFuncionarioComponent } from './funcionarios/create-funcionario/create-funcionario.component';
+import { EditFuncionarioComponent } from './funcionarios/edit-funcionario/edit-funcionario.component';
+import { ListFuncionarioComponent } from './funcionarios/list-funcionario/list-funcionario.component';
+import { ReadFuncionarioComponent } from './funcionarios/read-funcionario/read-funcionario.component';
 
 const routes: Routes = [
   // Login
@@ -32,6 +36,11 @@ const routes: Routes = [
   { path: 'list-voo', component: ListVooComponent },
   { path: 'edit-voo/:id', component: EditVooComponent },
   { path: 'read-voo/:id', component: ReadVooComponent },
+  //Funcionarios
+  { path: 'create-funcionario', component: CreateFuncionarioComponent },
+  { path: 'list-funcionario', component: ListFuncionarioComponent },
+  { path: 'edit-funcionario/:id', component: EditFuncionarioComponent },
+  { path: 'read-funcionario/:id', component: ReadFuncionarioComponent },
 
   {path : '', component : ListAlunoComponent}
 ];
