@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import logo from '../images/airplane.png';
+import axios from 'axios';
 import '../css/paginaLogin.css';
 import paginaInicial from '../pages/paginaInicial';
 
@@ -12,7 +13,7 @@ class paginaLogin extends Component {
    this.state = {
       usuario: '',
       senha: '',
-      submit: false,
+      success: false,
   };
  }
 
@@ -27,15 +28,34 @@ handleSenhaChange(e) {
 handleSubmit = event => {
    event.preventDefault();
    
-   this.setState({submit: true,})
-  /* const user = {
-     usuario: this.state.usuario,
-     senha: this.state.senha,
-   };*/
+   axios.get(`https://testeparaaviacao.herokuapp.com/api/Login`,{params: {user:this.state.usuario, password:this.state.senha}})
+   .then(res => {
+        if (res.data.status === 'success'){
+           this.setState({success: true});
+        }
+        console.log(res.data.status);
+        console.log(res);
+        console.log(res.data);
+        
+  })
+   .catch(function (error) {
+        if (error.response) {
+           alert(error.response.data.message);
+           console.log(error.response.status);
+           console.log(error.response.headers);
+        } else if (error.request) {
+           console.log(error.request);
+        } else {
+
+           console.log('Error', error.message);
+        }
+        console.log(error.config);
+   })
+
 }
 
  render(){
-  if (this.state.usuario === "Admin" && this.state.senha === "lab_engsoft" && this.state.submit==true){
+  if (this.state.success == true){
         return <Redirect to="/home"/>
         }
   return (
