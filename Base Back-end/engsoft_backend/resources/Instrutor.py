@@ -86,6 +86,17 @@ class InstrutorResource(Resource):
         if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400
         
+        if not EMAIL_REGEX.match(json_data['email']):
+            return {'message': 'E-mail inválido'}, 400
+        if not CPF_REGEX.match(json_data['cpf']):
+            return {'message': 'CPF inválido'}, 400
+        if not DATA_REGEX.match(json_data['data_nascimento']):
+            return {'message': 'Data inválida! Favor, inserir no formato indicado.'}, 400
+        if not TELEFONE_REGEX.match(json_data['telefone']):
+            return {'message': 'Telefone inválido!'}, 400
+        if not BREVE_REGEX.match(json_data['breve']):
+            return {'message': 'Favor, digitar um número de brevê válido'}, 400
+            
         instrutor.nome = json_data['nome']
         instrutor.email = json_data['email']
         instrutor.endereco = json_data['endereco']
