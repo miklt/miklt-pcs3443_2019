@@ -21,6 +21,10 @@ import { CreateVooComponent } from './voos/create-voo/create-voo.component';
 import { EditVooComponent } from './voos/edit-voo/edit-voo.component';
 import { ReadVooComponent } from './voos/read-voo/read-voo.component';
 import { LoginComponent } from './login/login.component';
+import { CreateFuncionarioComponent } from './funcionarios/create-funcionario/create-funcionario.component';
+import { EditFuncionarioComponent } from './funcionarios/edit-funcionario/edit-funcionario.component';
+import { ListFuncionarioComponent } from './funcionarios/list-funcionario/list-funcionario.component';
+import { ReadFuncionarioComponent } from './funcionarios/read-funcionario/read-funcionario.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { LoginComponent } from './login/login.component';
     CreateVooComponent,
     EditVooComponent,
     ReadVooComponent,
-    LoginComponent
+    LoginComponent,
+    CreateFuncionarioComponent,
+    EditFuncionarioComponent,
+    ListFuncionarioComponent,
+    ReadFuncionarioComponent
   ],
   imports: [
     BrowserModule,
