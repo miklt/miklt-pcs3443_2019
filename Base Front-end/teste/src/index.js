@@ -21,6 +21,7 @@ import paginaAlterarInstrutor from './pages/paginaAlterarInstrutor';
 import paginaHabilitarAluno from './pages/paginaHabilitarAluno';
 import paginaDeletarAluno from './pages/paginaDeletarAluno';
 import paginaDeletarInstrutor from './pages/paginaDeletarInstrutor';
+import paginaProgressoAluno from './pages/paginaProgressoAluno';
 
 
 ReactDOM.render(
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route path="/" exact={true} component={paginaLogin} />
             <Route path="/home" component={paginaInicial} />
             <Route path="/aluno" exact={true} component={paginaAluno} />
+            <Route path="/aluno/progresso" component={paginaProgressoAluno} />
             <Route path="/aluno/buscaDados" component={paginaBuscaAluno} />
             <Route path="/aluno/alteraDados" component={paginaAlterarAluno} />
             <Route path="/aluno/buscaVoo" component={paginaBuscaVooAluno} />

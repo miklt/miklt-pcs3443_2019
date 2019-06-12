@@ -24,7 +24,7 @@ handleSubmit = event => {
 
    axios.delete(`https://testeparaaviacao.herokuapp.com/api/Voo`,{params: {voo_id:this.state.voo_id}})
      .then(res => {
-          if (res.status === '204')
+          if (res.status == 204)
              this.setState({success: true})
           console.log(res.data.status);
           console.log(res);

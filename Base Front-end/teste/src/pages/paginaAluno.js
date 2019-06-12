@@ -25,7 +25,7 @@ class paginaAluno extends Component {
         <Card.Header as="h5">Progresso</Card.Header>
         <Card.Body>
             <Card.Title>Consulta de total de horas e situação de avaliações.</Card.Title>
-            <Button variant="primary" href="/buscaAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/aluno/progresso">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardAlu">
