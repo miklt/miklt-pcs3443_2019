@@ -14,10 +14,10 @@ banco de dados) está declarada com os atributos listados no arquivo 'Model.py',
 arquivo possui tanto o modelo do banco de dados como um modelo de validação com a biblioteca MArshmallow.
 Os métodos de cada classe estão nos arquivos 'nome_da_classe.py', dentro da pasta Resources. Contudo, alguns métodos estão
 em arquivos .py que não correspondem a nenhuma classe, mas definem métodos HTTP relacionados a determinadas URLs, 
-como o caso do 'Habilitar.py', 'VooAluno.py' e 'VooInstrutor.py'.
+como o caso do 'Habilitar.py', 'VooAluno.py' e 'VooInstrutor.py'. 
 	O banco de dados utilizado foi o postgreSQL, sendo que sua comunicação está sendo feita
 através do arquivo 'config.py'. O arquivo 'run.py' é responsável por iniciar a API e o arquivo migrate utiliza
-uma biblioteca para fazer as migrações no banco de dados.
+uma biblioteca para fazer as migrações no banco de dados. O arquivo 'app.py' define as URLs.
 	A tabela 'funcionarios' apenas apresenta um usuario e uma senha das pessoas que podem 
 acessar e modificar os dados do site.
 
