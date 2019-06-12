@@ -59,7 +59,7 @@ class InstrutorResource(Resource):
         n_cadastro = request.args.get('num_cadastro')
         instrutor = Instrutor.query.filter_by(num_cadastro=n_cadastro).first()
         if not instrutor:
-            return {'message' : 'Nenhum instrutor com este CPF'}
+            return {'message' : 'Nenhum instrutor com este número de cadastro'}
         result = instrutor_schema.dump(instrutor).data
         return { "status": 'success', 'data': result}, 201
 
