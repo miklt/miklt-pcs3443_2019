@@ -3,6 +3,7 @@ from app import db
 from flask import request
 import app.voo.models as models
 from sqlalchemy.sql import func,select
+from sqlalchemy import exc
 import json
 
 from datetime import datetime
@@ -86,6 +87,7 @@ def consultarHoras():
 @voo.route('/registerAero', methods=['POST'])
 def registerAero():
     data = request.get_json()
+    val = {}
 
     u = models.Aeronave(
         num = data['num'],
@@ -94,8 +96,16 @@ def registerAero():
         proprietario = data['proprietario'],
         cpf = data['cpf'])
 
-       
-    db.session.add(u)
-    db.session.commit()
+    try:   
+        db.session.add(u)
+        db.session.commit()
+    except exc.IntegrityError as e:
+        db.session.rollback()
+        print(e.statement)
+        val['error'] = "Erro: {} já cadastrado.".format(str(e.orig).split('.')[1])
+    else:
+        val['num'] = u.num
 
-    return 
+    finally:
+        return json.dumps(val, default = str)
+     
