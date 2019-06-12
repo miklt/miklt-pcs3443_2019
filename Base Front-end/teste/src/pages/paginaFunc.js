@@ -46,14 +46,14 @@ class paginaFunc extends Component {
         <Card.Header as="h5">Alterar Dados Aluno</Card.Header>
         <Card.Body>
             <Card.Title>Altere os dados cadastrais de um aluno.</Card.Title>
-            <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/alteraAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
         <Card.Header as="h5">Alterar Dados Instrutor</Card.Header>
         <Card.Body>
             <Card.Title>Altere os dados cadastrais de um instrutor.</Card.Title>
-            <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/alteraInstrutor">Clique Aqui</Button>
         </Card.Body>
         </Card>
         <Card style={{ width: '18rem' }} className="dashboardFunc">
@@ -74,7 +74,7 @@ class paginaFunc extends Component {
         <Card.Header as="h5">Habilita Aluno</Card.Header>
         <Card.Body>
             <Card.Title>Habilita um aluno a realizar voos aula.</Card.Title>
-            <Button variant="primary" href="/cadastroAluno">Clique Aqui</Button>
+            <Button variant="primary" href="/funcionario/habilitaAluno">Clique Aqui</Button>
         </Card.Body>
         </Card>
       </div>
