@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SessionService } from './services/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,7 @@ import { SessionService } from './services/session.service';
 })
 export class AppComponent {
   title = 'aeroclube-frontend-angular';
-  constructor(public sessionService: SessionService) {}
-
-  logout() {
-    this.sessionService.logout();
-  }
+  constructor(public sessionService: SessionService, private router: Router) {}
 
   isAluno() {
     return this.sessionService.getAtor() === 'aluno';
@@ -24,5 +21,10 @@ export class AppComponent {
 
   isFuncionario() {
     return this.sessionService.getAtor() === 'funcionario';
+  }
+
+  logout() {
+    this.sessionService.logout();
+    this.router.navigate(['login']);
   }
 }

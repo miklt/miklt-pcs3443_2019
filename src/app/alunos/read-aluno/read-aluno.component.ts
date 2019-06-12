@@ -4,6 +4,7 @@ import { AlunoService } from '../../services/aluno.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VooService } from 'src/app/services/voo.service';
 import { Voo } from 'src/app/models/voo.model';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-read-aluno',
@@ -20,7 +21,8 @@ export class ReadAlunoComponent implements OnInit {
   voosDoAluno: Voo[] = [];
   porcentagemCompleta: number;
 
-  constructor(public alunoService: AlunoService, public route: ActivatedRoute, private router: Router, private vooService: VooService) {
+  constructor(public alunoService: AlunoService, public route: ActivatedRoute,
+              private router: Router, private vooService: VooService, public sessionService: SessionService) {
     this.loading = true;
     this.route.params.subscribe(params => {
       this.aluno.numeroMatricula = params.id;

@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'edit-funcionario/:id', component: EditFuncionarioComponent },
   { path: 'read-funcionario/:id', component: ReadFuncionarioComponent },
 
-  {path : '', component : ListAlunoComponent}
+  {path : '', component : LoginComponent}
 ];
 
 @NgModule({

@@ -9,23 +9,23 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="isFuncionario()">
-        <a class="nav-link" href="/">Alunos</a>
-      </li>
-      <li class="nav-item" *ngIf="isFuncionario()">
-        <a class="nav-link" href="/list-instrutor">Instrutores</a>
-      </li>
-      <li class="nav-item" *ngIf="isFuncionario() || isInstrutor()">
-        <a class="nav-link" href="/list-voo">Voos</a>
-      </li>
-      <li class="nav-item" *ngIf="isFuncionario()">
-        <a class="nav-link" href="/list-funcionario">Funcionários</a>
-      </li>
-    </ul>
-    <a class="nav-link" href="#" (click)="logout()">Sair</a>
-  </div>
+    <div class="navbar-collapse collapse show" id="navbarColour01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="isFuncionario()">
+          <a class="nav-link" href="/list-aluno">Alunos</a>
+        </li>
+        <li class="nav-item" *ngIf="isFuncionario()">
+          <a class="nav-link" href="/list-instrutor">Instrutores</a>
+        </li>
+        <li class="nav-item" *ngIf="isFuncionario() || isInstrutor()">
+          <a class="nav-link" href="/list-voo">Voos</a>
+        </li>
+        <li class="nav-item" *ngIf="isFuncionario()">
+          <a class="nav-link" href="/list-funcionario">Funcionários</a>
+        </li>
+      </ul>
+      <a class="nav-link" href="#" (click)="logout()" *ngIf="isFuncionario() || isInstrutor() || isAluno()">Sair</a>
+    </div>
   </div>
 </nav>
 

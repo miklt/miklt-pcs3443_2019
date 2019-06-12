@@ -53,4 +53,18 @@ export class SessionService {
       this.router.navigate(['login']);
     }
   }
+
+  getEmail() {
+    const email = localStorage.getItem('aero-email');
+    if (email) {
+      return email;
+    }
+  }
+
+  getCPF() {
+    const cpf = localStorage.getItem('aero-cpf');
+    if (cpf) {
+      return cpf;
+    }
+  }
 }

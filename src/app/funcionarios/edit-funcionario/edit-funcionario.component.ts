@@ -22,11 +22,11 @@ export class EditFuncionarioComponent implements OnInit {
   load() {
     this.loading = true;
     this.route.params.subscribe(params => {
-      this.funcionario.cpf = params.id;
+      this.funcionario.id = params.id;
       this.funcionarioService.getAll().subscribe(response => {
         console.log(response);
 // tslint:disable-next-line: triple-equals
-        const funcionario = response.data.find(a => a.cpf == this.funcionario.cpf);
+        const funcionario = response.data.find(f => f.id == this.funcionario.id);
         console.log(funcionario);
         this.funcionario = funcionario;
         this.loading = false;

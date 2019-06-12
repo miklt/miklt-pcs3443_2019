@@ -6,7 +6,7 @@ import { APIResponse, Funcionario } from '../models/funcionario.model';
   providedIn: 'root'
 })
 export class FuncionarioService {
-  public baseUrl = 'https://aeroclub-backend.herokuapp.com/api/Funcionarios';
+  public baseUrl = 'https://aeroclub-backend.herokuapp.com/api/Funcionario';
 
   constructor(private http: HttpClient) { }
 

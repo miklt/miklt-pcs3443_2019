@@ -15,7 +15,21 @@ export class LoginComponent implements OnInit {
   public success = false;
   public loading = false;
   public nome: string = null;
-  constructor(public sessionService: SessionService, private router: Router) { }
+  constructor(public sessionService: SessionService, private router: Router) {
+    if (this.sessionService.estaLogado()) {
+      this.sessionService.login(this.sessionService.getEmail(), this.sessionService.getCPF()).then(dados => {
+        console.log(dados);
+        this.success = true;
+        this.loading = false;
+        this.nome = dados.nome;
+        this.next(dados);
+      }).catch(err => {
+        console.error('erro login', err);
+        this.error = true;
+        this.loading = false;
+      });
+    }
+  }
 
   ngOnInit() {
   }
@@ -33,6 +47,7 @@ export class LoginComponent implements OnInit {
     }).catch(err => {
       console.error('erro login', err);
       this.error = true;
+      this.loading = false;
     });
   }
 

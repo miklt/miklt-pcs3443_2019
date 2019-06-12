@@ -9,17 +9,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./read-funcionario.component.scss']
 })
 export class ReadFuncionarioComponent implements OnInit {
- 
+
   funcionario: Funcionario = new Funcionario();
   loading = false;
   constructor(public funcionarioService: FuncionarioService, public route: ActivatedRoute, private router: Router) {
     this.loading = true;
     this.route.params.subscribe(params => {
-      this.funcionario.cpf = params.id;
+      this.funcionario.id = params.id;
       this.funcionarioService.getAll().subscribe(response => {
         console.log(response);
 // tslint:disable-next-line: triple-equals
-        const funcionario = response.data.find(a => a.cpf == this.funcionario.cpf);
+        const funcionario = response.data.find(a => a.id == this.funcionario.id);
         console.log(funcionario);
         this.funcionario = funcionario;
         this.loading = false;
@@ -29,7 +29,7 @@ export class ReadFuncionarioComponent implements OnInit {
 
 
   editFuncionario(funcionario: Funcionario) {
-    this.router.navigate(['edit-funcionario', funcionario.cpf]);
+    this.router.navigate(['edit-funcionario', funcionario.id]);
   }
 
   ngOnInit() {

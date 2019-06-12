@@ -30,7 +30,7 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
   goToFuncionario(funcionario: Funcionario) {
-    this.router.navigate(['read-funcionario', funcionario.cpf]);
+    this.router.navigate(['read-funcionario', funcionario.id]);
   }
 
   addFuncionario() {
