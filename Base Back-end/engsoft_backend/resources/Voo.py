@@ -44,7 +44,7 @@ class VooResource(Resource):
         if aluno.concluiu_teoria == 'Nao':
             return {'message' : 'Impossível cadastrar voo! Aluno não possui certificado teórico.'}, 400
 
-        aluno.total_horas_voo = aluno.total_horas_voo + json_data['horas_total']
+        #aluno.total_horas_voo = aluno.total_horas_voo + json_data['horas_total']
         AlunoResource.Verificar(aluno)
         registro = Voo(
             data_voo = json_data['data_voo'],
@@ -54,6 +54,7 @@ class VooResource(Resource):
             instrutor_id = json_data['instrutor_id'],
             aluno_id = json_data['aluno_id']
             )
+        aluno.total_horas_voo = aluno.total_horas_voo + registro.horas_total
         db.session.add(registro)
         db.session.commit()
 
