@@ -62,14 +62,14 @@ class CadastroAero extends React.Component {
                         <input type="text" name="modelo" id="modelo" onChange={this.handleChange} required />
                         <br />
 
-                        <label htmlFor="num">Número de Registro:</label>
-                        <input type="number" name="num" id="num" onChange={this.handleChange} required />
-                        <br />
-
                         <label htmlFor="ano">Ano:</label>
                         <input type="number" name="ano" id="ano" onChange={this.handleChange} required />
                         <br />
 
+                        <label htmlFor="num">Número de Registro:</label>
+                        <input type="number" name="num" id="num" onChange={this.handleChange} required />
+                        <br />
+                        
                         <label htmlFor="proprietario">Proprietário:</label>
                         <input type="text" name="proprietario" id="proprietario" onChange={this.handleChange} required />
                         <br />
