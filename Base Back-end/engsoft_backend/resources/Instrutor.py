@@ -22,7 +22,7 @@ class InstrutorResource(Resource):
         data, errors = instrutor_schema.load(json_data)
         if json_data['nome'] == '' or json_data['email'] == '' or json_data['endereco'] == '' or json_data['cpf'] == '' or json_data['data_nascimento'] == '' or json_data['breve'] == '' or json_data['telefone'] == '':
             return {'message': 'Preencha todos os campos'}, 400
-       if not EMAIL_REGEX.match(json_data['email']):
+        if not EMAIL_REGEX.match(json_data['email']):
             return {'message': 'E-mail inválido'}, 400
         if not CPF_REGEX.match(json_data['cpf']):
             return {'message': 'CPF inválido'}, 400
@@ -36,7 +36,7 @@ class InstrutorResource(Resource):
             return errors, 422
         teste = Instrutor.query.filter_by(cpf=json_data['cpf']).first()
         if teste:
-            return {'message': 'Instrutor com esse CPF já existe'}, 400
+            return {'message': 'Instrutor com esse CPF ja existe'}, 400
         cadastro = Instrutor(
             nome = json_data['nome'],
             email = json_data['email'],
