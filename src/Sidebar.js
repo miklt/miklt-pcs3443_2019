@@ -15,7 +15,7 @@ class Sidebar extends React.Component {
                     {this.props.state.role === "Funcionario" && 
                         <div>
                             <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
-                            <li><Aba name="CadastroAero" nameHtml="/cadastroAero" /></li>
+                            <li><Aba name="Cadastro de Aeronave" nameHtml="/cadastroAero" /></li>
                         </div>
                     }
                     {this.props.state.role === "Aluno" && 
