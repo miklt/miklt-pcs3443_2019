@@ -6,7 +6,7 @@ table.tabelaSocios {
   }
   table.tabelaSocios td, table.tabelaSocios th {
     border: 0px solid #000000;
-    padding: 3px 2px;
+    padding: 6px 10px;
   }
   table.tabelaSocios tbody td {
     font-size: 17px;
