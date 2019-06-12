@@ -65,7 +65,8 @@ handleSubmit = event => {
   if (this.state.success === true){
         return (
            <div className="pagina">
-               <h1>Dados Cadastrais Do Aluno:</h1>
+               <Naveg/>
+               <h1>Dados Cadastrais Do Instrutor:</h1>
                <Busca_Sucesso_Instrutor
                nome={this.state.nome}
                cpf={this.state.cpf}

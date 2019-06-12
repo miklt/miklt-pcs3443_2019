@@ -128,6 +128,7 @@ handleSubmitGet = event => {
   if (this.state.successGet === true){
         return (
            <div className="pagina">
+           <Naveg/>
                <form onSubmit={this.handleSubmitPut}>
                     <h1>Dados Do Instrutor:</h1>
                     <Busca_Alterar_Instrutor
@@ -155,6 +156,7 @@ handleSubmitGet = event => {
     if (this.state.successPut === true){
         return (
             <div className="pagina">
+            <Naveg/>
                 <h1>Dados Alterados com sucesso!</h1>
                     <Busca_Sucesso_Instrutor
                     nome={this.state.nome}

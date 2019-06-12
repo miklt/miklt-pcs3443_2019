@@ -70,12 +70,11 @@ handleSubmitGet = event => {
     event.preventDefault();
     console.log(this.state.num_matric);
     
-    axios.put(`https://testeparaaviacao.herokuapp.com/api/Habilitar`,{params: {num_matric: this.state.num_matric}})
+    axios.put('https://testeparaaviacao.herokuapp.com/api/Habilitar',null,{params: {num_matric: this.state.num_matric}})
       .then(res => {
-           if (res.data.status === 'success'){
+           if (res.status == 204){
             this.setState({successPut: true});
             this.setState({successGet: false});
-            this.setState({concluiu_teoria: res.data.data.concluiu_teoria});
            }
            console.log(res.data.status);
            console.log(res);
@@ -98,7 +97,9 @@ handleSubmitGet = event => {
  render() {
   if (this.state.successGet === true){
         return (
+           
            <div className="pagina">
+           <Naveg/>
                <form onSubmit={this.handleSubmitPut}>
                     <h1>Dados Do Aluno:</h1>
                     <Busca_Habilitar_Aluno
@@ -123,7 +124,9 @@ handleSubmitGet = event => {
     }
     if (this.state.successPut === true){
         return (
+            
             <div className="pagina">
+            <Naveg/>
                 <h1>Aluno habilitado com sucesso!</h1>
                 <button id="buttonDanger">
                     <Link id="link" to="/funcionario">Voltar</Link>
@@ -133,8 +136,9 @@ handleSubmitGet = event => {
      }
     return (
         <div className="pagina">
-            <Naveg/>
+            
             <form onSubmit={this.handleSubmitGet}>
+            <Naveg/>
                 <h1>Digite o numero de matricula do aluno: </h1>
                 <label>Numero de Matricula</label><br/>
                 <input type="text" name="cpf" value={this.state.num_matric} onChange={this.handleNumMatricChange}></input><br/>
