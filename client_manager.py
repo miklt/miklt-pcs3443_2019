@@ -389,13 +389,13 @@ def howafme10():
 @app.route('/resultado-voos-instrutor',methods =["GET","POST"])
 def homme1afafwa():
 	matricula = Login.query.first().matricula
-	instrutorvoo = Voos.query.filter_by(instrutor = matricula)
-	pilotovoo = Voos.query.filter_by(aluno = matricula)
+	instrutorvoos = Voos.query.filter_by(instrutor = matricula)
+	pilotovoos = Voos.query.filter_by(aluno = matricula)
 	
-	if (instrutorvoo.count()==0 and pilotovoo.count()==0):
+	if (instrutorvoos.count()==0 and pilotovoos.count()==0):
 		return render_template('ErroResultadoConsultaVooInstrutor.html')
 	else: 
-		return render_template('ResultadoConsultaVoosInstrutor.html',instrutorvoo = instrutorvoo,pilotovoo = pilotovoo)
+		return render_template('ResultadoConsultaVoosInstrutor.html',instrutorvoos = instrutorvoos,pilotovoos = pilotovoos)
 
 @app.route('/consulta-voo-individual-aluno',methods =["GET","POST"])
 def homwrwe9():

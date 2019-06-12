@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h2>Voos Como Piloto</h2>
-                    {% for pilotovoo in voos %}
+                    {% for pilotovoo in pilotovoos %}
                     <br>
                     <p><strong>Número de Voo</strong>: {{pilotovoo.numero_voo}} </p>
                     <p><strong>Horas</strong>: {{pilotovoo.horas}}</p>
@@ -48,7 +48,7 @@
 
                 <div class="col-sm-6">
                     <h2>Voos Como Instrutor</h2>
-                    {% for instrutorvoo in voos %}
+                    {% for instrutorvoo in instrutorvoos %}
                     <br>
                     <p><strong>Número de Voo</strong>: {{instrutorvoo.numero_voo}} </p>
                     <p><strong>Matrícula do Aluno</strong>: {{instrutorvoo.aluno}}</p>
