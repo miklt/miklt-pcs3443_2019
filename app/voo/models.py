@@ -1,9 +1,8 @@
 from app import db
-from app import voo
-from flask_login import UserMixin
+from app import login
 import json
         
-class Aeronave(UserMixin, db.Model):
+class Aeronave(db.Model):
     __tablename__ = 'aeronave'
     __mapper_args__ = {'polymorphic_identity': 'aeronave'}
 
