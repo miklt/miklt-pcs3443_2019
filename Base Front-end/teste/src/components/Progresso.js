@@ -14,9 +14,9 @@ class Busca_Sucesso_Aluno extends Component {
                 <br/><br/>
                 <h1>Aluno: {this.props.nome}</h1>
                 <h2>Situação: </h2><br/><br/>
-                <label>Total De Horas Voo Aula: {this.props.total_horas_voo}</label><br/>
-                <label>Concluir Aulas Teóricas? {this.props.concluiu_teoria}</label><br/>
-                <label>Concluir Aulas Práticas? {this.props.concluiu_pratica}</label><br/>
+                <label><b>Total De Horas Voo Aula:</b> {this.props.total_horas_voo}</label><br/>
+                <label><b>Concluiu Aulas Teóricas?</b> {this.props.concluiu_teoria}</label><br/>
+                <label><b>Concluiu Aulas Práticas?</b> {this.props.concluiu_pratica}</label><br/>
             </div>
         )
       }

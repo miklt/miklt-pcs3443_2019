@@ -3,41 +3,59 @@ import axios from 'axios';
 import '../css/paginaBuscaVooInstru.css';
 import { Link, Redirect } from 'react-router-dom';
 import Naveg from '../components/Naveg';
+import Busca_Voo_Id from '../components/Busca_Voo_Id';
 
-class paginaBuscaVoo extends Component {
+class paginaBuscaVooInstru extends Component {
  constructor(props) {
    super(props);
+   this.handleEscolhaChange=this.handleEscolhaChange.bind(this);
+   this.handleInputChange=this.handleInputChange.bind(this);
    this.state = {
+      escolha: '',
+      input: '',
+      data_voo: '',
+      hora_inicio: '',
+      horas_total: '',
+      nota: '',
+      instrutor_id: '',
+      aluno_id: '',
+      voo_id: '',
+      dados_voo_aluno: '',
+      success: false
   };
- }
+}
+
+handleEscolhaChange(e) {
+   this.setState({escolha: e.target.value,});
+}
+
+handleInputChange(e) {
+   this.setState({input: e.target.value,});
+}
 
 handleSubmit = event => {
    event.preventDefault();
-
-   /* usar como base para metodos post
-   const user = {
-     nome: this.state.nome,
-     email: this.state.email,
-     cpf: this.state.cpf,
-     data_nascimento: this.state.dataNascimento,
-     endereco: this.state.endereco,
-     telefone: this.state.telefone
-   };
-   
-   axios.post(`https://testeparaaviacao.herokuapp.com/api/Aluno`,user)
+   if(this.state.escolha == 1) {
+      axios.get('https://testeparaaviacao.herokuapp.com/api/Voo',{params: {voo_id:this.state.input}})
      .then(res => {
           if (res.data.status === 'success'){
-             this.setState({redirect: true});
-             this.setState({num_matric: res.data.data.num_matric});
+             this.setState({data_voo: res.data.data.data_voo});
+             this.setState({hora_inicio: res.data.data.hora_inicio});
+             this.setState({horas_total: res.data.data.horas_total});
+             this.setState({nota: res.data.data.nota});
+             this.setState({instrutor_id: res.data.data.instrutor_id});
+             this.setState({aluno_id: res.data.data.aluno_id});
+             this.setState({success: true});
           }
           console.log(res.data.status);
           console.log(res);
           console.log(res.data);
+          
     })
      .catch(function (error) {
           if (error.response) {
              alert(error.response.data.message);
-             console.log(error.response.data);
+             console.log(error.response.status);
              console.log(error.response.headers);
           } else if (error.request) {
              console.log(error.request);
@@ -46,22 +64,57 @@ handleSubmit = event => {
              console.log('Error', error.message);
           }
           console.log(error.config);
-     })*/
- }
+     })
+   }
+   else if (this.state.escolha == 2) {
+      // busca por número de Matrícula
+   }
+   
+}
 
  render() {
-   /*if (this.state.redirect === true){
-       return <Cadastro_Sucesso funcao="Aluno" chave="Número de Matrícula" num_matric={this.state.num_matric} nome={this.state.nome}/>
-   }*/
+   if (this.state.escolha == 1 && this.state.success == true){
+       return (
+               <div className="pagina">
+                  <Busca_Voo_Id 
+                  voo_id={this.state.input}
+                  aluno_id={this.state.aluno_id}
+                  instrutor_id={this.state.instrutor_id}
+                  data_voo={this.state.data_voo}
+                  hora_inicio={this.state.hora_inicio}
+                  horas_total={this.state.horas_total}
+                  nota={this.state.nota}
+                  />
+                  <button id="buttonDanger" type="submit">
+                     <Link id="link" to="/instrutor">Voltar</Link>
+                  </button>
+              </div>
+            );
+   }
+   else if (this.state.escolha == 2 && this.state.success == true){
+       return <h1></h1>
+   }
    return (
-         <div className="pagina">
-            <Naveg/>
-            <button id="buttonDanger">
-                   <Link id="link" to="/instrutor">Voltar</Link>
-            </button>
-       </div>
+      <div className="pagina">
+      <Naveg/>
+      <form onSubmit={this.handleSubmit}>
+          <h1>Busca Voo Instrutor</h1><br/><br/>
+          <h2 className="info">Escolha se deseja buscar por Id do voo ou listar todos os voos por número de cadastro</h2>
+          <br/>
+          <select type="text" name="escolha" value={this.props.escolha} onChange={this.handleEscolhaChange}>
+                        <option value={''}>Modo de Busca</option>
+                        <option value={1}>Id Voo</option>
+                        <option value={2}>Número De Cadastro</option>
+          </select> 
+          <input type="text" name="input" value={this.state.input} onChange={this.handleInputChange}></input><br/>
+          <button id="buttonSuccess" type="submit">Enviar</button>
+     </form>
+     <button id="buttonDanger1">
+             <Link id="link" to="/instrutor">Voltar</Link>
+     </button>
+     </div>
   );
 }
 
 }
-export default paginaBuscaVoo;
+export default paginaBuscaVooInstru;
