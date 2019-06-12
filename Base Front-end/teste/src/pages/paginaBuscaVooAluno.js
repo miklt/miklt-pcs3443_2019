@@ -4,6 +4,7 @@ import '../css/paginaBuscaVooAluno.css';
 import { Link, Redirect } from 'react-router-dom';
 import Naveg from '../components/Naveg';
 import Busca_Voo_Id from '../components/Busca_Voo_Id';
+import Busca_Voo_Matricula from '../components/Busca_Voo_Matricula';
 
 class paginaBuscaVooAluno extends Component {
  constructor(props) {
@@ -68,8 +69,31 @@ handleSubmit = event => {
    }
    else if (this.state.escolha == 2) {
       // busca por número de Matrícula
+      axios.get('https://testeparaaviacao.herokuapp.com/api/VooAluno',{params: {aluno_id:this.state.input}})
+     .then(res => {
+          if (res.data.status === 'success'){
+             this.setState({dados_voo_aluno: res.data.data});
+             this.setState({success: true});
+          }
+          console.log(res.data.status);
+          console.log(res);
+          console.log(res.data);
+          
+    })
+     .catch(function (error) {
+          if (error.response) {
+             alert(error.response.data.message);
+             console.log(error.response.status);
+             console.log(error.response.headers);
+          } else if (error.request) {
+             console.log(error.request);
+          } else {
+
+             console.log('Error', error.message);
+          }
+          console.log(error.config);
+     })
    }
-   
 }
 
  render() {
@@ -92,7 +116,16 @@ handleSubmit = event => {
             );
    }
    else if (this.state.escolha == 2 && this.state.success == true){
-       return <h1></h1>
+       return (
+               <div className="pagina">
+                  <Busca_Voo_Matricula 
+                  dados_voo_aluno={this.state.dados_voo_aluno}
+                  />
+                  <button id="buttonDanger" type="submit">
+                     <Link id="link" to="/aluno">Voltar</Link>
+                  </button>
+               </div>
+                );
    }
    return (
       <div className="pagina">

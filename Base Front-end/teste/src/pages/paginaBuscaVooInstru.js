@@ -4,6 +4,7 @@ import '../css/paginaBuscaVooInstru.css';
 import { Link, Redirect } from 'react-router-dom';
 import Naveg from '../components/Naveg';
 import Busca_Voo_Id from '../components/Busca_Voo_Id';
+import Busca_Voo_Cadastro from '../components/Busca_Voo_Cadastro';
 
 class paginaBuscaVooInstru extends Component {
  constructor(props) {
@@ -20,7 +21,7 @@ class paginaBuscaVooInstru extends Component {
       instrutor_id: '',
       aluno_id: '',
       voo_id: '',
-      dados_voo_aluno: '',
+      dados_voo_instrutor: '',
       success: false
   };
 }
@@ -67,9 +68,32 @@ handleSubmit = event => {
      })
    }
    else if (this.state.escolha == 2) {
-      // busca por número de Matrícula
+     // busca por número de Matrícula
+     axios.get('https://testeparaaviacao.herokuapp.com/api/VooInstrutor',{params: {instrutor_id:this.state.input}})
+     .then(res => {
+          if (res.data.status === 'success'){
+             this.setState({dados_voo_instrutor: res.data.data});
+             this.setState({success: true});
+          }
+          console.log(res.data.status);
+          console.log(res);
+          console.log(res.data);
+          
+    })
+     .catch(function (error) {
+          if (error.response) {
+             alert(error.response.data.message);
+             console.log(error.response.status);
+             console.log(error.response.headers);
+          } else if (error.request) {
+             console.log(error.request);
+          } else {
+
+             console.log('Error', error.message);
+          }
+          console.log(error.config);
+     })
    }
-   
 }
 
  render() {
@@ -92,7 +116,16 @@ handleSubmit = event => {
             );
    }
    else if (this.state.escolha == 2 && this.state.success == true){
-       return <h1></h1>
+       return (
+               <div className="pagina">
+                  <Busca_Voo_Cadastro 
+                  dados_voo_instrutor={this.state.dados_voo_instrutor}
+                  />
+                  <button id="buttonDanger" type="submit">
+                     <Link id="link" to="/instrutor">Voltar</Link>
+                  </button>
+               </div>
+               );
    }
    return (
       <div className="pagina">
