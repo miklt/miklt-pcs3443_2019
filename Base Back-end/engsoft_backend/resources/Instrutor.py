@@ -36,7 +36,7 @@ class InstrutorResource(Resource):
             return errors, 422
         teste = Instrutor.query.filter_by(cpf=json_data['cpf']).first()
         if teste:
-            return {'message': 'Instrutor com esse CPF ja existe'}, 400
+            return {'message': 'Instrutor com esse CPF já existe'}, 400
         cadastro = Instrutor(
             nome = json_data['nome'],
             email = json_data['email'],

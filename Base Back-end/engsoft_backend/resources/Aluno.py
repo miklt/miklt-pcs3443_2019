@@ -64,7 +64,7 @@ class AlunoResource(Resource):
         n_matricula = request.args.get('num_matric')
         aluno = Aluno.query.filter_by(num_matric=n_matricula).delete()
         if not aluno:
-            return {'message': 'Nenhum aluno com este CPF'}, 400
+            return {'message': 'Nenhum aluno com este número de matrícula'}, 400
         db.session.commit()
 
         result = aluno_schema.dump(aluno).data
