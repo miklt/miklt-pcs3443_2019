@@ -1,0 +1,28 @@
+table.tabelaAeronaves {
+    font-family: Microsoft JhengHei Light, sans-serif;
+    table-layout: auto;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.tabelaAeronaves td, table.tabelaAeronaves th {
+    border: 0px solid #000000;
+    padding: 6px 10px;
+  }
+  table.tabelaAeronaves tbody td {
+    font-size: 17px;
+    color: #000000;
+    padding: 6px 10px;
+  }
+  table.tabelaAeronaves thead {
+    background: #2c71b1;
+    border-bottom: 5px solid #FFFFFF;
+  }
+  table.tabelaAeronaves thead th {
+    font-size: 23px;
+    font-weight: normal;
+    color: #FFFFFF;
+    text-align: center;
+  }
+  table.tabelaAeronaves tfoot td {
+    font-size: 14px;
+  }

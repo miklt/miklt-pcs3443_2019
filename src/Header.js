@@ -6,7 +6,7 @@ class Header extends React.Component {
     render () {
         return (
             <div className="divRow">
-                <div className="divCell" style={{whiteSpace: "nowrap", verticalAlign: "middle", padding: "20px"}}>
+                <div className="divCell" style={{whiteSpace: "nowrap", verticalAlign: "middle", padding: "20px 8px"}}>
                     <Link to="/" className="logo">Aviação ltd.</Link>
                 </div>
                 <div className="divCell" style={{width: "409px", verticalAlign: "middle", padding: "20px"}}>

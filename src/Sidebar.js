@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
                     }
                     {this.props.state.role === "Funcionario" && 
                         <div>
-                            <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
+                            <li><Aba name="Cadastro de Sócio" nameHtml="/cadastro"/></li>
                             <li><Aba name="Cadastro de Aeronave" nameHtml="/cadastroAero" /></li>
                         </div>
                     }
@@ -26,7 +26,8 @@ class Sidebar extends React.Component {
                     }
                     {(this.props.state.role === "Instrutor" || this.props.state.role === "Funcionario") && 
                         <div>    
-                            <li><Aba name="Socios" nameHtml="/socios" /></li>
+                            <li><Aba name="Sócios" nameHtml="/socios" /></li>
+                            <li><Aba name="Aeronaves" nameHtml="/aeronaves" /></li>
                             <li><Aba name="Agendamentos" nameHtml="/listaAulas" /></li>
                         </div>
                     }

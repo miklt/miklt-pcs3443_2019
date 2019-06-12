@@ -9,6 +9,7 @@ import Socios from "./Socios"
 import Logout from "./Logout"
 import ListaAulas from "./ListaAulas"
 import CadastroAero from "./CadastroAero"
+import Aeronaves from "./Aeronaves"
 
 class Condicional extends React.Component {
 
@@ -97,6 +98,12 @@ class Condicional extends React.Component {
                     path="/socios"
                     render={(routeProps) => (
                         <Socios {...routeProps} />
+                    )}
+                />
+                <Route
+                    path="/aeronaves"
+                    render={(routeProps) => (
+                        <Aeronaves {...routeProps} />
                     )}
                 />
                 <Route

@@ -1,5 +1,5 @@
 .sidebarAba { 
-    width: 449px;
+    width: 425px;
     list-style-type: none;
     text-align: center;
     background-color: #2c71b1;
@@ -9,7 +9,7 @@
 
 .sidebarAba li{
     text-align: center;
-    padding: 2em 5em;
+    padding: 2em 2em;
     margin: 0px;
 }
 
