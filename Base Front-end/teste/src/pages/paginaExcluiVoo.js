@@ -22,13 +22,10 @@ handleVooIdChange(e) {
 handleSubmit = event => {
    event.preventDefault();
 
-   const data={params: {voo_id:this.state.voo_id}}
-
-   axios.delete(`https://testeparaaviacao.herokuapp.com/api/Voo`,data)
+   axios.delete(`https://testeparaaviacao.herokuapp.com/api/Voo`,{params: {voo_id:this.state.voo_id}})
      .then(res => {
-          if (res.data.status === 'success')
-             this.setState({success: true});
-          console.log(data)
+          if (res.status === '204')
+             this.setState({success: true})
           console.log(res.data.status);
           console.log(res);
           console.log(res.data);
@@ -46,6 +43,7 @@ handleSubmit = event => {
           }
           console.log(error.config);
      })
+     console.log({params: {voo_id:this.state.voo_id}})
  }
 
  render() {
@@ -73,7 +71,7 @@ handleSubmit = event => {
                 <button id="buttonSuccess" type="submit">Enviar</button>
            </form>
            <button id="buttonDanger1">
-                   <Link id="link" to="/aluno">Voltar</Link>
+                   <Link id="link" to="/instrutor">Voltar</Link>
             </button>
        </div>
   );
