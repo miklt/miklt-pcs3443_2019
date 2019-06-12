@@ -5,7 +5,7 @@ from resources.Aluno import AlunoResource
 import re
 
 DATA_REGEX = re.compile("^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/]\d{4}$")
-HORA_REGEX = re.compile("^[0-2][0-3]:[0-5][0-9]$")
+HORA_REGEX = re.compile("^[0-2][0-9]:[0-5][0-9]$")
 
 voos_schema = VooSchema(many=True)
 voo_schema = VooSchema()
@@ -29,7 +29,7 @@ class VooResource(Resource):
         if not DATA_REGEX.match(json_data['data_voo']):
             return {'message': 'Data inválida! Favor, inserir no formato indicado.'}, 400
         if not HORA_REGEX.match(json_data['hora_inicio']):
-            return {'message': 'Horário inválida! Favor, inserir no formato indicado.'}, 400
+            return {'message': 'Horário inválido! Favor, inserir no formato indicado.'}, 400
         if errors:
             return errors, 422
 
