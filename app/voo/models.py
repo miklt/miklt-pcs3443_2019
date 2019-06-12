@@ -1,19 +1,30 @@
 from app import db
-from app import users
-
+from app import voo
+from flask_login import UserMixin
+import json
         
-class Aeronave(db.Model):
+class Aeronave(UserMixin, db.Model):
     __tablename__ = 'aeronave'
     __mapper_args__ = {'polymorphic_identity': 'aeronave'}
 
-    id = db.Column(db.Integer, primary_key = True)
+    num = db.Column(db.Integer, primary_key = True)
     date_created = db.Column(db.DateTime, default = db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default = db.func.current_timestamp(), onupdate = db.func.current_timestamp())
 
-    modelo = db.Column(db.String(128), nullable = True)
+    modelo = db.Column(db.String(128), nullable = False)
 
-    def __init__(self, modelo):
+    ano = db.Column(db.String(4), nullable = False)
+
+    proprietario = db.Column(db.String(128), nullable = False)
+
+    cpf = db.Column(db.String(11), nullable = False)
+
+    def __init__(self, num, modelo, ano, proprietario, cpf):
+        self.num = num
         self.modelo = modelo
+        self.ano = ano
+        self.proprietario = proprietario
+        self.cpf = cpf
 
 
 class Voo(db.Model):

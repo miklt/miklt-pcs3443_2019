@@ -28,7 +28,7 @@ def agendarVoo():
     
     elif tipo == 'Aula':
         v=models.Aula(
-            aluno=data['aluno'],
+            aluno=data['piloto'],
             instrutor=data['instrutor'],
             parecer='0',
             dataVoo=db.func.current_timestamp(),
@@ -81,3 +81,21 @@ def consultarHoras():
     
     print(sample)
     return "ao"
+
+
+@voo.route('/registerAero', methods=['POST'])
+def registerAero():
+    data = request.get_json()
+
+    u = models.Aeronave(
+        num = data['num'],
+        modelo = data['modelo'],
+        ano = data['ano'],
+        proprietario = data['proprietario'],
+        cpf = data['cpf'])
+
+       
+    db.session.add(u)
+    db.session.commit()
+
+    return 

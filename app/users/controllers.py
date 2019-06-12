@@ -167,9 +167,11 @@ def getSocios():
     i = 1
 
     while 1:
-        u1 = models.Socio.query.filter_by(matricula=i).first()
-        u2 = models.Login.query.filter_by(matricula=i).first()
-        if (u1 == None) or (u2 == None):
+        u1 = models.Socio.query.get(i)
+        if (u1 == None):
+            break
+        u2 = models.Login.query.filter_by(matricula = u1.matricula).first()
+        if (u2 == None):
             break
         d = {
             "matricula" : u1.matricula,
