@@ -112,12 +112,10 @@ def registerAero():
 
 
 @voo.route('/listaAero', methods=['GET'])
-def getSocios():
+def getAeros():
     
     val = []
-    i = 1
-
-    
+       
     u1 = models.Aeronave.query.all()
     
     for u in u1:
@@ -126,9 +124,16 @@ def getSocios():
         "modelo" : u.modelo,
         "ano" : u.ano,
         } 
-        val.append(d)
-        
-        
-        
-        
+        val.append(d)   
+           
     return json.dumps(val)
+
+
+@voo.route('/listaAero/<int:id>', methods=['DELETE'])
+def deleteAeros(id):
+    
+    x = models.Aeronave.query.get(id)
+    db.session.delete(x)
+    db.session.commit()  
+           
+    return ("DELETADO")
