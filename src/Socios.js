@@ -8,7 +8,8 @@ class Socios extends React.Component {
         super(props)
         this.montarTabela = this.montarTabela.bind(this)
         this.limpaTabela = this.limpaTabela.bind(this)
-                   
+        this.limpaTabela()
+        this.montarTabela()           
     }
 
     limpaTabela() {
@@ -55,7 +56,6 @@ class Socios extends React.Component {
     }
 
     render () {
-        this.montarTabela()
         return (
             <div>
                 <table className="tabelaSocios" style={{position : "relative", left : "50px", top : "16px"}}>

@@ -33,6 +33,7 @@ class Login extends React.Component {
     render () {
         return (
             <div>
+                <h1 style={{position:"relative", left:"160px", width:"347px", textAlign:"center"}}>Login</h1>
                 <form className = "telaLogin" onSubmit={this.handleSubmit}>
                     <label htmlFor = "matricula">Matrícula:</label>
                     <input type="text" name="matricula" id="matricula" onChange={this.handleChange} required/>
