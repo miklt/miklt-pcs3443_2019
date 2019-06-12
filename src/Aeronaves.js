@@ -8,6 +8,7 @@ class Aeronaves extends React.Component {
         super(props)
         this.montarTabela = this.montarTabela.bind(this)
         this.limpaTabela = this.limpaTabela.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
         this.limpaTabela()
         this.montarTabela()           
     }
@@ -34,16 +35,32 @@ class Aeronaves extends React.Component {
                     var modelo = row.insertCell(-1)
                     var ano = row.insertCell(-1)
                     var num = row.insertCell(-1)
-                    
+                    var del = row.insertCell(-1)
                     
                     num.innerHTML = data.num
                     modelo.innerHTML = data.modelo
                     ano.innerHTML = data.ano
                    
+
+                    var button = document.createElement("button");
+                    button.innerHTML = "Deletar";
+                    button.value = data.num;
+                    button.onclick = this.handleDelete
+                    del.appendChild(button);
+
                 })
             })
         
     }
+
+    handleDelete(e) {
+        const url = url_v3 + "listaAero/" +  e.target.value
+        axios.delete(url).then( () => {
+            this.limpaTabela()
+            this.montarTabela() 
+        })  
+    }
+
 
     render () {
         return (

@@ -26,3 +26,10 @@ table.tabelaAeronaves {
   table.tabelaAeronaves tfoot td {
     font-size: 14px;
   }
+
+  table.tabelaAeronaves button {
+      color: white;
+      background-color: #2c71b1;
+      border: none;
+      font-family: Microsoft JhengHei Light, sans-serif;
+  }
