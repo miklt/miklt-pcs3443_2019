@@ -13,16 +13,22 @@ class Sidebar extends React.Component {
                         <li><Aba name="Login" nameHtml="/login"/></li>
                     }
                     {this.props.state.role === "Funcionario" && 
-                        <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
+                        <div>
+                            <li><Aba name="Cadastro" nameHtml="/cadastro"/></li>
+                            <li><Aba name="CadastroAero" nameHtml="/cadastroAero" /></li>
+                        </div>
                     }
                     {this.props.state.role === "Aluno" && 
-                        <li><Aba name="Agendamentos" nameHtml="/agendamento"/></li>
+                        <li><Aba name="Agendar" nameHtml="/agendar"/></li>
                     }
                     {this.props.state.isLoggedIn && 
                         <li><Aba name="Perfil" nameHtml="/perfil"/></li>
                     }
                     {(this.props.state.role === "Instrutor" || this.props.state.role === "Funcionario") && 
-                        <li><Aba name="Socios" nameHtml="/socios" /></li>
+                        <div>    
+                            <li><Aba name="Socios" nameHtml="/socios" /></li>
+                            <li><Aba name="Agendamentos" nameHtml="/listaAulas" /></li>
+                        </div>
                     }
                     {this.props.state.isLoggedIn && 
                         <li><Aba name="Log Out" nameHtml="/logout" /></li>

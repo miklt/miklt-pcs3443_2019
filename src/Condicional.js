@@ -7,6 +7,8 @@ import Cadastro from "./Cadastro"
 import Perfil from "./Perfil"
 import Socios from "./Socios"
 import Logout from "./Logout"
+import ListaAulas from "./ListaAulas"
+import CadastroAero from "./CadastroAero"
 
 class Condicional extends React.Component {
 
@@ -62,7 +64,7 @@ class Condicional extends React.Component {
                     )}
                 />
                 <Route
-                    path="/agendamento"
+                    path="/agendar"
                     render={(routeProps) => (
                         <Agendamento {...routeProps} state={this.props.state} />
                     )}
@@ -71,7 +73,15 @@ class Condicional extends React.Component {
                     path="/cadastro"
                     render={(routeProps) => (
                         this.props.state.role === "Funcionario" || true ?
-                        <Cadastro {...routeProps} /> :
+                        <Cadastro {...routeProps} state={this.props.state}/> :
+                        <Redirect to='/' />
+                    )}
+                />
+                <Route
+                    path="/cadastroAero"
+                    render={(routeProps) => (
+                        this.props.state.role === "Funcionario" || true ?
+                        <CadastroAero {...routeProps} state={this.props.state}/> :
                         <Redirect to='/' />
                     )}
                 />
@@ -95,6 +105,12 @@ class Condicional extends React.Component {
                         this.props.state.isLoggedIn ?
                         <Logout {...routeProps} state={this.props.state} handleChange={this.props.handleChange} login={this.props.login} logout={this.props.logout} /> :
                         <Redirect to='/login' />
+                    )}
+                />
+                <Route
+                    path="/listaAulas"
+                    render={(routeProps) => (
+                        <ListaAulas {...routeProps} state={this.props.state}/>
                     )}
                 />
             </div>
