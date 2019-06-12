@@ -90,7 +90,7 @@ handleSubmit = event => {
            </form>
            <button id="buttonDanger1">
                    <Link id="link" to="/aluno">Voltar</Link>
-            </button>
+           </button>
        </div>
   );
 }
