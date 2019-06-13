@@ -1,0 +1,32 @@
+Frontend: 
+npm install
+npm start
+
+
+
+Backend:
+python3 install -r requirements.txt
+python3 run.py
+
+
+Populate DB:
+localhost:5000/populate/
+
+
+
+Users:
+tipo: Funcionário
+matricula: 1
+senha: 1234
+
+tipo: Aluno
+matricula: 2
+senha: 1234
+
+tipo: Piloto
+matricula: 3
+senha: 1234
+
+tipo: Instrutor
+matricula: 4
+senha: 1234
