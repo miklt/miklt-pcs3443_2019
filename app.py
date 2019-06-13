@@ -40,6 +40,11 @@ def home():
     pessoa_logada_cpf = pessoa_logada.cpf
     pessoa_logada_email = pessoa_logada.email
     pessoa_logada_data_nascimento = pessoa_logada.data_nascimento
+
+    if pessoa_logada_cargo == 'Piloto':
+        voos = Voo.encontrar_pelo_id_piloto(pessoa_logada.id)
+       
+
     if pessoa_logada_cargo == 'Aluno':
         horas_voo = pessoa_logada.horasVoo
         nota_total = 0.0
@@ -53,7 +58,7 @@ def home():
         ultima_aula = Aula.encontrar_ultima_pelo_id_aluno(pessoa_logada_id)
         if ultima_aula:
             ultima_nota = ultima_aula.nota
-
+            
     if pessoa_logada_cargo == 'Instrutor':
         voos = Voo.listar()
         aulas = Aula.listar()   
