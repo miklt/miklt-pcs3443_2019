@@ -362,5 +362,106 @@
     <!-- END Page Content -->
 {% endif %}
 
+{% if pessoa_logada_cargo == 'Piloto' %}
+
+<div class="content bg-white border-b">
+        <div class="row">
+            
+            <div class="col-sm-6 col-lg-6">
+                <a class="block block-rounded block-link-hover3 text-center " >
+                    <div class="block-content block-content-full bg-warning">
+                        <div class="h1 font-w700 text-white">{{horas_voo_piloto}}<span class="h2 text-white-op"></span></div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Horas voadas</div>
+                    </div>
+                
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <a class="block block-rounded block-link-hover3 text-center" >
+                    <div class="block-content block-content-full bg-primary">
+                        <div class="h1 font-w700 text-white">{{quantidade_voo_piloto}}</div>
+                        <div class="h5 text-white-op text-uppercase push-5-t">Voos Realizados</div>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            
+        </div>
+    </div>
+    <!-- Page Content -->
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Main Dashboard Chart -->
+                <div class="block">
+                    <div class="block-content">
+                        <div class="content-grid push-20">
+                            <div class="row margin-left:50%">
+                                <div class="col-sm-6 col-lg-4">
+                                    <a class="block block-link-hover3 text-center" href="{{ url_for('meuPerfil') }}">
+                                        <div class="block-content block-content-full bg-danger">
+                                            <i class="si si-user fa-4x text-white"></i>
+                                            <div class="font-w600 push-15-t text-white">Editar Perfil</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                    <a class="block block-link-hover3 text-center" href="{{ url_for('cadastrarVoo') }}">
+                                        <div class="block-content block-content-full bg-success">
+                                            <i class="si si-plane fa-4x text-white"></i>
+                                            <div class="font-w600 push-15-t text-white">Agendar Voo</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- END Default Elements --> 
+            </div>
+            <div class="col-lg-4">
+                <!-- Latest Sales Widget -->
+                <div class="block">
+                    <div class="block-header">
+                        <h3 class="block-title">Historico de Voos</h3>
+                    </div>
+                    
+                    <div class="block-content">
+                        <div class="pull-t pull-r-l">
+                            <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                            <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                            <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="2500">
+                                <div>
+                                    <table class="table remove-margin-b font-s13">
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-w600">Data</td>
+                                                <td class="hidden-xs text-muted text-right">Hora</td>
+                                                <td class="font-w600 text-right">Duração</td>
+                                            </tr>
+
+                                            {% for voo in voos_piloto %}
+                                                <tr>
+                                                    <td class="font-w600">{{voo.data.strftime('%d/%m/%Y')}}</td>
+                                                    <td class="hidden-xs text-muted text-right">{{voo.data.strftime('%H:%M')}}</td>
+                                                    <td class="font-w600 text-right">{{voo.duracao}} horas</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                            <!-- END Slick slider -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END Latest Sales Widget -->
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endif %}
+
 {% endblock conteudo%}
 
