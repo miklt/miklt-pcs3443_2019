@@ -721,7 +721,7 @@ def avaliarAula():
     current_id_aluno = current_aula.id_aluno
     aluno_selecionado = Pessoa.encontrar_pelo_id(current_id_aluno)
     current_id_instrutor = current_aula.id_instrutor
-    instrutor_selecionado = Pessoa.encontrar_pelo_id('id_instrutor')
+    instrutor_selecionado = Pessoa.encontrar_pelo_id(current_id_instrutor)
     current_data = current_aula.data.strftime("%d/%m/%Y")
     current_duracao = current_aula.duracao
 
