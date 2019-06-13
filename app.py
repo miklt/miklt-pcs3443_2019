@@ -42,8 +42,13 @@ def home():
     pessoa_logada_data_nascimento = pessoa_logada.data_nascimento
 
     if pessoa_logada_cargo == 'Piloto':
-        voos = Voo.encontrar_pelo_id_piloto(pessoa_logada.id)
-       
+        voos_piloto = Voo.encontrar_pelo_id_piloto(pessoa_logada_id)
+        horas_voo_piloto = 0.0
+        quantidade_voo_piloto = 0.0
+        for voo in voos_piloto:
+            horas_voo_piloto += voo.duracao
+            quantidade_voo_piloto += 1
+
 
     if pessoa_logada_cargo == 'Aluno':
         horas_voo = pessoa_logada.horasVoo

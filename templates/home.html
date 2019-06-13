@@ -271,7 +271,7 @@
             <div class="col-sm-6 col-lg-6">
                 <a class="block block-rounded block-link-hover3 text-center " >
                     <div class="block-content block-content-full bg-warning">
-                        <div class="h1 font-w700 text-white">32<span class="h2 text-white-op"></span></div>
+                        <div class="h1 font-w700 text-white">{{horas_voo_piloto}}<span class="h2 text-white-op"></span></div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Horas voadas</div>
                     </div>
                 
@@ -280,7 +280,7 @@
             <div class="col-sm-6 col-lg-6">
                 <a class="block block-rounded block-link-hover3 text-center" >
                     <div class="block-content block-content-full bg-primary">
-                        <div class="h1 font-w700 text-white">5</div>
+                        <div class="h1 font-w700 text-white">{{quantidade_voo_piloto}}</div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Voos Realizados</div>
                     </div>
                     
@@ -302,7 +302,7 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <a class="block block-link-hover3 text-center" href="{{ url_for('meuPerfil') }}">
                                         <div class="block-content block-content-full bg-danger">
-                                            <i class="si si-music-tone fa-4x text-white"></i>
+                                            <i class="si si-user fa-4x text-white"></i>
                                             <div class="font-w600 push-15-t text-white">Editar Perfil</div>
                                         </div>
                                     </a>
@@ -310,7 +310,7 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <a class="block block-link-hover3 text-center" href="{{ url_for('cadastrarVoo') }}">
                                         <div class="block-content block-content-full bg-success">
-                                            <i class="si si-music-tone fa-4x text-white"></i>
+                                            <i class="si si-plane fa-4x text-white"></i>
                                             <div class="font-w600 push-15-t text-white">Agendar Voo</div>
                                         </div>
                                     </a>
@@ -336,16 +336,19 @@
                                 <div>
                                     <table class="table remove-margin-b font-s13">
                                         <tbody>
-                                            {% for aluno in alunos_nao_agendados %}
-                                            <tr class='bg-success'></tr>>
-                                                <td class="font-w600">{{aluno.nome}}</td>
-                                                <td class="hidden-xs text-muted text-center"></td>
+                                            <tr>
+                                                <td class="font-w600">Data</td>
+                                                <td class="hidden-xs text-muted text-right">Hora</td>
+                                                <td class="font-w600 text-right">Duração</td>
                                             </tr>
-                                            <!-- <td class="hidden-xs text-muted text-right">8:30</td> -->
-                                            <!-- <td class="font-w600 text-success text-right">45 minutos</td> -->
 
+                                            {% for voo in voos_piloto %}
+                                                <tr>
+                                                    <td class="font-w600">{{voo.data.strftime('%d/%m/%Y')}}</td>
+                                                    <td class="hidden-xs text-muted text-right">{{voo.data.strftime('%H:%M')}}</td>
+                                                    <td class="font-w600 text-right">{{voo.duracao}} horas</td>
+                                                </tr>
                                             {% endfor %}
-
                                         </tbody>
                                     </table>
                                 </div>
