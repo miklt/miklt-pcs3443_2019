@@ -132,6 +132,7 @@
 {%endif%}
 
 {% if pessoa_logada_cargo == 'Aluno' %}
+
     <div class="content bg-white border-b">
         <div class="row">
             <div class="col-sm-6 col-lg-4">
@@ -162,7 +163,7 @@
             <div class="col-sm-6 col-lg-4">
                 <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
                     <div class="block-content block-content-full bg-warning">
-                        <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 150</div>
+                        <div class="h1 font-w700 text-white"><span class="h2 text-white-op"></span> 3</div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Minimo de horas</div>
                     </div>
                 </a>
@@ -172,6 +173,19 @@
     </div>
     <!-- Page Content -->
     <div class="content">
+            {%if minimo_horas == true %}
+
+            <div class="row">
+                    <div class=" ccol-xs-6 col-sm-4 col-lg-2">
+                            <a class="block block-link-hover2 text-center" href="{{url_for('downloadBreve', nome_arquivo='Certificado.pdf')}}">
+                                <div class="block-content block-content-full bg-warning">
+                                    <i class="si si-arrow-down fa-4x text-white"></i>
+                                    <div class="font-w600 text-white-op push-15-t">Download certificado</div>
+                                </div>
+                            </a>
+                        </div>
+            </div>
+            {%endif%}
         <div class="row">
             <div class="col-lg-8">
                 <!-- Default Elements -->

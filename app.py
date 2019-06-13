@@ -58,6 +58,10 @@ def home():
         ultima_aula = Aula.encontrar_ultima_pelo_id_aluno(pessoa_logada_id)
         if ultima_aula:
             ultima_nota = ultima_aula.nota
+        minimo_horas = False
+        if horas_voo >= 3:
+            minimo_horas = True
+
     
     if pessoa_logada_cargo == 'Administrador':
         voos = Voo.listar()
