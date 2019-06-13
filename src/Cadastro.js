@@ -1,5 +1,4 @@
 import React from "react"
-import { Redirect } from "react-router-dom";
 
 import "./Cadastro.css"
 import {url_v3} from "./App"
@@ -11,6 +10,8 @@ class Cadastro extends React.Component {
         super();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.printInfo = this.printInfo.bind(this);
+        this.returnPage = this.returnPage.bind(this);
 
         this.state = {
             name: '',
@@ -24,7 +25,8 @@ class Cadastro extends React.Component {
             nomeCurso: '',
             dataDiploma: '',
             role: '',
-            redirect : false,
+            cadastrado : false,
+            matricula: ''
         };
     }
 
@@ -51,18 +53,45 @@ class Cadastro extends React.Component {
             role: this.state.role,
         }).then(response => {
             if (response.data.error) {
-                this.setState({"error": response.data.error})
+                this.setState({
+                    error: response.data.error
+                })
             } else {
-                alert(this.state.role + " cadastrado.")
+                this.setState({
+                    cadastrado: true,
+                    matricula: response.data.matricula
+                })
             }
-            this.setState({redirect : true})
         })
     };
 
+    printInfo() {
+        window.print();
+    }
+
+    returnPage() {
+        window.location.reload()
+    }
+
     render () {
-        if (this.state.redirect) 
-            return(
-                <Redirect to="/" />
+        if (this.state.cadastrado) 
+            return (
+                <div id = "cadastro" className="telaCadastro">
+                    <div id = "no-print">
+                    <h1>{this.state.role} cadastrado!</h1>
+                    <br />
+                    <br />
+                    </div>
+                    <div id = "printDados" align='center'>
+                        <h1>{this.state.matricula}</h1>
+                        <h4>{this.state.name}</h4>
+                    </div>
+                    <div id = "no-print">
+                    <br />
+                    <button onClick={this.returnPage}>voltar</button>
+                    <button onClick={this.printInfo}>Imprimir</button>
+                    </div>
+                </div>
             )
         else
             return (
@@ -71,27 +100,27 @@ class Cadastro extends React.Component {
                         <h1>Cadastrar Novo Usuário</h1>
                         
                         <label htmlFor="name">Nome:</label>
-                        <input type="text" name="name" id="name" onChange={this.handleChange} required />
+                        <input type="text" name="name" id="name" onChange={this.handleChange} title="Nome completo do sócio" required />
                         <br />
 
                         <label htmlFor="email">Email:</label>
-                        <input type="email" name="email" id="email" onChange={this.handleChange} required />
+                        <input type="email" name="email" id="email" onChange={this.handleChange} title="Email do sócio" required />
                         <br />
 
                         <label className= "data" htmlFor="dataNascimento">Data de Nascimento:</label>
-                        <input type="date" name="dataNascimento" id="dataNascimento" onChange={this.handleChange} required />
+                        <input type="date" name="dataNascimento" id="dataNascimento" onChange={this.handleChange} title="Data de nascimento do sócio" required />
                         <br />
 
                         <label htmlFor="cpf">CPF:</label>
-                        <input type="text" name="cpf" id="cpf" onChange={this.handleChange} required />
+                        <input type="text" name="cpf" id="cpf" pattern="^\d{11}$" title="CPF do sócio sem pontuação." placeholder="12345678900" onChange={this.handleChange} required />
                         <br />
 
                         <label htmlFor="endereco">Endereço:</label>
-                        <input type="text" name="endereco" id="endereco" onChange={this.handleChange} required />
+                        <input type="text" name="endereco" id="endereco" title="Endereço do sócio" onChange={this.handleChange} required />
                         <br />
 
                         <label htmlFor = "password">Senha:</label>
-                        <input type="password" name="password" id="password"  onChange={this.handleChange} required />
+                        <input type="password" name="password" id="password" pattern=".{4,}" title="Senha de no mínimo 4 caracteres" onChange={this.handleChange} required />
                         <br />
 
                         <label htmlFor = "role">Tipo de Sócio:</label>
@@ -106,21 +135,21 @@ class Cadastro extends React.Component {
                         {(this.state.role === "Piloto" || this.state.role === "Instrutor") && 
                         <div>
                             <label htmlFor = "breve">Brevê:</label>
-                            <input type="text" name="numeroBreve" id="numeroBreve"  onChange={this.handleChange} required />
+                            <input type="text" name="numeroBreve" id="numeroBreve" pattern="^\d{6}$" title="Brevê do sócio, com 6 dígitos" placeholder="000000" onChange={this.handleChange} required />
                             <br />
                             
                             {(this.state.role === "Instrutor") &&
                             <div>
                                 <label htmlFor="nomeInstituicao">Instituição de ensino:</label>
-                                <input type="text" name="nomeInstituicao" id="nomeInstituicao"  onChange={this.handleChange} required />  
+                                <input type="text" name="nomeInstituicao" id="nomeInstituicao" title="Nome da instituição de ensino" onChange={this.handleChange} required />  
                                 <br />
 
                                 <label htmlFor="nomeCurso">Nome do curso:</label>
-                                <input type="text" name="nomeCurso" id="nomeCurso"  onChange={this.handleChange} required />  
+                                <input type="text" name="nomeCurso" id="nomeCurso" title="Nome do curso" onChange={this.handleChange} required />  
                                 <br />
 
                                 <label htmlFor="dataDiploma">Data do diploma:</label>
-                                <input type="date" name="dataDiploma" id="dataDiploma"  onChange={this.handleChange} required />  
+                                <input type="date" name="dataDiploma" id="dataDiploma" title="Data do diploma" onChange={this.handleChange} required />  
                                 <br />
                             </div>}
                         </div>}

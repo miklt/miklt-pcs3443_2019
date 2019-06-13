@@ -42,3 +42,9 @@ ul.inline li:last-child, ol.inline li:last-child{
 ul.sem-marcador, ol.sem-marcador{
     list-style: none;
 }
+
+@media print {
+    .logo, .menu{
+        display: none;
+    }
+}
