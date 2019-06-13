@@ -17,7 +17,7 @@
         <th>CPF</th>
         <th>Nascimento</th>
         <th>Nº de brevê</th>
-        <th>Ação</th>
+        <th *ngIf="sessionService.getAtor() == 'funcionario'">Ação</th>
       </tr>
       </thead>
       <tbody *ngIf="!loading">
@@ -28,7 +28,7 @@
         <td (click)="goToAluno(aluno)">{{aluno.cpf | mask: '000.000.000-00'}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.dataNascimento | mask: '00/00/0000'}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.numeroBreve}}</td>
-        <td>
+        <td *ngIf="sessionService.getAtor() == 'funcionario'">
           <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editAluno(aluno)">
             <i class="fa fa-edit"></i>     
           </button>

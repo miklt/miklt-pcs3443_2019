@@ -74,6 +74,10 @@ export class ReadAlunoComponent implements OnInit {
     this.router.navigate(['read-voo', voo.id]);
   }
 
+  goToNovoVoo(aluno: Aluno) {
+    this.router.navigate(['create-voo', aluno.numeroMatricula]);
+  }
+
   podeGerar() {
     return (this.horasDeVoo >= this.horasObrigatorias) && (this.notasVermelhas.length < 0.15 * this.voosDoAluno.length);
   }

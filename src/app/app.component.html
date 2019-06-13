@@ -11,7 +11,7 @@
 
     <div class="navbar-collapse collapse show" id="navbarColour01">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" *ngIf="isFuncionario()">
+        <li class="nav-item" *ngIf="isFuncionario() || isInstrutor()">
           <a class="nav-link" href="/list-aluno">Alunos</a>
         </li>
         <li class="nav-item" *ngIf="isFuncionario()">
