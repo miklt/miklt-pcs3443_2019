@@ -14,14 +14,14 @@ class Agendamento extends React.Component {
         this.limpaForms = this.limpaForms.bind(this);
 
         this.state = {
-            piloto: this.props.state.name,
+            piloto: '',
             instrutor: '',
             dataVoo: '',
             horaSaida: '',
             num: 0,
             ano: '',
             modelo: '',
-            matricula: this.props.state.matricula,
+            matricula: '',
         };
         this.limpaForms()
         this.montarForms()
@@ -35,7 +35,6 @@ class Agendamento extends React.Component {
             }
         }
     }
-
     montarForms() {
         const url = url_v3 + "listaAero"
         axios.get(url)
@@ -48,23 +47,25 @@ class Agendamento extends React.Component {
                     lista.appendChild(opt)
                 })    
             })
-    }
+        }
 
     handleChange(event) {
         this.setState({[event.target.name] : event.target.value})
     }
-
     handleSubmit(event){ 
+        event.preventDefault();
         const url = url_v3+'agendarVoo';
-        
+        console.log(this.state)
         axios.post(url, {
-            matricula: this.state.matricula,
+            aluno:     this.state.aluno,
             instrutor: this.state.instrutor,
             dataVoo:   this.state.dataVoo,
             horaSaida: this.state.horaSaida,
             duracao:   this.state.duracao,
             aeronave:  this.state.aeronave,
             tipo:      this.state.tipo,
+            piloto:    this.state.piloto,
+            matricula: this.state.matricula,
         })
         .catch(error => {
             alert(error)
@@ -72,42 +73,52 @@ class Agendamento extends React.Component {
     };
 
     render () {
-        
-        console.log("RE-RENDER")
+
         return (
             <div>
-                <h1 style={{position: "relative", left: "160px", width: "351px", textAlign:"center"}}>Agendamento de Aula</h1>
                 <form className="telaAgendamento" onSubmit={this.handleSubmit}>
 
-                
-                    <label htmlFor="tipo">Tipo de Voo: </label>
-                    <select defaultValue="" name="tipo" id="tipo" onChange={this.handleChange} required>
-                        <option value="" disabled>Selecione</option>
+                <label htmlFor="tipo">Tipo de Voo: </label>
+                    <select defaultValue="" name="tipo" id="tipo" onChange={this.handleChange} onClick={this.changeVisibility} required>
+                    <option value="" disabled>Selecione</option>
                         <option value="Aula">Aula</option>
                         <option value='Voo Simples'>Voo Simples</option>
                     </select>
-
                     <br />
                         
                     <label htmlFor="aeronave">Aeronave: </label>
-                    <select defaultValue="" name="aeronave" id="aeronave" onChange={this.handleChange} required>
-                        <option value="" disabled>Selecione</option>
-                    </select>
-    
+                    <input type="text" name="aeronave" id="aeronave" onChange={this.handleChange} required />
                     <br />
 
+    
                     <label htmlFor="horaSaida">Hora de Saida: </label>
                     <input type="text" name="horaSaida" id="horaSaida" onChange={this.handleChange} required />
-
                     <br />
 
-                    <label htmlFor="duracao">Duração (horas): </label>
-                    <input type="number" name="duracao" id="duracao" onChange={this.handleChange} required />
-                    
+                    <label htmlFor="duracao">Duração: </label>
+                    <input type="text" name="duracao" id="duracao" onChange={this.handleChange} required />
                     <br />
+                    {(this.state.tipo==="Voo Simples") &&
+                
+                    <div>
+                         <label htmlFor="piloto">Piloto: </label>
+                    <input type="text" name="piloto" id="piloto" onChange={this.handleChange} required />
+                    <br />
+                    </div>
+                
+                }
 
                     {(this.state.tipo==="Aula") &&
                     <div>
+                            <label htmlFor="aluno">Aluno: </label>
+                    <input type="text" name="aluno" id="aluno" onChange={this.handleChange} required />
+                    <br />
+
+                    <label htmlFor="matricula">Número da Matrícula: </label>
+                    <input type="text" name="matricula" id="matricula" onChange={this.handleChange} required />
+                    <br />
+                    
+                    
                     
                     <label htmlFor="instrutor">Instrutor: </label>
                     <input type="text" name="instrutor" id="instrutor" onChange={this.handleChange} required />
@@ -120,6 +131,34 @@ class Agendamento extends React.Component {
             </div>
         )
      
+        
+      /*   ?
+      
+      
+      
+      
+      
+      
+      
+      
+      <select name="instrutor" id="instrutor">
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="I1">Instrutor 1</option>
+                        <option value="I2">Instrutor 2</option>
+                        <option value="I3">Instrutor 3</option>
+                        <option value="I4">Instrutor 4</option>
+                        <option value="I5">Instrutor 5</option>
+                    </select>
+                    
+                    
+                    <select id="aviao" name="aviao">
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="A1">Avião 1</option>
+                        <option value="A2">Avião 2</option>
+                        <option value="A3">Avião 3</option>
+                        <option value="A4">Avião 4</option>
+                        <option value="A5">Avião 5</option>
+                    </select>*/
     }
 }
 
