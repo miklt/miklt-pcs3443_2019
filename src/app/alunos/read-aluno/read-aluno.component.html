@@ -2,7 +2,7 @@
     <div class="col-12">
       <div class="row mb-4">
         <div class="col-7">
-          <h2>Aluno - {{aluno.nome}}</h2>
+          <h2>{{aluno.nome}}</h2>
         </div>
         <div class="col-5">
           <button class="btn btn-outline-success float-right mr-1" (click)="editAluno(aluno)" *ngIf="sessionService.getAtor() == 'funcionario'">Editar</button>
@@ -75,7 +75,7 @@
         </table>
     </div>
     <div id="container-horas" class="col-4" *ngIf="!loading">
-      <p id="horas-titulo" class="text-center">Horas de Voo:</p>
+      <p id="horas-titulo" class="text-center">Horas de voo:</p>
       <p id="horas-valor" class="text-center">{{ horasDeVoo }}h</p>
       <p id="horas-restantes" class="text-center"> Faltam {{ horasRestantes.toFixed(1) }} horas de voo para poder tirar o brevê</p>
       <div class="progress">
@@ -92,10 +92,10 @@
     </div>
 
     <div class="col-12 mt-4">
-      <h4>Voos Realizados - {{aluno.nome}}</h4>
+      <h4>Voos realizados</h4>
     </div>
 
-    <h6 class="col-12 text-center text-muted p-3" *ngIf= "voosDoAluno.length == 0 && !loading ">Não há voos realizados</h6>
+    <h6 class="col-12 text-center text-muted p-3" *ngIf= "voosDoAluno.length == 0 && !loading ">Não há voos realizados.</h6>
 
 
     <div class="col-12" *ngIf= "voosDoAluno.length != 0 ">
@@ -103,11 +103,11 @@
         <tbody *ngIf="!loading">
 
           <tr>
-            <td>ID</td>
+            <td>Nº do voo</td>
             <td>Data</td>
             <td>Saída</td>
             <td>Chegada</td>
-            <td>Tempo de Voo</td>
+            <td>Tempo de voo</td>
             <td>Instrutor</td>
             <td>Parecer</td>
           </tr>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Instrutor } from '../../models/instrutor.model';
 import { InstrutorService } from '../../services/instrutor.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-read-instrutor',
@@ -12,7 +13,8 @@ export class ReadInstrutorComponent implements OnInit {
 
   instrutor: Instrutor = new Instrutor();
   loading = false;
-  constructor(public instrutorService: InstrutorService, public route: ActivatedRoute, private router: Router) {
+  constructor(public instrutorService: InstrutorService, public route: ActivatedRoute, private router: Router,
+              public sessionService: SessionService) {
     this.loading = true;
     this.route.params.subscribe(params => {
       this.instrutor.numeroMatricula = params.id;
