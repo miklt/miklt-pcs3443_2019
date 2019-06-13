@@ -139,7 +139,7 @@ def register():
 def showUser():
     userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
     if userLogin is None:
-        user = {}
+        return json.dumps({}, default = str)
     else:
         user = models.role[userLogin.role].query.get(userLogin.matricula)
 
