@@ -54,7 +54,7 @@ class Perfil extends React.Component {
             console.log(response)
             var lista = document.getElementById('lista')
             var bancoHoras = document.createElement('li')
-            bancoHoras.innerHTML = response.data
+            bancoHoras.innerHTML = "Banco de Horas: "+response.data+" horas"
             lista.appendChild(bancoHoras)
         })
 
