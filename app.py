@@ -33,16 +33,11 @@ def downloadBreve(nome_arquivo):
 def home():
     if 'pessoa' not in session:
         return redirect(url_for('login'))
-    print()
-    print(session)
-    print()
-    print()
-    print()
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
     if pessoa_logada_cargo == 'Aluno':
-        horas_voo = pessoa_logad.horasVoo
+        horas_voo = pessoa_logada.horasVoo
     if pessoa_logada_cargo == 'Administrador':
         voos = Voo.listar()
         aulas = Aula.listar()
