@@ -42,7 +42,7 @@ def home():
     pessoa_logada_data_nascimento = pessoa_logada.data_nascimento
     if pessoa_logada_cargo == 'Aluno':
         horas_voo = pessoa_logada.horasVoo
-         nota_total = 0.0
+        nota_total = 0.0
         quantidade_notas = 0.0
         aulas_aluno = Aula.encontrar_pelo_id_aluno(pessoa_logada_id)
         for aula in aulas_aluno:
