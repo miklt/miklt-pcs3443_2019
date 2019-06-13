@@ -5,6 +5,7 @@ import { Instrutor } from '../../models/instrutor.model';
 import { Aluno } from 'src/app/models/aluno.model';
 import { InstrutorService } from '../../services/instrutor.service';
 import { AlunoService } from 'src/app/services/aluno.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-create-voo',
@@ -23,7 +24,8 @@ export class CreateVooComponent implements OnInit {
   public alunos: Aluno[] = []; // variavel para popular select de alunos
   constructor(public vooService: VooService,
               public instrutorService: InstrutorService,
-              public alunoService: AlunoService) {
+              public alunoService: AlunoService,
+              public sessionService: SessionService) {
     // pega todos alunos existentes
     this.alunoService.getAll().subscribe(resp => {
       this.alunos = resp.data;
@@ -33,6 +35,10 @@ export class CreateVooComponent implements OnInit {
     this.instrutorService.getAll().subscribe(resp => {
       this.instrutores = resp.data;
     });
+
+    if (this.sessionService.getAtor() === 'instrutor') {
+      this.novoVoo.instrutor = Number(this.sessionService.getId());
+    }
   }
 
   ngOnInit() {

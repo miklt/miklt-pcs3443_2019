@@ -17,7 +17,9 @@ export class ReadAlunoComponent implements OnInit {
   loading = false;
   horasDeVoo: number;
   horasRestantes: number;
-  horasObrigatorias: number;
+  horasObrigatorias = 150;
+  notaMedia: number;
+  notasVermelhas: number[] = [];
   voosDoAluno: Voo[] = [];
   porcentagemCompleta: number;
 
@@ -33,9 +35,11 @@ export class ReadAlunoComponent implements OnInit {
         console.log(aluno);
         this.aluno = aluno;
         this.loading = false;
-        this.horasDeVoo = 153;
-        this.horasObrigatorias = 200;
+        this.horasDeVoo = aluno.horasTotais;
         this.horasRestantes = this.horasObrigatorias - this.horasDeVoo;
+        if (this.horasRestantes < 0) {
+          this.horasRestantes = 0;
+        }
         this.porcentagemCompleta = (this.horasDeVoo / (this.horasObrigatorias) * 100);
         this.load();
 
@@ -54,11 +58,24 @@ export class ReadAlunoComponent implements OnInit {
       this.voosDoAluno = response.data.map(obj => new Voo(obj)).filter(v => v.aluno === this.aluno.numeroMatricula);
       console.log(this.voosDoAluno);
       this.loading = false;
+
+      // calcula nota média
+      this.notaMedia = 0;
+      this.voosDoAluno.forEach(voo => {
+        if (voo.parecer < 3) {
+          this.notasVermelhas.push(voo.parecer);
+        }
+        this.notaMedia = this.notaMedia + (voo.parecer / this.voosDoAluno.length);
+      });
     });
   }
 
   goToVoo(voo: Voo) {
     this.router.navigate(['read-voo', voo.id]);
+  }
+
+  podeGerar() {
+    return (this.horasDeVoo >= this.horasObrigatorias) && (this.notasVermelhas.length < 0.15 * this.voosDoAluno.length);
   }
 
   ngOnInit() {

@@ -21,6 +21,7 @@ export class SessionService {
           localStorage.setItem('aero-email', email);
           localStorage.setItem('aero-cpf', cpf);
           localStorage.setItem('aero-ator', response.data.ator);
+          localStorage.setItem('aero-id', response.data.id ? response.data.id : response.data.numeroMatricula);
           resolve(response.data);
         } else {
           reject(response.data);
@@ -58,6 +59,13 @@ export class SessionService {
     const email = localStorage.getItem('aero-email');
     if (email) {
       return email;
+    }
+  }
+
+  getId(): string {
+    const id = localStorage.getItem('aero-id');
+    if (id) {
+      return id;
     }
   }
 
