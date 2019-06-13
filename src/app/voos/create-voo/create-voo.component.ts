@@ -6,6 +6,7 @@ import { Aluno } from 'src/app/models/aluno.model';
 import { InstrutorService } from '../../services/instrutor.service';
 import { AlunoService } from 'src/app/services/aluno.service';
 import { SessionService } from '../../services/session.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-voo',
@@ -25,7 +26,8 @@ export class CreateVooComponent implements OnInit {
   constructor(public vooService: VooService,
               public instrutorService: InstrutorService,
               public alunoService: AlunoService,
-              public sessionService: SessionService) {
+              public sessionService: SessionService,
+              public route: ActivatedRoute) {
     // pega todos alunos existentes
     this.alunoService.getAll().subscribe(resp => {
       this.alunos = resp.data;

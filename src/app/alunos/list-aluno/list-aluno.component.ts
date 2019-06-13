@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AlunoService } from '../../services/aluno.service';
 import { Aluno } from '../../models/aluno.model';
 import { Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-list-aluno',
@@ -14,7 +15,7 @@ export class ListAlunoComponent implements OnInit {
   public loading = false;
   @ViewChild('details') detailsModal: ElementRef;
 
-  constructor(private alunoService: AlunoService, private router: Router) {
+  constructor(private alunoService: AlunoService, private router: Router, public sessionService: SessionService) {
     this.load();
   }
 

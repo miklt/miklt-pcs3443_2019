@@ -5,7 +5,13 @@
           <h2>Aluno - {{aluno.nome}}</h2>
         </div>
         <div class="col-5" *ngIf="sessionService.getAtor() == 'funcionario'">
-          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)">Editar aluno</button>      
+          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)">Editar</button>
+        </div>
+        <div class="col-5" *ngIf="sessionService.getAtor() == 'funcionario'">
+          <button class="btn btn-outline-danger float-right" (click)="editAluno(aluno)">Deletar</button>
+        </div>
+        <div class="col-5" *ngIf="sessionService.getAtor() == 'instrutor'">
+          <button class="btn btn-outline-success float-right" (click)="goToNovoVoo(aluno)">Registrar Voo</button>
         </div>
 
       </div>
