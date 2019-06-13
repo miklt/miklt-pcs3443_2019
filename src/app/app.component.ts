@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SessionService } from './services/session.service';
 import { Router } from '@angular/router';
+import { Instrutor } from './models/instrutor.model';
+
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,10 @@ export class AppComponent {
 
   isFuncionario() {
     return this.sessionService.getAtor() === 'funcionario';
+  }
+
+  goToInstrutor() {
+    this.router.navigate(['read-instrutor', this.sessionService.getId()]);
   }
 
   logout() {

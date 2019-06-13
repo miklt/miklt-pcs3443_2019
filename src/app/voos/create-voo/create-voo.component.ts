@@ -28,9 +28,20 @@ export class CreateVooComponent implements OnInit {
               public alunoService: AlunoService,
               public sessionService: SessionService,
               public route: ActivatedRoute) {
+
+    this.route.params.subscribe(params => {
+      console.log(params);
+        if (params.id)
+          this.novoVoo.aluno = params.id;
+        else 
+          this.novoVoo.aluno = null;
+      
+    });
+    
     // pega todos alunos existentes
     this.alunoService.getAll().subscribe(resp => {
       this.alunos = resp.data;
+      
     });
 
     // pega todos instrutores existente

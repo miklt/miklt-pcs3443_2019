@@ -5,7 +5,7 @@
         <h2>Alunos</h2>
       </div>
       <div class="col-6">
-        <button class="btn btn-outline-success float-right" (click)="addAluno()"> Cadastrar aluno</button>      
+        <button class="btn btn-outline-success float-right" (click)="addAluno()" *ngIf="sessionService.getAtor() == 'funcionario'"> Cadastrar aluno</button>      
       </div>
     </div>
     <table class="table table-hover table-striped ">
