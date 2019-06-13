@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from app import db
 from app import login
 import json
@@ -62,15 +61,27 @@ class Aula(Voo):
 
     parecer = db.Column(db.Integer, nullable = False)
 
-    dataAula = db.Column(db.DateTime,db.ForeignKey('voo.dataVoo'), primary_key = True)
+    dataAula = db.Column(db.DateTime,db.ForeignKey('voo.dataVoo'))
+
+    numAula = db.Column(db.Integer, primary_key= True)
 
     def __init__(self,aluno,instrutor,parecer,dataVoo,horaSaida,duracao,aeronave,tipo,matricula):
         self.aluno = aluno
         self.instrutor = instrutor                
         self.parecer = parecer
         self.matricula=matricula
+       
         super().__init__(horaSaida = horaSaida, dataVoo=dataVoo, duracao = duracao, aeronave=aeronave,tipo='Aula')
-  
+    def getValues(self):
+        return {
+            'aluno'    : self.aluno,
+            'matricula': self.matricula,
+            'instrutor': self.instrutor,
+            'parecer': self.parecer,
+            'dataAula': self.dataAula.strftime("%d/%b/%Y"),
+            'numAula':self.numAula
+          
+        }
 
 class VooSimples(Voo):
     __tablename__ = "voosimples"
