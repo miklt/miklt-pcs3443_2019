@@ -135,9 +135,9 @@ def register():
 
 
 # Exibe todos os dados referentes a um usuário, exceto a senha
-@users.route('/user', methods = ['GET'])
-def showUser():
-    userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
+@users.route('/user/<int:matric>', methods = ['GET'])
+def showUser(matric):
+    userLogin = models.Login.query.get(matric)
     if userLogin is None:
         return json.dumps({}, default = str)
     else:
