@@ -58,6 +58,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        {%if pessoa_logada_cargo != 'Administrador' %}
+                            <input type="hidden" id="id_instrutor" name="id_instrutor" value={{pessoa_logada_id}}>
+                        {% endif %}
+
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material">

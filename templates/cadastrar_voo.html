@@ -61,6 +61,10 @@
                             </div>
                         </div>
 
+                        {%if pessoa_logada_cargo != 'Administrador' %} 
+                            <input type="hidden" id="id_piloto" name="id_piloto" value={{pessoa_logada_id}}>
+                        {% endif %}
+                        
                         <div class="form-group">
                                 <div class="col-sm-9">
                                     <div class="form-material form-material-primary">
