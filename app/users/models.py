@@ -126,7 +126,7 @@ class Instrutor(Piloto):
     __tablename__ = 'instrutor'
     __mapper_args__ = {'polymorphic_identity': 'instrutor'}
 
-    matricula = db.Column(db.String(6), db.ForeignKey('socio.matricula'), primary_key = True)
+    matricula = db.Column(db.Integer, db.ForeignKey('socio.matricula'), primary_key = True)
     nomeInstituicao = db.Column(db.String(128), nullable = False)
     nomeCurso = db.Column(db.String(128), nullable = False)
     dataDiploma = db.Column(db.DateTime, nullable = False)

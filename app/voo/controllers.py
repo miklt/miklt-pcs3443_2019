@@ -133,7 +133,8 @@ def getAeros():
 def deleteAeros(id):
     
     x = models.Aeronave.query.get(id)
-    db.session.delete(x)
-    db.session.commit()  
+    if x != None:
+        db.session.delete(x)
+        db.session.commit()  
            
     return ("DELETADO")

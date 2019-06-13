@@ -176,12 +176,20 @@ def getSocios():
             "endereco" : u.endereco,
             "dataNascimento" : u.dataNascimento.strftime("%d/%b/%Y"),
             "cpf" : u.cpf,
-            "numeroBreve" : u.numeroBreve 
+            "numeroBreve" : u.numeroBreve,
+            "isActive" : u.isActive
         }
         val.append(d)
         
         
     return json.dumps(val)
 
-    
-  
+
+@users.route('/socios/<int:id>', methods=['PUT'])
+def deleteSocios(id):
+        
+    x = models.Login.query.get(id)
+    x.isActive = False
+    db.session.commit()
+
+    return ("DELETADO")
