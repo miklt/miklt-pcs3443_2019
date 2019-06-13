@@ -4,18 +4,28 @@
         <div class="col-7">
           <h2>Aluno - {{aluno.nome}}</h2>
         </div>
-        <div class="col-5" *ngIf="sessionService.getAtor() == 'funcionario'">
-          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)">Editar</button>
-        </div>
-        <div class="col-5" *ngIf="sessionService.getAtor() == 'funcionario'">
-          <button class="btn btn-outline-danger float-right" (click)="editAluno(aluno)">Deletar</button>
-        </div>
-        <div class="col-5" *ngIf="sessionService.getAtor() == 'instrutor'">
-          <button class="btn btn-outline-success float-right" (click)="goToNovoVoo(aluno)">Registrar Voo</button>
+        <div class="col-5">
+          <button class="btn btn-outline-success float-right mr-1" (click)="editAluno(aluno)" *ngIf="sessionService.getAtor() == 'funcionario'">Editar</button>
+          <button class="btn btn-outline-danger float-right mr-1" (click)="deleteAluno(aluno)" *ngIf="sessionService.getAtor() == 'funcionario'">Deletar</button>
+          <button class="btn btn-outline-success float-right mr-1" (click)="goToNovoVoo(aluno)" *ngIf="sessionService.getAtor() == 'instrutor'">Registrar Voo</button>
         </div>
 
       </div>
     </div>
+
+    <div class="col-12">
+      <div class="alert alert-dismissible alert-success" *ngIf="sucessoBreve">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Pronto!</strong> Brevê gerado:
+        <h4>{{aluno.numeroBreve}}</h4>
+      </div>
+      <div class="alert alert-dismissible alert-danger" *ngIf="erroBreve">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Ops!</strong>
+        <p>Erro ao gerar brevê</p>
+      </div>
+    </div>
+
     <div class="col-12 text-center" *ngIf="loading">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>

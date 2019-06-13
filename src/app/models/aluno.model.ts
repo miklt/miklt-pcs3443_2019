@@ -7,6 +7,10 @@ export class Aluno {
   endereco: string;
   numeroMatricula: number;
   horasTotais: number;
+
+  constructor(values?: object) {
+    Object.assign(this, values);
+  }
 }
 
 export interface APIResponse<T> {

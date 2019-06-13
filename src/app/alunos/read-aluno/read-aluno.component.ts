@@ -15,9 +15,11 @@ export class ReadAlunoComponent implements OnInit {
 
   aluno: Aluno = new Aluno();
   loading = false;
+  erroBreve = false;
+  sucessoBreve = false;
   horasDeVoo: number;
   horasRestantes: number;
-  horasObrigatorias = 150;
+  horasObrigatorias = 10;
   notaMedia: number;
   notasVermelhas: number[] = [];
   voosDoAluno: Voo[] = [];
@@ -70,6 +72,14 @@ export class ReadAlunoComponent implements OnInit {
     });
   }
 
+  deleteAluno(aluno: Aluno) {
+    this.loading = true;
+    this.alunoService.delete(aluno).subscribe(response => {
+      console.log('Deletado', response);
+      this.router.navigate(['list-aluno']);
+    });
+  }
+
   goToVoo(voo: Voo) {
     this.router.navigate(['read-voo', voo.id]);
   }
@@ -80,6 +90,22 @@ export class ReadAlunoComponent implements OnInit {
 
   podeGerar() {
     return (this.horasDeVoo >= this.horasObrigatorias) && (this.notasVermelhas.length < 0.15 * this.voosDoAluno.length);
+  }
+
+  gerarBreve() {
+    this.loading = true;
+    const breve = Math.floor(100000 + Math.random() * 900000);
+    const novoAluno = new Aluno(this.aluno);
+    novoAluno.numeroBreve = breve.toString();
+
+    this.alunoService.update(novoAluno).subscribe(resp => {
+      this.sucessoBreve = true;
+      this.loading = false;
+      this.aluno.numeroBreve = breve.toString();
+    }, err => {
+      this.erroBreve = true;
+      this.loading = false;
+    });
   }
 
   ngOnInit() {
