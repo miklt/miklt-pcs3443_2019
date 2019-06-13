@@ -16,9 +16,9 @@ class Perfil extends React.Component {
 
     getState() {
         
-        const matricula = getToken();
+        const matricula_v3 = getToken();
 
-        const url = url_v3+"user/"+matricula;
+        const url = url_v3+"user/"+matricula_v3;
         axios.get(url)
             .then(response => {
                 var lista = document.getElementById('lista')
@@ -45,9 +45,17 @@ class Perfil extends React.Component {
                     if (response.data.role === "Piloto" || response.data.role === "Instrutor")
                         lista.appendChild(numeroBreve)
                 }
+                const url2 = url_v3+"consultaHoras"
+                axios.post(url2, {
+                    matricula : matricula_v3
+                }).then(r => {
+                    console.log(r.data)
+                    var bancoHoras = document.createElement('li')
+                    bancoHoras.innerHTML = r.data
+                    lista.appendChild(bancoHoras)
+                })
             }).catch(error => {
             });
-        console.log(typeof(matricula));
 
     }
     
