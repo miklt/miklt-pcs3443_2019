@@ -38,6 +38,15 @@ def home():
     pessoa_logada_cargo = pessoa_logada.cargo
     if pessoa_logada_cargo == 'Aluno':
         horas_voo = pessoa_logada.horasVoo
+
+    if pessoa_logada_cargo == 'Piloto':
+        voos = Voo.encontrar_pelo_id_piloto(pessoa_logada.id)
+        
+
+        
+
+    
+    
     if pessoa_logada_cargo == 'Administrador':
         voos = Voo.listar()
         aulas = Aula.listar()
