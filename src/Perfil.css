@@ -2,5 +2,12 @@
     position: relative; 
     left: 5em; 
     width: 750px; 
-    text-align: justify
+    text-align: justify;
+}
+
+.lista {
+    font-size: 22px;
+    line-height: 40px;
+    list-style-type: none;
+    padding-left: 0;
 }

@@ -7,31 +7,51 @@ import "./Perfil.css"
 
 class Perfil extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {}
+        this.getState = this.getState.bind(this);
+        this.getState();
+    }
 
     getState() {
         
         const matricula = getToken();
 
-        const url = url_v3+"perfil/init";
-        axios.post(url,{
-            matricula: matricula
-        })
+        const url = url_v3+"user/"+matricula;
+        axios.get(url)
             .then(response => {
-                console.log(response)
+                var lista = document.getElementById('lista')
+                var matricula = document.createElement('li')
+                var email = document.createElement('li')
+                var endereco = document.createElement('li')
+                var dataNascimento = document.createElement('li')
+                var cpf = document.createElement('li')
+                var numeroBreve = document.createElement('li')
+
+                matricula.innerHTML = "Matricula: "+response.data.matricula
+                email.innerHTML = "E-mail: "+response.data.email
+                endereco.innerHTML = "Endereço: "+response.data.endereco
+                dataNascimento.innerHTML = "Data de Nascimento: "+response.data.dataNascimento
+                cpf.innerHTML = "CPF: "+response.data.cpf
+                numeroBreve.innerHTML = "Brevê: "+response.data.numeroBreve
+                
+                lista.appendChild(matricula)
+                lista.appendChild(email)
+                if (response.data.role !== "Funcionario") {
+                    lista.appendChild(endereco)
+                    lista.appendChild(dataNascimento)
+                    lista.appendChild(cpf)
+                    if (response.data.role === "Piloto" || response.data.role === "Instrutor")
+                        lista.appendChild(numeroBreve)
+                }
             }).catch(error => {
-                console.log("deu ruim")
             });
-        console.log(matricula);
+        console.log(typeof(matricula));
 
     }
     
-    constructor(props) {
-        super(props);
-        this.state = {}
-        this.getState = this.getState.bind(this);
-        console.log(this.props.state);
-        this.getState();
-    }
+    
 
     render () {
 
@@ -39,10 +59,10 @@ class Perfil extends React.Component {
             <div className = "perfil">
                 <h1>{this.props.state.role}: {this.props.state.name}</h1>
                 
-                <p>Banco de horas: Total de horas{this.state.horas}</p>
+                
 
-                <ul className = "agendamentos">
-                    <li></li>
+                <ul className = "lista" id="lista">
+
                 </ul>
 
             </div>
