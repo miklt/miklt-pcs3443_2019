@@ -47,6 +47,10 @@ class Aula(Base):
     def listar(cls):
         return cls.query.all()
 
+    @classmethod
+    def encontrar_ultima_pelo_id_aluno(cls, id_aluno):
+        return cls.query.filter_by(id_aluno=id_aluno).order_by(Aula.data.desc()).first()
+
     def remover(self):
         db.session.delete(self)
         db.session.commit()

@@ -36,16 +36,28 @@ def home():
     pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
     pessoa_logada_nome = pessoa_logada.nome
     pessoa_logada_cargo = pessoa_logada.cargo
-    if pessoa_logada_cargo == 'Aluno':
-        horas_voo = pessoa_logada.horasVoo
+    pessoa_logada_id = pessoa_logada.id
+    pessoa_logada_cpf = pessoa_logada.cpf
+    pessoa_logada_email = pessoa_logada.email
+    pessoa_logada_data_nascimento = pessoa_logada.data_nascimento
 
     if pessoa_logada_cargo == 'Piloto':
         voos = Voo.encontrar_pelo_id_piloto(pessoa_logada.id)
-        
+       
 
-        
-
-    
+    if pessoa_logada_cargo == 'Aluno':
+        horas_voo = pessoa_logada.horasVoo
+        nota_total = 0.0
+        quantidade_notas = 0.0
+        aulas_aluno = Aula.encontrar_pelo_id_aluno(pessoa_logada_id)
+        for aula in aulas_aluno:
+            if aula.nota:
+                nota_total += aula.nota
+                quantidade_notas += 1
+        nota_media =  nota_total / quantidade_notas if quantidade_notas > 0 else 0
+        ultima_aula = Aula.encontrar_ultima_pelo_id_aluno(pessoa_logada_id)
+        if ultima_aula:
+            ultima_nota = ultima_aula.nota
     
     if pessoa_logada_cargo == 'Administrador':
         voos = Voo.listar()
@@ -722,6 +734,8 @@ def deletarAula():
     id_aula = request.args['id']
     aula = Aula.encontrar_pelo_id(id_aula)
     if aula:
+        aluno = Pessoa.encontrar_pelo_id(aula.id_aluno)
+        aluno.horasVoo -= int(aula.duracao)
         aula.remover()
     return redirect(url_for('listarAula'))
 
@@ -750,7 +764,9 @@ def avaliarAula():
     if request.method == 'POST':
         try:
             comentario = request.form['comentario']
-            nota = int(request.form['nota'])  
+            nota = int(request.form['nota'])
+            if not current_aula.nota:
+                aluno_selecionado.horasVoo += int(current_duracao)
             current_aula.nota = nota
             current_aula.avaliacao = comentario
             db.session.commit()
