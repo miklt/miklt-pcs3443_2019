@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'edit-instrutor/:id', component: EditInstrutorComponent },
   { path: 'read-instrutor/:id', component: ReadInstrutorComponent },
   // Voos
+  { path: 'create-voo/:id', component: CreateVooComponent },
   { path: 'create-voo', component: CreateVooComponent },
   { path: 'list-voo', component: ListVooComponent },
   { path: 'edit-voo/:id', component: EditVooComponent },

@@ -3,7 +3,7 @@
     <div class="row mb-4">
       <div class="col-6">
         <h2 *ngIf="sessionService.getAtor() == 'funcionario'">Voos</h2>
-        <h2 *ngIf="sessionService.getAtor() == 'instrutor'">Meus Voos</h2>
+        <h2 *ngIf="sessionService.getAtor() == 'instrutor'">Meus voos</h2>
       </div>
       <div class="col-6">
         <button class="btn btn-outline-success float-right" (click)="addVoo()">Registrar voo</button>      
