@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Voo } from '../../models/voo.model';
 import { VooService } from '../../services/voo.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-read-voo',
@@ -12,7 +13,7 @@ export class ReadVooComponent implements OnInit {
 
   voo: Voo = new Voo();
   loading = false;
-  constructor(public vooService: VooService, public route: ActivatedRoute, private router: Router) {
+  constructor(public vooService: VooService, public route: ActivatedRoute, private router: Router, public sessionServive: SessionService) {
     this.loading = true;
     this.route.params.subscribe(params => {
       this.voo.id = params.id;

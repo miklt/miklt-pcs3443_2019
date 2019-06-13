@@ -5,7 +5,7 @@
           <h2>Voo {{voo.id}} - {{voo.dadosAluno.nome}}</h2>
         </div>
         <div class="col-6">
-          <button class="btn btn-outline-success float-right" (click)="editVoo(voo)"> Editar voo</button>      
+          <button class="btn btn-outline-success float-right" (click)="editVoo(voo)" *ngIf="sessionService.getAtor() == 'instrutor'"> Editar voo</button>      
         </div>
       </div>
 

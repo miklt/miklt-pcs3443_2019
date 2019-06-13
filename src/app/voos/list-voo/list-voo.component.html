@@ -19,7 +19,7 @@
         <th>Aluno</th>
         <th>Instrutor</th>
         <th>Parecer</th>
-        <th>Ação</th>
+        <th *ngIf="sessionService.getAtor() == 'instrutor'">Ação</th>
       </tr>
       </thead>
       <tbody *ngIf="!loading">
@@ -36,7 +36,7 @@
               {{voo.parecer}}
             </span>
           </td>
-        <td>
+        <td *ngIf="sessionService.getAtor() == 'instrutor'">
           <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editVoo(voo)">
             <i class="fa fa-edit"></i>     
           </button>
