@@ -35,6 +35,7 @@ class Aeronaves extends React.Component {
                     var modelo = row.insertCell(-1)
                     var ano = row.insertCell(-1)
                     var num = row.insertCell(-1)
+                    
                     var del = row.insertCell(-1)
                     
                     num.innerHTML = data.num

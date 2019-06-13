@@ -8,6 +8,7 @@ class Socios extends React.Component {
         super(props)
         this.montarTabela = this.montarTabela.bind(this)
         this.limpaTabela = this.limpaTabela.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
         this.limpaTabela()
         this.montarTabela()           
     }
@@ -29,6 +30,10 @@ class Socios extends React.Component {
                 console.log(response)
                 var table = document.getElementById("myTable")
                 response.data.forEach(data => {
+                    
+                    if(!data.isActive)
+                        return
+
                     var row = table.insertRow(-1)
 
                     var matricula = row.insertCell(-1)
@@ -39,6 +44,8 @@ class Socios extends React.Component {
                     var dataNascimento = row.insertCell(-1)
                     var cpf = row.insertCell(-1)
                     var numeroBreve = row.insertCell(-1)
+
+                    var del = row.insertCell(-1)
                     
                     
                     matricula.innerHTML = data.matricula
@@ -49,11 +56,26 @@ class Socios extends React.Component {
                     dataNascimento.innerHTML = data.dataNascimento
                     cpf.innerHTML = data.cpf
                     numeroBreve.innerHTML = data.numeroBreve
+
+                    var button = document.createElement("button");
+                    button.innerHTML = "Deletar";
+                    button.value = data.matricula;
+                    button.onclick = this.handleDelete
+                    del.appendChild(button);
                    
                 })
             })
         
     }
+
+    handleDelete(e) {
+        const url = url_v3 + "socios/" +  e.target.value
+        axios.put(url).then( () => {
+            this.limpaTabela()
+            this.montarTabela() 
+        })  
+    }
+
 
     render () {
         return (
