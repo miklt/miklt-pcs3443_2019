@@ -6,6 +6,7 @@ export class Aluno {
   dataNascimento: string;
   endereco: string;
   numeroMatricula: number;
+  horasTotais: number;
 }
 
 export interface APIResponse<T> {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { VooService } from '../../services/voo.service';
 import { Voo } from '../../models/voo.model';
 import { Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-list-voo',
@@ -14,7 +15,7 @@ export class ListVooComponent implements OnInit {
   public loading = false;
   @ViewChild('details') detailsModal: ElementRef;
 
-  constructor(private vooService: VooService, private router: Router) {
+  constructor(private vooService: VooService, private router: Router, public sessionService: SessionService) {
     this.load();
   }
 
@@ -25,6 +26,9 @@ export class ListVooComponent implements OnInit {
     this.loading = true;
     this.vooService.getAll().subscribe(response => {
       this.voos = response.data;
+      if (this.sessionService.getAtor() !== 'funcionario') {
+        this.voos = this.voos.filter(voo => voo.dadosInstrutor.cpf === this.sessionService.getCPF());
+      }
       this.loading = false;
     });
   }

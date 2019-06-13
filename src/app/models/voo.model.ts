@@ -6,6 +6,8 @@ export class Voo {
   parecer: number;
   aluno: number;
   instrutor: number;
+  dadosInstrutor: any;
+  dadosAluno: any;
   constructor(obj?: object) {
     Object.assign(this, obj);
   }

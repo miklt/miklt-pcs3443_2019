@@ -2,7 +2,8 @@
   <div class="col-12">
     <div class="row mb-4">
       <div class="col-6">
-        <h2>Voos</h2>
+        <h2 *ngIf="sessionService.getAtor() == 'funcionario'">Voos</h2>
+        <h2 *ngIf="sessionService.getAtor() == 'instrutor'">Meus Voos</h2>
       </div>
       <div class="col-6">
         <button class="btn btn-outline-success float-right" (click)="addVoo()">Registrar voo</button>      
@@ -25,11 +26,16 @@
       <tr *ngFor="let voo of voos">
         <td (click)="goToVoo(voo)">{{voo.id}}</td>
         <td (click)="goToVoo(voo)">{{voo.data | mask: '00/00/0000'}}</td>
-        <td (click)="goToVoo(voo)">{{voo.horarioSaida | mask: 'HH:mm'}}</td>
-        <td (click)="goToVoo(voo)">{{voo.horarioChegada | mask: 'HH:mm'}}</td>
+        <td (click)="goToVoo(voo)">{{voo.horarioSaida | mask: '00:00'}}</td>
+        <td (click)="goToVoo(voo)">{{voo.horarioChegada | mask: '00:00'}}</td>
         <td (click)="goToVoo(voo)">{{voo.dadosAluno.nome}}</td>
         <td (click)="goToVoo(voo)">{{voo.dadosInstrutor.nome}}</td>
-        <td (click)="goToVoo(voo)">{{voo.parecer}}</td>
+        <td (click)="goToVoo(voo)">
+            <span class="badge badge-success badge-pill" [class.badge-success]="voo.parecer >= 3"
+                  [class.badge-danger]="voo.parecer <= 1" [class.badge-warning]="voo.parecer == 2">
+              {{voo.parecer}}
+            </span>
+          </td>
         <td>
           <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editVoo(voo)">
             <i class="fa fa-edit"></i>     

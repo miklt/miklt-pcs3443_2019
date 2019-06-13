@@ -4,8 +4,8 @@
         <div class="col-7">
           <h2>{{aluno.nome}}</h2>
         </div>
-        <div class="col-5" *ngIf="sessionService.getAtor() !== 'aluno'">
-          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)"> Editar aluno</button>      
+        <div class="col-5" *ngIf="sessionService.getAtor() == 'funcionario'">
+          <button class="btn btn-outline-success float-right" (click)="editAluno(aluno)">Editar aluno</button>      
         </div>
 
       </div>
@@ -46,7 +46,13 @@
           </tr>
           <tr>
             <td><b>Nº do brevê</b></td>
-            <td>{{aluno.numeroBreve}}</td>
+            <td *ngIf="!aluno.numeroBreve">
+              <button class="btn btn-success btn-sm" *ngIf="podeGerar()" (click)="gerarBreve()">Gerar</button> 
+              {{aluno.numeroBreve}}
+            </td>
+            <td *ngIf="aluno.numeroBreve">
+              {{aluno.numeroBreve}}
+            </td>
           </tr>
             
           </tbody>
@@ -55,11 +61,18 @@
     <div id="container-horas" class="col-4" *ngIf="!loading">
       <p id="horas-titulo" class="text-center">Horas de voo:</p>
       <p id="horas-valor" class="text-center">{{ horasDeVoo }}h</p>
-      <p id="horas-restantes" class="text-center"> Faltam {{ horasRestantes }} horas de voo para obter o brevê.</p>
+      <p id="horas-restantes" class="text-center"> Faltam {{ horasRestantes.toFixed(1) }} horas de voo para poder tirar o brevê</p>
       <div class="progress">
         <div class="progress-bar bg-success" role="progressbar" [style.width.%]="porcentagemCompleta" aria-valuenow="porcentagemCompleta" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-      <p class="text-center">{{ horasDeVoo }} / {{ horasObrigatorias }} </p>
+      <p class="text-center">{{ (100*horasDeVoo/horasObrigatorias).toFixed(1) }} % </p>
+      <p class="text-center">
+        <b>Nota média: </b>
+        <span class="badge badge-success badge-pill" [class.badge-success]="notaMedia >= 3"
+              [class.badge-danger]="notaMedia <= 1" [class.badge-warning]="notaMedia > 1 && notaMedia < 3">
+          {{notaMedia.toFixed(1)}}
+        </span>
+      </p>
     </div>
 
     <div class="col-12 mt-4">
@@ -86,11 +99,16 @@
           <tr *ngFor = 'let voo of voosDoAluno' class="table-default">
               <td (click)="goToVoo(voo)">{{voo.id}}</td>
               <td (click)="goToVoo(voo)">{{voo.data | mask: '00/00/0000'}}</td>
-              <td (click)="goToVoo(voo)">{{voo.horarioSaida | mask: 'HH:mm'}}</td>
-              <td (click)="goToVoo(voo)">{{voo.horarioChegada | mask: 'HH:mm'}}</td>
+              <td (click)="goToVoo(voo)">{{voo.horarioSaida | mask: '00:00'}}</td>
+              <td (click)="goToVoo(voo)">{{voo.horarioChegada | mask: '00:00'}}</td>
               <td (click)="goToVoo(voo)">{{ voo.getTempoDeVoo() }} minutos</td>
               <td (click)="goToVoo(voo)">{{voo.dadosInstrutor.nome}}</td>
-              <td (click)="goToVoo(voo)">{{voo.parecer}}</td>
+              <td (click)="goToVoo(voo)">
+                <span class="badge badge-success badge-pill" [class.badge-success]="voo.parecer >= 3"
+                      [class.badge-danger]="voo.parecer <= 1" [class.badge-warning]="voo.parecer == 2">
+                  {{voo.parecer}}
+                </span>
+              </td>
             </tr>
 
           

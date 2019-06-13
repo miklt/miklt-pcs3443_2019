@@ -34,7 +34,12 @@
           </tr>
           <tr>
             <td><b>Parecer</b></td>
-            <td>{{voo.parecer}}</td>
+            <td>
+              <span class="badge badge-success badge-pill" [class.badge-success]="voo.parecer >= 3"
+                    [class.badge-danger]="voo.parecer <= 1" [class.badge-warning]="voo.parecer == 2">
+                {{voo.parecer}}
+              </span>
+            </td>
           </tr>
           <tr>
             <td><b>Data</b></td>
