@@ -19,6 +19,9 @@ class Condicional extends React.Component {
     }
 
     render () {
+        if (!this.props.state.isReady)
+            return ("")
+
         return (
             <div>
                 <Route
@@ -30,6 +33,7 @@ class Condicional extends React.Component {
                         </div>   
                     )}
                 />
+
                 <Route
                     path="/contato"
                     render={() => (
@@ -40,6 +44,7 @@ class Condicional extends React.Component {
                         </div>  
                     )}
                 />
+
                 <Route
                     path="/servicos"
                     render={() => (
@@ -56,6 +61,7 @@ class Condicional extends React.Component {
                     )}
                 />
 
+
                 <Route
                     path="/login"
                     render={(routeProps) => (
@@ -64,28 +70,34 @@ class Condicional extends React.Component {
                         <Redirect to='/' />
                     )}
                 />
-                <Route
-                    path="/agendar"
-                    render={(routeProps) => (
-                        <Agendamento {...routeProps} state={this.props.state} />
-                    )}
-                />
+
                 <Route
                     path="/cadastro"
                     render={(routeProps) => (
-                        this.props.state.role === "Funcionario" || true ?
+                        this.props.state.role === "Funcionario" ?
                         <Cadastro {...routeProps} state={this.props.state}/> :
                         <Redirect to='/' />
                     )}
                 />
+
                 <Route
                     path="/cadastroAero"
                     render={(routeProps) => (
-                        this.props.state.role === "Funcionario" || true ?
+                        this.props.state.role === "Funcionario" ?
                         <CadastroAero {...routeProps} state={this.props.state}/> :
                         <Redirect to='/' />
                     )}
                 />
+
+                <Route
+                    path="/agendar"
+                    render={(routeProps) => (
+                        this.props.state.role === "Aluno" ?
+                        <Agendamento {...routeProps} state={this.props.state} /> :
+                        <Redirect to='/' />
+                    )}
+                />
+
                 <Route
                     path="/perfil"
                     render={(routeProps) => (
@@ -94,18 +106,34 @@ class Condicional extends React.Component {
                         <Redirect to='/login' />
                     )}
                 />
+
                 <Route
                     path="/socios"
                     render={(routeProps) => (
-                        <Socios {...routeProps} />
+                        (this.props.state.role === "Aluno" || this.props.state.role === "Funcionario") ?
+                        <Socios {...routeProps} /> : 
+                        <Redirect to='/' />
                     )}
                 />
+
                 <Route
                     path="/aeronaves"
                     render={(routeProps) => (
-                        <Aeronaves {...routeProps} />
+                        (this.props.state.role === "Aluno" || this.props.state.role === "Funcionario") ?
+                        <Aeronaves {...routeProps} /> :
+                        <Redirect to='/' />
                     )}
                 />
+
+                <Route
+                    path="/listaAulas"
+                    render={(routeProps) => (
+                        (this.props.state.role === "Aluno" || this.props.state.role === "Funcionario") ?
+                        <ListaAulas {...routeProps} state={this.props.state}/> :
+                        <Redirect to='/' />
+                    )}
+                />
+
                 <Route
                     path="/logout"
                     render={(routeProps) => (
@@ -114,12 +142,7 @@ class Condicional extends React.Component {
                         <Redirect to='/login' />
                     )}
                 />
-                <Route
-                    path="/listaAulas"
-                    render={(routeProps) => (
-                        <ListaAulas {...routeProps} state={this.props.state}/>
-                    )}
-                />
+
             </div>
             
         ) 

@@ -23,6 +23,7 @@ class App extends React.Component {
             matricula: '',
             role: '',
             isLoggedIn: false,
+            isReady: false
         }
 
         const url = url_v3+'auth';
@@ -33,7 +34,8 @@ class App extends React.Component {
                 name: response.data.name,
                 matricula: getToken(),
                 isLoggedIn: isAuthenticated(),
-                role: response.data.role
+                role: response.data.role,
+                isReady: true
             })
          })
     }
