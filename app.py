@@ -31,8 +31,8 @@ def downloadBreve(nome_arquivo):
 
 @app.route("/")
 def home():
-    #if 'pessoa' not in session:
-    #    return redirect(url_for('login'))
+    if 'pessoa' not in session:
+        return redirect(url_for('login'))
     print()
     print(session)
     print()
@@ -368,7 +368,16 @@ def cadastrarVooHora():
 
 @app.route("/listar_voo")
 def listarVoo():
-    voos = Voo.listar()
+    if 'pessoa' not in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+    if pessoa_logada_cargo == 'Administrador':
+        voos = Voo.listar()
+    else:
+        voos = Voo.encontrar_pelo_id_piloto(pessoa_logada_id)
     voos.sort(key=operator.attrgetter('data'))
     pilotos = []
     datas = []
@@ -681,7 +690,16 @@ def editarAula():
 
 @app.route("/listar_aula")
 def listarAula():
-    aulas = Aula.listar()
+    if 'pessoa' not in session:
+        return redirect(url_for('login'))
+    pessoa_logada = Pessoa.encontrar_pelo_id(session['pessoa'])
+    pessoa_logada_nome = pessoa_logada.nome
+    pessoa_logada_cargo = pessoa_logada.cargo
+    pessoa_logada_id = pessoa_logada.id
+    if pessoa_logada_cargo == 'Administrador':
+        aulas = Aula.listar()
+    else:
+        aulas = Aula.encontrar_pelo_id_instrutor(pessoa_logada_id)
     aulas.sort(key=operator.attrgetter('data'))
     alunos = []
     instrutores = []
