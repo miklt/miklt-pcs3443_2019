@@ -1,3 +1,5 @@
+import { Voo } from './voo.model';
+
 export class Aluno {
   numeroBreve: string;
   cpf: string;
@@ -7,6 +9,7 @@ export class Aluno {
   endereco: string;
   numeroMatricula: number;
   horasTotais: number;
+  voos?: Voo[];
 }
 
 export interface APIResponse<T> {

@@ -23,16 +23,16 @@
       <tbody *ngIf="!loading">
       <tr *ngFor="let aluno of alunos">
         <td (click)="goToAluno(aluno)">{{aluno.numeroMatricula}}</td>
-        <td (click)="goToAluno(aluno)"><span class="badge badge-success badge-pill">BREVÊ</span>  {{aluno.nome}}</td>
+        <td (click)="goToAluno(aluno)">{{aluno.nome}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.email}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.cpf | mask: '000.000.000-00'}}</td>
         <td (click)="goToAluno(aluno)">{{aluno.dataNascimento | mask: '00/00/0000'}}</td>
-        <td (click)="goToAluno(aluno)">{{aluno.numeroBreve}}</td>
+        <td (click)="goToAluno(aluno)"><span *ngIf="podeGerar(aluno) && !aluno.numeroBreve" class="badge badge-success badge-pill">GERAR BREVÊ</span>{{aluno.numeroBreve}}<span *ngIf="!podeGerar(aluno) && !aluno.numeroBreve" class="badge badge-primary badge-pill">PENDENTE</span></td>
         <td *ngIf="sessionService.getAtor() == 'funcionario'">
           <button class="btn btn-secondary btn-xs ml-1 mb-1" (click)="editAluno(aluno)">
             <i class="fa fa-edit"></i>     
           </button>
-          <button class="btn btn-danger btn-xs ml-1 mb-1" (click)="deleteAluno(aluno)">       
+          <button class="btn btn-danger btn-xs ml-1 mb-1" (click)="deleteAluno(aluno)">      
             <i class="fa fa-trash"></i>
           </button>
         </td>
