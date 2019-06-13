@@ -75,18 +75,6 @@ def logout():
     return json.dumps(val)
 
 
-# Exibe todos os dados referentes a um usuário, exceto a senha
-@users.route('/user', methods = ['GET'])
-def showUser():
-    userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
-    if userLogin is None:
-        user = {}
-    else:
-        user = models.role[userLogin.role].query.get(userLogin.matricula)
-
-    return json.dumps(user.getValues(), default = str)
-
-
 # Registra novo usuário
 @users.route('/register', methods=['POST'])
 def register():
@@ -145,51 +133,85 @@ def register():
         return json.dumps(val, default = str)
 
 
-# Registra novo usuário
-@users.route('/registerFunc/', methods=['GET'])
-def registerFunc():
-    u = models.Funcionario(
-        name = 'name',
-        email = 'email',
-        password = 'password')
+# Exibe todos os dados referentes a um usuário, exceto a senha
+@users.route('/user', methods = ['GET'])
+def showUser():
+    userLogin = models.Login.query.get(request.args.get('user', default = 0, type = int))
+    if userLogin is None:
+        user = {}
+    else:
+        user = models.role[userLogin.role].query.get(userLogin.matricula)
 
-    db.session.add(u)
-    db.session.commit()
-
-    return "foi"
-
+    return json.dumps(user.getValues(), default = str)
 
 
 @users.route('/socios', methods=['GET'])
 def getSocios():
-    
-    val = []
-    
-    u1 = models.Socio.query.all()
-        
-    for u in u1:    
-        d = {
-            "matricula" : u.matricula,
-            "name" : u.name,
-            "role" : u.role,
-            "email" : u.email,
-            "endereco" : u.endereco,
-            "dataNascimento" : u.dataNascimento.strftime("%d/%b/%Y"),
-            "cpf" : u.cpf,
-            "numeroBreve" : u.numeroBreve,
-            "isActive" : u.isActive
-        }
-        val.append(d)
-        
-        
+    val = [ s.getValues() for s in models.Socio.query.all() ]
     return json.dumps(val)
 
 
 @users.route('/socios/<int:id>', methods=['PUT'])
 def deleteSocios(id):
-        
     x = models.Login.query.get(id)
     x.isActive = False
     db.session.commit()
 
     return ("DELETADO")
+
+
+# APENAS PARA TESTES
+# Registra novo usuário
+@users.route('/populate/', methods=['GET'])
+def populate():
+    u = models.Funcionario(
+            name = 'Funcionario 1',
+            email = 'f@a.b',
+            password = '1234'
+        )
+
+    db.session.add(u)
+    db.session.commit()
+
+    u = models.Aluno(
+            name = 'Aluno 1',
+            email = 'a@a.b',
+            password = '1234',
+            endereco = 'rua aaa',
+            dataNascimento = datetime.strptime("1999-09-09", '%Y-%m-%d'),
+            cpf = "12345678900"
+        )
+
+    db.session.add(u)
+    db.session.commit()
+
+    u = models.Piloto(
+            name = 'Piloto 1',
+            email = 'p@a.b',
+            password = '1234',
+            endereco = 'rua aaa',
+            dataNascimento = datetime.strptime("1999-09-09", '%Y-%m-%d'),
+            cpf = "12345678901",
+            numeroBreve = "123456"
+        )
+
+    db.session.add(u)
+    db.session.commit()
+
+    u = models.Instrutor(
+            name = 'Instrutor 1',
+            email = 'i@a.b',
+            password = '1234',
+            endereco = 'rua aaa',
+            dataNascimento = datetime.strptime("1999-09-09", '%Y-%m-%d'),
+            cpf = "12345678902",
+            numeroBreve = "012345",
+            nomeInstituicao = "aaaaa",
+            nomeCurso = "hjdijsi",
+            dataDiploma = datetime.strptime("2002-09-09", '%Y-%m-%d')
+        )
+
+    db.session.add(u)
+    db.session.commit()
+
+    return "foi"

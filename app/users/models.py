@@ -38,9 +38,11 @@ class Login(UserMixin, db.Model):
 
     def getValues(self):
         return {
+            'matricula': self.matricula,
             'name': self.name,
             'email': self.email,
-            'role': self.role
+            'role': self.role,
+            'isActive': self.isActive
         }
 
 # Recarrega o usuário.
@@ -80,7 +82,7 @@ class Socio(Login):
     def getValues(self):
         val = super().getValues()
         val['endereco'] = self.endereco
-        val['dataNascimento'] = self.dataNascimento
+        val['dataNascimento'] = self.dataNascimento.strftime("%d/%b/%Y")
         val['cpf'] = self.cpf
         val['numeroBreve'] = self.numeroBreve
 
@@ -151,7 +153,7 @@ class Instrutor(Piloto):
         val = super().getValues()
         val['nomeInstituicao'] = self.nomeInstituicao
         val['nomeCurso'] = self.nomeCurso
-        val['dataDiploma'] = self.dataDiploma
+        val['dataDiploma'] = self.dataDiploma.strftime("%d/%b/%Y")
 
         return val
 
