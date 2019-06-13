@@ -276,6 +276,105 @@
     <!-- END Page Content -->
 {% endif %}
 
+{% if pessoa_logada_cargo == 'Instrutor' %}
+
+    <!-- Page Content -->
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Default Elements -->
+                    <div class="block">
+                        <div class="block-header">
+                            <h3 class="block-title">Decolagens de hoje
+                            </h3>
+                        </div>
+                        <div class="block-content">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center" style="width: 50px;">Horário</th>
+                                        <th style="width: 50px;">Duração</th>
+                                        <th>Piloto</th>
+                                        <th>Aluno</th>
+                                        <th class="text-center">Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for k in range (0, decolagens_hoje|length ) %}
+                                    <tr>
+                                    <td class="text-center">{{k}}</td>
+                                    <td class="text-center">{{horarios_decolagens[k]}}</td>
+                                    <td class="text-center">{{decolagens_hoje[k].duracao}} h</td> 
+                                    <td>{{instrutores_decolagens[k]}}</td>
+                                    <td>{{alunos_decolagens[k]}}</td>
+    
+                                    {%if tipo[k] == "Voo" %}
+                                    <td class="text-center" class="hidden-xs">
+                                        <span class="label label-primary">Voo</span>
+                                    </td>
+                                    {%else%}
+                                    <td class="text-center" class="hidden-xs">
+                                        <span class="label label-warning">Aula</span>
+                                    </td>
+                                    {%endif%}
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <!-- END Default Elements --> 
+            </div>
+            <div class="col-lg-4">
+                <!-- Latest Sales Widget -->
+                <div class="block">
+                                        
+                    <div class="block">
+                        <div class="block-header">
+                            <h3 class="block-title">Histórico de Decolagens
+                            </h3>
+                        </div>
+                        <div class="block-content">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <!-- <th class="text-center" style="width: 50px;">Horário</th> -->
+                                        <!-- <th style="width: 50px;">Duração</th> -->
+                                        <!-- <th>Piloto</th> -->
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Aluno</th>
+                                        <th class="text-center">Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for k in range (0, decolagens_historico|length ) %}
+                                    <tr>
+                                    <td class="text-center">{{data_decolagens[k]}}</td>
+                                    <td class="text-center">{{aluno_historico[k]}}</td>
+    
+                                    {%if tipo_historico[k] == "Voo" %}
+                                    <td class="text-center" class="hidden-xs">
+                                        <span class="label label-primary">Voo</span>
+                                    </td>
+                                    {%else%}
+                                    <td class="text-center" class="hidden-xs">
+                                        <span class="label label-warning">Aula</span>
+                                    </td>
+                                    {%endif%}
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Latest Sales Widget -->
+            </div>
+        </div>
+    </div>
+    <!-- END Page Content -->
+{% endif %}
 
 {% if pessoa_logada_cargo == 'Piloto' %}
 
@@ -285,7 +384,7 @@
             <div class="col-sm-6 col-lg-6">
                 <a class="block block-rounded block-link-hover3 text-center " >
                     <div class="block-content block-content-full bg-warning">
-                        <div class="h1 font-w700 text-white">32<span class="h2 text-white-op"></span></div>
+                        <div class="h1 font-w700 text-white">{{horas_voo_piloto}}<span class="h2 text-white-op"></span></div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Horas voadas</div>
                     </div>
                 
@@ -294,7 +393,7 @@
             <div class="col-sm-6 col-lg-6">
                 <a class="block block-rounded block-link-hover3 text-center" >
                     <div class="block-content block-content-full bg-primary">
-                        <div class="h1 font-w700 text-white">5</div>
+                        <div class="h1 font-w700 text-white">{{quantidade_voo_piloto}}</div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Voos Realizados</div>
                     </div>
                     
@@ -316,7 +415,7 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <a class="block block-link-hover3 text-center" href="{{ url_for('meuPerfil') }}">
                                         <div class="block-content block-content-full bg-danger">
-                                            <i class="si si-music-tone fa-4x text-white"></i>
+                                            <i class="si si-user fa-4x text-white"></i>
                                             <div class="font-w600 push-15-t text-white">Editar Perfil</div>
                                         </div>
                                     </a>
@@ -324,7 +423,7 @@
                                 <div class="col-sm-6 col-lg-4">
                                     <a class="block block-link-hover3 text-center" href="{{ url_for('cadastrarVoo') }}">
                                         <div class="block-content block-content-full bg-success">
-                                            <i class="si si-music-tone fa-4x text-white"></i>
+                                            <i class="si si-plane fa-4x text-white"></i>
                                             <div class="font-w600 push-15-t text-white">Agendar Voo</div>
                                         </div>
                                     </a>
@@ -332,8 +431,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- END Main Dashboard Chart -->
+                <!-- END Default Elements --> 
             </div>
             <div class="col-lg-4">
                 <!-- Latest Sales Widget -->
@@ -350,16 +448,19 @@
                                 <div>
                                     <table class="table remove-margin-b font-s13">
                                         <tbody>
-                                            {% for aluno in alunos_nao_agendados %}
-                                            <tr class='bg-success'></tr>>
-                                                <td class="font-w600">{{aluno.nome}}</td>
-                                                <td class="hidden-xs text-muted text-center"></td>
+                                            <tr>
+                                                <td class="font-w600">Data</td>
+                                                <td class="hidden-xs text-muted text-right">Hora</td>
+                                                <td class="font-w600 text-right">Duração</td>
                                             </tr>
-                                            <!-- <td class="hidden-xs text-muted text-right">8:30</td> -->
-                                            <!-- <td class="font-w600 text-success text-right">45 minutos</td> -->
 
+                                            {% for voo in voos_piloto %}
+                                                <tr>
+                                                    <td class="font-w600">{{voo.data.strftime('%d/%m/%Y')}}</td>
+                                                    <td class="hidden-xs text-muted text-right">{{voo.data.strftime('%H:%M')}}</td>
+                                                    <td class="font-w600 text-right">{{voo.duracao}} horas</td>
+                                                </tr>
                                             {% endfor %}
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -374,15 +475,7 @@
         </div>
     </div>
     <!-- END Page Content -->
-
-{%endif%}
-
-
-
-
-
-
-
+{% endif %}
 
 {% endblock conteudo%}
 

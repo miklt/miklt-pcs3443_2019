@@ -42,8 +42,13 @@ def home():
     pessoa_logada_data_nascimento = pessoa_logada.data_nascimento
 
     if pessoa_logada_cargo == 'Piloto':
-        voos = Voo.encontrar_pelo_id_piloto(pessoa_logada.id)
-       
+        voos_piloto = Voo.encontrar_pelo_id_piloto(pessoa_logada_id)
+        horas_voo_piloto = 0.0
+        quantidade_voo_piloto = 0.0
+        for voo in voos_piloto:
+            horas_voo_piloto += voo.duracao
+            quantidade_voo_piloto += 1
+
 
     if pessoa_logada_cargo == 'Aluno':
         horas_voo = pessoa_logada.horasVoo
@@ -63,6 +68,93 @@ def home():
             minimo_horas = True
 
     
+            
+    if pessoa_logada_cargo == 'Instrutor':
+        voos = Voo.listar()
+        aulas = Aula.listar()   
+
+
+         #decolagens do dia
+         
+        data_hoje = datetimee.datetime.now().date()
+        decolagens_hoje = []
+        decolagens_historico=[]
+        for voo in voos:
+            if voo.id_piloto == pessoa_logada.id:
+                if voo.data.date() == data_hoje:
+                    decolagens_hoje.append(voo)
+                if voo.data < datetime.now():
+                    decolagens_historico.append(voo)
+            
+        for aula in aulas:
+            if aula.id_instrutor == pessoa_logada.id:
+                print (aula.data)
+                print (aula.data)
+                print (aula.data)
+                print (aula.data)
+                print (aula.data)
+                if aula.data.date() == data_hoje:
+                    decolagens_hoje.append(aula)
+                if aula.data < datetime.now():
+                    
+                    decolagens_historico.append(aula) 
+
+        decolagens_hoje.sort(key=operator.attrgetter('data'))
+        horarios_decolagens = []
+        alunos_decolagens = []
+        instrutores_decolagens = []
+        tipo = []
+
+        data_decolagens=[]
+        tipo_historico = []
+        aluno_historico = []
+        
+        i = 0
+        for decolagem in decolagens_hoje:
+            horarios_decolagens.append(datetime.strftime(decolagens_hoje[i].data, "%H:%M"))
+
+            try:
+                aluno_hj = Pessoa.encontrar_pelo_id(decolagens_hoje[i].id_aluno).nome
+            except:
+                aluno_hj = "---"
+            alunos_decolagens.append(aluno_hj)
+            
+            try:
+                instrutor_hj = Pessoa.encontrar_pelo_id(decolagens_hoje[i].id_instrutor).nome
+            except:
+                instrutor_hj = Pessoa.encontrar_pelo_id(decolagens_hoje[i].id_piloto).nome
+
+            instrutores_decolagens.append(instrutor_hj)
+
+            if isinstance(decolagem, Voo):
+                tipo.append("Voo")
+
+            if isinstance(decolagem, Aula):
+                tipo.append("Aula")
+            
+
+            print(tipo)
+
+            print()
+            print()
+            i = i+ 1
+       
+        for decolagem in decolagens_historico:
+            data_decolagens.append(datetime.strftime(decolagem.data, "%d, %b %Y"))
+            
+            try:
+               aluno_historico.append(Pessoa.encontrar_pelo_id(decolagem.id_aluno).nome)
+            except:
+                aluno_historico.append("---")
+
+            if isinstance(decolagem, Voo):
+                tipo_historico.append("Voo")
+
+            if isinstance(decolagem, Aula):
+                
+                tipo_historico.append("Aula")
+
+        
     if pessoa_logada_cargo == 'Administrador':
         voos = Voo.listar()
         aulas = Aula.listar()
