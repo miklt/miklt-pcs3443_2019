@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import Blueprint
 from app import db
 from flask import request
@@ -30,7 +29,7 @@ def agendarVoo():
     
     elif tipo == 'Aula':
         v=models.Aula(
-            aluno=data['piloto'],
+            aluno=data['aluno'],
             instrutor=data['instrutor'],
             parecer='0',
             dataVoo=db.func.current_timestamp(),
@@ -43,46 +42,44 @@ def agendarVoo():
        )
 
     else: 
-       return "PeePooPoo"
+       return ":("
     
             
-    #v=models.VooSimples("Maria",db.func.current_timestamp(),"112","111","1","Voo Simples")
-    #g=models.Aula("Joao","Maria","5",db.func.current_timestamp(),"11","2","4","Aula")
-    
     db.session.add(v)
     db.session.commit()
     
 
     return "great success"
 
-@voo.route('/consultaAula', methods=["POST"])
+@voo.route('/consultaAula', methods=['GET'])
 def consultaAula():
-       data=request.get_json()
-       sample=models.Aula.query.filter_by(matricula=data['matricula']).first()
-       v={'matricula' : sample.matricula,
-          'aluno'     : sample.aluno,
-          'instrutor' : sample.instrutor,
-          'parecer'   : sample.parecer, 
-          #'dataVoo'   : sample.dataVoo,
-          #'horaSaida' : sample.horaSaida,
-          #'duracao'   : sample.duracao,
-          #'aeronave'  : sample.aeronave 
-        }
-    
-       return json.dumps(v)
+       
+       va=[s.getValues() for s in models.Aula.query.all() ] 
+       return json.dumps(va)
 
- 
-@voo.route('/consultarHoras/',methods=["GET"])
+@voo.route('/consultaAula/<int:numAula>/<int:parecer>',methods=['PUT'])
+def botao(numAula,parecer):
+    
+    for s in models.Aula.query.all():
+        if s.numAula == numAula:
+           s.parecer=parecer
+    db.session.commit()
+    
+    return "oi"
+#@voo.route('/consultaAula/<int:numAula>/<int:parecer>',methods=['PUT'])
+#def input(parecer):
+ #   x.parecer=parecer
+  #  db.session.commit()
+   # return "oi"
+
+
+@voo.route('/consultaHoras',methods=["POST"])
 def consultarHoras():
-    #data=request.get_json()
-    #data="aluno"
-    #sample=models.Aula.query(func.sum().label("duracao")).filter(aluno=data).all()
-    
-
-    sample=models.Aula.query.with_entities(func.sum(models.Aula.duracao).label('total de horas')).filter_by(aluno ="Joao").all()
-    
+    data=request.get_json()
+    sample=models.Aula.query.with_entities(func.sum(models.Aula.duracao).label('total de horas')).filter_by(matricula=data['matricula']).all()
     print(sample)
-    return "ao"
+    return json.dumps(sample[0])
+
 
 
 @voo.route('/registerAero', methods=['POST'])
