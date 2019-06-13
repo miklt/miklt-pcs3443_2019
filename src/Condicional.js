@@ -10,6 +10,7 @@ import Logout from "./Logout"
 import ListaAulas from "./ListaAulas"
 import CadastroAero from "./CadastroAero"
 import Aeronaves from "./Aeronaves"
+import ConsultaAula from "./ConsultaAula"
 
 class Condicional extends React.Component {
 
@@ -142,7 +143,7 @@ class Condicional extends React.Component {
                         <Redirect to='/login' />
                     )}
                 />
-
+                <Route path="/consultaAula" component={ConsultaAula}/>
             </div>
             
         ) 

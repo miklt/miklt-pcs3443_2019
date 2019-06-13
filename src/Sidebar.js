@@ -29,6 +29,7 @@ class Sidebar extends React.Component {
                             <li><Aba name="Sócios" nameHtml="/socios" /></li>
                             <li><Aba name="Aeronaves" nameHtml="/aeronaves" /></li>
                             <li><Aba name="Agendamentos" nameHtml="/listaAulas" /></li>
+                            <li><Aba name="Consulta Aula" nameHtml="/consultaAula" /></li>
                         </div>
                     }
                     {this.props.state.isLoggedIn && 
