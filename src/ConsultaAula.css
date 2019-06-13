@@ -1,36 +1,35 @@
-.telaConsultaAula {
-    margin: 2em 20em 20em;
-    line-height: 2em;
-}
-
-.telaConsultaAula input {
-    display: block;
-}
-
-.telaConsultaAula button{
+table.tabelaAula {
     font-family: Microsoft JhengHei Light, sans-serif;
-    width: auto;
+    table-layout: auto;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.tabelaAula td, table.tabelaAula th {
+    border: 0px solid #000000;
+    padding: 6px 10px;
+  }
+  table.tabelaAula tbody td {
+    font-size: 17px;
+    color: #000000;
+    padding: 6px 10px;
+  }
+  table.tabelaAula thead {
+    background: #2c71b1;
+    border-bottom: 5px solid #FFFFFF;
+  }
+  table.tabelaAula thead th {
+    font-size: 23px;
+    font-weight: normal;
+    color: #FFFFFF;
+    text-align: center;
+  }
+  table.tabelaAula tfoot td {
+    font-size: 14px;
+  }
+
+  table.tabelaAula button {
     color: white;
-    background-color: black;
-    border: solid;
-    border-color: black;
-    margin: 1em 0em;
-}
-
-.telaConsultaAula button:hover{
     background-color: #2c71b1;
-    border-color: #2c71b1;
-    border-bottom-color: #2c71b1;
-}
-
-
-.telaConsultaAula select {
-    display: block;
-    font-family: Microsoft JhengHei Light, sans-serif;
-    width: 100%;
-}
-
-.telaConsultaAula input {
-    display: block;
+    border: none;
     font-family: Microsoft JhengHei Light, sans-serif;
 }
