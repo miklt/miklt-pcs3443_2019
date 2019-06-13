@@ -87,7 +87,10 @@ class Agendamento extends React.Component {
                     <br />
                         
                     <label htmlFor="aeronave">Aeronave: </label>
-                    <input type="text" name="aeronave" id="aeronave" onChange={this.handleChange} required />
+                    <select defaultValue="" name="aeronave" id="aeronave" onChange={this.handleChange} required>
+                        <option value="" disabled>Selecione</option>
+                    </select>               
+                    
                     <br />
 
     

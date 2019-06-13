@@ -45,17 +45,18 @@ class Perfil extends React.Component {
                     if (response.data.role === "Piloto" || response.data.role === "Instrutor")
                         lista.appendChild(numeroBreve)
                 }
-                const url2 = url_v3+"consultaHoras"
-                axios.post(url2, {
-                    matricula : matricula_v3
-                }).then(r => {
-                    console.log(r.data)
-                    var bancoHoras = document.createElement('li')
-                    bancoHoras.innerHTML = r.data
-                    lista.appendChild(bancoHoras)
-                })
             }).catch(error => {
             });
+        const url2 = url_v3+"consultaHoras"
+        axios.post(url2, {
+            matricula : matricula_v3
+        }).then(response => {
+            console.log(response)
+            var lista = document.getElementById('lista')
+            var bancoHoras = document.createElement('li')
+            bancoHoras.innerHTML = response.data
+            lista.appendChild(bancoHoras)
+        })
 
     }
     
