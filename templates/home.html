@@ -140,19 +140,22 @@
                         <div class="h1 font-w700 text-white"> {{horas_voo}} <span class="h2 text-white-op">h</span></div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Horas Acumuladas</div>
                     </div>
-                    <div class="block-content block-content-full block-content-mini">
-                        <i class="fa fa-arrow-up text-success"></i> +3 horas nessa semana
-                    </div>
+                   
                 </a>
             </div>
             <div class="col-sm-6 col-lg-4">
                 <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
                     <div class="block-content block-content-full bg-primary">
-                        <div class="h1 font-w700 text-white">4.57</div>
+                        <div class="h1 font-w700 text-white">{{nota_media}}</div>
                         <div class="h5 text-white-op text-uppercase push-5-t">Media das notas</div>
                     </div>
                     <div class="block-content block-content-full block-content-mini">
-                        <i class="fa fa-clock-o "></i> Nota 4 no ultimo voo
+                        <i class="fa fa-clock-o "></i> 
+                        {%if ultima_nota %}
+                            Nota {{ultima_nota}} no ultimo voo 
+                        {% else %}
+                            Aguardando avaliação do último voo
+                        {% endif %}
                     </div>
                 </a>
             </div>
@@ -180,25 +183,25 @@
                         <div class="form-group">
                             <div class="col-lg-8">
                                 <label for="profile-email">Nome</label>
-                                <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='Jorge Almeida'>
+                                <input disabled class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='{{pessoa_logada_nome}}'>
                             </div>
                         </div>
                         <div class="form-group">
                                 <div class="col-xs-8">
                                     <label for="profile-email">CPF</label>
-                                    <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='437.867.971-15'>
+                                    <input disabled class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='{{pessoa_logada_cpf}}'>
                                 </div>
                             </div>
                         <div class="form-group">
                             <div class="col-xs-8">
-                                <label for="profile-email">Email Address</label>
-                                <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='jorgea@gmail.com'>
+                                <label for="profile-email">Email</label>
+                                <input disabled class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='{{pessoa_logada_email}}'>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-8">
                                 <label for="profile-email">Data de Nascimento</label>
-                                <input class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='03/06/97'>
+                                <input disabled class="form-control input-lg" type="email" id="profile-email" name="profile-email" placeholder="Enter your email.." value='{{pessoa_logada_data_nascimento.strftime("%d/%m/%Y")}}'>
                             </div>
                         </div>
                     </div>
@@ -211,7 +214,7 @@
                 <div class="block">
                     <div class="block-header">
                       
-                        <h3 class="block-title">Proximos Voos</h3>
+                        <h3 class="block-title">Suas Aulas</h3>
                     </div>
                     
                     <div class="block-content">
@@ -222,17 +225,27 @@
                                 <div>
                                     <table class="table remove-margin-b font-s13">
                                         <tbody>
-                                            
                                             <tr>
-                                                <td class="font-w600">4a feira</td>
-                                                <td class="hidden-xs text-muted text-right">15:00</td>
-                                                <td class="font-w600 text-success text-right">2 horas</td>
+                                                <td class="font-w600">Data</td>
+                                                <td class="hidden-xs text-muted text-right">Hora</td>
+                                                <td class="font-w600 text-right">Duração</td>
+                                                <td class="font-w600 text-success text-right">Avaliação</td>
                                             </tr>
-                                            <tr>
-                                                <td class="font-w600">Sabado</td>
-                                                <td class="hidden-xs text-muted text-right">10:00</td>
-                                                <td class="font-w600 text-success text-right">1 hora</td>
-                                            </tr>
+
+                                            {% for aula in aulas_aluno %}
+                                                <tr>
+                                                    <td class="font-w600">{{aula.data.strftime('%d/%m/%Y')}}</td>
+                                                    <td class="hidden-xs text-muted text-right">{{aula.data.strftime('%H:%M')}}</td>
+                                                    <td class="font-w600 text-right">{{aula.duracao}} horas</td>
+                                                    <td class="font-w600 text-success text-right">
+                                                        {%if aula.nota %}
+                                                            {{aula.nota}}
+                                                        {% else %}
+                                                            Aguardando
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
