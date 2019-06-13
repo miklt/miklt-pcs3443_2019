@@ -493,9 +493,9 @@ def cadastrarAulaHora():
     pessoa_logada_id = pessoa_logada.id
 
     id_aluno = request.args['id_aluno']
-    aluno_selecionado = Pessoa.encontrar_pelo_id('id_aluno')
+    aluno_selecionado = Pessoa.encontrar_pelo_id(id_aluno)
     id_instrutor = request.args['id_instrutor']
-    instrutor_selecionado = Pessoa.encontrar_pelo_id('id_instrutor')
+    instrutor_selecionado = Pessoa.encontrar_pelo_id(id_instrutor)
     data_str = request.args['data']
     data_selecionada = (datetime.strptime(data_str, "%d/%m/%Y")
                         + timedelta(hours=8))
