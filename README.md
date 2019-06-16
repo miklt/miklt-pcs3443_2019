@@ -1,3 +1,10 @@
+# Login como Funcionário:
+
+email: `admin@pcs.com.br`
+cpf: `00000000000`
+
+Site remoto: [Heroku](https://aeroclube-frontend.herokuapp.com/)
+
 # AeroclubeFrontendAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.

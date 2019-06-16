@@ -19,7 +19,7 @@ export class ReadAlunoComponent implements OnInit {
   sucessoBreve = false;
   horasDeVoo: number;
   horasRestantes: number;
-  horasObrigatorias = 150;
+  horasObrigatorias = 30;
   notaMedia: number;
   notasVermelhas: number[] = [];
   voosDoAluno: Voo[] = [];

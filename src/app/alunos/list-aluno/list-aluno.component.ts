@@ -16,7 +16,7 @@ export class ListAlunoComponent implements OnInit {
   public alunos: Aluno[];
   public voosAlunos: Voo[];
   public loading = false;
-  public horasObrigatorias = 150;
+  public horasObrigatorias = 30;
 
   @ViewChild('details') detailsModal: ElementRef;
 
